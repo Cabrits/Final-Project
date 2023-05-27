@@ -1,0 +1,22 @@
+.px1750Size{
+    margin: auto;
+    width: 1780px;
+}
+
+.leftRightAuto{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.popUpAuto{
+    margin-left: auto;
+    margin-right: 10px
+}
+
+
+
+@media screen and (max-width: 1800px){   
+    .px1750Size{
+        width: 95%;
+    }
+}
