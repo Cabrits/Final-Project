@@ -1,30 +1,4 @@
-<script setup>
-import { ref } from 'vue';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-const email = ref('');
-const password = ref('');
-const errMsg = ref('');
-
-const signIn = () => {
-  signInWithEmailAndPassword(getAuth(), email.value, password.value)
-    .then((data) => {
-      console.log('Successfully registered!');
-      router.push('/item');
-    })
-    .catch((error) => {
-      console.log(error.code);
-      switch (error.code) {
-        case 'auth/invalid-email':
-          errMsg.value = 'Invalid email';
-          break;
-        default:
-          errMsg.value = 'Email or password was incorrect';
-          break;
-      }
-    });
-};
-</script>
 
 
 <template>
@@ -60,11 +34,40 @@ const signIn = () => {
 </template>
 
 <script>
-import { defineEmits } from 'vue';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 export default {
   name: 'PopupLogin',
-  emits: defineEmits(['closeL']),
+  data() {
+    return {
+      email: '',
+      password: '',
+      errMsg: ''
+    };
+  },
+  methods: {
+    closeL() {
+      this.$emit('closeL');
+    },
+    signIn() {
+      signInWithEmailAndPassword(getAuth(), this.email, this.password)
+        .then((data) => {
+          console.log('Successfully registered!');
+          this.$router.push('/item');
+        })
+        .catch((error) => {
+          console.log(error.code);
+          switch (error.code) {
+            case 'auth/invalid-email':
+              this.errMsg = 'Invalid email';
+              break;
+            default:
+              this.errMsg = 'Email or password was incorrect';
+              break;
+          }
+        });
+    }
+  }
 };
 </script>
 
