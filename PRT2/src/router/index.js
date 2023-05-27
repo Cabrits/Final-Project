@@ -4,6 +4,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes:[
         { path: "/", component: () => import("../views/HomePage.vue")},
+        { path: '/:pathMatch(.*)*', component: () => import("../views/PageNotFound.vue") },
     ]
 })
 export default router;
