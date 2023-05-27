@@ -1,14 +1,10 @@
-
 <template>
     <RouterView></RouterView>
-</template>
-
+  </template>
+  
 <script setup>
-
-import { useRouter } from 'vue-router';
-import { onMounted, ref} from "vue";
-/*import { getAuth, onAuthStateChanged, signOut} from "@firebase/auth"; */
-
-const router = useRouter();
+    import { useRouter } from 'vue-router';
+    import { onMounted, ref} from "vue";
+    const router = useRouter();
 
 </script>

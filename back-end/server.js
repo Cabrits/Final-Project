@@ -21,7 +21,10 @@ const options = {
   key: fs.readFileSync('./cert/private.key'),
   cert: fs.readFileSync('./cert/certificate.crt')
 };
-
+app.listen(PORT,()=>{
+  console.log(`Server running on port ${PORT}`); 
+})
+/*
 https.createServer(options,app).listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
+});*/

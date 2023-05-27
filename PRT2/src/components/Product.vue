@@ -1,112 +1,49 @@
 <template> 
 
 <div class="productsDisplay">
-    <div class="product">
-        <img  src="images/product1.jpg">
-        <a href="#"><h2>Sony Camera</h2></a>
+    <div v-for="item in items" :key="item.id" class="product">
+        <img :src="item.item_image">
+        <a href="#"><h2>{{item.item_name}}</h2></a>
         <div class="prodInfo">
-            <span>Capture life's unforgettable moments with our selection of high-quality cameras. </span>
+            <span>{{item.item_description}}</span>
         </div>
         <div class="prodButtons">
-            <div class="prodPrice">400€</div>
+            <div class="prodPrice">{{item.item_price}}€</div>
             <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
             <button class="favourite btn heartAnimation"><i class="fa fa-heart"></i></button>
         </div>
     </div>
-    <div class="product">
-        <img  src="images/product2.jpg">
-        <a href="#"><h2>Bose Headphones</h2></a>
-        <div class="prodInfo">
-            <span>Stay focused and productive all day long with our selection of high-quality headphones.</span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">69€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
-    <div class="product">
-        <img  src="images/product3.jpg">
-        <a href="#"><h2>Filming Kit</h2></a>
-        <div class="prodInfo">
-            <span>Take your filmmaking skills to the next level with our selection of filming kits. </span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">623€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
-    <div class="product">
-        <img  src="images/product4.jpg">
-        <a href="#"><h2>No Longer Human</h2></a>
-        <div class="prodInfo">
-            <span>Experience the raw and emotional journey of the human condition through Osamu Dazai's timeless classic, "No Longer Human".</span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">12€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
-    <div class="product">
-        <img  src="images/product2.jpg">
-        <a href="#"><h2>Bose Headphones</h2></a>
-        <div class="prodInfo">
-            <span>Stay focused and productive all day long with our selection of high-quality headphones.</span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">69€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
-    <div class="product">
-        <img  src="images/product1.jpg">
-        <a href="#"><h2>Sony Camera</h2></a>
-        <div class="prodInfo">
-            <span>Capture life's unforgettable moments with our selection of high-quality cameras. </span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">400€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
-    <div class="product">
-        <img  src="images/product4.jpg">
-        <a href="#"><h2>No Longer Human</h2></a>
-        <div class="prodInfo">
-            <span>Experience the raw and emotional journey of the human condition through Osamu Dazai's timeless classic, "No Longer Human".</span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">12€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
-    <div class="product">
-        <img  src="images/product3.jpg">
-        <a href="#"><h2>Filming Kit</h2></a>
-        <div class="prodInfo">
-            <span>Take your filmmaking skills to the next level with our selection of filming kits. </span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">623€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
+    
 </div>
 
 </template> 
-
 <script>
+import axios from 'axios';
 
-export default{
-    name:'Product',
-}
-
+export default {
+  name: 'Product',
+  data() {
+    return {
+      items: [],
+    };
+  },
+  mounted() {
+    this.fetchItems();
+  },
+  methods: {
+    fetchItems() {
+      axios
+        .get('http://192.168.1.75:8080/api/items')
+        .then(response => {
+          this.items = response.data;
+          console.log(this.items)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>

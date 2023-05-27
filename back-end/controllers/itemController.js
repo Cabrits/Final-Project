@@ -2,7 +2,7 @@ const connection = require('../config');
 
 
 exports.getItems = async (req, res) => {
-    connection.query('SELECT item_id,item_name,item_price,item_discount FROM items', function (err, result, fields) {
+    connection.query('SELECT item_id,item_name,item_image,item_price,item_discount,item_description FROM items', function (err, result, fields) {
         if (err) {
           console.error(err);
           return res.status(500).json({ error: 'An error occurred' });
@@ -13,7 +13,7 @@ exports.getItems = async (req, res) => {
 };
 exports.getItem = async (req, res) => {
     // get 1 item with its ID
-    connection.query('SELECT item_id,item_name,item_price,item_discount FROM items WHERE item_id='+req.params.id, function (err, result, fields) {
+    connection.query('SELECT item_id,item_name,item_price,item_discount,item_description FROM items WHERE item_id='+req.params.id, function (err, result, fields) {
         if (err) {
           console.error(err);
           return res.status(500).json({ error: 'An error occurred' });
