@@ -18,6 +18,8 @@
 
 </template> 
 <script>
+
+
 import axios from 'axios';
 
 export default {
@@ -33,7 +35,7 @@ export default {
   methods: {
     fetchItems() {
       axios
-        .get('http://192.168.1.75:8080/api/items')
+        .get('http://localhost:8080/api/items')
         .then(response => {
           this.items = response.data;
           console.log(this.items)
@@ -55,7 +57,6 @@ export default {
     justify-content: space-around;
     padding: 5rem;
 }
-
 .product{
     background-color: rgb(185, 188, 159);
     border-radius: 20px;
