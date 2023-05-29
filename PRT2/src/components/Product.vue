@@ -53,7 +53,7 @@ export default {
     },
     fetchItems() {
       axios
-        .get('http://192.168.1.75:8080/api/items')
+        .get('http://localhost:7777/api/items')
         .then((response) => {
           this.items = response.data;
         })

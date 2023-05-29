@@ -1,55 +1,78 @@
 <template>
 
-<header class="headerStyle px1750Size">
-    <div class="menuBars">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-    </div>
-    <div class="logo">
-        <img src="images/logo3.png">
-        <a href="#"></a>
-    </div>
-    <div class="menuWrapper">
-        <div class="menu">
-            <div class="searchBar" id="search">
-                <form >
-                    <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                    <input type="text" placeholder="Search Product..." name="search">
-                </form>
-            </div> 
-            <div class="menuActions">
-                <button class="actions" @click = "loadLogin(); closeCart(); closeFavorites();"><i class="fa fa-user" aria-hidden="true"></i></button>
-                <button class="actions" @click = "loadFavorites(); closeCart(); closeLogin();"><i class="fa fa-heart" aria-hidden="true"></i></button>
-                <button class="actions" @click = "loadCart(); closeFavorites(); closeLogin();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+    <header class="headerStyle px1750Size">
+        <div class="menuBars">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="logo">
+            <img src="images/logo3.png">
+            <a href="#"></a>
+        </div>
+        <div class="menuWrapper">
+            <div class="menu">
+                <div class="searchBar" id="search">
+                    <form >
+                        <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                        <input type="text" placeholder="Search Product..." name="search">
+                    </form>
+                </div> 
+                <div class="menuActions">
+                    <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    <button class="actions" v-if="user" @click = "loadCart(); closeFavorites();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+                    <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
+                    <button class="actions" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                    <div class="btn-group" v-else>
+                        <button @click = "loadLogin(); closeSignUp();">Login</button>
+                        <button @click = "loadSignUp(); closeLogin();">SignUp</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <PopupFavorites v-if="favorites" @closeF="closeFavorites"/>
-    <PopupCart v-if="cart" @closeC="closeCart"/>
-    <PopupLogin v-if="login" @closeL="closeLogin"/>
-    
-</header>    
+        <PopupFavorites v-if="favorites" @closeF="closeFavorites"/>
+        <PopupCart v-if="cart" @closeC="closeCart"/>
+        <PopupLogin v-if="login, !user" @closeL="closeLogin"/>
+        <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
+        
+    </header>    
 
 </template>
 
 <script>
 
 import PopupLogin from './PopupLogin.vue'
+import PopupSignUp from './PopupSignUp.vue'
 import PopupFavorites from './PopupFavorites.vue'
 import PopupCart from './PopupCart.vue'
-import { onMounted, ref} from "vue";
+import {ref} from "vue";
+import {getAuth, onAuthStateChanged, signOut} from '@firebase/auth';
 
 export default{
     name:'Header',
-    components:{PopupLogin, PopupFavorites, PopupCart},
+    components:{PopupLogin, PopupFavorites, PopupCart, PopupSignUp},
+
+    data() {
+    return {
+        user: null,
+    };
+    },
+
+    mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        this.user = user;
+    });
+    },
 
     setup(){ 
 
     const favorites = ref(false)
     const cart = ref(false)
     const login = ref(false)
+    const signup = ref(false)
+    const auth = getAuth();
 
     const loadFavorites = () => {
         favorites.value = true
@@ -75,19 +98,41 @@ export default{
         login.value = false
     }
 
+    const loadSignUp = () => {
+        signup.value = true
+    }
+
+    const closeSignUp = () => {
+        signup.value = false
+    }
+
+    const logout = () => {
+      signOut(auth)
+        .then(() => {
+          console.log('Successfully logged out!');
+          // Handle successful logout
+        })
+        .catch((error) => {
+          console.error('Failed to logout:', error);
+          // Handle error in logout
+        });
+    }
 
     return {
         favorites,
         cart,
         login,
+        signup,
         loadFavorites,
         closeFavorites,
         loadCart,
         closeCart,
         loadLogin,
         closeLogin,
+        loadSignUp,
+        closeSignUp,
+        logout
     }
-
     }
 }
 
@@ -96,6 +141,23 @@ export default{
 </script>
 
 <style scoped>
+
+
+.btn-group button {
+  background-color: #04AA6D;
+  border: 1px solid green; 
+  color: white;
+  padding: 10px 24px;
+  cursor: pointer;
+  display: block; 
+}
+.btn-group button:not(:last-child) {
+  border-bottom: none; 
+}
+
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
 
 .px1750Size{
     margin: auto;

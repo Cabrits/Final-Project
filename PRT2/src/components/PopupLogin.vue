@@ -1,6 +1,3 @@
-
-
-
 <template>
 
     <div class="loginWrapper">
@@ -18,14 +15,15 @@
                 </div>
                 <div id="pMsg" style="color: white;"></div>
                 <div class="formElement">
-                    <button @click="signIn()" id="loginBtn" style="font-family: Arial, Helvetica, sans-serif;" >Login</button>
+                    <button @click="logIn()" id="loginBtn" style="font-family: Arial, Helvetica, sans-serif;" >Login</button>
                 </div>
                 <p v-if="errMsg">{{errMsg}}</p>
                 <div class="formElement">
                     <button id ="signUpBtn" style="display: none; font-family: Arial, Helvetica, sans-serif;" >Sign Up</button>
                 </div>
-                <div class="formElement">
-                    <a href="#" id="Switch" style="color: white;"> Sign Up </a>  
+                <div class="alternative">
+                    <p>---Or---</p>
+                    <button @click="signInWithGoogle();"><i class="fa fa-google" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
@@ -34,7 +32,7 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 export default {
   name: 'PopupLogin',
@@ -49,11 +47,11 @@ export default {
     closeL() {
       this.$emit('closeL');
     },
-    signIn() {
+    logIn() {
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
         .then((data) => {
-          console.log('Successfully registered!');
-          this.$router.push('/item');
+          console.log('Successfully LoggedIn!');
+          this.closeL()
         })
         .catch((error) => {
           console.log(error.code);
@@ -66,6 +64,18 @@ export default {
               break;
           }
         });
+    },
+
+    signInWithGoogle() {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(getAuth(), provider)
+          .then((result)=> {
+              console.log("nicer")
+              console.log(result.user);
+          })
+          .catch((error)=>{
+            console.log("error")
+      })
     }
   }
 };
