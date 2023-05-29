@@ -1,43 +1,34 @@
 <template> 
     <div class="categories leftRightAuto">
-        <div class="subCat">
-            <a href="#">
+        <div class="subCat" v-for="category in categories" :key="category.id" @click="selectCategory(category)">
             <span class="inner"></span>
-            <i class="fa fa-shower" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="subCat">
-            <a href="#">
-            <span class="inner"></span>
-            <i class="fa fa-superpowers" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="subCat">
-            <a href="#">
-            <span class="inner"></span>
-            <i class="fa fa-apple" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="subCat">
-            <a href="#">
-            <span class="inner"></span>
-            <i class="fa fa-bicycle" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="subCat">
-            <a href="#">
-            <span class="inner"></span>
-            <i class="fa fa-coffee" aria-hidden="true"></i>
-            </a>
+            <i :class="category.icon" aria-hidden="true" ></i>
         </div>
     </div>
 </template> 
 
 <script>
 
-export default{
-    name:'Categories',
-}
+export default {
+  name: 'Categories',
+  data() {
+    return {
+      categories: [
+        { id: 1, name: null ,icon:'fa fa-shower' },
+        { id: 2, name: 'category2' ,icon:'fa fa-superpowers' },
+        { id: 3, name: 'category3' ,icon:'fa fa-apple' },
+        { id: 4, name: 'category4' ,icon:'fa fa-bicycle' },
+        { id: 5, name: 'category5' ,icon:'fa fa-shower' },
+        // Add more categories as needed
+      ],
+    };
+  },
+  methods: {
+    selectCategory(category) {
+      this.$emit('category-selected', category.name);
+    },
+  },
+};
 
 </script>
 
@@ -70,7 +61,7 @@ export default{
     border-radius:50%;
 }
 
-.subCat a{
+.subCat {
     background-color: #fff;
     color: rgb(204, 221, 108);;
     display: block;
@@ -100,11 +91,11 @@ export default{
     transition: 0.1s;
 }
 
-.subCat a:hover{
+.subCat:hover{
     color: #fff;
 }
 
-.subCat a:hover .inner{
+.subCat:hover .inner{
     height: 76px;
     margin-left: -38px;
     margin-top: -38px;

@@ -1,54 +1,83 @@
-<template> 
-
-<div class="productsDisplay">
-    <div v-for="item in items" :key="item.id" class="product">
-        <img :src="item.item_image">
-        <a href="#"><h2>{{item.item_name}}</h2></a>
-        <div class="prodInfo">
-            <span>{{item.item_description}}</span>
-        </div>
-        <div class="prodButtons">
-            <div class="prodPrice">{{item.item_price}}€</div>
-            <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-            <button class="favourite btn heartAnimation"><i class="fa fa-heart"></i></button>
-        </div>
+<template>
+  <div>
+      <Categories @category-selected="handleCategorySelected"/>
     </div>
-    
-</div>
+  <div class="productsDisplay">
+    <div v-for="item in filteredItems" :key="item.id" class="product">
+      <img :src="item.item_image">
+      <a href="#"><h2>{{ item.item_name }}</h2></a>
+      <div class="prodInfo">
+        <span>{{ item.item_description }}</span>
+      </div>
+      <div class="prodButtons">
+        <div class="prodPrice">{{ item.item_price }}€</div>
+        <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
+        <button class="favourite btn heartAnimation"><i class="fa fa-heart"></i></button>
+      </div>
+    </div>
+  </div>
+</template>
 
-</template> 
+
+
 <script>
-
-
 import axios from 'axios';
+import Categories from './Categories.vue'
+/*
 
+  data() {
+    return {
+      selectedCategory: "category1",
+    };
+  },
+  methods: {
+    
+  },
+
+*/
 export default {
   name: 'Product',
+  components: {Categories},
   data() {
     return {
       items: [],
+      selectedCategory: null,
     };
   },
   mounted() {
     this.fetchItems();
   },
   methods: {
+    handleCategorySelected(category) {
+      this.selectedCategory = category;
+    },
     fetchItems() {
       axios
-        .get('http://localhost:8080/api/items')
-        .then(response => {
+        .get('http://192.168.1.75:8080/api/items')
+        .then((response) => {
           this.items = response.data;
-          console.log(this.items)
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
   },
+  computed: {
+    filteredItems() {
+      if (this.selectedCategory) {
+        return this.items.filter((item) => item.item_category === this.selectedCategory);
+      } else {
+        return this.items;
+      }
+    },
+  },
+
 };
 </script>
 
 <style scoped>
+
+
 
 .productsDisplay{
     display: flex;

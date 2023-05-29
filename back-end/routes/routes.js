@@ -16,13 +16,17 @@ router.delete('/api/user/:userId', userController.deleteUser);
 
 // Routes for items
 router.get('/api/items', itemController.getItems);
+router.get('/api/items/:category', itemController.getItemsCategory);
 router.get('/api/item/:itemId', itemController.getItem);
+
 /*
 router.post('/api/item/create', ItemController.createItem);
 router.put('/api/item/:itemId/update', ItemController.updateItem);
 router.delete('/api/item/:itemId/delete', ItemController.deleteItem);
 */
+
 // Routes for orders
+
 /*
 router.get('/api/orders', OrderController.getOrders);
 router.get('/api/order/:orderId', OrderController.getOrder);
