@@ -9,8 +9,9 @@ const itemController = require('../controllers/itemController');
 // Routes for users
 router.post('/api/user/create', userController.createUser);
 router.put('/api/user/:userId/update', userController.updateUser);
-router.post('/api/user/:userId/addFavorite/:itemId',userController.addFavoriteItem);
-router.delete('/api/user/:userId/deleteFavorite/:itemId',userController.removeFavoriteItem);
+router.get('/api/user/:userId/favourites', userController.getUserFavourites);
+router.post('/api/user/:userId/addFavourite/:itemId',userController.addFavouriteItem);
+router.delete('/api/user/:userId/removeFavourite/:itemId',userController.removeFavouriteItem);
 router.get('/api/user/:userId', userController.getUser);
 router.delete('/api/user/:userId', userController.deleteUser);
 

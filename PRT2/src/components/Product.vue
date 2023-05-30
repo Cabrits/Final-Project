@@ -12,7 +12,13 @@
       <div class="prodButtons">
         <div class="prodPrice">{{ item.item_price }}€</div>
         <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-        <button class="favourite btn heartAnimation"><i class="fa fa-heart"></i></button>
+        <button
+          class="favourite btn heartAnimation"
+          :disabled="cooldown"
+          @click="toggleFavourite(item.item_id)"
+        >
+          <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -23,6 +29,8 @@
 <script>
 import axios from 'axios';
 import Categories from './Categories.vue'
+import { getAuth } from '@firebase/auth';
+import { ref } from 'vue';
 /*
 
   data() {
@@ -42,22 +50,85 @@ export default {
     return {
       items: [],
       selectedCategory: null,
+      cooldown: false,
+      favourites: [],
     };
   },
   mounted() {
+    this.fetchFavourites();
     this.fetchItems();
   },
   methods: {
+
+    startButtonCooldown() {
+      this.cooldown = true;
+      setTimeout(() => {
+        this.cooldown = false;
+      }, 500);
+    },
     handleCategorySelected(category) {
       this.selectedCategory = category;
     },
-    fetchItems() {
+    async fetchItems() {
       axios
         .get('http://localhost:7777/api/items')
         .then((response) => {
           this.items = response.data;
         })
         .catch((error) => {
+          console.error(error);
+        });
+        this.fetchFavourites();
+    },
+    async fetchFavourites() {
+      
+      console.log("i am here")
+      var userId = getAuth().currentUser;
+      console.log(userId)
+    
+      if(userId!=null){
+        userId = userId.uid;
+        axios
+          .get(`http://localhost:7777/api/user/${userId}/favourites`)
+          .then((response) => {
+            this.favourites = response.data;
+            console.log("fetched Favourites")
+            console.log(this.favourites)
+            
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }else{
+        console.log("user not logged in")
+      }
+
+      
+    },
+    isFavourite(itemId) {
+      const result = this.favourites.some((favourite) => favourite.item_id === itemId)
+      console.log("tested:", itemId,result)
+      return result;
+    },
+    toggleFavourite(itemId) {
+      const userId = getAuth().currentUser.uid; // Replace with the actual user ID
+      const isItemFavourite = this.isFavourite(itemId);
+      const apiUrl = isItemFavourite
+        ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
+        : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
+
+      axios({
+        method: isItemFavourite ? 'DELETE' : 'POST',
+        url: apiUrl,
+      })
+        .then((response) => {
+          // Handle success
+          console.log('Favourite action performed successfully');
+          this.fetchFavourites();
+          this.startButtonCooldown();
+        })
+        .catch((error) => {
+          // Handle error
           console.error(error);
         });
     },
@@ -71,13 +142,14 @@ export default {
       }
     },
   },
-
 };
 </script>
 
 <style scoped>
 
-
+.red-heart::before{
+  color: rgb(255, 127, 127)!important;;
+}
 
 .productsDisplay{
     display: flex;

@@ -44,17 +44,19 @@ exports.updateUser = async (req, res) => {
   };
   
   // Add favorite item to user
-  exports.addFavoriteItem = async (req, res) => {
+  exports.addFavouriteItem = async (req, res) => {
     const userId = req.params.userId;
     const itemId = req.params.itemId;
-  
+
     try {
       // Check if the user exists
       const checkUserQuery = 'SELECT * FROM users WHERE user_id = ?';
       const existingUser = await executeQuery(checkUserQuery, [userId]);
-  
+
       if (existingUser.length === 0) {
+
         return res.status(404).json({ error: 'User not found' });
+        
       }
   
       // Check if the item exists
@@ -62,15 +64,16 @@ exports.updateUser = async (req, res) => {
       const existingItem = await executeQuery(checkItemQuery, [itemId]);
   
       if (existingItem.length === 0) {
+
         return res.status(404).json({ error: 'Item not found' });
       }
   
       // Add the favorite item to the user
-      const addFavoriteQuery = 'INSERT INTO userFavouriteItems (user_id, item_id) VALUES (?, ?)';
-      await executeQuery(addFavoriteQuery, [userId, itemId]);
+      const addFavouriteQuery = 'INSERT INTO userFavouriteItems (user_id, item_id) VALUES (?, ?)';
+      await executeQuery(addFavouriteQuery, [userId, itemId]);
   
       // Send a success response indicating that the item was added to favorites
-      res.json({ message: 'Item added to favorites successfully' });
+      res.json({ message: 'Item added to favourites successfully' });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'An error occurred' });
@@ -78,16 +81,17 @@ exports.updateUser = async (req, res) => {
   };
   
   // Remove favorite item from user
-  exports.removeFavoriteItem = async (req, res) => {
+  exports.removeFavouriteItem = async (req, res) => {
     const userId = req.params.userId;
     const itemId = req.params.itemId;
-  
+    console.log("test1")
     try {
       // Check if the user exists
       const checkUserQuery = 'SELECT * FROM users WHERE user_id = ?';
       const existingUser = await executeQuery(checkUserQuery, [userId]);
   
       if (existingUser.length === 0) {
+        console.log("test2")
         return res.status(404).json({ error: 'User not found' });
       }
   
@@ -96,21 +100,38 @@ exports.updateUser = async (req, res) => {
       const existingItem = await executeQuery(checkItemQuery, [itemId]);
   
       if (existingItem.length === 0) {
+        console.log("test3")
         return res.status(404).json({ error: 'Item not found' });
       }
   
-      // Remove the favorite item from the user
-      const removeFavoriteQuery = 'DELETE FROM userFavouriteItems WHERE user_id = ? AND item_id = ?';
-      await executeQuery(removeFavoriteQuery, [userId, itemId]);
+      // Remove the favourite item from the user
+      const removeFavouriteQuery = 'DELETE FROM userFavouriteItems WHERE user_id = ? AND item_id = ?';
+      await executeQuery(removeFavouriteQuery, [userId, itemId]);
   
       // Send a success response indicating that the item was removed from favorites
-      res.json({ message: 'Item removed from favorites successfully' });
+      res.json({ message: 'Item removed from favourites successfully' });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'An error occurred' });
     }
   };
   
+  exports.getUserFavourites = async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      // Get the user's favourite items from the table
+      const query = 'SELECT item_id FROM userFavouriteItems WHERE user_id = ?';
+      const userFavourites = await executeQuery(query, [userId]);
+  
+      // Send the user's favourite items as a response
+      res.json(userFavourites);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  };
+
   // Get user
   exports.getUser = async (req, res) => {
     const userId = req.params.userId;
