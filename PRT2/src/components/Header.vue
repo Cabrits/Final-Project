@@ -33,7 +33,7 @@
 
         <PopupFavorites v-if="favorites" @closeF="closeFavorites"/>
         <PopupCart v-if="cart" @closeC="closeCart"/>
-        <PopupLogin v-if="login, !user" @closeL="closeLogin"/>
+        <PopupLogin v-if="login" @closeL="closeLogin"/>
         <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
         
     </header>    

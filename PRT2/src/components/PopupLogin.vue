@@ -72,6 +72,7 @@ export default {
           .then((result)=> {
               console.log("nicer")
               console.log(result.user);
+              
           })
           .catch((error)=>{
             console.log("error")
