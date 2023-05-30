@@ -59,6 +59,7 @@ export default{
             { name: "Product not found", image:"/images/Product Not Found.png"},
           ];
         }
+        
         this.showAutocomplete = true;
 
       } else {
