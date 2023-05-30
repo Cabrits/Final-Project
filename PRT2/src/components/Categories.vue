@@ -82,11 +82,11 @@ export default {
     background-color: rgb(185, 188, 159);
     display: block;
     height: 0;
+    width: 0;
     left: 50%;
+    top: 50%;
     margin: 0;
     position: absolute;
-    top: 50%;
-    width: 0;
     border-radius: 50%;
     transition: 0.1s;
 }

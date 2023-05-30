@@ -24,19 +24,18 @@
                     <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
                     <button class="actions" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
                     <div class="btn-group" v-else>
-                        <button @click = "loadLogin(); closeSignUp();">Login</button>
-                        <button @click = "loadSignUp(); closeLogin();">SignUp</button>
+                        <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
+                        <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <PopupFavorites v-if="favorites" @closeF="closeFavorites"/>
-        <PopupCart v-if="cart" @closeC="closeCart"/>
-        <PopupLogin v-if="login" @closeL="closeLogin"/>
-        <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
-        
     </header>    
+
+    <PopupFavorites v-if="favorites" @closeF="closeFavorites"/>
+    <PopupCart v-if="cart" @closeC="closeCart"/>
+    <PopupLogin v-if="login" @closeL="closeLogin"/>
+    <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
 
 </template>
 
@@ -142,21 +141,88 @@ export default{
 
 <style scoped>
 
+.btn-group{
+    position: block;
+    display: flex;
+    width: 200px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
+    gap: 30px;
 
-.btn-group button {
-  background-color: #04AA6D;
-  border: 1px solid green; 
-  color: white;
-  padding: 10px 24px;
-  cursor: pointer;
-  display: block; 
-}
-.btn-group button:not(:last-child) {
-  border-bottom: none; 
+    /*
+        margin-left: auto;
+        margin-right: auto;
+        gap: 40px;*/
 }
 
-.btn-group button:hover {
-  background-color: #3e8e41;
+.buttonLS {
+    position: absolute;
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 510;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    right: 10px;
+    margin-left: auto;
+}
+
+.buttonLS2 {
+    position: absolute;
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 510;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    right: 15px;
+}
+
+.buttonLS:hover {
+  background-color: rgb(185, 188, 159);
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.buttonLS2:hover {
+  background-color: rgb(185, 188, 159);
+  text-decoration: none;
+  transition-duration: 0.1s;
 }
 
 .px1750Size{
@@ -177,10 +243,18 @@ input:focus, textarea:focus, select:focus{
     background-color: rgb(186, 200, 165);
     border-radius: 10px;
     border: 1.5px solid white;
+    display: flex;
 }
 
 .menuBars{
     display: none;
+}
+
+.menuWrapper{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    
 }
 
 .menu{
@@ -191,21 +265,22 @@ input:focus, textarea:focus, select:focus{
 
 .logo{
     display: block;
-    position: absolute;
+    position: relative;
     width: 13%;
+    margin-left: 25px;
+    padding-top: 3px;
 }
 
 .logo img{
     cursor: pointer;
     width: 119px;
-    margin-left: 40px;
-    margin-top: 3px;
 }
 
 .searchBar{
+    position: block;
     outline: none;
-    margin-left: 570px;
-    width: 35%;
+    width: 40%;
+    margin-left: auto;
 }
 
 .searchBar form{
@@ -300,6 +375,10 @@ input:focus, textarea:focus, select:focus{
     margin-left: -15px;
 }
 
+.popupsBlock{
+    display: block;
+}
+
 
 /* Responsividade*/
 
@@ -314,6 +393,7 @@ input:focus, textarea:focus, select:focus{
 
     .headerStyle{
         height: 80px;
+        display: block;
     }
 
     .menuBars{
@@ -335,7 +415,7 @@ input:focus, textarea:focus, select:focus{
     .menuWrapper{
         margin: auto;
         max-width: 500px;
-        margin-right: 300px;
+        margin-right: 500px;
     }
 
     .menu{
@@ -351,7 +431,6 @@ input:focus, textarea:focus, select:focus{
         border: 1.5px solid white;
     }
 
-
     .searchBar{
         margin: auto;
         margin-top: 30px;
@@ -365,12 +444,23 @@ input:focus, textarea:focus, select:focus{
         width: 80%;
     }
 
-
     .actions{
         margin: auto;
     }
 
+    .btn-group{
+        width: 100px;
+        gap: 40px;
+    }
 
+    .buttonLS{
+        right: 80px;
+        top: 10px;
+    }
+
+    .buttonLS2{
+        top: 10px;
+    }
 }
 
 

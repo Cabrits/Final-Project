@@ -36,13 +36,13 @@ import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvide
 
 export default {
   name: 'PopupLogin',
-  data() {
-    return {
-      email: '',
-      password: '',
-      errMsg: ''
-    };
-  },
+    data() {
+      return {
+        email: '',
+        password: '',
+        errMsg: ''
+      };
+    },
   methods: {
     closeL() {
       this.$emit('closeL');
@@ -100,27 +100,26 @@ export default{
 <style scoped>
 
 .loginWrapper{
-    margin-left: auto;
-    margin-right: auto;
-    width: 960px;
+  width: 100%;
+  padding-top: 35px;
+  position: absolute;
 }
 
 .loginPopup{
-    z-index: 4;
-    top: 350px;
-    display: block;
-    position: absolute;
-    width: 380px;
-    line-height: 20px;
-    margin-left: 480px;
-    transform: translate(-50%, -50%) scale(1.25);
-    padding: 20px 30px;
-    background-color: rgb(186, 200, 165);
-    border-radius: 10px;
-    border: 1px solid rgb(255, 255, 255);
-    transition: top 0ms ease-in-out 200ms, 
-                opacity 100ms ease-in-out 200ms, 
-                transform 20ms ease-in-out 0ms;
+  z-index: 4;
+  display: block;
+  position: relative;
+  width: 380px;
+  line-height: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 30px;
+  background-color: rgb(186, 200, 165);
+  border-radius: 10px;
+  border: 1px solid rgb(255, 255, 255);
+  transition: top 0ms ease-in-out 200ms, 
+              opacity 100ms ease-in-out 200ms, 
+              transform 20ms ease-in-out 0ms;
 }
 
 .closeLogin{
@@ -186,5 +185,8 @@ export default{
     text-decoration: none;
     font-weight: 600;
 }
+
+
+
 
 </style>
