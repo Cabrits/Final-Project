@@ -100,7 +100,7 @@ export default{
 <style scoped>
 
 .loginWrapper{
-  width: 100%;
+  width: 99%;
   padding-top: 35px;
   position: absolute;
 }
@@ -109,7 +109,7 @@ export default{
   z-index: 4;
   display: block;
   position: relative;
-  width: 380px;
+  width: 350px;
   line-height: 20px;
   margin-left: auto;
   margin-right: auto;

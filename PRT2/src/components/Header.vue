@@ -12,12 +12,7 @@
         </div>
         <div class="menuWrapper">
             <div class="menu">
-                <div class="searchBar" id="search">
-                    <form >
-                        <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                        <input type="text" placeholder="Search Product..." name="search">
-                    </form>
-                </div> 
+                <SearchBar/>
                 <div class="menuActions">
                     <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><i class="fa fa-heart" aria-hidden="true"></i></button>
                     <button class="actions" v-if="user" @click = "loadCart(); closeFavorites();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
@@ -30,7 +25,7 @@
                 </div>
             </div>
         </div>
-    </header>    
+    </header> 
 
     <PopupFavorites v-if="favorites" @closeF="closeFavorites"/>
     <PopupCart v-if="cart" @closeC="closeCart"/>
@@ -45,12 +40,13 @@ import PopupLogin from './PopupLogin.vue'
 import PopupSignUp from './PopupSignUp.vue'
 import PopupFavorites from './PopupFavorites.vue'
 import PopupCart from './PopupCart.vue'
+import SearchBar from './searchBar.vue'
 import {ref} from "vue";
 import {getAuth, onAuthStateChanged, signOut} from '@firebase/auth';
 
 export default{
     name:'Header',
-    components:{PopupLogin, PopupFavorites, PopupCart, PopupSignUp},
+    components:{PopupLogin, PopupFavorites, PopupCart, PopupSignUp, SearchBar},
 
     data() {
     return {
@@ -105,6 +101,22 @@ export default{
         signup.value = false
     }
 
+    /*
+    const toggleValue = (value) => {
+      return {
+        load: () => (value.value = true),
+        close: () => (value.value = false),
+      };
+    };
+
+    const { load: loadFavorites, close: closeFavorites } = toggleValue(
+      favorites
+    );
+    const { load: loadCart, close: closeCart } = toggleValue(cart);
+    const { load: loadLogin, close: closeLogin } = toggleValue(login);
+    const { load: loadSignUp, close: closeSignUp } = toggleValue(signup);
+    */
+
     const logout = () => {
       signOut(auth)
         .then(() => {
@@ -130,16 +142,101 @@ export default{
         closeLogin,
         loadSignUp,
         closeSignUp,
-        logout
+        logout,
     }
-    }
-}
-
+    },
+};
 
 
 </script>
 
 <style scoped>
+
+.px1750Size{
+    margin: auto;
+    width: 1780px;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+/* Menu*/
+
+.headerStyle{
+    background-color: rgb(186, 200, 165);
+    border-radius: 10px;
+    border: 1.5px solid white;
+    display: flex;
+}
+
+.menuBars{
+    display: none;
+}
+
+.menuWrapper{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.menu{
+    display: flex;
+    height: 80px;
+    align-items: center;
+}
+
+.logo{
+    display: block;
+    position: relative;
+    width: 13%;
+    margin-left: 25px;
+    padding-top: 3px;
+}
+
+.logo img{
+    cursor: pointer;
+    width: 119px;
+}
+
+/* Right Side of the Menu */
+
+.menuActions{
+    margin-left: auto;
+    justify-content: space-between;
+    font-size: 25px;
+}
+
+
+.actions{
+    color: rgb(78, 75, 75);
+    background-color: rgb(186, 200, 165);
+    padding: 30px 30px;
+    font-size: 1em;
+    width: 6%;
+    border: none;
+}
+
+.actions:hover{
+    background-color: rgb(149, 161, 132);    
+}
+
+.fa-heart:before{
+    margin-left: -12px;
+    border-color: black;
+}
+
+.fa-user::before{
+    margin-left: -11px;
+}
+
+.fa-shopping-cart{
+    margin-left: -15px;
+}
+
+.popupsBlock{
+    display: block;
+}
 
 .btn-group{
     position: block;
@@ -149,11 +246,6 @@ export default{
     margin-right: auto;
     margin-left: auto;
     gap: 30px;
-
-    /*
-        margin-left: auto;
-        margin-right: auto;
-        gap: 40px;*/
 }
 
 .buttonLS {
@@ -225,162 +317,8 @@ export default{
   transition-duration: 0.1s;
 }
 
-.px1750Size{
-    margin: auto;
-    width: 1780px;
-}
 
-input:focus, textarea:focus, select:focus{
-    outline: none;
-}
-
-
-/* Menu*/
-
-.headerStyle{
-    overflow: hidden;
-    /*background-color: rgb(64, 65, 65);*/
-    background-color: rgb(186, 200, 165);
-    border-radius: 10px;
-    border: 1.5px solid white;
-    display: flex;
-}
-
-.menuBars{
-    display: none;
-}
-
-.menuWrapper{
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    
-}
-
-.menu{
-    display: flex;
-    height: 80px;
-    align-items: center;
-}
-
-.logo{
-    display: block;
-    position: relative;
-    width: 13%;
-    margin-left: 25px;
-    padding-top: 3px;
-}
-
-.logo img{
-    cursor: pointer;
-    width: 119px;
-}
-
-.searchBar{
-    position: block;
-    outline: none;
-    width: 40%;
-    margin-left: auto;
-}
-
-.searchBar form{
-    position: relative;
-    display: flex;
-    font-size: 1.1rem;
-    height: 40px;
-    outline: 0;
-    width: 100%;
-}
-
-.searchBar button{
-    border-bottom-left-radius: 8px;
-    border-top-left-radius: 8px;
-    border-width: 0;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 10px 12px;
-    text-align: center;
-    transition: all 200ms;
-    vertical-align: baseline;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    background-color: rgb(149, 161, 132);
-  }
-
-.searchBar input{
-    width: 100%;
-    padding: 10px 12px;
-    z-index: 3;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-width: 0;
-    display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 10px 12px;
-    transition: all 200ms;
-    vertical-align: baseline;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    background-color: rgb(165, 176, 147); 
-    color: black;
-}
-
-/* Parte direita do menu*/
-
-.menuActions{
-    margin-left: auto;
-    justify-content: space-between;
-    font-size: 25px;
-}
-
-
-.actions{
-    color: rgb(78, 75, 75);
-    background-color: rgb(186, 200, 165);
-    padding: 30px 30px;
-    font-size: 1em;
-    width: 6%;
-    border: none;
-}
-
-.actions:hover{
-    background-color: rgb(149, 161, 132);    
-}
-
-.fa-heart:before{
-    margin-left: -12px;
-    border-color: black;
-}
-
-.fa-user::before{
-    margin-left: -11px;
-}
-
-.fa-shopping-cart{
-    margin-left: -15px;
-}
-
-.popupsBlock{
-    display: block;
-}
-
-
-/* Responsividade*/
+/* Responsive */
 
 @media screen and (max-width: 1800px){   
     .px1750Size{
@@ -462,8 +400,5 @@ input:focus, textarea:focus, select:focus{
         top: 10px;
     }
 }
-
-
-
 
 </style>

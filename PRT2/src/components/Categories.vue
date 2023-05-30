@@ -72,12 +72,6 @@ export default {
     transition: 0.1s;
 }
 
-.subCat i{
-    position: relative;
-    z-index: 1;
-    border-color: black;
-}
-
 .subCat .inner{
     background-color: rgb(185, 188, 159);
     display: block;
@@ -101,5 +95,19 @@ export default {
     margin-top: -38px;
     width: 76px;
 }
+
+
+@media screen and (max-width: 800px){
+    .categories{
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+    }
+
+    .subCat{
+    }
+}
+
+
 
 </style>
