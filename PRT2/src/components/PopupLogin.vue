@@ -18,12 +18,12 @@
                     <button @click="logIn()" id="loginBtn" style="font-family: Arial, Helvetica, sans-serif;" >Login</button>
                 </div>
                 <p v-if="errMsg">{{errMsg}}</p>
-                <div class="formElement">
-                    <button id ="signUpBtn" style="display: none; font-family: Arial, Helvetica, sans-serif;" >Sign Up</button>
+                <div class="orLogin">
+                  <p>---  Or Login With  ---</p>
                 </div>
                 <div class="alternative">
-                    <p>---Or---</p>
-                    <button @click="signInWithGoogle();"><i class="fa fa-google" aria-hidden="true"></i></button>
+                    <button class="altButton" @click="signInWithGoogle();"><i class="fa fa-google" aria-hidden="true"></i></button>
+                    <button class="altButton" @click="signInWithGoogle();"><i class="fa fa fa-github" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
@@ -82,22 +82,10 @@ export default {
 };
 </script>
 
-<!--
-<script>
-
-export default{
-    name:'PopupLogin',
-
-    methods: {
-    closeL() {
-      this.$emit('closeL');
-    }
-  }
-}
-</script> -->
-
 
 <style scoped>
+
+
 
 .loginWrapper{
   width: 99%;
@@ -162,6 +150,10 @@ export default{
     border: 1px solid #aaa;
     border-radius: 5px;
     color: rgb(78, 75, 75);
+    box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
+    -moz-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
+    -webkit-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
+    -o-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2); 
 }
 
 .form .formElement button{
@@ -186,7 +178,53 @@ export default{
     font-weight: 600;
 }
 
+.orLogin{
+  color: white;
+  position: relative;
+  text-align: center;
+  top: 7px;
+  font-weight: 600;
+}
 
+.alternative{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.altButton{
+    background-color: #fff;
+    color: rgb(204, 221, 108);;
+    display: block;
+    height: 50px;
+    position: relative;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
+    -moz-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
+    -webkit-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
+    -o-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
+}
+
+.altButton:hover{
+    color: #d5caca;
+}
+
+.alternative i{
+  color: rgb(61, 60, 60);
+}
+
+
+.fa-google::before{
+  font-size: 25px;
+}
+
+.fa-github::before{
+  font-size: 25px;
+}
 
 
 </style>

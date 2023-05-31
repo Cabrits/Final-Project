@@ -127,6 +127,7 @@
     line-height: 23px;
     border-radius: 15px;
     cursor: pointer;
+
 }
 
 .form h2{
@@ -155,6 +156,10 @@
     border: 1px solid #aaa;
     border-radius: 5px;
     color: rgb(78, 75, 75);
+    box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
+    -moz-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
+    -webkit-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
+    -o-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2); 
 }
 
 .form .formElement button{

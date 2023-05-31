@@ -17,7 +17,7 @@
                     <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><i class="fa fa-heart" aria-hidden="true"></i></button>
                     <button class="actions" v-if="user" @click = "loadCart(); closeFavorites();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
                     <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
-                    <button class="actions" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                    <button class="actions2" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
                     <div class="btn-group" v-else>
                         <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
                         <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
@@ -204,7 +204,7 @@ input:focus, textarea:focus, select:focus{
 .menuActions{
     margin-left: auto;
     justify-content: space-between;
-    font-size: 25px;
+    font-size: 16px;
 }
 
 
@@ -213,25 +213,48 @@ input:focus, textarea:focus, select:focus{
     background-color: rgb(186, 200, 165);
     padding: 30px 30px;
     font-size: 1em;
-    width: 6%;
+    width: 3%;
     border: none;
+}
+
+.actions2{
+    color: rgb(78, 75, 75);
+    background-color: rgb(186, 200, 165);
+    padding: 30px;
+    font-size: 1em;
+    width: 3%;
+    border: none;
+    margin-left: 25px;
 }
 
 .actions:hover{
     background-color: rgb(149, 161, 132);    
 }
 
+.actions2:hover{
+    background-color: rgb(149, 161, 132); 
+    padding-left: 30px;   
+}
+
 .fa-heart:before{
-    margin-left: -12px;
+    margin-left: -10px;
     border-color: black;
+    font-size: 21px;
 }
 
 .fa-user::before{
-    margin-left: -11px;
+    margin-left: -8px;
+    font-size: 21px;
 }
 
 .fa-shopping-cart{
-    margin-left: -15px;
+    margin-left: -9px;
+    font-size: 21px;
+}
+
+.fa-sign-out::before{
+    font-size: 21px;
+    margin-left: -8px;
 }
 
 .popupsBlock{

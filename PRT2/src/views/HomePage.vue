@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Loading screen -->
-    <div class="loadingScreen" v-if="isLoading" >
+    <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
       <img src="/images/loading.gif" alt="Loading" />
     </div>
@@ -9,10 +9,10 @@
     <!-- Main content -->
     <div v-else>
       <div class="overall">
-      <Header/>
-      <Content/>
-      <Footer/>
-    </div>
+        <Header />
+        <Content />
+        <Footer />
+      </div>
     </div>
 
     <!-- Footer -->
@@ -22,10 +22,7 @@
   </div>
 </template>
 
-
-
 <script>
-
 import Header from '../components/Header.vue'
 import Content from '../components/Content.vue'
 import Footer from '../components/Footer.vue'
@@ -46,16 +43,13 @@ export default {
       this.isLoading = false;
       setTimeout(() => {
         this.loadingComplete = true;
-      }, 2000); 
-    }, 2000);
+      }, 2000);
+    }, 0); /*3000 base */
   }
 }
-
-
 </script>
 
 <style scoped>
-
 .blink {
   animation: blink 1s linear infinite;
   font-size: 30px;
@@ -65,7 +59,7 @@ export default {
 
 @keyframes blink {
   0% {
-    opacity: 1 ;
+    opacity: 1;
   }
   50% {
     opacity: 0;
@@ -73,7 +67,6 @@ export default {
   100% {
     opacity: 1;
   }
-
 }
 
 .loadingScreen {
@@ -83,6 +76,20 @@ export default {
   justify-content: center;
   gap: 130px;
   height: 70vh;
+  opacity: 1;
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50%{
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .loadingScreen img {
@@ -95,17 +102,15 @@ export default {
   font-size: 45px;
 }
 
-
-@media screen and (max-width: 800px){   
-    .loadingScreen img {
-      width: 50%;
+.fadeOut {
+  display: none;
 }
+
+@media screen and (max-width: 800px) {
+  .loadingScreen img {
+    width: 50%;
+  }
 }
 
 </style>
 
-
-
-
-
-<!--HELOOJKF'GJ-->
