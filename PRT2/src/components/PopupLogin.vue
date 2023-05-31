@@ -157,7 +157,7 @@ export default {
 }
 
 .form .formElement button{
-    width: 100%;
+    width: 70%;
     height: 40px;
     border: none;
     outline: none;
@@ -166,7 +166,9 @@ export default {
     color: rgb(78, 75, 75);
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 25px;
+    margin-left: 50px;
+    box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
 }
 
 .form .formElement a{
@@ -182,7 +184,7 @@ export default {
   color: white;
   position: relative;
   text-align: center;
-  top: 7px;
+  top: 5px;
   font-weight: 600;
 }
 

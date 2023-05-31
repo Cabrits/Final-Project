@@ -90,22 +90,19 @@
 <style scoped>
 
 .loginWrapper{
-  width: 100%;
+  width: 99%;
   padding-top: 35px;
   position: absolute;
 }
 
-
-
-
 .loginPopup{
-  margin-left: auto;
-  margin-right: auto;
   z-index: 4;
   display: block;
   position: relative;
-  width: 380px;
+  width: 350px;
   line-height: 20px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 20px 30px;
   background-color: rgb(186, 200, 165);
   border-radius: 10px;
@@ -163,7 +160,7 @@
 }
 
 .form .formElement button{
-    width: 100%;
+    width: 70%;
     height: 40px;
     border: none;
     outline: none;
@@ -172,7 +169,9 @@
     color: rgb(78, 75, 75);
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 25px;
+    margin-left: 50px;
+    box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
 }
 
 .form .formElement a{

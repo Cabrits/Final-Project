@@ -1,7 +1,7 @@
 <template>
 
     <header class="headerStyle px1750Size">
-        <div class="menuBars">
+        <div class="menuBars" :class="{ active: showMenu }" @click="toggleMenu">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
@@ -11,7 +11,7 @@
             <a href="#"></a>
         </div>
         <div class="menuWrapper">
-            <div class="menu">
+            <div class="menu" :class="{ active: showMenu }">
                 <SearchBar/>
                 <div class="menuActions">
                     <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><i class="fa fa-heart" aria-hidden="true"></i></button>
@@ -51,6 +51,7 @@ export default{
     data() {
     return {
         user: null,
+        showMenu: false
     };
     },
 
@@ -67,7 +68,7 @@ export default{
     const cart = ref(false)
     const login = ref(false)
     const signup = ref(false)
-    const auth = getAuth();
+    const auth = getAuth()
 
     const loadFavorites = () => {
         favorites.value = true
@@ -129,6 +130,13 @@ export default{
         });
     }
 
+    const showMenu = ref(false)
+
+    const toggleMenu = () => {
+        showMenu.value = !showMenu.value;
+    }
+
+
     return {
         favorites,
         cart,
@@ -143,8 +151,11 @@ export default{
         loadSignUp,
         closeSignUp,
         logout,
+        showMenu,
+        toggleMenu,
     }
     },
+
 };
 
 
@@ -184,6 +195,10 @@ input:focus, textarea:focus, select:focus{
     display: flex;
     height: 80px;
     align-items: center;
+}
+
+.menu.active{
+    display: flex;
 }
 
 .logo{
@@ -266,8 +281,7 @@ input:focus, textarea:focus, select:focus{
     display: flex;
     width: 200px;
     cursor: pointer;
-    margin-right: auto;
-    margin-left: auto;
+    padding-right: 20px;
     gap: 30px;
 }
 
@@ -392,6 +406,10 @@ input:focus, textarea:focus, select:focus{
         border: 1.5px solid white;
     }
 
+    .menu {
+        display: none;
+    }
+
     .searchBar{
         margin: auto;
         margin-top: 30px;
@@ -412,6 +430,9 @@ input:focus, textarea:focus, select:focus{
     .btn-group{
         width: 100px;
         gap: 40px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 0;
     }
 
     .buttonLS{
@@ -421,6 +442,22 @@ input:focus, textarea:focus, select:focus{
 
     .buttonLS2{
         top: 10px;
+    }
+
+    .menuBars .line {
+        transition: transform 0.3s ease;
+    }
+
+    .menuBars.active .line:nth-child(1) {
+        transform: rotate(-45deg) translate(-6px, 7px);
+    }
+
+    .menuBars.active .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menuBars.active .line:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -7px);
     }
 }
 
