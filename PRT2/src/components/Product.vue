@@ -14,11 +14,7 @@
       <div class="prodButtons">
         <div class="prodPrice">{{ item.item_price }}€</div>
         <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
-        <button
-          class="favourite btn heartAnimation"
-          :disabled="cooldown"
-          @click="toggleFavourite(item.item_id)"
-        >
+        <button class="favourite btn" :disabled="cooldown" @click="toggleFavourite(item.item_id)">
           <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
         </button>
       </div>
@@ -291,23 +287,5 @@ export default {
     color: rgb(78, 75, 75);
 }
 
-.heartAnimation.liked{
-    animation: liked .4s ease;
-}
-
-
-/*Animation*/
-
-@keyframes liked {
-    0% {
-      transform: scale(.8);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-    }
-}
 
 </style>

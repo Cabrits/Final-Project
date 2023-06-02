@@ -15,13 +15,13 @@
             <div class="menu" :class="{ active: showMenu }">
                 <SearchBar/>
                 <div class="menuActions">
-                    <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                    <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><font-awesome-icon icon="fa-solid fa-bell"/></button>
                     <button class="actions" v-if="user" @click = "loadCart(); closeFavorites();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
                     <router-link :to="'/user/'">
                         <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
                     </router-link>
                     <button class="actions2" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
-                    <div class="btn-group" v-else>
+                    <div class="btnGroup" v-else>
                         <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
                         <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
                     </div>
@@ -223,63 +223,43 @@ input:focus, textarea:focus, select:focus{
     margin-left: auto;
     justify-content: space-between;
     font-size: 16px;
+
 }
 
 
 .actions{
     color: rgb(78, 75, 75);
     background-color: rgb(186, 200, 165);
-    padding: 20px 30px;
-    font-size: 1em;
-    width: 3%;
+    margin: auto;
+    padding: 20px 20px;
     border: none;
+    font-size: 21px;
 }
 
 .actions2{
     color: rgb(78, 75, 75);
     background-color: rgb(186, 200, 165);
-    padding: 20px 30px;
+    padding: 20px 20px;
     font-size: 1em;
-    width: 2%;
     border: none;
     margin-left: 25px;
+    margin-right: 15px;
+    font-size: 21px;
 }
 
 .actions:hover{
     background-color: rgb(149, 161, 132);    
+    border-radius: 10px;
 }
 
 .actions2:hover{
     background-color: rgb(149, 161, 132); 
-    padding-left: 30px;   
+    padding-left: 20px;   
+    border-radius: 10px;
 }
 
-.fa-heart:before{
-    margin-left: -10px;
-    border-color: black;
-    font-size: 21px;
-}
 
-.fa-user::before{
-    margin-left: -8px;
-    font-size: 21px;
-}
-
-.fa-shopping-cart{
-    margin-left: -9px;
-    font-size: 21px;
-}
-
-.fa-sign-out::before{
-    font-size: 21px;
-    margin-left: -8px;
-}
-
-.popupsBlock{
-    display: block;
-}
-
-.btn-group{
+.btnGroup{
     position: block;
     display: flex;
     width: 200px;
