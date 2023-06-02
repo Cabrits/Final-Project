@@ -59,7 +59,7 @@ export default{
             { name: "Product not found", image:"/images/Product Not Found.png"},
           ];
         }
-        
+
         this.showAutocomplete = true;
 
       } else {
@@ -236,5 +236,18 @@ input:focus{
     height: 50px;
     margin-right: 10px;
 }
+
+@media screen and (max-width: 800px){   
+
+.searchBar{
+    margin: auto;
+    margin-top: 30px;
+    width: 80%;
+}
+}
+
+
+
+
 
 </style>

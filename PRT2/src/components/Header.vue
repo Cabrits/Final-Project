@@ -407,15 +407,14 @@ input:focus, textarea:focus, select:focus{
     }
 
     .menu {
-        display: none;
+        transition: opacity 0.5s ease;
+        opacity: 0;
     }
 
-    .searchBar{
-        margin: auto;
-        margin-top: 30px;
-        width: 80%;
+    .menu.active{
+        opacity: 1;
     }
-
+  
     .menuActions{
         margin: auto;
         display: flex;

@@ -1,12 +1,10 @@
 <template>
   <div>
-    <!-- Loading screen -->
     <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
       <img src="/images/loading.gif" alt="Loading" />
     </div>
 
-    <!-- Main content -->
     <div v-else>
       <div class="overall">
         <Header />
@@ -15,7 +13,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <footer>
       <p :class="{ 'blink': isLoading && !loadingComplete }" v-if="isLoading">Loading...</p>
     </footer>
@@ -44,7 +41,7 @@ export default {
       setTimeout(() => {
         this.loadingComplete = true;
       }, 2000);
-    }, 0); /*3000 base */
+    }, 3000); /*3000 base */
   }
 }
 </script>
@@ -77,7 +74,7 @@ export default {
   gap: 130px;
   height: 70vh;
   opacity: 1;
-  animation: fadeOut 3s forwards;
+  animation: fadeOut 4s forwards;
 }
 
 @keyframes fadeOut {
