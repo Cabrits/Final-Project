@@ -40,8 +40,8 @@ export default {
       this.isLoading = false;
       setTimeout(() => {
         this.loadingComplete = true;
-      }, 2000);
-    }, 3000); /*3000 base */
+      }, 500);
+    }, 1000); /*3000 base */
   }
 }
 </script>

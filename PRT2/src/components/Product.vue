@@ -5,7 +5,9 @@
   <div class="productsDisplay">
     <div v-for="item in filteredItems" :key="item.id" class="product">
       <img :src="item.item_image">
-      <a href="#"><h2>{{ item.item_name }}</h2></a>
+      <router-link :to="'/item/' + item.item_id">
+        <h2>{{ item.item_name }}</h2>
+      </router-link>
       <div class="prodInfo">
         <span>{{ item.item_description }}</span>
       </div>

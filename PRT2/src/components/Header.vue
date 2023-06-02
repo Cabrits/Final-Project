@@ -7,8 +7,9 @@
             <div class="line"></div>
         </div>
         <div class="logo">
-            <img src="images/logo3.png">
-            <a href="#"></a>
+            <router-link :to="'/'">
+                <img src="images/logo3.png">
+             </router-link>
         </div>
         <div class="menuWrapper">
             <div class="menu" :class="{ active: showMenu }">
@@ -16,7 +17,9 @@
                 <div class="menuActions">
                     <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><i class="fa fa-heart" aria-hidden="true"></i></button>
                     <button class="actions" v-if="user" @click = "loadCart(); closeFavorites();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-                    <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
+                    <router-link :to="'/user/'">
+                        <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
+                    </router-link>
                     <button class="actions2" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
                     <div class="btn-group" v-else>
                         <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
@@ -226,7 +229,7 @@ input:focus, textarea:focus, select:focus{
 .actions{
     color: rgb(78, 75, 75);
     background-color: rgb(186, 200, 165);
-    padding: 30px 30px;
+    padding: 20px 30px;
     font-size: 1em;
     width: 3%;
     border: none;
@@ -235,9 +238,9 @@ input:focus, textarea:focus, select:focus{
 .actions2{
     color: rgb(78, 75, 75);
     background-color: rgb(186, 200, 165);
-    padding: 30px;
+    padding: 20px 30px;
     font-size: 1em;
-    width: 3%;
+    width: 2%;
     border: none;
     margin-left: 25px;
 }

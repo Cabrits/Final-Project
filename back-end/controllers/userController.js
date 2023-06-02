@@ -84,14 +84,12 @@ exports.updateUser = async (req, res) => {
   exports.removeFavouriteItem = async (req, res) => {
     const userId = req.params.userId;
     const itemId = req.params.itemId;
-    console.log("test1")
     try {
       // Check if the user exists
       const checkUserQuery = 'SELECT * FROM users WHERE user_id = ?';
       const existingUser = await executeQuery(checkUserQuery, [userId]);
   
       if (existingUser.length === 0) {
-        console.log("test2")
         return res.status(404).json({ error: 'User not found' });
       }
   
@@ -100,7 +98,6 @@ exports.updateUser = async (req, res) => {
       const existingItem = await executeQuery(checkItemQuery, [itemId]);
   
       if (existingItem.length === 0) {
-        console.log("test3")
         return res.status(404).json({ error: 'Item not found' });
       }
   
