@@ -4,7 +4,7 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const itemController = require('../controllers/itemController');
-//const OrderController = require('./controllers/orderController');
+const orderController = require('../controllers/orderController');
 
 // Routes for users
 router.post('/api/user/create', userController.createUser);
@@ -29,8 +29,8 @@ router.delete('/api/item/:itemId/delete', ItemController.deleteItem);
 // Routes for orders
 
 
-router.get('/api/orders', OrderController.getOrders);
-router.get('/api/order/:orderId', OrderController.getOrder);
-router.post('/api/order/create', OrderController.createOrder);
+router.get('/api/orders/:userId', orderController.getOrders);
+router.get('/api/order/:orderId', orderController.getOrder);
+router.post('/api/order/create', orderController.createOrder);
 
 module.exports = router;

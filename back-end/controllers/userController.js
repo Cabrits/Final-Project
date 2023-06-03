@@ -141,7 +141,6 @@ exports.updateUser = async (req, res) => {
       }
   
       // Send the user data as a response
-      console.log("user found:" + user[0])
       res.json(user[0]);
     } catch (err) {
       console.error(err);
