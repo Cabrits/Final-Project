@@ -1,44 +1,45 @@
 <template>
-        <header class="headerStyle px1750Size">
-        <div class="menuBars" :class="{ active: showMenu }" @click="toggleMenu">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-        <div class="logo">
-            <router-link :to="'/'">
-                <img src="../assets/logo3.png">
-             </router-link>
-        </div>
-        <div class="menuWrapper">
-            <div class="menu" :class="{ active: showMenu }">
-                <SearchBar/>
-                <div class="menuActions">
-                    <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><font-awesome-icon icon="fa-solid fa-bell"/></button>
-                    <button class="actions" v-if="user" @click = "loadCart(); closeFavorites();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-                    <router-link :to="'/user'">
-                        <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
-                    </router-link>
-                    <button class="actions2" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
-                    <div class="btnGroup" v-else>
-                        <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
-                        <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
-                    </div>
+    <header class="headerStyle px1750Size">
+    <div class="menuBars" :class="{ active: showMenu }" @click="toggleMenu">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <div class="logo">
+        <router-link :to="'/'">
+            <img src="../assets/logo3.png">
+        </router-link>
+    </div>
+    <div class="menuWrapper">
+        <div class="menu" :class="{ active: showMenu }">
+            <SearchBar/>
+            <div class="menuActions">
+                <button class="actions" v-if="user" @click = "loadNotification(); closeCart();"><font-awesome-icon icon="fa-solid fa-bell"/></button>
+                <button class="actions" v-if="user" @click = "loadCart(); closeNotification();" id="cart"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
+                <router-link class="actions" :to="'/user'" v-if="user">
+                    <button class="userB" ><i class="fa fa-user" aria-hidden="true"></i></button>
+                </router-link>
+                <button class="actions2" v-if="user" @click="logout()"><font-awesome-icon icon="fa-solid fa-right-from-bracket" /></button>
+                <div class="btnGroup" v-else>
+                    <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
+                    <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
                 </div>
             </div>
         </div>
+    </div>
     </header> 
 
-  <PopupFavorites v-if="favorites" @closeF="closeFavorites" />
-  <PopupCart v-if="cart" @closeC="closeCart" />
-  <PopupLogin v-if="login" @closeL="closeLogin" />
-  <PopupSignUp v-if="signup" @closeS="closeSignUp" />
+  <PopupNotification v-if="notification" @closeN="closeNotification"/>
+  <PopupCart v-if="cart" @closeC="closeCart"/>
+  <PopupLogin v-if="login" @closeL="closeLogin"/>
+  <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
+
 </template>
 
 <script>
 import PopupLogin from './PopupLogin.vue';
 import PopupSignUp from './PopupSignUp.vue';
-import PopupFavorites from './PopupFavorites.vue';
+import PopupNotification from './PopupNotification.vue';
 import PopupCart from './PopupCart.vue';
 import SearchBar from './searchBar.vue';
 import { ref } from 'vue';
@@ -49,7 +50,7 @@ export default {
   name: 'Header',
   components: {
     PopupLogin,
-    PopupFavorites,
+    PopupNotification,
     PopupCart,
     PopupSignUp,
     SearchBar,
@@ -61,7 +62,7 @@ export default {
       cart:false,
       login:false,
       signup:false,
-      favorites:false
+      notification:false
     };
   },
 
@@ -77,11 +78,11 @@ export default {
   },
 
   methods: {
-    loadFavorites() {
-      this.favorites = true;
+    loadNotification() {
+      this.notification = true;
     },
-    closeFavorites() {
-      this.favorites = false;
+    closeNotification() {
+      this.notification = false;
     },
     loadCart() {
       this.cart = true;
@@ -116,6 +117,7 @@ export default {
     },
     toggleMenu() {
       this.showMenu = !this.showMenu;
+      
     },
   },
 };
@@ -138,7 +140,7 @@ input:focus, textarea:focus, select:focus{
 .headerStyle{
     background-color: rgb(186, 200, 165);
     border-radius: 10px;
-    border: 1.5px solid white;
+    border: 1px solid white;
     display: flex;
 }
 
@@ -181,7 +183,6 @@ input:focus, textarea:focus, select:focus{
     margin-left: auto;
     justify-content: space-between;
     font-size: 16px;
-
 }
 
 
@@ -193,6 +194,14 @@ input:focus, textarea:focus, select:focus{
     border: none;
     font-size: 21px;
 }
+
+.userB{
+    color: rgb(78, 75, 75);
+    background-color: inherit;
+    border: none;
+    font-size: 21px;
+}
+
 
 .actions2{
     color: rgb(78, 75, 75);
@@ -253,10 +262,14 @@ input:focus, textarea:focus, select:focus{
     word-wrap: break-word;
     right: 10px;
     margin-left: auto;
+    box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 5px 5px  rgba(50, 50, 50, 0.5);
 }
 
 .buttonLS2 {
-    position: absolute;
+    position: relative;
     appearance: none;
     background-color: #FAFBFC;
     border: 1px solid rgba(27, 31, 35, 0.15);
@@ -272,7 +285,6 @@ input:focus, textarea:focus, select:focus{
     line-height: 20px;
     list-style: none;
     padding: 6px 16px;
-    position: relative;
     transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
     user-select: none;
     -webkit-user-select: none;
@@ -281,6 +293,11 @@ input:focus, textarea:focus, select:focus{
     white-space: nowrap;
     word-wrap: break-word;
     right: 15px;
+    box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 5px 5px  rgba(50, 50, 50, 0.5);
+
 }
 
 .buttonLS:hover {
@@ -340,16 +357,14 @@ input:focus, textarea:focus, select:focus{
         top: 95px;
         flex-direction: column;
         height: 150px;
-        width: 92.5%;
+        width: 92%;
         background: rgb(186, 200, 165);
         transition: 0.2s;
         border-radius: 10px;
         border: 1.5px solid white;
-    }
-
-    .menu {
-        transition: opacity 0.5s ease;
+        transition: display 0.5s ease;
         opacity: 0;
+        display: none;
     }
 
     .menu.active{
@@ -357,31 +372,28 @@ input:focus, textarea:focus, select:focus{
     }
   
     .menuActions{
-        margin: auto;
         display: flex;
-        margin-top: -20px;
-        width: 80%;
+        width: 100%;
+        margin-bottom: 7px;
     }
 
     .actions{
-        margin: auto;
+        margin-right: 20px;
     }
 
-    .btn-group{
-        width: 100px;
-        gap: 40px;
+    .btnGroup{
         margin-right: auto;
         margin-left: auto;
-        padding-right: 0;
+        gap: 40px;
+        padding-right: 0!important;
     }
 
     .buttonLS{
-        right: 80px;
-        top: 10px;
+        bottom: 10px;
     }
 
     .buttonLS2{
-        top: 10px;
+        bottom: 10px;
     }
 
     .menuBars .line {

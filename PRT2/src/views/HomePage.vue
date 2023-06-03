@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
@@ -8,7 +9,7 @@
     <div v-else>
       <div class="overall">
         <Header />
-        <Content :items="items" :favourites="favourites"/>
+        <Content/>
         <Footer />
       </div>
     </div>
@@ -17,6 +18,7 @@
       <p :class="{ 'blink': isLoading && !loadingComplete }" v-if="isLoading">Loading...</p>
     </footer>
   </div>
+
 </template>
 
 <script>

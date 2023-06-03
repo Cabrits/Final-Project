@@ -8,9 +8,15 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faGhost } from '@fortawesome/free-solid-svg-icons'
+import { faHandFist } from '@fortawesome/free-solid-svg-icons'
+import { faMasksTheater } from '@fortawesome/free-solid-svg-icons'
 import store from './store/store';
 
-library.add(faUserSecret, faBell);
+library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, faMasksTheater);
 
 
 const firebaseConfig = {

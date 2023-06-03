@@ -23,7 +23,7 @@ import PaymentMethods from '../components/PaymentMethods.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default {
-  name: 'Shopping',
+  name: 'UserPage',
   components: { UserInformation, OrderHistory, FavoriteItems, PaymentMethods, Header, Footer },
 
   data() {

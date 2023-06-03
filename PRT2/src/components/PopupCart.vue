@@ -1,19 +1,25 @@
 <template>
-
-    <div class="cartPopup" id="showCart">
-        <div class="closeCart" @click="closeC">&times;</div>
-            <h2>Your Products</h2>
-            <ul class="cartItems">
-                <li>
-                    <span class="cartQuantity">1x</span> Sony Camera
-                    <div class="cartPrice">400€</div>
-                    <a href="#" class="cartRemove">&times;</a>
-                </li>                
-            </ul>
-        <div class="cartTotal">
-            <p>Total: <span>400€</span></p>
-        </div> 
-        <button class="checkoutButton btn2">Checkout</button>
+    <div class="cartStyle">
+        <div class="px1750Size">
+            <div class="cartWrapper">
+                <div class="cartPopup" id="showCart">
+                <div class="closeCart" @click="closeC">&times;</div>
+                    <h2>Your Products</h2>
+                    <ul class="cartItems">
+                        <li>
+                            <span class="cartQuantity">1x</span> Sony Camera
+                            <div class="cartPrice">400€</div>
+                            <a href="#" class="cartRemove">&times;</a>
+                        </li>                
+                    </ul>
+                <div class="cartTotal">
+                    <p>Total: <span>400€</span></p>
+                </div> 
+                <button class="checkoutButton btn2">Checkout</button>
+                </div>
+                <div class="arrow"></div>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -36,32 +42,39 @@ export default{
 
 <style scoped>
 
-.favAndCartWrapper{
-    margin-left: auto;
-    margin-right: auto;
-    width: 960px;
+.cartStyle{
+    position: absolute;
+    width: 100%;
 }
 
-    /* Cart Popup*/
+.px1750Size{
+    position: relative;
+    margin: auto;
+    width: 1750px;
+}
+
+.cartWrapper{
+    position: relative;
+    z-index: 5;
+    top: 5px; 
+}
 
 .cartPopup{
-    z-index: 4;
-    top: 110px;
+    position: relative;
     display: block;
-    position: absolute;
-    margin: auto;
-    margin-left: 970px;   
     height: 415px;
     width: 400px;
     padding-top: 50px;
     overflow-y: auto;
     background-color: rgb(186, 200, 165);
     transition: right .3s;
-    border-radius: 10px;
     border: 1px solid white;
+    border-radius: 10px;
     color: black;
     box-shadow: 35px 45px 25px rgba(50, 50, 50, 0.5);
+    left: 77.6%;
 }
+
 
 .cartPopup h2{
     font-size: 20px;
@@ -181,6 +194,16 @@ export default{
     border: 1px solid rgb(255, 255, 255);
     height: 40px;
     transition: 0.3s;
+}
+
+.arrow{
+    z-index: 100;
+    position: absolute;
+    top: -10px;
+    right: 175px;
+    border-bottom: 10px solid rgb(149, 161, 132);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
 }
 
 

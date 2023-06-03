@@ -22,6 +22,8 @@
 
 export default{
     name:'Slider',
+
+    
 }
 
 </script>
@@ -30,18 +32,24 @@ export default{
 <style scoped>
 
 .slideNews{
-    padding: 2rem;
+    padding: 3rem;
 }
 
 .sliderWrapper{
     position: relative;
     max-width: 55rem;
     margin: 0 auto;
+    border-radius: 10px;
+    border: 2px solid white;
+    box-shadow: 15px 15px 18px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 15px 15px 18px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 15px 15px 18px rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 15px 15px 18px  rgba(50, 50, 50, 0.5);
 }
 
 .slider{
     display: flex;
-    aspect-ratio: 16 / 8;
+    aspect-ratio: 16 / 6;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;

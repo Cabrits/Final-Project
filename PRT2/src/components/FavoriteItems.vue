@@ -121,8 +121,9 @@ export default {
   flex-basis: 300px;
   margin: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 2px solid #918f8f;
+  border-radius: 10px;
+  background-color: white;
 }
 
 .itemRow {

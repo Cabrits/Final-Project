@@ -228,6 +228,7 @@ export default {
   display: flex;
   flex-direction: row;
   position: relative;
+
 }
 
 .altButton{
@@ -241,10 +242,11 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border: none;
-    box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
-    -moz-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
+    box-shadow: 6px 4px  rgba(50, 50, 50, 0.2);
+    /*-moz-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
     -webkit-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
-    -o-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
+    -o-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2); */
+    cursor: pointer;
 }
 
 .altButton:hover{

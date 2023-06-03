@@ -216,7 +216,8 @@ input:focus{
     left: 0;
     width: 100%;
     border-radius: 4px;
-    padding: 10px;
+    padding-top: 1px;
+    margin-left: 5px;
     max-height: 300px; 
     flex-direction: column;
     display: flex;

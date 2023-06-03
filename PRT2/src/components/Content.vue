@@ -1,7 +1,7 @@
 <template> 
     <div class="contentStyle px1750Size">
         <Slider/>
-        <Product :items="items" :favourites="favourites" @favorite-updated="$emit('favorite-updated')" />
+        <Product/>
     </div>
 </template>
 
@@ -9,22 +9,12 @@
 <script>
 
 import Slider from './Slider.vue'
-
 import Product from './Product.vue'
 
 export default{
   name: 'Content',
   components: {Slider, Product},
-  props: {
-    items: {
-      type: Array,
-      required: true
-    },
-    favourites: {
-      type: Array,
-      required: false
-    }
-  },
+  
 };
 </script>
 

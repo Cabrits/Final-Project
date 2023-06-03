@@ -3,16 +3,14 @@
       <Categories @category-selected="handleCategorySelected"/>
     </div>
   <div class="productsDisplay">
-    <div v-for="item in filteredItems" :key="item.id" class="product">
+    <div class="product" v-for="item in filteredItems" :key="item.id">
       <router-link :to="'/item/' + item.item_id">
       <img :src="item.item_image">
-      
         <h2>{{ item.item_name }}</h2>
-      
       <div class="prodInfo">
         <span>{{ item.item_description }}</span>
       </div>
-    </router-link>
+      </router-link>
       <div class="prodButtons">
         <div class="prodPrice">{{ item.item_price }}€</div>
         <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
@@ -76,9 +74,6 @@ export default {
         })
           .then((response) => {
             // Handle success
-            console.log('Favourite action performed successfully');
-            console.log(isItemFavourite)
-            this.$emit('favourite-updated');
             this.startButtonCooldown();
             this.$store.dispatch('fetchFavourites', userId);
           })
@@ -105,19 +100,19 @@ export default {
     flex-wrap: wrap;
     flex-grow: row;
     justify-content: space-around;
-    padding: 5rem;
+    padding: 3rem;
 }
 .product{
     background-color: rgb(185, 188, 159);
     border-radius: 20px;
-    border: 1px solid white;
+    border: 3px solid white;
     width: 350px;
     margin-top: 60px;
-    /*border: 2px solid rgb(194, 192, 192);*/
-    box-shadow: 35px 45px 25px rgba(50, 50, 50, 0.5);
-    -moz-box-shadow: 35px 45px 25px rgba(50, 50, 50, 0.5);
-    -webkit-box-shadow: 35px 45px 25px  rgba(50, 50, 50, 0.5);
-    -o-box-shadow: 35px 45px 25px  rgba(50, 50, 50, 0.5);
+    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 25px 25px 15px  rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 25px 25px 15px  rgba(50, 50, 50, 0.5);
+    padding: 0;
 }
 
 .product a{
@@ -125,14 +120,15 @@ export default {
 }
 
 .product img{
-    width: 300px;
-    height: 200px;
-    margin-left: 23px;
-    margin-top: 20px;
-    border-radius: 20px;
-    box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.3);
-    -moz-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.3);
-    -webkit-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.3);
+    width: 250px;
+    height: 300px;
+    margin-left: 50px;
+    margin-top: 40px;
+    border: 1px solid rgba(83, 82, 82, 0.3);
+    border-radius: 5px;
+    box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
+    -moz-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
+    -webkit-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
 }
 
 .product h2{
