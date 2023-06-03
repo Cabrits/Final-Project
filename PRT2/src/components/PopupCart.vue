@@ -4,18 +4,18 @@
             <div class="cartWrapper">
                 <div class="cartPopup" id="showCart">
                 <div class="closeCart" @click="closeC">&times;</div>
-                    <h2>Your Products</h2>
+                    <h2>Your Cart</h2>
                     <ul class="cartItems">
-                        <li>
-                            <span class="cartQuantity">1x</span> Sony Camera
-                            <div class="cartPrice">400€</div>
-                            <a href="#" class="cartRemove">&times;</a>
-                        </li>                
+                        <li v-for="item in cartItems" :key="item.item_id"> 
+                            <span class="cartQuantity">{{ item.quantity }}x</span>{{ item.item_name }}
+                            <div class="cartPrice">{{ ((item.item_price * (1-item.item_discount)).toFixed(2))*item.quantity }}€</div>
+                            <button class="cartRemove" @click="removeFromCart(item)">&times;</button>
+                        </li>            
                     </ul>
-                <div class="cartTotal">
-                    <p>Total: <span>400€</span></p>
-                </div> 
-                <button class="checkoutButton btn2">Checkout</button>
+                    <div class="cartTotal">
+                        <p>Total: <span>{{ cartTotal }}€</span></p>
+                    </div>
+                    <button class="checkoutButton btn2" @click="clearcart">Checkout</button>
                 </div>
                 <div class="arrow"></div>
             </div>
@@ -26,17 +26,32 @@
 
 
 <script>
-
-export default{
-    name:'PopupCart',
-
-    methods: {
+export default {
+  name: 'PopupCart',
+  computed: {
+    cartItems() {
+      return this.$store.state.cart;
+    },
+    cartTotal() {
+        return this.cartItems.reduce((total, item) => total + (item.item_price*(1-item.item_discount)) * item.quantity, 0);
+    },
+  },
+  methods: {
     closeC() {
       this.$emit('closeC');
+    },
+    removeFromCart(item) {
+      this.$store.dispatch('removeFromCart', item);
+    },
+    checkout() {
+      //this.$store.dispatch('createOrder');
+    },
+    clearcart(){
+        this.$store.dispatch('clearCart');
     }
-  }
-}
 
+  },
+};
 </script>
 
 
@@ -179,22 +194,6 @@ export default{
     margin-bottom: 10px;
 }
 
-.checkoutButton::before{
-    width: 200px;
-    border-radius: 50px;
-    color: white;
-}
-
-.btn2::before{
-    content: "";
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    border: 1px solid rgb(255, 255, 255);
-    height: 40px;
-    transition: 0.3s;
-}
 
 .arrow{
     z-index: 100;

@@ -28,12 +28,9 @@ router.delete('/api/item/:itemId/delete', ItemController.deleteItem);
 
 // Routes for orders
 
-/*
+
 router.get('/api/orders', OrderController.getOrders);
 router.get('/api/order/:orderId', OrderController.getOrder);
 router.post('/api/order/create', OrderController.createOrder);
-router.put('/api/order/:orderId/update', OrderController.updateOrder);
-router.delete('/api/order/:orderId/delete', OrderController.deleteOrder);
 
-*/
 module.exports = router;

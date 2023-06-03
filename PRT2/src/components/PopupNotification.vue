@@ -12,7 +12,7 @@
                         </router-link>
                         <span class="notificationQuantity"> is on discount!</span>
                         <div class="notificationOldPrice">{{ favourite.item_price }}€ </div>
-                        <div class="notificationPrice">{{ (favourite.item_price * (1-favourite.item_discount)).toPrecision(3)}}€ {{ (favourite.item_discount*100).toPrecision(4) }}% off</div> 
+                        <div class="notificationPrice">{{ (favourite.item_price * (1-favourite.item_discount)).toFixed(2)}}€ {{ (favourite.item_discount*100).toFixed(2) }}% off</div> 
                     </li>
                 </ul>
             </div>

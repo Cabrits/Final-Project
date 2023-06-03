@@ -12,8 +12,8 @@
       </div>
       </router-link>
       <div class="prodButtons">
-        <div class="prodPrice">{{ item.item_price }}€</div>
-        <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
+        <div class="prodPrice">{{ (item.item_price * (1-item.item_discount)).toFixed(2) }}€</div>
+        <button class="cart btn" @click="this.$store.dispatch('addToCart', item);"><i class="fa fa-shopping-cart"></i></button>
         <button class="favourite btn" :disabled="cooldown" @click="toggleFavourite(item.item_id)">
           <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
         </button>
