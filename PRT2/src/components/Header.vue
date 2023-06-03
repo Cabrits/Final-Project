@@ -1,6 +1,5 @@
 <template>
-
-    <header class="headerStyle px1750Size">
+        <header class="headerStyle px1750Size">
         <div class="menuBars" :class="{ active: showMenu }" @click="toggleMenu">
             <div class="line"></div>
             <div class="line"></div>
@@ -30,140 +29,98 @@
         </div>
     </header> 
 
-    <PopupFavorites v-if="favorites" @closeF="closeFavorites"/>
-    <PopupCart v-if="cart" @closeC="closeCart"/>
-    <PopupLogin v-if="login" @closeL="closeLogin"/>
-    <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
-
+  <PopupFavorites v-if="favorites" @closeF="closeFavorites" />
+  <PopupCart v-if="cart" @closeC="closeCart" />
+  <PopupLogin v-if="login" @closeL="closeLogin" />
+  <PopupSignUp v-if="signup" @closeS="closeSignUp" />
 </template>
 
 <script>
+import PopupLogin from './PopupLogin.vue';
+import PopupSignUp from './PopupSignUp.vue';
+import PopupFavorites from './PopupFavorites.vue';
+import PopupCart from './PopupCart.vue';
+import SearchBar from './searchBar.vue';
+import { ref } from 'vue';
+import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
+import { mapState } from 'vuex';
 
-import PopupLogin from './PopupLogin.vue'
-import PopupSignUp from './PopupSignUp.vue'
-import PopupFavorites from './PopupFavorites.vue'
-import PopupCart from './PopupCart.vue'
-import SearchBar from './searchBar.vue'
-import {ref} from "vue";
-import {getAuth, onAuthStateChanged, signOut} from '@firebase/auth';
+export default {
+  name: 'Header',
+  components: {
+    PopupLogin,
+    PopupFavorites,
+    PopupCart,
+    PopupSignUp,
+    SearchBar,
+  },
 
-export default{
-    name:'Header',
-    components:{PopupLogin, PopupFavorites, PopupCart, PopupSignUp, SearchBar},
-
-    data() {
+  data() {
     return {
-        user: null,
-        showMenu: false
+      showMenu: false,
+      cart:false,
+      login:false,
+      signup:false,
+      favorites:false
     };
-    },
+  },
 
-    mounted() {
+  computed: {
+    ...mapState(['favourites', 'user']),
+  },
+
+  mounted() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-        this.user = user;
+      this.user = user;
     });
+  },
+
+  methods: {
+    loadFavorites() {
+      this.favorites = true;
     },
-
-    setup(){ 
-
-    const playedload = ref(false)
-    const favorites = ref(false)
-    const cart = ref(false)
-    const login = ref(false)
-    const signup = ref(false)
-    const auth = getAuth()
-
-    const loadFavorites = () => {
-        favorites.value = true
-    }
-
-    const closeFavorites = () => {
-        favorites.value = false
-    }
-
-    const loadCart = () => {
-        cart.value = true
-    }
-
-    const closeCart = () => {
-        cart.value = false
-    }
-
-    const loadLogin = () => {
-        login.value = true
-    }
-
-    const closeLogin = () => {
-        login.value = false
-    }
-
-    const loadSignUp = () => {
-        signup.value = true
-    }
-
-    const closeSignUp = () => {
-        signup.value = false
-    }
-
-    /*
-    const toggleValue = (value) => {
-      return {
-        load: () => (value.value = true),
-        close: () => (value.value = false),
-      };
-    };
-
-    const { load: loadFavorites, close: closeFavorites } = toggleValue(
-      favorites
-    );
-    const { load: loadCart, close: closeCart } = toggleValue(cart);
-    const { load: loadLogin, close: closeLogin } = toggleValue(login);
-    const { load: loadSignUp, close: closeSignUp } = toggleValue(signup);
-    */
-
-    const logout = () => {
+    closeFavorites() {
+      this.favorites = false;
+    },
+    loadCart() {
+      this.cart = true;
+    },
+    closeCart() {
+      this.cart = false;
+    },
+    loadLogin() {
+      this.login = true;
+    },
+    closeLogin() {
+      this.login = false;
+    },
+    loadSignUp() {
+      this.signup = true;
+    },
+    closeSignUp() {
+      this.signup = false;
+    },
+    logout() {
+      const auth = getAuth();
       signOut(auth)
         .then(() => {
           console.log('Successfully logged out!');
+          this.$store.dispatch('clearUser');
           // Handle successful logout
         })
         .catch((error) => {
           console.error('Failed to logout:', error);
           // Handle error in logout
         });
-    }
-
-    const showMenu = ref(false)
-
-    const toggleMenu = () => {
-        showMenu.value = !showMenu.value;
-    }
-
-
-    return {
-        favorites,
-        cart,
-        login,
-        signup,
-        loadFavorites,
-        closeFavorites,
-        loadCart,
-        closeCart,
-        loadLogin,
-        closeLogin,
-        loadSignUp,
-        closeSignUp,
-        logout,
-        showMenu,
-        toggleMenu,
-    }
     },
-
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
+  },
 };
-
-
 </script>
+
 
 <style scoped>
 

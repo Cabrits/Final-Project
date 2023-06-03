@@ -34,6 +34,8 @@
 <script>
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
+import { mapState } from 'vuex';
+
 export default {
   name: 'PopupLogin',
     data() {
@@ -43,13 +45,21 @@ export default {
         errMsg: ''
       };
     },
+    computed: {
+  ...mapState(['favourites', 'user'])
+},
   methods: {
     closeL() {
       this.$emit('closeL');
     },
     logIn() {
+      
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
         .then((data) => {
+          const userId = data.user.uid;
+          console.log(userId , data)
+          this.$store.dispatch('setUser', data.user);
+          this.$store.dispatch('fetchFavourites', userId)
           console.log('Successfully LoggedIn!');
           this.closeL()
         })
@@ -69,13 +79,16 @@ export default {
     signInWithGoogle() {
       const provider = new GoogleAuthProvider();
       signInWithPopup(getAuth(), provider)
-          .then((result)=> {
-              console.log("nicer")
-              console.log(result.user);
+          .then((data)=> {
+            const userId = data.user.uid;
+            console.log(userId , data)
+            this.$store.dispatch('setUser', data);
+            this.$store.dispatch('fetchFavourites', userId)
+            console.log('Successfully LoggedIn!');
               
           })
           .catch((error)=>{
-            console.log("error")
+            console.log(error.code)
       })
     }
   }

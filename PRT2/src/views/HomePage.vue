@@ -59,36 +59,37 @@ export default {
     handleCategorySelected(category) {
       this.selectedCategory = category;
     },
-    async fetchItems() {
-      axios
-        .get('http://localhost:7777/api/items')
-        .then((response) => {
-          this.items = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    fetchItems() {
+      this.$store.dispatch('fetchItems');
     },
-    async fetchFavourites(userId) {
-      try {
-        const response = await axios.get(`http://localhost:7777/api/user/${userId}/favourites`);
-        this.favourites = response.data;
-        console.log('Fetched favourites:', this.favourites);
-      } catch (error) {
-        console.error(error);
-      }
+    fetchFavourites() {
+    const userId = this.$store.getters.userId;
+    this.$store.dispatch('fetchFavourites', userId);
     }
   },
+  computed:{
+  },items() {
+    // Retrieve items from the store
+    // Replace 'items' with the actual state property name
+    return this.$store.state.items;
+  },
+  favourites() {
+    // Retrieve favourites from the store
+    // Replace 'favourites' with the actual state property name
+    return this.$store.state.favourites;
+  },
   created() {
-    const auth = getAuth();
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        const userId = user.uid;
-        this.fetchFavourites(userId);
+  this.$store.watch(
+    () => this.$store.getters.isAuthenticated,
+    (isAuthenticated) => {
+      if (isAuthenticated) {
+        const userId = this.$store.getters.userId;
+        this.$store.dispatch('fetchFavourites', userId);
       } else {
         console.log('User not logged in');
       }
-    });
+    }
+  );
   }
 }
 </script>

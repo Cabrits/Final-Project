@@ -44,7 +44,7 @@ exports.updateUser = async (req, res) => {
   };
   
   // Add favorite item to user
-  exports.addFavouriteItem = async (req, res) => {
+  exports.addFavoriteItem = async (req, res) => {
     const userId = req.params.userId;
     const itemId = req.params.itemId;
 
@@ -72,7 +72,7 @@ exports.updateUser = async (req, res) => {
       const addFavouriteQuery = 'INSERT INTO userFavouriteItems (user_id, item_id) VALUES (?, ?)';
       await executeQuery(addFavouriteQuery, [userId, itemId]);
   
-      // Send a success response indicating that the item was added to favorites
+      // Send a success response indicating that the item was added to favourites
       res.json({ message: 'Item added to favourites successfully' });
     } catch (err) {
       console.error(err);
@@ -81,7 +81,7 @@ exports.updateUser = async (req, res) => {
   };
   
   // Remove favorite item from user
-  exports.removeFavouriteItem = async (req, res) => {
+  exports.removeFavoriteItem = async (req, res) => {
     const userId = req.params.userId;
     const itemId = req.params.itemId;
     try {
@@ -102,10 +102,10 @@ exports.updateUser = async (req, res) => {
       }
   
       // Remove the favourite item from the user
-      const removeFavouriteQuery = 'DELETE FROM userFavouriteItems WHERE user_id = ? AND item_id = ?';
+      const removeFavoriteQuery = 'DELETE FROM userFavouriteItems WHERE user_id = ? AND item_id = ?';
       await executeQuery(removeFavouriteQuery, [userId, itemId]);
   
-      // Send a success response indicating that the item was removed from favorites
+      // Send a success response indicating that the item was removed from favourites
       res.json({ message: 'Item removed from favourites successfully' });
     } catch (err) {
       console.error(err);

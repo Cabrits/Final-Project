@@ -8,8 +8,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
+import store from './store/store';
 
-library.add(faUserSecret, faBell)
+library.add(faUserSecret, faBell);
 
 
 const firebaseConfig = {
@@ -28,6 +29,7 @@ const app = createApp(App)
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
+app.use(store);
 app.mount('#app')
 
 

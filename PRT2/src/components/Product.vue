@@ -29,85 +29,17 @@
 import axios from 'axios';
 import Categories from './Categories.vue'
 import { getAuth } from '@firebase/auth';
-import { ref } from 'vue';
-/*
-
-  data() {
-    return {
-      selectedCategory: "category1",
-    };
-  },
-  methods: {
-    
-  },
-
-*/
+import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
   name: 'Product',
   components: {Categories},
-  props: {
-    items: {
-      type: Array,
-      required: true
-    },
-    favourites: {
-      type: Array,
-      required: false
-    }
-  },
-  /*
   data() {
     return {
-      items: [],
-      selectedCategory: null,
       cooldown: false,
-      favourites: [],
     };
   },
-  mounted() {
-    this.fetchFavourites();
-    this.fetchItems();
-  },*/
-  methods: {
-
-    startButtonCooldown() {
-      this.cooldown = true;
-      setTimeout(() => {
-        this.cooldown = false;
-      }, 500);
-    },
-    handleCategorySelected(category) {
-      this.selectedCategory = category;
-    },
-    isFavourite(itemId) {
-      const result = this.favourites.some((favourite) => favourite.item_id === itemId)
-      console.log("tested:", itemId,result)
-      return result;
-    },
-    toggleFavourite(itemId) {
-      const userId = getAuth().currentUser.uid; // Replace with the actual user ID
-      const isItemFavourite = this.isFavourite(itemId);
-      const apiUrl = isItemFavourite
-        ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
-        : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
-
-      axios({
-        method: isItemFavourite ? 'DELETE' : 'POST',
-        url: apiUrl,
-      })
-        .then((response) => {
-          // Handle success
-          console.log('Favourite action performed successfully');
-          this.$emit('favorite-updated');
-          this.startButtonCooldown();
-        })
-        .catch((error) => {
-          // Handle error
-          console.error(error);
-        });
-    },
-  },
   computed: {
+    ...mapState(['items', 'favourites']),
     filteredItems() {
       if (this.selectedCategory) {
         return this.items.filter((item) => item.item_category === this.selectedCategory);
@@ -116,7 +48,51 @@ export default {
       }
     },
   },
-};
+    methods: {
+      ...mapActions(['fetchItems','fetchFavourites']),
+      startButtonCooldown() {
+        this.cooldown = true;
+        setTimeout(() => {
+          this.cooldown = false;
+        }, 500);
+      },
+      handleCategorySelected(category) {
+        this.selectedCategory = category;
+      },
+      isFavourite(itemId) {
+        const result = this.favourites.some((favourite) => favourite.item_id === itemId);
+        console.log('tested:', itemId, result);
+        return result;
+      },
+      toggleFavourite(itemId) {
+        const userId = this.$store.getters.userId;
+        const isItemFavourite = this.isFavourite(itemId);
+        const apiUrl = isItemFavourite
+          ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
+          : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
+
+        axios({
+          method: isItemFavourite ? 'DELETE' : 'POST',
+          url: apiUrl,
+        })
+          .then((response) => {
+            // Handle success
+            console.log('Favourite action performed successfully');
+            console.log(isItemFavourite)
+            this.$emit('favourite-updated');
+            this.startButtonCooldown();
+            this.$store.dispatch('fetchFavourites', userId);
+          })
+          .catch((error) => {
+            // Handle error
+            console.error(error);
+          });
+      },
+    },
+    created() {
+      this.fetchItems();
+  },
+  };
 </script>
 
 <style scoped>
