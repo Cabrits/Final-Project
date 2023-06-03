@@ -22,9 +22,10 @@
     
     <div v-if="showPopup" class="popupContainer">
       <div class="popup">
+        <div class="closePopup" @click="closePopup()">&times;</div>
         <h3>All Favorite Items</h3>
         <div class="popupItems">
-          <div v-for="(item, index) in favoriteItems" :key="item.id" class="popupItem">
+          <div class="popupItemCard" v-for="(item, index) in favoriteItems" :key="item.id">
             <div class="itemRow">
               <img :src="item.image" :alt="item.name" class="itemImage" />
               <div class="itemInfo">
@@ -33,9 +34,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="closeButton">
-          <button @click="closePopup">Close</button>
         </div>
       </div>
     </div>
@@ -50,7 +48,7 @@ export default {
   data() {
     return {
       favoriteItems: [
-        { id: 1, name: 'Item 1', description: 'Description 1', image: '/images/product1.jpg' },
+        { id: 1, name: 'Adventure Note', description: 'df', image: '/images/adventurenote.png' },
         { id: 2, name: 'Item 2', description: 'Description 2', image: '/images/product2.jpg' },
         { id: 3, name: 'Item 1', description: 'Description 1', image: '/images/product3.jpg' },
         { id: 4, name: 'Item 2', description: 'Description 2', image: '/images/product3.jpg' },
@@ -76,7 +74,7 @@ export default {
       this.showPopup = true;
       this.visibleItems = this.favoriteItems.slice(0, 2);
     },
-    closePopup() {
+    closePopup(){
       this.visibleItems = this.favoriteItems.slice(0, 2);
       this.showPopup = false;
     }
@@ -85,19 +83,19 @@ export default {
 </script>
 
 <style scoped>
-.favoritesContainer {
+.favoritesContainer{
   background-color: rgb(185, 188, 159);
   border-radius: 10px;
   border: 2px solid white;
-  padding: 10px 50px;
+  padding: 24px 20px;
   box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
 }
 
-.favoritesContainer h3 {
+.favoritesContainer h3{
   text-align: center;
 }
 
-.favoritesContainer button {
+.favoritesContainer button{
   width: 70%;
   height: 40px;
   border: none;
@@ -112,26 +110,27 @@ export default {
   box-shadow: 7px 7px rgba(50, 50, 50, 0.2);
 }
 
-.favoriteItems {
+.favoriteItems{
+  padding-top: 20px;
   display: flex;
   flex-direction: row;
+  gap: 20px;
 }
 
-.itemCard {
+.itemCard{
   flex-basis: 300px;
-  margin: 10px;
   padding: 10px;
   border: 2px solid #918f8f;
   border-radius: 10px;
   background-color: white;
 }
 
-.itemRow {
+.itemRow{
   display: flex;
   align-items: center;
 }
 
-.itemImage {
+.itemImage{
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -139,51 +138,78 @@ export default {
   margin-right: 10px;
 }
 
-.itemInfo {
+.itemInfo{
   flex-grow: 1;
 }
 
-.showMoreButton {
-  margin-top: 10px;
+.itemInfo p{
+  line-height: 10px;
+}
+
+.showMoreButton{
+  margin-top: 25px;
   cursor: pointer;
+
 }
 
-.popupContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.popupContainer{
+  position: absolute;
+  width: 38%;
   z-index: 999;
+  padding-top: 200px;
+  padding-left: 280px;
+  top: 1px;
 }
 
-.popup {
+.popup{
   background: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: block;
   position: relative;
+  padding-left: 15px;
+  width: 700px;
+  border-radius: 10px;
+  background-color: rgb(185, 188, 159);
+  border: 2px solid white;
+  padding-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.popupItems {
+.popup h3{
+  text-align: center;
+  font-weight: 600;
+}
+
+.closePopup{
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 23px;
+    height: 23px;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    line-height: 23px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.popupItems{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
-.popupItem {
+.popupItemCard{
   flex-basis: 300px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
+  background-color: white;
 }
 
-.closeButton button {
-  float: right;
-}
+
 
 .blur {
   position: fixed;
@@ -203,6 +229,8 @@ export default {
   .itemCard {
     flex-basis: 100px;
   }
+
+
 }
 
 @media screen and (max-width: 800px) {
@@ -214,6 +242,18 @@ export default {
     width: 100%;
     margin-left: 0;
   }
+}
+
+@media screen and (max-width: 1320px) {
+    .popup{
+      max-width: 500px;
+    }
+
+    .popupItemCard{
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0;
+    }
 }
 
 </style>

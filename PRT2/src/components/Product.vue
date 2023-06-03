@@ -125,7 +125,7 @@ export default {
     margin-left: 50px;
     margin-top: 40px;
     border: 1px solid rgba(83, 82, 82, 0.3);
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
     -moz-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
     -webkit-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);

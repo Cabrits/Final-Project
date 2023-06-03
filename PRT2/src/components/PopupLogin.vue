@@ -27,8 +27,9 @@
                 </div>
             </div>
         </div>
+        
     </div>
-
+    <div v-if="showPopup" class="blur"></div>
 </template>
 
 <script>
@@ -42,7 +43,8 @@ export default {
       return {
         email: '',
         password: '',
-        errMsg: ''
+        errMsg: '',
+        showPopup: true
       };
     },
     computed: {
@@ -130,7 +132,7 @@ export default {
 }
 
 .loginPopup{
-  z-index: 4;
+  z-index: 5;
   display: block;
   position: relative;
   width: 350px;
@@ -140,7 +142,7 @@ export default {
   padding: 20px 30px;
   background-color: rgb(186, 200, 165);
   border-radius: 10px;
-  border: 1px solid rgb(255, 255, 255);
+  border: 2px solid rgb(255, 255, 255);
   transition: top 0ms ease-in-out 200ms, 
               opacity 100ms ease-in-out 200ms, 
               transform 20ms ease-in-out 0ms;
@@ -264,6 +266,16 @@ export default {
 
 .fa-github::before{
   font-size: 25px;
+}
+
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 4;
 }
 
 

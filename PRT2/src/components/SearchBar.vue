@@ -7,7 +7,7 @@
             <div class="searchResultsWrapper">
                 <ul class="searchResults" v-if="showAutocomplete">
                     <li v-for="(result, index) in getLimitedResults" :key="result.item_name" >
-                      <router-link :to="'/item/' + result.item_id">
+                      <router-link class="decoration" :to="'/item/' + result.item_id">
                         <img :src="result.item_image" :alt="result.item_name" />
                         <span>{{ result.item_name }}</span>
                       </router-link>
@@ -111,6 +111,12 @@ export default{
 
 
 <style scoped>
+
+.decoration{
+  text-decoration: none;
+}
+
+
 
 input:focus{
     outline: none;
@@ -241,6 +247,7 @@ input:focus{
     margin-right: 10px;
 }
 
+
 @media screen and (max-width: 800px){   
 
 .searchBar{
@@ -249,9 +256,5 @@ input:focus{
     width: 80%;
 }
 }
-
-
-
-
 
 </style>

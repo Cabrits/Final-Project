@@ -3,10 +3,10 @@
 
   <div class="userAccount">
     <div class="main-content">
-      <UserInformation :user="user" />
+      <UserInformation :user="user"/>
+      <FavoriteItems :favorites="favorites"/>
       <OrderHistory :orders="orders" />
-      <FavoriteItems :favorites="favorites" />
-      <PaymentMethods :paymentMethods="paymentMethods" />
+      <PaymentMethods :paymentMethods="paymentMethods"/>
     </div>
   </div>
 
