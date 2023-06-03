@@ -33,7 +33,7 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-
+import axios from 'axios';
 import { mapState } from 'vuex';
 
 export default {
@@ -78,20 +78,43 @@ export default {
 
     signInWithGoogle() {
       const provider = new GoogleAuthProvider();
-      signInWithPopup(getAuth(), provider)
-          .then((data)=> {
-            const userId = data.user.uid;
-            console.log(userId , data)
-            this.$store.dispatch('setUser', data);
-            this.$store.dispatch('fetchFavourites', userId)
-            console.log('Successfully LoggedIn!');
-              
-          })
-          .catch((error)=>{
-            console.log(error.code)
-      })
+      const auth = getAuth();
+
+      signInWithPopup(auth, provider)
+        .then(async (data) => {
+          const userId = data.user.uid;
+          console.log(userId, data);
+
+          try {
+            // Check if the user exists in your database
+            await axios.get(`http://localhost:7777/api/user/${userId}`);
+
+            console.log('User already exists!');
+          } catch (error) {
+            if (error.response && error.response.status === 404) {
+              // User does not exist, create a new one
+              const userData = {
+                user_id: userId,
+                user_name: data.user.displayName,
+                user_email: data.user.email,
+              };
+
+              await axios.post('http://localhost:7777/api/user/create', userData);
+              console.log('New user created!');
+            } else {
+              console.error(error);
+            }
+          }
+          this.$store.dispatch('setUser', data.user);
+          this.$store.dispatch('fetchFavourites', userId);
+          this.closeL()
+          console.log('Successfully LoggedIn!');
+        })
+        .catch((error) => {
+          console.log(error.code);
+        });
+      }
     }
-  }
 };
 </script>
 

@@ -25,17 +25,19 @@
 
 
 <script>
-
 export default{
     name:'SearchBar',
 
     data() {
-    return {
-        showAutocomplete: false,
-        searchResults: [], 
-        maxResults: 4,
-        searchInput: "",
-    };
+      return {
+          showAutocomplete: false,
+          searchResults: [], 
+          maxResults: 4,
+          searchInput: "",
+      };
+    },
+    computed: {
+      ...mapState(['items', 'user'])
     },
     methods: {
 

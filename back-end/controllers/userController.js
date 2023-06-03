@@ -43,8 +43,8 @@ exports.updateUser = async (req, res) => {
     }
   };
   
-  // Add favorite item to user
-  exports.addFavoriteItem = async (req, res) => {
+  // Add favourite item to user
+  exports.addFavouriteItem = async (req, res) => {
     const userId = req.params.userId;
     const itemId = req.params.itemId;
 
@@ -68,7 +68,7 @@ exports.updateUser = async (req, res) => {
         return res.status(404).json({ error: 'Item not found' });
       }
   
-      // Add the favorite item to the user
+      // Add the favourite item to the user
       const addFavouriteQuery = 'INSERT INTO userFavouriteItems (user_id, item_id) VALUES (?, ?)';
       await executeQuery(addFavouriteQuery, [userId, itemId]);
   
@@ -80,15 +80,15 @@ exports.updateUser = async (req, res) => {
     }
   };
   
-  // Remove favorite item from user
-  exports.removeFavoriteItem = async (req, res) => {
+  // Remove favourite item from user
+  exports.removeFavouriteItem = async (req, res) => {
     const userId = req.params.userId;
     const itemId = req.params.itemId;
     try {
       // Check if the user exists
       const checkUserQuery = 'SELECT * FROM users WHERE user_id = ?';
       const existingUser = await executeQuery(checkUserQuery, [userId]);
-  
+      console.log("frubiafafiafiiafpo")
       if (existingUser.length === 0) {
         return res.status(404).json({ error: 'User not found' });
       }
@@ -102,7 +102,7 @@ exports.updateUser = async (req, res) => {
       }
   
       // Remove the favourite item from the user
-      const removeFavoriteQuery = 'DELETE FROM userFavouriteItems WHERE user_id = ? AND item_id = ?';
+      const removeFavouriteQuery = 'DELETE FROM userFavouriteItems WHERE user_id = ? AND item_id = ?';
       await executeQuery(removeFavouriteQuery, [userId, itemId]);
   
       // Send a success response indicating that the item was removed from favourites
@@ -139,10 +139,12 @@ exports.updateUser = async (req, res) => {
       const user = await executeQuery(query, [userId]);
   
       if (user.length === 0) {
+        console.log("user not found:")
         return res.status(404).json({ error: 'User not found' });
       }
   
       // Send the user data as a response
+      console.log("user found:" + user[0])
       res.json(user[0]);
     } catch (err) {
       console.error(err);
