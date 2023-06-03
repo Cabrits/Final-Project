@@ -6,9 +6,11 @@
             <input ref="searchInput" type="text" placeholder="Search Product..." name="search" v-model="searchInput" @input="handleInput"/>
             <div class="searchResultsWrapper">
                 <ul class="searchResults" v-if="showAutocomplete">
-                    <li v-for="(result, index) in getLimitedResults" :key="result.name" >
-                        <img :src="result.image" :alt="result.name" />
-                        <span>{{ result.name }}</span>
+                    <li v-for="(result, index) in getLimitedResults" :key="result.item_name" >
+                      <router-link :to="'/item/' + result.item_id">
+                        <img :src="result.item_image" :alt="result.item_name" />
+                        <span>{{ result.item_name }}</span>
+                      </router-link>
                     </li>
                     <li v-if="searchResults.length > maxResults">
                         <button @click="showMoreResults">Show More</button>
@@ -25,6 +27,7 @@
 
 
 <script>
+import { mapState} from 'vuex';
 export default{
     name:'SearchBar',
 
@@ -37,20 +40,19 @@ export default{
       };
     },
     computed: {
-      ...mapState(['items', 'user'])
+      ...mapState(['items']),
     },
     methods: {
-
-    handleInput() {
+      handleInput() {
+      console.log(this.$store.state.items)
       if (this.searchInput.length > 0) {
         const products = [
           { name: "Sony Camera", image: "/images/product1.jpg"},
           { name: "Bose Headphones", image: "/images/product2.jpg"},
           { name: "Video Kit", image: "/images/product3.jpg"},
         ]; 
-
-        const matchingProducts = products.filter((product) =>
-          product.name.toLowerCase().includes(this.searchInput.toLowerCase())
+        const matchingProducts = this.$store.state.items.filter((item) =>
+          item.item_name.toLowerCase().includes(this.searchInput.toLowerCase())
         );
 
         if (matchingProducts.length > 0) {
@@ -69,25 +71,24 @@ export default{
         this.searchResults = [];
       }
     },
+    
 
     showMoreResults() {
 
     },
     handleSearch() {
       const searchTerm = this.searchInput.trim();
+      console.log(this.getItems)
       if (searchTerm) {
-        const matchingProducts = [
-          { name: "Product 1", image: "/images/product1.jpg" },
-        ].filter((product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        const matchingProducts = this.getItems.filter((item) =>
+          item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
-
         if (matchingProducts.length > 0) {
           this.searchResults = matchingProducts;
 
         } else {
           this.searchResults = [
-            { name: "Product not found", image: "path/to/notfound.jpg" },
+            { item_name: "Product not found", item_image: "path/to/notfound.jpg" },
           ];
         }
         this.showAutocomplete = true;
