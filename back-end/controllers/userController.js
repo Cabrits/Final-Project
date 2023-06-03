@@ -11,7 +11,6 @@ exports.createUser = async (req, res) => {
       // Send a success response indicating that the user was created
       res.json({ message: 'User created successfully' });
     } catch (err) {
-      console.error(err);
       res.status(500).json({ error: 'An error occurred' });
     }
   };
@@ -88,7 +87,6 @@ exports.updateUser = async (req, res) => {
       // Check if the user exists
       const checkUserQuery = 'SELECT * FROM users WHERE user_id = ?';
       const existingUser = await executeQuery(checkUserQuery, [userId]);
-      console.log("frubiafafiafiiafpo")
       if (existingUser.length === 0) {
         return res.status(404).json({ error: 'User not found' });
       }
@@ -139,7 +137,6 @@ exports.updateUser = async (req, res) => {
       const user = await executeQuery(query, [userId]);
   
       if (user.length === 0) {
-        console.log("user not found:")
         return res.status(404).json({ error: 'User not found' });
       }
   

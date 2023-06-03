@@ -20,6 +20,7 @@ import UserInformation from '../components/UserInformation.vue';
 import OrderHistory from '../components/OrderHistory.vue';
 import FavoriteItems from '../components/FavoriteItems.vue';
 import PaymentMethods from '../components/PaymentMethods.vue';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default {
   name: 'Shopping',
@@ -40,6 +41,23 @@ export default {
       favorites: ['Item 1', 'Item 2', 'Item 3'],
       paymentMethods: ['Credit Card', 'PayPal', 'Apple Pay'],
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (!user) {
+      next('/');
+    } else {
+      next();
+    }
+  },
+  created() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        this.$router.push('/');
+      }
+    });
   },
 };
 </script>

@@ -28,7 +28,6 @@
 <script>
 import axios from 'axios';
 import Categories from './Categories.vue'
-import { getAuth } from '@firebase/auth';
 import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
   name: 'Product',
@@ -36,15 +35,16 @@ export default {
   data() {
     return {
       cooldown: false,
+      selectedCategory:null,
     };
   },
   computed: {
     ...mapState(['items', 'favourites']),
     filteredItems() {
       if (this.selectedCategory) {
-        return this.items.filter((item) => item.item_category === this.selectedCategory);
+        return this.$store.state.items.filter((item) => item.item_category === this.selectedCategory);
       } else {
-        return this.items;
+        return this.$store.state.items;
       }
     },
   },
@@ -61,7 +61,6 @@ export default {
       },
       isFavourite(itemId) {
         const result = this.favourites.some((favourite) => favourite.item_id === itemId);
-        console.log('tested:', itemId, result);
         return result;
       },
       toggleFavourite(itemId) {
