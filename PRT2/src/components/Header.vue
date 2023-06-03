@@ -8,7 +8,7 @@
         </div>
         <div class="logo">
             <router-link :to="'/'">
-                <img src="images/logo3.png">
+                <img src="../assets/logo3.png">
              </router-link>
         </div>
         <div class="menuWrapper">
@@ -17,7 +17,7 @@
                 <div class="menuActions">
                     <button class="actions" v-if="user" @click = "loadFavorites(); closeCart();"><i class="fa fa-heart" aria-hidden="true"></i></button>
                     <button class="actions" v-if="user" @click = "loadCart(); closeFavorites();" id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-                    <router-link :to="'/user/'">
+                    <router-link :to="'/user'">
                         <button class="actions" v-if="user"><i class="fa fa-user" aria-hidden="true"></i></button>
                     </router-link>
                     <button class="actions2" v-if="user" @click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
@@ -67,6 +67,7 @@ export default{
 
     setup(){ 
 
+    const playedload = ref(false)
     const favorites = ref(false)
     const cart = ref(false)
     const login = ref(false)

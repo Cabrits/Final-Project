@@ -8,7 +8,7 @@
     <div v-else>
       <div class="overall">
         <Header />
-        <Content />
+        <Content :items="items" :favourites="favourites"/>
         <Footer />
       </div>
     </div>
@@ -23,6 +23,8 @@
 import Header from '../components/Header.vue'
 import Content from '../components/Content.vue'
 import Footer from '../components/Footer.vue'
+import { getAuth } from '@firebase/auth';
+import axios from 'axios';
 
 export default {
   name: 'HomePage',
@@ -31,20 +33,131 @@ export default {
   data() {
     return {
       isLoading: true,
-      loadingComplete: false
+      loadingComplete: false,
+      items: [],
+      favourites: [],
     };
   },
 
   mounted() {
+    this.fetchItems();
     setTimeout(() => {
       this.isLoading = false;
       setTimeout(() => {
         this.loadingComplete = true;
       }, 500);
     }, 1000); /*3000 base */
+  },
+  methods: {
+
+    startButtonCooldown() {
+      this.cooldown = true;
+      setTimeout(() => {
+        this.cooldown = false;
+      }, 500);
+    },
+    handleCategorySelected(category) {
+      this.selectedCategory = category;
+    },
+    async fetchItems() {
+      axios
+        .get('http://localhost:7777/api/items')
+        .then((response) => {
+          this.items = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    async fetchFavourites(userId) {
+      try {
+        const response = await axios.get(`http://localhost:7777/api/user/${userId}/favourites`);
+        this.favourites = response.data;
+        console.log('Fetched favourites:', this.favourites);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  },
+  created() {
+    const auth = getAuth();
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userId = user.uid;
+        this.fetchFavourites(userId);
+      } else {
+        console.log('User not logged in');
+      }
+    });
   }
 }
 </script>
+<!--
+
+
+
+export default {
+  name: 'Product',
+  components: {Categories},
+  data() {
+    return {
+      items: [],
+      selectedCategory: null,
+      cooldown: false,
+      favourites: [],
+    };
+  },
+  mounted() {
+    this.fetchFavourites();
+    this.fetchItems();
+  },
+  
+
+      
+    },
+    isFavourite(itemId) {
+      const result = this.favourites.some((favourite) => favourite.item_id === itemId)
+      console.log("tested:", itemId,result)
+      return result;
+    },
+    toggleFavourite(itemId) {
+      const userId = getAuth().currentUser.uid; // Replace with the actual user ID
+      const isItemFavourite = this.isFavourite(itemId);
+      const apiUrl = isItemFavourite
+        ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
+        : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
+
+      axios({
+        method: isItemFavourite ? 'DELETE' : 'POST',
+        url: apiUrl,
+      })
+        .then((response) => {
+          // Handle success
+          console.log('Favourite action performed successfully');
+          this.fetchFavourites();
+          this.startButtonCooldown();
+        })
+        .catch((error) => {
+          // Handle error
+          console.error(error);
+        });
+    },
+  },
+  computed: {
+    filteredItems() {
+      if (this.selectedCategory) {
+        return this.items.filter((item) => item.item_category === this.selectedCategory);
+      } else {
+        return this.items;
+      }
+    },
+  },
+};
+
+
+
+-->
+
 
 <style scoped>
 .blink {

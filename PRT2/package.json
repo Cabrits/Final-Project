@@ -16,7 +16,8 @@
     "axios": "^1.4.0",
     "firebase": "^9.22.1",
     "vue": "^3.3.2",
-    "vue-router": "^4.2.1"
+    "vue-router": "^4.2.1",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

@@ -4,13 +4,15 @@
     </div>
   <div class="productsDisplay">
     <div v-for="item in filteredItems" :key="item.id" class="product">
-      <img :src="item.item_image">
       <router-link :to="'/item/' + item.item_id">
+      <img :src="item.item_image">
+      
         <h2>{{ item.item_name }}</h2>
-      </router-link>
+      
       <div class="prodInfo">
         <span>{{ item.item_description }}</span>
       </div>
+    </router-link>
       <div class="prodButtons">
         <div class="prodPrice">{{ item.item_price }}€</div>
         <button class="cart btn"><i class="fa fa-shopping-cart"></i></button>
@@ -47,6 +49,17 @@ import { ref } from 'vue';
 export default {
   name: 'Product',
   components: {Categories},
+  props: {
+    items: {
+      type: Array,
+      required: true
+    },
+    favourites: {
+      type: Array,
+      required: false
+    }
+  },
+  /*
   data() {
     return {
       items: [],
@@ -58,7 +71,7 @@ export default {
   mounted() {
     this.fetchFavourites();
     this.fetchItems();
-  },
+  },*/
   methods: {
 
     startButtonCooldown() {
@@ -69,42 +82,6 @@ export default {
     },
     handleCategorySelected(category) {
       this.selectedCategory = category;
-    },
-    async fetchItems() {
-      axios
-        .get('http://localhost:7777/api/items')
-        .then((response) => {
-          this.items = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-        this.fetchFavourites();
-    },
-    async fetchFavourites() {
-      
-      console.log("i am here")
-      var userId = getAuth().currentUser;
-      console.log(userId)
-    
-      if(userId!=null){
-        userId = userId.uid;
-        axios
-          .get(`http://localhost:7777/api/user/${userId}/favourites`)
-          .then((response) => {
-            this.favourites = response.data;
-            console.log("fetched Favourites")
-            console.log(this.favourites)
-            
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }else{
-        console.log("user not logged in")
-      }
-
-      
     },
     isFavourite(itemId) {
       const result = this.favourites.some((favourite) => favourite.item_id === itemId)
@@ -125,7 +102,7 @@ export default {
         .then((response) => {
           // Handle success
           console.log('Favourite action performed successfully');
-          this.fetchFavourites();
+          this.$emit('favorite-updated');
           this.startButtonCooldown();
         })
         .catch((error) => {
