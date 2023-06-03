@@ -23,7 +23,7 @@
                 </div>
                 <div class="alternative">
                     <button class="altButton" @click="signInWithGoogle();"><i class="fa fa-google" aria-hidden="true"></i></button>
-                    <button class="altButton" @click="signInWithGoogle();"><i class="fa fa fa-github" aria-hidden="true"></i></button>
+                    <button class="altButton" @click="signInWithGitHub();"><i class="fa fa fa-github" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,GithubAuthProvider } from 'firebase/auth';
 import axios from 'axios';
 import { mapState } from 'vuex';
 
@@ -77,7 +77,45 @@ export default {
           }
         });
     },
+    signInWithGitHub() {
+      const provider = new GithubAuthProvider();
+      const auth = getAuth();
 
+      signInWithPopup(auth, provider)
+        .then(async (data) => {
+          const userId = data.user.uid;
+          console.log(userId, data);
+
+          try {
+            // Check if the user exists in your database
+            await axios.get(`http://localhost:7777/api/user/${userId}`);
+
+            console.log('User already exists!');
+          } catch (error) {
+            if (error.response && error.response.status === 404) {
+              // User does not exist, create a new one
+              const userData = {
+                user_id: userId,
+                user_name: "placholder! please change",
+                user_email: data.user.email,
+              };
+
+              await axios.post('http://localhost:7777/api/user/create', userData);
+              console.log('New user created!');
+            } else {
+              console.error(error);
+            }
+          }
+          
+          this.$store.dispatch('setUser', data.user);
+          this.$store.dispatch('fetchFavourites', userId);
+          this.closeL();
+          console.log('Successfully Logged In!');
+        })
+        .catch((error) => {
+          console.log(error.code);
+        });
+    },
     signInWithGoogle() {
       const provider = new GoogleAuthProvider();
       const auth = getAuth();
