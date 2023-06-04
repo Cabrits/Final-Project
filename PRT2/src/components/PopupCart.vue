@@ -15,7 +15,7 @@
                     <div class="cartTotal">
                         <p>Total: <span>{{ cartTotal }}€</span></p>
                     </div>
-                    <button class="checkoutButton btn2" @click="clearcart">Checkout</button>
+                    <button class="checkoutButton btn2" @click="checkout">Checkout</button>
                 </div>
                 <div class="arrow"></div>
             </div>
@@ -33,7 +33,7 @@ export default {
       return this.$store.state.cart;
     },
     cartTotal() {
-        return this.cartItems.reduce((total, item) => total + (item.item_price*(1-item.item_discount)) * item.quantity, 0);
+        return this.cartItems.reduce((total, item) => total + (item.item_price*(1-item.item_discount)).toFixed(2) * item.quantity, 0);
     },
   },
   methods: {
@@ -44,7 +44,8 @@ export default {
       this.$store.dispatch('removeFromCart', item);
     },
     checkout() {
-      //this.$store.dispatch('createOrder');
+      this.$store.dispatch('createOrder',this.cartTotal);
+      this.clearcart
     },
     clearcart(){
         this.$store.dispatch('clearCart');

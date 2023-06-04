@@ -30,7 +30,7 @@ router.delete('/api/item/:itemId/delete', ItemController.deleteItem);
 
 
 router.get('/api/orders/:userId', orderController.getOrders);
-router.get('/api/order/:orderId', orderController.getOrder);
+router.get('/api/order/items/:orderId', orderController.getOrderItems);
 router.post('/api/order/create', orderController.createOrder);
 
 module.exports = router;

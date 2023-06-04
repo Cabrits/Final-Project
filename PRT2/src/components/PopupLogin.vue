@@ -62,6 +62,7 @@ export default {
           console.log(userId , data)
           this.$store.dispatch('setUser', data.user);
           this.$store.dispatch('fetchFavourites', userId)
+          this.$store.dispatch('fetchOrders')
           console.log('Successfully LoggedIn!');
           this.closeL()
         })
@@ -109,6 +110,7 @@ export default {
           
           this.$store.dispatch('setUser', data.user);
           this.$store.dispatch('fetchFavourites', userId);
+          this.$store.dispatch('fetchOrders')
           this.closeL();
           console.log('Successfully Logged In!');
         })
@@ -147,6 +149,7 @@ export default {
           }
           this.$store.dispatch('setUser', data.user);
           this.$store.dispatch('fetchFavourites', userId);
+          this.$store.dispatch('fetchOrders')
           this.closeL()
           console.log('Successfully LoggedIn!');
         })

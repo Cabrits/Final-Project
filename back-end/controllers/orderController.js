@@ -16,14 +16,27 @@ exports.getOrders = async (req, res) => {
   };
 
 // Get a specific order by order ID
-exports.getOrder = async (req, res) => {
+exports.getOrderItems = async (req, res) => {
     const { orderId } = req.params;
+    console.log(orderId)
     try {
       // Fetch the order and its associated items from the database based on order ID
-      const selectQuery = `
-        SELECT orders.order_id, orders.user_id, orders.order_total, orders.order_date, orders.order_user_name
-        FROM orders
-        WHERE orders.order_id = ?
+    const selectQuery = `
+    SELECT
+        orders.order_id,
+        orders.user_id,
+        orders.order_total,
+        orders.order_date,
+        orders.order_user_name,
+        orderItems.item_id,
+        orderItems.item_amount
+    FROM
+        orders
+    JOIN
+        orderItems ON orders.order_id = orderItems.order_id
+    WHERE
+        orders.order_id = ?
+    
       `;
       const order = await executeQuery(selectQuery, [orderId]);
   
@@ -33,6 +46,7 @@ exports.getOrder = async (req, res) => {
       } else {
         res.json(order);
       }
+     
     } catch (err) {
       res.status(500).json({ error: 'An error occurred' });
     }
@@ -42,25 +56,25 @@ exports.getOrder = async (req, res) => {
 // Create a new order
 exports.createOrder = async (req, res) => {
     const { user_id, order_total, order_user_name, items } = req.body;
-    console.log(user_id)
-    
     try {
       // Generate a random order ID
         const orderId = Math.floor(Math.random() * 100000);
-        console.log(user_id)
+
         // Insert the new order into the orders table
         const insertOrderQuery = 'INSERT INTO orders (user_id, order_id, order_total, order_date, order_user_name) VALUES (?, ?, ?, NOW(), ?)';
         await executeQuery(insertOrderQuery, [user_id, orderId, order_total, order_user_name]);
-        console.log(user_id)
+
       // Insert the order items into the orderItems table
-      const insertItemQuery = 'INSERT INTO orderItems (order_id, item_id, item_amount) VALUES (?, ?, ?)';
+      const insertItemQuery = 'INSERT INTO orderItems (order_id, item_id, item_amount ,item_price_at_time) VALUES (?, ?, ?,?)';
       for (const item of items) {
-        await executeQuery(insertItemQuery, [orderId, item.item_id, item.quantity]);
+        await executeQuery(insertItemQuery, [orderId, item.item_id, item.quantity, item.item_price_at_time]);
       }
-      console.log(user_id)
+
       
       // Send a success response indicating that the order was created
       res.json({ message: 'Order created successfully', order_id: orderId });
+      
+    
     } catch (err) {
       res.status(500).json({ error: 'An error occurred' });
     }
@@ -74,6 +88,7 @@ exports.createOrder = async (req, res) => {
         if (error) {
           reject(error);
         } else {
+            console.log(result)
           resolve(result);
         }
       });
