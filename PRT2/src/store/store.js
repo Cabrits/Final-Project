@@ -65,6 +65,7 @@ const store = createStore({
   },
   actions: {
     fetchOrders({ state, commit }) {
+      commit('setOrders', []);
       const userId = state.user.uid;
 
   axios
@@ -74,7 +75,7 @@ const store = createStore({
       const orderIds = response.data; // Assuming the response contains an array of order IDs
       const orders = await Promise.all(
         orderIds.map(async (orderId) => {
-          try {
+          
             const orderResponse = await axios.get(`http://localhost:7777/api/order/items/${orderId.order_id}`);
             const orderData = orderResponse.data;
             const formattedItems = orderData.map((item) => ({
@@ -91,6 +92,7 @@ const store = createStore({
               items: formattedItems
             };
             commit('addOrder', order);
+            try {
           } catch (error) {
             console.error(`Failed to fetch order with ID ${orderId.order_id}:`, error);
             return null;
@@ -98,10 +100,6 @@ const store = createStore({
         })
       );
     })
-    .catch((error) => {
-      // Handle error
-      console.error(error);
-    });
     },
     fetchItems({ commit }) {
         axios
@@ -138,7 +136,7 @@ const store = createStore({
     clearCart({ commit }) {
       commit('clearCart');
     },
-    createOrder({ commit, state }) {
+    createOrder({ dispatch, commit, state }) {
       const userId = state.user.uid;
       const orderTotal = state.cart.reduce((total, item) => total + (item.item_price * (1-item.item_discount)).toFixed(2) * item.quantity, 0);
       const orderUserName = "notimplemented";
@@ -163,6 +161,7 @@ const store = createStore({
         orderData.orderId=response.data
         commit('addOrder', orderData);
         commit('clearCart');
+        dispatch('fetchOrders')
       })
       .catch((error) => {
         // Handle error
