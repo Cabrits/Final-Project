@@ -72,13 +72,11 @@ const store = createStore({
     .then(async (response) => {
       // Handle success
       const orderIds = response.data; // Assuming the response contains an array of order IDs
-      console.log(orderIds)
       const orders = await Promise.all(
         orderIds.map(async (orderId) => {
           try {
             const orderResponse = await axios.get(`http://localhost:7777/api/order/items/${orderId.order_id}`);
             const orderData = orderResponse.data;
-            console.log(orderData)
             const formattedItems = orderData.map((item) => ({
               item_id: item.item_id,
               quantity: item.item_amount,
@@ -99,7 +97,6 @@ const store = createStore({
           }
         })
       );
-      console.log(state.orders)
     })
     .catch((error) => {
       // Handle error
@@ -159,12 +156,10 @@ const store = createStore({
         items,
       };
 
-      console.log(orderData)
       axios
       .post('http://localhost:7777/api/order/create', orderData)
       .then((response) => {
         // Handle success
-        console.log("ihfiuafohi+afij+afjipafaf",response)
         orderData.orderId=response.data
         commit('addOrder', orderData);
         commit('clearCart');

@@ -18,7 +18,6 @@ exports.getOrders = async (req, res) => {
 // Get a specific order by order ID
 exports.getOrderItems = async (req, res) => {
     const { orderId } = req.params;
-    console.log(orderId)
     try {
       // Fetch the order and its associated items from the database based on order ID
     const selectQuery = `
@@ -88,7 +87,6 @@ exports.createOrder = async (req, res) => {
         if (error) {
           reject(error);
         } else {
-            console.log(result)
           resolve(result);
         }
       });
