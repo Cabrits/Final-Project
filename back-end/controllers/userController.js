@@ -116,7 +116,7 @@ exports.updateUser = async (req, res) => {
   
     try {
       // Get the user's favourite items from the table
-      const query = 'SELECT item_id FROM userFavouriteItems WHERE user_id = ?';
+      const query = 'SELECT * FROM userFavouriteItems JOIN items ON userFavouriteItems.item_id = items.item_id WHERE userFavouriteItems.user_id = ?';
       const userFavourites = await executeQuery(query, [userId]);
   
       // Send the user's favourite items as a response
@@ -141,7 +141,6 @@ exports.updateUser = async (req, res) => {
       }
   
       // Send the user data as a response
-      console.log("user found:" + user[0])
       res.json(user[0]);
     } catch (err) {
       console.error(err);

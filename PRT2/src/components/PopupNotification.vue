@@ -7,11 +7,14 @@
                 <div class="closeNotification" @click="closeN">&times;</div>
                 <h2>Notifications</h2>
                 <ul class="notificationItems">
-                <li>
-                    <span class="notificationQuantity">1x</span> Sony Camera
-                    <div class="notificationPrice">400€</div>
-                    <a href="#" class="notificationRemove"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                </li>
+                    <li v-for="favourite in filteredFavourites" :key="favourite.item_id">
+                        <router-link :to="'/item/' + favourite.item_id">
+                            {{ favourite.item_name }}
+                        </router-link>
+                        <span class="notificationQuantity"> is on discount!</span>
+                        <div class="notificationOldPrice">{{ favourite.item_price }}€ </div>
+                        <div class="notificationPrice">{{ (favourite.item_price * (1-favourite.item_discount)).toFixed(2)}}€ {{ (favourite.item_discount*100).toFixed(2) }}% off</div> 
+                    </li>
                 </ul>
             </div>
             <div class="arrow"></div>
@@ -23,8 +26,16 @@
   </template>
   
 <script>
+import { mapState } from 'vuex';
 export default {
     name: 'PopupNotification',
+    computed: {
+    ...mapState(['favourites']),
+    filteredFavourites() {
+        console.log(this.favourites)
+      return this.favourites.filter((favourite) => favourite.item_discount != null);
+    },
+  },
     methods: {
       closeN() {
         this.$emit('closeN');
@@ -120,7 +131,6 @@ export default {
     right: 11px;
     width: 28px;
     height: 28px;
-    background-color: white;
     border-radius: 50%;
     text-align: center;
     line-height: 26px;
@@ -128,9 +138,6 @@ export default {
     font-weight: 100;
 }
 
-.notificationItems a:hover{
-    background-color: rgb(149, 161, 132);
-}
 
 .notificationItems li{
     position: relative;
@@ -158,6 +165,10 @@ export default {
 
 .notificationPrice{
     margin-top: .8rem;
+}
+.notificationOldPrice{
+    margin-top: .8rem;
+    text-decoration:line-through;
 }
 
 .notificationRemove{
