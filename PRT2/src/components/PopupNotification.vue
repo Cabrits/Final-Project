@@ -1,4 +1,5 @@
 <template>
+
     <div class="notificationStyle">
         <div class="px1750Size">
             <div class="notificationWrapper ">
@@ -16,7 +17,9 @@
             <div class="arrow"></div>
             </div>
         </div>
+        <div v-if="showPopup" class="blur"></div>
     </div>
+
   </template>
   
 <script>
@@ -26,15 +29,32 @@ export default {
       closeN() {
         this.$emit('closeN');
       }
-    }
+    },
+
+    data() {
+      return {
+        showPopup: true
+      };
+    },
 }
 </script>
   
 <style scoped>
 
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 4;
+  display: none;
+}
+
 .notificationStyle{
     position: absolute;
-    width: 100%;
+    width: 99%;
 }
 
 .px1750Size{
@@ -62,7 +82,7 @@ export default {
     border-radius: 10px;
     color: black;
     box-shadow: 35px 45px 25px rgba(50, 50, 50, 0.5);
-    left: 77.6%;
+    float: right;
 }
 
 .notificationPopup h2{
@@ -156,14 +176,29 @@ export default {
 }
 
 
-@media screen and (max-width: 767px) {
-  .notificationPopup {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    left: 0;
-    right: 0;
-  }
+@media (max-width: 1800px) {
+  .px1750Size {
+    max-width: 97%;
+    padding-right: 100px;
+}
+}
+
+
+@media (max-width: 800px) {
+    .arrow{
+        display: none;
+    }
+    .notificationPopup {
+        width: 480px;
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .blur{
+        display: block;
+        
+    }
 }
 
 </style>

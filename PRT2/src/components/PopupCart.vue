@@ -20,6 +20,7 @@
                 <div class="arrow"></div>
             </div>
         </div>
+        <div v-if="showPopup" class="blur"></div>
     </div>
 
 </template>
@@ -34,7 +35,12 @@ export default{
     closeC() {
       this.$emit('closeC');
     }
-  }
+  },
+  data() {
+      return {
+        showPopup: true
+      };
+    },
 }
 
 </script>
@@ -42,9 +48,20 @@ export default{
 
 <style scoped>
 
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 4;
+  display: none;
+}
+
 .cartStyle{
     position: absolute;
-    width: 100%;
+    width: 99%;
 }
 
 .px1750Size{
@@ -72,7 +89,7 @@ export default{
     border-radius: 10px;
     color: black;
     box-shadow: 35px 45px 25px rgba(50, 50, 50, 0.5);
-    left: 77.6%;
+    float: right;
 }
 
 
@@ -200,10 +217,35 @@ export default{
     z-index: 100;
     position: absolute;
     top: -10px;
-    right: 175px;
+    right: 171px;
     border-bottom: 10px solid rgb(149, 161, 132);
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
+}
+
+@media (max-width: 1800px) {
+  .px1750Size {
+    max-width: 97%;
+    padding-right: 100px;
+}
+}
+
+
+@media (max-width: 800px) {
+    .arrow{
+        display: none;
+    }
+    .cartPopup {
+        width: 480px;
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .blur{
+        display: block;
+        
+    }
 }
 
 
