@@ -28,14 +28,12 @@ export default{
 
 footer{
     font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 20px;
-    margin-top: 50px;
+    padding-top: 60px;
+    
 }
 
 .footer{
     display: flex;
-    height: 50px;
-    width: 80%;
     background-color: rgb(186, 200, 165);
     line-height: 1.5;
     border-radius: 10px;
@@ -91,6 +89,7 @@ footer{
         grid-auto-flow: column; 
     }
 }
+
 
 @media screen and (max-width: 500px){
     .footer{
