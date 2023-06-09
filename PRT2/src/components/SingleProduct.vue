@@ -93,7 +93,7 @@ export default {
 .bookPrice {
     font-size: 32px;
     font-weight: bold;
-    margin-bottom: 40px;
+    padding-top: 40px;
     color: #000000;
 }
 
@@ -110,7 +110,7 @@ export default {
     width: 300px;
     height: 50px;
     box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.5);
-    margin-top: 70px;
+    margin-top: 40px;
 }
 
 .buyButton:hover {

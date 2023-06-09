@@ -9,7 +9,7 @@
                 In a world where samurai wield swords, Ayame stands out as a dango-wielding warrior. When an evil warlord threatens her village, Ayame embarks on a quest to defeat him using the magical dango skewer. 
                 With his loyal mechanised companion Delda by her side, Ayame must unlock
             <span class="readMoreText">
-                the skewer's hidden powers and confront her own demons. Action, comedy, and supernatural elements collide in this tale of a unique samurai's journey to protect her home and loved ones.
+                the skewer's hidden powers and confront her own demons.<br> Action, comedy, and supernatural elements collide in this tale of a unique samurai's journey to protect her home and loved ones.
                 <br>
                 <br>
                 <h4>Author:<span class="authorAndChapterText">{{author}}</span></h4><h4>Current Chapters Out:<span class="authorAndChapterText">{{chapters}}</span></h4>
@@ -65,8 +65,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(224, 228, 193);
-    font-family: 'Arial', sans-serif;
     color: #ffffff;
     margin-top: 50px;
     padding-bottom: 100px;
@@ -95,6 +93,10 @@ export default {
     display: inline;
     margin-left: 30px;
     margin-right: 30px;
+}
+
+.moreInfo p {
+    text-justify: inter-word;
 }
 
 
