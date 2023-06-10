@@ -103,17 +103,42 @@ export default {
     padding: 3rem;
 }
 .product{
-    background-color: rgb(185, 188, 159);
+    background-color: rgb(162, 178, 159);
     border-radius: 20px;
-    border: 3px solid white;
+    border: 3px solid rgb(248, 246, 244);
     width: 350px;
     margin-top: 60px;
-    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
-    -moz-box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
-    -webkit-box-shadow: 25px 25px 15px  rgba(50, 50, 50, 0.5);
-    -o-box-shadow: 25px 25px 15px  rgba(50, 50, 50, 0.5);
     padding: 0;
+    transition: 1.5s;
 }
+
+/*Potencial Idea*/
+
+.product:nth-child(2n+1) {
+  transform: perspective(1200px) rotateY(20deg);
+  box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+}
+
+.product:nth-child(2n) {
+  transform: perspective(1200px) rotateY(-20deg);
+  box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
+}
+
+.product:hover:nth-child(2n){
+  transform: none;
+  transition: 1s;
+  z-index: 1000;
+  box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+}
+
+.product:hover:nth-child(2n+1){
+  transform: none;
+  transition: 1s;
+  z-index: 1000;
+  box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
+}
+
+
 
 .product a{
     text-decoration: none;
@@ -202,12 +227,13 @@ export default {
 .btn::before{
     content: "";
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 49%;
+    left: 49.9%;
     transform: translate(-50%,-50%);
     border: 1px solid rgb(185, 188, 159);
     height: 45px;
     transition: 0.3s;
+    display: none;
 }
 
 .cart::before{
@@ -222,6 +248,7 @@ export default {
 
 .btn:hover::before{
     border-color: white;
+    display: block;
 }
 
 .prodButtons .fa-heart:before{
@@ -233,6 +260,12 @@ export default {
 
 .prodButtons .fa-shopping-cart:before{
     color: rgb(78, 75, 75);
+}
+
+@media screen and (max-width: 800px) {
+    .product{
+      transform: none;
+    }
 }
 
 

@@ -59,10 +59,10 @@ export default {
   data() {
     return {
       showMenu: false,
-      cart:false,
-      login:false,
-      signup:false,
-      notification:false
+      cart: false,
+      login: false,
+      signup: false,
+      notification: false
     };
   },
 
@@ -138,9 +138,9 @@ input:focus, textarea:focus, select:focus{
 /* Menu*/
 
 .headerStyle{
-    background-color: rgb(186, 200, 165);
+    background-color: rgb(162, 178, 159);
     border-radius: 10px;
-    border: 1px solid white;
+    border: 2px solid rgb(224, 224, 224);
     display: flex;
 }
 
@@ -188,7 +188,7 @@ input:focus, textarea:focus, select:focus{
 
 .actions{
     color: rgb(78, 75, 75);
-    background-color: rgb(186, 200, 165);
+    background-color: rgb(162, 178, 159);
     margin: auto;
     padding: 20px 20px;
     border: none;
@@ -205,7 +205,7 @@ input:focus, textarea:focus, select:focus{
 
 .actions2{
     color: rgb(78, 75, 75);
-    background-color: rgb(186, 200, 165);
+    background-color: rgb(162, 178, 159);
     padding: 20px 20px;
     font-size: 1em;
     border: none;
@@ -215,12 +215,12 @@ input:focus, textarea:focus, select:focus{
 }
 
 .actions:hover{
-    background-color: rgb(149, 161, 132);    
+    background-color: rgb(248, 237, 227);    
     border-radius: 10px;
 }
 
 .actions2:hover{
-    background-color: rgb(149, 161, 132); 
+    background-color: rgb(248, 237, 227); 
     padding-left: 20px;   
     border-radius: 10px;
 }
@@ -238,7 +238,7 @@ input:focus, textarea:focus, select:focus{
 .buttonLS {
     position: absolute;
     appearance: none;
-    background-color: #FAFBFC;
+    background-color: rgb(248, 237, 227);
     border: 1px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
@@ -271,7 +271,7 @@ input:focus, textarea:focus, select:focus{
 .buttonLS2 {
     position: relative;
     appearance: none;
-    background-color: #FAFBFC;
+    background-color: rgb(248, 237, 227);
     border: 1px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
@@ -301,13 +301,13 @@ input:focus, textarea:focus, select:focus{
 }
 
 .buttonLS:hover {
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(255, 255, 255);
   text-decoration: none;
   transition-duration: 0.1s;
 }
 
 .buttonLS2:hover {
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(255, 255, 255);
   text-decoration: none;
   transition-duration: 0.1s;
 }

@@ -5,7 +5,7 @@ const router = createRouter({
     routes:[
         { path: "/", component: () => import("../views/HomePage.vue")},
         { path: "/user", component: () => import("../views/UserPage.vue")},
-        { path: /*"/item/:id"*/ "/item", component: () => import("../views/ItemPage.vue")},
+        { path: "/item/:id", component: () => import("../views/ItemPage.vue")},
         { path: "/:pathMatch(.*)*", component: () => import("../views/PageNotFound.vue") },
     ]
 })

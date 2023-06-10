@@ -70,12 +70,12 @@ export default {
 <style scoped>
 
 .paymentContainer{
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(121, 135, 119);
   border-radius: 10px;
   border: 2px solid white;
   padding: 10px 70px;
   box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
-
+  color: white;
 }
 .popupContainer {
   position: fixed;

@@ -81,6 +81,7 @@ export default {
     font-size: 24px;
     color: #000000;
     margin-bottom: 30px;
+    padding-top: 10px;
 }
 
 .bookDescription {
@@ -88,6 +89,7 @@ export default {
     line-height: 1.6;
     margin-bottom: 40px;
     color: #000000;
+    font-weight: 600;
 }
 
 .bookPrice {

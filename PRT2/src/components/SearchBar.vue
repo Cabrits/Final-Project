@@ -159,7 +159,7 @@ input:focus{
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    background-color: rgb(149, 161, 132);
+    background-color: rgb(213, 200, 188);
     border: 1px solid white;
     border-right: none;
 }
@@ -186,7 +186,7 @@ input:focus{
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    background-color: rgb(165, 176, 147); 
+    background-color: rgb(248, 246, 244); 
     color: black;
     border: 1px solid white;
     border-left: none;

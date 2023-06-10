@@ -20,7 +20,7 @@
 
     <!-- Popup -->
     
-    <div v-if="showPopup" class="popupContainer">
+    <div class="popupContainer" v-if="showPopup">
       <div class="popup">
         <div class="closePopup" @click="closePopup()">&times;</div>
         <h3>All Favorite Items</h3>
@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 .favoritesContainer{
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(162, 178, 159);
   border-radius: 10px;
   border: 2px solid white;
   padding: 24px 20px;
@@ -93,6 +93,7 @@ export default {
 
 .favoritesContainer h3{
   text-align: center;
+  color: white;
 }
 
 .favoritesContainer button{
@@ -120,9 +121,8 @@ export default {
 .itemCard{
   flex-basis: 300px;
   padding: 10px;
-  border: 2px solid #918f8f;
   border-radius: 10px;
-  background-color: white;
+  background-color: rgb(248, 246, 244);
 }
 
 .itemRow{
@@ -152,27 +152,22 @@ export default {
 
 }
 
-.popupContainer{
+.popupContainer {
   position: absolute;
-  width: 38%;
   z-index: 999;
-  padding-top: 200px;
-  padding-left: 280px;
-  top: 1px;
+  transform: translate(-55%, -60%);
 }
 
-.popup{
+.popup {
   background: white;
   display: block;
   position: relative;
-  padding-left: 15px;
   width: 700px;
   border-radius: 10px;
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(162, 178, 159);
   border: 2px solid white;
   padding-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .popup h3{
@@ -197,7 +192,7 @@ export default {
 .popupItems{
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .popupItemCard{
@@ -230,10 +225,13 @@ export default {
     flex-basis: 100px;
   }
 
-
+  .popupContainer{
+    top: 60%;
+  }
 }
 
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 1000px) {
   .favoritesContainer {
     padding: 10px 30px;
   }
@@ -242,18 +240,19 @@ export default {
     width: 100%;
     margin-left: 0;
   }
+
+  .popupContainer{
+    top: 80%;
+    left: 55%;
+    width: 80%;
+  }
+
+  .popup{
+      max-width: 90%;
+      padding: 15px;
+  }
 }
 
-@media screen and (max-width: 1320px) {
-    .popup{
-      max-width: 500px;
-    }
 
-    .popupItemCard{
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0;
-    }
-}
 
 </style>

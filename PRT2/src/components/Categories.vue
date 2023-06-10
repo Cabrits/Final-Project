@@ -55,7 +55,7 @@ export default {
   margin-right: auto;
 }
 
-.categories .subCat{
+.subCat{
   display: inline-block;
   font-size: 2em;
   line-height: 80px;
@@ -66,11 +66,8 @@ export default {
   -webkit-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
   -o-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
   border-radius: 50%;
-}
-
-.subCat{
-  background-color: white;
-  color: rgb(78, 75, 75);
+  background-color: rgb(255, 255, 255);
+  color: rgb(76, 75, 75);
   display: block;
   height: 80px;
   position: relative;
@@ -80,8 +77,9 @@ export default {
 }
 
 
+
 .subCat .inner{
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(162, 178, 159);
   display: block;
   height: 0;
   width: 0;
@@ -90,7 +88,7 @@ export default {
   margin: 0;
   position: absolute;
   border-radius: 50%;
-  transition: 0.1s;
+  transition: 0.25s;
 }
 
 .subCat .inner i{

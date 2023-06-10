@@ -20,8 +20,6 @@
           <input id="email" v-model="editedUser.email" type="email" placeholder="Enter your email" />
           <label for="address">Address</label>
           <input id="address" v-model="editedUser.address" type="text" placeholder="Enter your address" />
-          <label for="password">Confirm Password</label>
-          <input id="password" v-model="password" type="password" placeholder="Enter your password" />
         </div>
         <div class="saveButton">
           <button @click="saveUser">Save</button>
@@ -82,7 +80,8 @@
 <style scoped>
 
 .infoContainer {
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(121, 135, 119);
+  color: white;
   border-radius: 10px;
   border: 2px solid white;
   padding: 10px 50px;

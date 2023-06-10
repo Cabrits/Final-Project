@@ -23,6 +23,7 @@
           </div>
         </div>
       </div>
+      <div v-if="showPopup" class="blur"></div>
     </div>
 </template>
   
@@ -36,7 +37,8 @@
         email: '',
         name:'',
         password: '',
-        errMsg: ''
+        errMsg: '',
+        showPopup: true
       };
     },
     methods: {
@@ -96,7 +98,7 @@
 }
 
 .loginPopup{
-  z-index: 4;
+  z-index: 5;
   display: block;
   position: relative;
   width: 350px;
@@ -104,12 +106,13 @@
   margin-left: auto;
   margin-right: auto;
   padding: 20px 30px;
-  background-color: rgb(186, 200, 165);
+  background-color: rgb(162, 178, 159);
   border-radius: 10px;
-  border: 1px solid rgb(255, 255, 255);
+  border: 2px solid rgb(255, 255, 255);
   transition: top 0ms ease-in-out 200ms, 
               opacity 100ms ease-in-out 200ms, 
               transform 20ms ease-in-out 0ms;
+  transform: scale(1.05);
 }
 
 .closeLogin{
@@ -182,5 +185,16 @@
     text-decoration: none;
     font-weight: 600;
 }
+
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 4;
+}
+
 
 </style>

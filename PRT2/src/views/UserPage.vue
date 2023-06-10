@@ -83,7 +83,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .main-content {
     grid-template-columns: 1fr;
     gap: 30px;

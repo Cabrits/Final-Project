@@ -28,17 +28,17 @@ export default{
 
 footer{
     font-family: Arial, Helvetica, sans-serif;
-    padding-top: 60px;
+    padding-top: 95px;
     
 }
 
 .footer{
     display: flex;
-    background-color: rgb(186, 200, 165);
+    background-color: rgb(162, 178, 159);
     line-height: 1.5;
     border-radius: 10px;
     padding: 10px;
-    border: 1px solid white;
+    border: 2px solid white;
 }
 
 .px1750Size{

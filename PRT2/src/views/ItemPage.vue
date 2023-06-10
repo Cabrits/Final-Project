@@ -74,10 +74,11 @@ export default {
     text-align: center;
     width: 900px;
     margin: 0 auto;
+    margin-bottom: -30px;
 }
 
 .moreInfo {
-    background-color: rgb(198, 202, 162);
+    background-color: rgb(162, 178, 159);
     border: 2px solid white;
     padding: 30px;
     border-radius: 10px;
@@ -85,8 +86,8 @@ export default {
     -moz-box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.5);
     -webkit-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.5);
     -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.5);
-    margin-top: -65px;
-    font-weight: 100;
+    margin-top: -70px;
+    font-weight: 600;
 }
 
 .moreInfo h4 {

@@ -94,7 +94,7 @@ export default {
     width: 400px;
     padding-top: 50px;
     overflow-y: auto;
-    background-color: rgb(186, 200, 165);
+    background-color: rgb(162, 178, 159);
     transition: right .3s;
     border: 1px solid white;
     border-radius: 10px;

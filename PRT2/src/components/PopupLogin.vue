@@ -181,12 +181,13 @@ export default {
   margin-left: auto;
   margin-right: auto;
   padding: 20px 30px;
-  background-color: rgb(186, 200, 165);
+  background-color: rgb(162, 178, 159);
   border-radius: 10px;
   border: 2px solid rgb(255, 255, 255);
   transition: top 0ms ease-in-out 200ms, 
               opacity 100ms ease-in-out 200ms, 
               transform 20ms ease-in-out 0ms;
+  transform: scale(1.05);
 }
 
 .closeLogin{
