@@ -64,34 +64,37 @@ export default {
 
 <style scoped>
 .userAccount {
-  max-width: 1300px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-  padding-top: 50px;
-  line-height: 33px;
+    max-width: 1300px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    padding-top: 50px;
+    line-height: 33px;
 }
 
 .main-content {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 60px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+    margin-bottom: -28px;
 }
+
+/*Responsive*/
 
 @media screen and (max-width: 1500px) {
   .main-content {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   }
 }
 
 @media screen and (max-width: 1000px) {
   .main-content {
-    grid-template-columns: 1fr;
-    gap: 30px;
+      grid-template-columns: 1fr;
+      gap: 30px;
   }
   
   .userAccount {
-    padding-top: 30px;
-    line-height: 28px;
+      padding-top: 30px;
+      line-height: 28px;
   }
 }
 

@@ -1,5 +1,9 @@
 <template>
+
   <div>
+
+    <!--Box containing only 2 favorite items-->
+
     <div class="favoritesContainer">
       <h3>Favorite Items</h3>
       <div class="favoriteItems">
@@ -18,7 +22,7 @@
       </div>
     </div>
 
-    <!-- Popup -->
+    <!-- Popup containing the rest of the items if > 2 -->
     
     <div class="popupContainer" v-if="showPopup">
       <div class="popup">
@@ -38,9 +42,11 @@
       </div>
     </div>
 
-    <div v-if="showPopup" class="blur"></div>
+    <!--Blur when popup is opened-->
 
+    <div v-if="showPopup" class="blur"></div>
   </div>
+
 </template>
 
 <script>
@@ -83,96 +89,97 @@ export default {
 </script>
 
 <style scoped>
+
 .favoritesContainer{
-  background-color: rgb(162, 178, 159);
-  border-radius: 10px;
-  border: 2px solid white;
-  padding: 24px 20px;
-  box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
+    background-color: rgb(162, 178, 159);
+    border-radius: 10px;
+    border: 2px solid white;
+    padding: 24px 20px;
+    box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
+    height: 308px;
 }
 
 .favoritesContainer h3{
-  text-align: center;
-  color: white;
+    text-align: center;
+    color: white;
 }
 
 .favoritesContainer button{
-  width: 70%;
-  height: 40px;
-  border: none;
-  outline: none;
-  font-size: 17px;
-  background-color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  margin-left: 90px;
-  box-shadow: 7px 7px rgba(50, 50, 50, 0.2);
+    width: 70%;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-left: 90px;
+    box-shadow: 7px 7px rgba(50, 50, 50, 0.2);
 }
 
 .favoriteItems{
-  padding-top: 20px;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .itemCard{
-  flex-basis: 300px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: rgb(248, 246, 244);
+    flex-basis: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(248, 246, 244);
 }
 
 .itemRow{
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .itemImage{
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-right: 10px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
 .itemInfo{
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .itemInfo p{
-  line-height: 10px;
+    line-height: 10px;
 }
 
 .showMoreButton{
-  margin-top: 25px;
-  cursor: pointer;
-
+    margin-top: 25px;
+    cursor: pointer;
 }
 
 .popupContainer {
-  position: absolute;
-  z-index: 999;
-  transform: translate(-55%, -60%);
+    position: absolute;
+    z-index: 999;
+    transform: translate(-55%, -60%);
 }
 
 .popup {
-  background: white;
-  display: block;
-  position: relative;
-  width: 700px;
-  border-radius: 10px;
-  background-color: rgb(162, 178, 159);
-  border: 2px solid white;
-  padding-bottom: 40px;
-  margin: 0 auto;
+    background: white;
+    display: block;
+    position: relative;
+    width: 700px;
+    border-radius: 10px;
+    background-color: rgb(162, 178, 159);
+    border: 2px solid white;
+    padding-bottom: 40px;
+    margin: 0 auto;
 }
 
 .popup h3{
-  text-align: center;
-  font-weight: 600;
+    text-align: center;
+    font-weight: 600;
 }
 
 .closePopup{
@@ -190,61 +197,62 @@ export default {
 }
 
 .popupItems{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .popupItemCard{
-  flex-basis: 300px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: white;
+    flex-basis: 300px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
 }
 
 
 
 .blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
 }
 
 @media screen and (max-width: 1200px) {
   .favoriteItems {
-    flex-direction: column;
+      flex-direction: column;
   }
 
   .itemCard {
-    flex-basis: 100px;
+      flex-basis: 100px;
   }
 
   .popupContainer{
-    top: 60%;
+      top: 60%;
   }
 }
 
+/*Responsive*/
 
 @media screen and (max-width: 1000px) {
   .favoritesContainer {
-    padding: 10px 30px;
+      padding: 10px 30px;
   }
 
   .favoritesContainer button {
-    width: 100%;
-    margin-left: 0;
+      width: 100%;
+      margin-left: 0;
   }
 
   .popupContainer{
-    top: 80%;
-    left: 55%;
-    width: 80%;
+      top: 80%;
+      left: 55%;
+      width: 80%;
   }
 
   .popup{

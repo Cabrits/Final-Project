@@ -1,7 +1,7 @@
 <template>
-    <div class="loginWrapper">
-      <div class="loginPopup" id="showLogin">
-        <div class="closeLogin" @click="closeS">&times;</div>
+    <div class="signUpWrapper">
+      <div class="signUpPopup" id="showLogin">
+        <div class="closeSignUp" @click="closeS">&times;</div>
         <div class="form">
           <h2 id="popupTitle" style="color: white; font-family: Arial, Helvetica, sans-serif;">Sign Up</h2>
           <div class="formElement">
@@ -14,7 +14,7 @@
           </div>
           <div class="formElement">
             <label for="password" style="color: white;"><h4>Password</h4></label>
-            <input type="password" id="password" placeholder="Enter Password" v-model="password">
+            <input type="password" id="password" placeholder="Enter Password" v-model="password" @keyup.enter="signUp">
           </div>
           <div id="pMsg" style="color: white;"></div>
           <p v-if="errMsg">{{errMsg}}</p>
@@ -30,7 +30,7 @@
 <script>
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
   import axios from 'axios';
-  export default {
+  export default{
     name: 'PopupLogin',
     data() {
       return {
@@ -91,31 +91,31 @@
 
 <style scoped>
 
-.loginWrapper{
-  width: 99%;
-  padding-top: 35px;
-  position: absolute;
+.signUpWrapper{
+    width: 99%;
+    padding-top: 35px;
+    position: absolute;
 }
 
-.loginPopup{
-  z-index: 5;
-  display: block;
-  position: relative;
-  width: 350px;
-  line-height: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px 30px;
-  background-color: rgb(162, 178, 159);
-  border-radius: 10px;
-  border: 2px solid rgb(255, 255, 255);
-  transition: top 0ms ease-in-out 200ms, 
-              opacity 100ms ease-in-out 200ms, 
-              transform 20ms ease-in-out 0ms;
-  transform: scale(1.05);
+.signUpPopup{
+    z-index: 5;
+    display: block;
+    position: relative;
+    width: 350px;
+    line-height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 30px;
+    background-color: rgb(162, 178, 159);
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    transition: top 0ms ease-in-out 200ms, 
+                opacity 100ms ease-in-out 200ms, 
+                transform 20ms ease-in-out 0ms;
+    transform: scale(1.05);
 }
 
-.closeLogin{
+.closeSignUp{
     position: absolute;
     top: 18px;
     right: 18px;
@@ -127,7 +127,6 @@
     line-height: 23px;
     border-radius: 15px;
     cursor: pointer;
-
 }
 
 .form h2{
@@ -187,14 +186,20 @@
 }
 
 .blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
 }
 
 
+@media screen and (max-width: 800px){
+
+.signUpWrapper{
+  width: 98%;
+}
+}
 </style>

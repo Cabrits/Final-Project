@@ -11,7 +11,7 @@
                 </div>
                 <div class="formElement">
                     <label for="password" style="color: white;"><h4>Password</h4></label>
-                    <input type="password" id="password" placeholder="Enter Password" v-model="password">
+                    <input type="password" id="password" placeholder="Enter Password" v-model="password" @keyup.enter="logIn">
                 </div>
                 <div id="pMsg" style="color: white;"></div>
                 <div class="formElement">
@@ -167,27 +167,27 @@ export default {
 
 
 .loginWrapper{
-  width: 99%;
-  padding-top: 35px;
-  position: absolute;
+    width: 99%;
+    padding-top: 35px;
+    position: absolute;
 }
 
 .loginPopup{
-  z-index: 5;
-  display: block;
-  position: relative;
-  width: 350px;
-  line-height: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px 30px;
-  background-color: rgb(162, 178, 159);
-  border-radius: 10px;
-  border: 2px solid rgb(255, 255, 255);
-  transition: top 0ms ease-in-out 200ms, 
-              opacity 100ms ease-in-out 200ms, 
-              transform 20ms ease-in-out 0ms;
-  transform: scale(1.05);
+    z-index: 5;
+    display: block;
+    position: relative;
+    width: 350px;
+    line-height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 30px;
+    background-color: rgb(162, 178, 159);
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    transition: top 0ms ease-in-out 200ms, 
+                opacity 100ms ease-in-out 200ms, 
+                transform 20ms ease-in-out 0ms;
+    transform: scale(1.05);
 }
 
 .closeLogin{
@@ -260,19 +260,23 @@ export default {
     font-weight: 600;
 }
 
-.orLogin{
-  color: white;
-  position: relative;
+.form p{
   text-align: center;
-  top: 5px;
-  font-weight: 600;
+  font-weight: bold;
+}
+
+.orLogin{
+    color: white;
+    position: relative;
+    text-align: center;
+    top: 5px;
+    font-weight: 600;
 }
 
 .alternative{
-  display: flex;
-  flex-direction: row;
-  position: relative;
-
+    display: flex;
+    flex-direction: row;
+    position: relative;
 }
 
 .altButton{
@@ -287,9 +291,9 @@ export default {
     margin-right: auto;
     border: none;
     box-shadow: 6px 4px  rgba(50, 50, 50, 0.2);
-    /*-moz-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
-    -webkit-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2);
-    -o-box-shadow: 8px 3px  rgba(50, 50, 50, 0.2); */
+    -moz-box-shadow: 6px 4px  rgba(50, 50, 50, 0.2);
+    -webkit-box-shadow: 6px 4px  rgba(50, 50, 50, 0.2);
+    -o-box-shadow: 6px 4px  rgba(50, 50, 50, 0.2); 
     cursor: pointer;
 }
 
@@ -298,27 +302,33 @@ export default {
 }
 
 .alternative i{
-  color: rgb(61, 60, 60);
+    color: rgb(61, 60, 60);
 }
 
 
 .fa-google::before{
-  font-size: 25px;
+    font-size: 25px;
 }
 
 .fa-github::before{
-  font-size: 25px;
+    font-size: 25px;
 }
 
 .blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
 }
 
+@media screen and (max-width: 800px){
+
+  .loginWrapper{
+    width: 98%;
+  }
+}
 
 </style>

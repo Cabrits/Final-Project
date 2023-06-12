@@ -7,7 +7,7 @@
             <div class="searchResultsWrapper">
                 <ul class="searchResults" v-if="showAutocomplete">
                     <li v-for="(result, index) in getLimitedResults" :key="result.item_name" >
-                      <router-link class="decoration" :to="'/item/' + result.item_id">
+                      <router-link  :to="'/item/' + result.item_id">
                         <img :src="result.item_image" :alt="result.item_name" />
                         <span>{{ result.item_name }}</span>
                       </router-link>
@@ -39,9 +39,15 @@ export default{
           searchInput: "",
       };
     },
+
     computed: {
       ...mapState(['items']),
+
+      getLimitedResults() {
+        return this.searchResults.slice(0, this.maxResults);
+      },
     },
+
     methods: {
       handleInput() {
       console.log(this.$store.state.items)
@@ -72,10 +78,10 @@ export default{
       }
     },
     
-
     showMoreResults() {
 
     },
+
     handleSearch() {
       const searchTerm = this.searchInput.trim();
       console.log(this.getItems)
@@ -99,23 +105,12 @@ export default{
       }
     },
     },
-
-    computed: {
-    getLimitedResults() {
-      return this.searchResults.slice(0, this.maxResults);
-    },
-    },
 }
 
 </script>
 
 
 <style scoped>
-
-.decoration{
-  text-decoration: none;
-}
-
 
 
 input:focus{
@@ -127,6 +122,7 @@ input:focus{
     outline: none;
     width: 40%;
     margin-left: auto;
+    outline: none;
 }
 
 .searchBar form{
@@ -230,8 +226,8 @@ input:focus{
 }
 
 .searchResults {
-    margin: 0;
-    padding: 0;
+    margin-top: 0;
+    padding: 3px;
     border-radius: 10px;
 }
 
@@ -241,12 +237,18 @@ input:focus{
     margin-bottom: 10px;
 }
 
+.searchResults li a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .searchResults img {
     width: 50px;
     height: 50px;
     margin-right: 10px;
 }
 
+/*Responsive*/
 
 @media screen and (max-width: 800px){   
 

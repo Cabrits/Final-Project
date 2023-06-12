@@ -21,6 +21,8 @@ export default{
 
 <style scoped>
 
+/*Overall style for the content in Home Page*/
+
 .contentStyle{
     width: 100%;
 }
@@ -29,6 +31,8 @@ export default{
     margin: auto;
     width: 1780px;
 }
+
+/*Responsive*/
 
 @media screen and (max-width: 1800px){   
     .px1750Size{

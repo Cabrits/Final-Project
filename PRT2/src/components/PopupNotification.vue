@@ -53,14 +53,14 @@ export default {
 <style scoped>
 
 .blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 4;
-  display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
+    display: none;
 }
 
 .notificationStyle{
@@ -100,6 +100,8 @@ export default {
     font-size: 20px;
     text-align: center;
     margin-top: -20px;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
+    color: white;
 }
 
 .closeNotification{
@@ -186,12 +188,13 @@ export default {
     border-right: 10px solid transparent;
 }
 
+/*Responsive*/
 
 @media (max-width: 1800px) {
-  .px1750Size {
-    max-width: 97%;
-    padding-right: 100px;
-}
+    .px1750Size {
+        max-width: 97%;
+        padding-right: 100px;
+    }
 }
 
 
@@ -200,15 +203,15 @@ export default {
         display: none;
     }
     .notificationPopup {
-        width: 480px;
+        width: 420px;
         float: none;
         margin-left: auto;
         margin-right: auto;
+        top: 90px;
     }
 
     .blur{
-        display: block;
-        
+        display: block; 
     }
 }
 

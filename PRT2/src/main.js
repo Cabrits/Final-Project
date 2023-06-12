@@ -14,9 +14,10 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faGhost } from '@fortawesome/free-solid-svg-icons'
 import { faHandFist } from '@fortawesome/free-solid-svg-icons'
 import { faMasksTheater } from '@fortawesome/free-solid-svg-icons'
+import { faComment } from '@fortawesome/free-solid-svg-icons'
 import store from './store/store';
 
-library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, faMasksTheater);
+library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, faMasksTheater, faComment);
 
 
 const firebaseConfig = {

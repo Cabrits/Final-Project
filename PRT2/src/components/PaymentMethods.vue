@@ -70,57 +70,57 @@ export default {
 <style scoped>
 
 .paymentContainer{
-  background-color: rgb(121, 135, 119);
-  border-radius: 10px;
-  border: 2px solid white;
-  padding: 10px 70px;
-  box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
-  color: white;
+    background-color: rgb(121, 135, 119);
+    border-radius: 10px;
+    border: 2px solid white;
+    padding: 10px 70px;
+    box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
+    color: white;
 }
 .popupContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
 }
 
 .popup {
-  background: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: block;
-  border-radius: 10px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: block;
+    border-radius: 10px;
 }
 
 .popup button{
-  float: right;
+    float: right;
 }
 
 .changeInfo{
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .closeButton {
-  border: none;
-  background: none;
-  font-size: 20px;
-  cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
 }
 
 </style>

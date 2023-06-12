@@ -10,6 +10,7 @@
       <div class="overall">
         <Header />
         <Content/>
+        <ChatBot/>
         <Footer />
       </div>
     </div>
@@ -19,18 +20,21 @@
     </footer>
   </div>
 
+  
+
 </template>
 
 <script>
 import Header from '../components/Header.vue'
 import Content from '../components/Content.vue'
+import ChatBot from '../components/ChatBot.vue'
 import Footer from '../components/Footer.vue'
 import { getAuth } from '@firebase/auth';
 import axios from 'axios';
 
 export default {
   name: 'HomePage',
-  components: { Header, Footer, Content },
+  components: { Header, Footer, Content, ChatBot },
 
   data() {
     return {
@@ -163,11 +167,51 @@ export default {
 
 
 <style scoped>
+
+.loadingScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 130px;
+    height: 70vh;
+    opacity: 1;
+    animation: fadeOut 4s forwards;
+}
+
+.loadingScreen img {
+    width: 30%;
+}
+
+.loadingScreen p {
+    top: 5px;
+    font-weight: 600;
+    font-size: 45px;
+}
+
+.fadeOut {
+    display: none;
+}
+
 .blink {
-  animation: blink 1s linear infinite;
-  font-size: 30px;
-  text-align: center;
-  margin-top: 150px;
+    animation: blink 1s linear infinite;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 150px;
+}
+
+/*Animation*/
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50%{
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes blink {
@@ -182,46 +226,11 @@ export default {
   }
 }
 
-.loadingScreen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 130px;
-  height: 70vh;
-  opacity: 1;
-  animation: fadeOut 4s forwards;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  50%{
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.loadingScreen img {
-  width: 30%;
-}
-
-.loadingScreen p {
-  top: 5px;
-  font-weight: 600;
-  font-size: 45px;
-}
-
-.fadeOut {
-  display: none;
-}
+/*Responsive*/
 
 @media screen and (max-width: 800px) {
   .loadingScreen img {
-    width: 50%;
+      width: 50%;
   }
 }
 

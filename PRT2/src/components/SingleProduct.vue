@@ -119,6 +119,8 @@ export default {
     background-color: rgb(185, 188, 159);
 }
 
+/*Responsive*/
+
 @media (max-width: 925px) {
     .productContainer {
         flex-direction: column;

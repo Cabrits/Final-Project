@@ -40,79 +40,89 @@ export default {
 </script>
 
 <style scoped>
+
+/*Categories Buttons*/
+
 .categories{
-  padding-top: 3rem;
-  width: 80%;
-  height: auto;
-  margin-left: 10%;
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    padding-top: 3rem;
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .leftRightAuto{
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .subCat{
-  display: inline-block;
-  font-size: 2em;
-  line-height: 80px;
-  position: relative;
-  text-align: center;
-  box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
-  -moz-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
-  -webkit-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
-  -o-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
-  border-radius: 50%;
-  background-color: rgb(255, 255, 255);
-  color: rgb(76, 75, 75);
-  display: block;
-  height: 80px;
-  position: relative;
-  width: 80px;
-  border-radius: 50%;
-  transition: 0.1s;
+    display: inline-block;
+    font-size: 2em;
+    line-height: 80px;
+    position: relative;
+    text-align: center;
+    box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    color: rgb(76, 75, 75);
+    display: block;
+    height: 80px;
+    position: relative;
+    width: 80px;
+    border-radius: 50%;
+    transition: 0.1s;
 }
 
-
-
 .subCat .inner{
-  background-color: rgb(162, 178, 159);
-  display: block;
-  height: 0;
-  width: 0;
-  left: 50%;
-  top: 50%;
-  margin: 0;
-  position: absolute;
-  border-radius: 50%;
-  transition: 0.25s;
+    background-color: rgb(162, 178, 159);
+    display: block;
+    height: 0;
+    width: 0;
+    left: 50%;
+    top: 50%;
+    margin: 0;
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.25s;
 }
 
 .subCat .inner i{
-  position: relative;
-  transition: color 0.2s;
+    position: relative;
+    transition: color 0.2s;
 }
 
 .subCat:hover,
 .subCat.active{
-  color: white;
-  z-index: 3;
+    color: white;
+    z-index: 3;
 }
 
-.subCat:active {
-  background-color: rgb(185, 188, 159);
-}
 
 .subCat:hover .inner,
 .subCat.active .inner{
-  height: 76px;
-  margin-left: -38px;
-  margin-top: -38px;
-  width: 76px;
-  z-index: -1;
+    height: 76px;
+    margin-left: -38px;
+    margin-top: -38px;
+    width: 76px;
+    z-index: -1;
+}
+
+/*Responsive*/
+
+@media screen and (max-width: 800px) {
+  .categories {
+      width: 100%;
+  }
+
+  .subCat.active{
+      z-index: 0;
+  }
 }
 
 </style>

@@ -28,7 +28,7 @@ export default{
 
 footer{
     font-family: Arial, Helvetica, sans-serif;
-    padding-top: 95px;
+    padding-top: 130px;
     
 }
 
@@ -84,6 +84,23 @@ footer{
     animation: wave 0.3s infinite;
 }
 
+/*Animation*/
+
+@keyframes wave{
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+}
+
+/*Responsive*/
+
 @media screen and (min-width: 500px){
     .footer ul {
         grid-auto-flow: column; 
@@ -111,21 +128,5 @@ footer{
         margin: auto;
     }
 }
-
-@keyframes wave{
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(20deg);
-    }
-    75% {
-        transform: rotate(-15deg);
-    }
-}
-
-
-
 
 </style>

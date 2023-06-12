@@ -74,7 +74,7 @@ export default {
     text-align: center;
     width: 900px;
     margin: 0 auto;
-    margin-bottom: -30px;
+    margin-bottom: -70px;
 }
 
 .moreInfo {
@@ -126,7 +126,7 @@ export default {
     text-shadow: 0 0 3px #000000, 0 0 5px #000000;
 }
 
-
+/*Responsive*/
 
 @media (max-width: 925px) {
     .productPage {

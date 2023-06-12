@@ -1,25 +1,25 @@
 <template>
-  <div>
-      <Categories @category-selected="handleCategorySelected"/>
-    </div>
-  <div class="productsDisplay">
-    <div class="product" v-for="item in filteredItems" :key="item.id">
-      <router-link :to="'/item/' + item.item_id">
-      <img :src="item.item_image">
-        <h2>{{ item.item_name }}</h2>
-      <div class="prodInfo">
-        <span>{{ item.item_description }}</span>
+    <div>
+        <Categories @category-selected="handleCategorySelected"/>
       </div>
-      </router-link>
-      <div class="prodButtons">
-        <div class="prodPrice">{{ (item.item_price * (1-item.item_discount)).toFixed(2) }}€</div>
-        <button class="cart btn" @click="this.$store.dispatch('addToCart', item);"><i class="fa fa-shopping-cart"></i></button>
-        <button class="favourite btn" :disabled="cooldown" @click="toggleFavourite(item.item_id)">
-          <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
-        </button>
+    <div class="productsDisplay">
+      <div class="product" v-for="item in filteredItems" :key="item.id">
+        <router-link :to="'/item/' + item.item_id">
+        <img :src="item.item_image">
+          <h2>{{ item.item_name }}</h2>
+        <div class="prodInfo">
+          <span>{{ item.item_description }}</span>
+        </div>
+        </router-link>
+        <div class="prodButtons">
+          <div class="prodPrice">{{ (item.item_price * (1-item.item_discount)).toFixed(2) }}€</div>
+          <button class="cart btn" @click="this.$store.dispatch('addToCart', item);"><i class="fa fa-shopping-cart"></i></button>
+          <button class="favourite btn" :disabled="cooldown" @click="toggleFavourite(item.item_id)">
+            <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 
@@ -67,14 +67,16 @@ export default {
         const apiUrl = isItemFavourite
           ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
           : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
-
+          console.log('teste')
         axios({
           method: isItemFavourite ? 'DELETE' : 'POST',
           url: apiUrl,
         })
           .then((response) => {
             // Handle success
+            console.log('test1')
             this.startButtonCooldown();
+            console.log('teste2')
             this.$store.dispatch('fetchFavourites', userId);
           })
           .catch((error) => {
@@ -92,7 +94,7 @@ export default {
 <style scoped>
 
 .red-heart::before{
-  color: rgb(255, 127, 127)!important;;
+    color: rgb(255, 127, 127)!important;;
 }
 
 .productsDisplay{
@@ -101,6 +103,7 @@ export default {
     flex-grow: row;
     justify-content: space-around;
     padding: 3rem;
+    margin-bottom: -60px;
 }
 .product{
     background-color: rgb(162, 178, 159);
@@ -109,36 +112,34 @@ export default {
     width: 350px;
     margin-top: 60px;
     padding: 0;
-    transition: 1.5s;
+    transition: 2.5s;
 }
 
 /*Potencial Idea*/
 
 .product:nth-child(2n+1) {
-  transform: perspective(1200px) rotateY(20deg);
-  box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+    transform: perspective(1200px) rotateY(5deg);
+    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
 }
 
 .product:nth-child(2n) {
-  transform: perspective(1200px) rotateY(-20deg);
-  box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
+    transform: perspective(1200px) rotateY(-5deg);
+    box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
 }
 
 .product:hover:nth-child(2n){
-  transform: none;
-  transition: 1s;
-  z-index: 1000;
-  box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+    transform: none;
+    transition: 1.5s;
+    z-index: 100;
+    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
 }
 
 .product:hover:nth-child(2n+1){
-  transform: none;
-  transition: 1s;
-  z-index: 1000;
-  box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
+    transform: none;
+    transition: 1.5s;
+    z-index: 100;
+    box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
 }
-
-
 
 .product a{
     text-decoration: none;
@@ -262,10 +263,26 @@ export default {
     color: rgb(78, 75, 75);
 }
 
+/*Responsive*/
+
 @media screen and (max-width: 800px) {
-    .product{
+  .product{
       transform: none;
-    }
+  }
+
+  .product:nth-child(2n+1) {
+      transform: perspective(1200px) rotateY(0deg);
+      box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  }
+
+  .product:nth-child(2n) {
+      transform: perspective(1200px) rotateY(0deg);
+      box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  }
+
+  .product:hover:nth-child(2n+1){
+      box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  }
 }
 
 

@@ -3,7 +3,7 @@
         <div class="px1750Size">
             <div class="cartWrapper">
                 <div class="cartPopup" id="showCart">
-                <div class="closeCart" @click="closeC">&times;</div>
+                    <div class="closeCart" @click="closeC">&times;</div>
                     <h2>Your Cart</h2>
                     <ul class="cartItems">
                         <li v-for="item in cartItems" :key="item.item_id"> 
@@ -15,7 +15,7 @@
                     <div class="cartTotal">
                         <p>Total: <span>{{ cartTotal }}€</span></p>
                     </div>
-                    <button class="checkoutButton btn2" @click="checkout">Checkout</button>
+                    <button class="checkoutButton" @click="checkout">Checkout</button>
                 </div>
                 <div class="arrow"></div>
             </div>
@@ -51,24 +51,19 @@ export default {
     clearcart(){
         this.$store.dispatch('clearCart');
     }
-  }
+  },
+
+  data() {
+      return {
+        showPopup: true
+      };
+    },
 }
 
 </script>
 
 
 <style scoped>
-
-.blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 4;
-  display: none;
-}
 
 .cartStyle{
     position: absolute;
@@ -93,7 +88,6 @@ export default {
     height: 415px;
     width: 400px;
     padding-top: 50px;
-    overflow-y: auto;
     background-color: rgb(162, 178, 159);
     transition: right .3s;
     border: 1px solid white;
@@ -105,9 +99,11 @@ export default {
 
 
 .cartPopup h2{
-    font-size: 20px;
+    font-size: 22px;
     text-align: center;
     margin-top: -20px;
+    color: white;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
 .closeCart{
@@ -127,8 +123,23 @@ export default {
 .closeCart:hover{
     background-color: rgb(149, 161, 132);
 }
+
 .cartItems{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    height: 250px;
+}
+
+.cartItems li:first-child {
+    border-top: none;
+}
+
+.cartItems li:last-child {
+    border-bottom: 2px solid white;
 }
 
 .cartItems a{
@@ -155,27 +166,42 @@ export default {
     padding: 1rem;
     border-top: 1px solid;
     font-weight: 700;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.cartItems li:first-child {
+    border-top: 2px solid white;;
 }
 
 .cartItems span{
     font-weight: 550;
-    color: rgb(94, 106, 106);
+    color: rgb(255, 255, 255);
     margin-right: 10px;
-}
-
-.cartItems li:last-child{
-    border-bottom: 2px solid white;
-    border-top: 2px solid white;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
 .cartPrice{
-    margin-top: .8rem;
+    margin-top: 8px;
+    margin-left: 29px;
+    color: white;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
 .cartRemove{
     position: absolute;
+    font-size: 20px;
     right: 1rem;
+    border-radius: 10px;
+    border-width: 0;
+    cursor: pointer;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 8px 10px;
+    text-align: center;
+    transition: all 400ms;
+    margin-top: -43px;
 }
+
 
 .cartTotal{
     font-weight: 700;
@@ -185,7 +211,8 @@ export default {
 
 .cartTotal span{
     margin-left: 10px;
-    color: rgb(69, 74, 74);
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
 .cartTotal span::after{
@@ -197,16 +224,19 @@ export default {
 .checkoutButton{
     display: block;
     width: 200px;
-    line-height: 30px;
     margin: auto;
     border: none;
     outline: none;
     border-radius: 50px;
     height: 40px;
     font-size: 0.9rem;
-    margin-bottom: 10px;
+    background-color: white;
+    cursor: pointer;
 }
 
+.checkoutButton:hover{
+    background-color: rgb(248, 237, 227);
+}
 
 .arrow{
     z-index: 100;
@@ -217,6 +247,19 @@ export default {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 }
+
+.blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
+    display: none;
+}
+
+/*Responsive*/
 
 @media (max-width: 1800px) {
   .px1750Size {
@@ -231,17 +274,16 @@ export default {
         display: none;
     }
     .cartPopup {
-        width: 480px;
+        width: 420px;
         float: none;
         margin-left: auto;
         margin-right: auto;
+        top: 90px;
     }
 
     .blur{
         display: block;
-        
     }
 }
-
 
 </style>

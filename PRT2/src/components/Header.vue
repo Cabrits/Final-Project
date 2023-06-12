@@ -1,32 +1,35 @@
 <template>
+
+    <!--Header-->
+
     <header class="headerStyle px1750Size">
-    <div class="menuBars" :class="{ active: showMenu }" @click="toggleMenu">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-    </div>
-    <div class="logo">
-        <router-link :to="'/'">
-            <img src="../assets/logo3.png">
-        </router-link>
-    </div>
-    <div class="menuWrapper">
-        <div class="menu" :class="{ active: showMenu }">
-            <SearchBar/>
-            <div class="menuActions">
-                <button class="actions" v-if="user" @click = "loadNotification(); closeCart();"><font-awesome-icon icon="fa-solid fa-bell"/></button>
-                <button class="actions" v-if="user" @click = "loadCart(); closeNotification();" id="cart"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
-                <router-link class="actions" :to="'/user'" v-if="user">
-                    <button class="userB" ><i class="fa fa-user" aria-hidden="true"></i></button>
-                </router-link>
-                <button class="actions2" v-if="user" @click="logout()"><font-awesome-icon icon="fa-solid fa-right-from-bracket" /></button>
-                <div class="btnGroup" v-else>
-                    <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
-                    <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
+        <div class="menuBars" :class="{ active: showMenu }" @click="toggleMenu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="logo">
+            <router-link :to="'/'">
+                <img src="../assets/logo3.png">
+            </router-link>
+        </div>
+        <div class="menuWrapper">
+            <div class="menu" :class="{ active: showMenu }">
+                <SearchBar/>
+                <div class="menuActions">
+                    <button class="actions" v-if="user" @click = "loadNotification(); closeCart();"><font-awesome-icon icon="fa-solid fa-bell"/></button>
+                    <button class="actions" v-if="user" @click = "loadCart(); closeNotification();" id="cart"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
+                    <router-link class="actions" :to="'/user'" v-if="user">
+                        <button class="userB" ><i class="fa fa-user" aria-hidden="true"></i></button>
+                    </router-link>
+                    <button class="actions2" v-if="user" @click="logout()"><font-awesome-icon icon="fa-solid fa-right-from-bracket" /></button>
+                    <div class="btnGroup" v-else>
+                        <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
+                        <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </header> 
 
   <PopupNotification v-if="notification" @closeN="closeNotification"/>
@@ -102,6 +105,7 @@ export default {
     closeSignUp() {
       this.signup = false;
     },
+
     logout() {
       const auth = getAuth();
       signOut(auth)
@@ -115,9 +119,9 @@ export default {
           // Handle error in logout
         });
     },
+
     toggleMenu() {
       this.showMenu = !this.showMenu;
-      
     },
   },
 };
@@ -135,7 +139,7 @@ input:focus, textarea:focus, select:focus{
     outline: none;
 }
 
-/* Menu*/
+/*Header*/
 
 .headerStyle{
     background-color: rgb(162, 178, 159);
@@ -147,6 +151,8 @@ input:focus, textarea:focus, select:focus{
 .menuBars{
     display: none;
 }
+
+/*Header Menu*/
 
 .menuWrapper{
     margin-left: auto;
@@ -177,7 +183,7 @@ input:focus, textarea:focus, select:focus{
     width: 119px;
 }
 
-/* Right Side of the Menu */
+/*Right Side of the Menu*/
 
 .menuActions{
     margin-left: auto;
@@ -238,7 +244,7 @@ input:focus, textarea:focus, select:focus{
 .buttonLS {
     position: absolute;
     appearance: none;
-    background-color: rgb(248, 237, 227);
+    background-color: rgb(255, 255, 255);
     border: 1px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
@@ -271,7 +277,7 @@ input:focus, textarea:focus, select:focus{
 .buttonLS2 {
     position: relative;
     appearance: none;
-    background-color: rgb(248, 237, 227);
+    background-color: rgb(255, 255, 255);
     border: 1px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
@@ -301,19 +307,18 @@ input:focus, textarea:focus, select:focus{
 }
 
 .buttonLS:hover {
-  background-color: rgb(255, 255, 255);
-  text-decoration: none;
-  transition-duration: 0.1s;
+    background-color: rgb(248, 237, 227);
+    text-decoration: none;
+    transition-duration: 0.1s;
 }
 
 .buttonLS2:hover {
-  background-color: rgb(255, 255, 255);
-  text-decoration: none;
-  transition-duration: 0.1s;
+    background-color: rgb(248, 237, 227);
+    text-decoration: none;
+    transition-duration: 0.1s;
 }
 
-
-/* Responsive */
+/*Responsive*/
 
 @media screen and (max-width: 1800px){   
     .px1750Size{
@@ -358,13 +363,13 @@ input:focus, textarea:focus, select:focus{
         flex-direction: column;
         height: 150px;
         width: 92%;
-        background: rgb(186, 200, 165);
         transition: 0.2s;
         border-radius: 10px;
         border: 1.5px solid white;
         transition: display 0.5s ease;
         opacity: 0;
         display: none;
+        background-color: rgb(162, 178, 159);
     }
 
     .menu.active{
@@ -409,7 +414,7 @@ input:focus, textarea:focus, select:focus{
     }
 
     .menuBars.active .line:nth-child(3) {
-    transform: rotate(45deg) translate(-6px, -7px);
+        transform: rotate(45deg) translate(-6px, -7px);
     }
 }
 
