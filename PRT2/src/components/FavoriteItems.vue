@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <!-- Popup containing the rest of the items if > 2 -->
+    <!-- Popup containing the rest of the items if the user has more than 2 -->
     
     <div class="popupContainer" v-if="showPopup">
       <div class="popup">
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <!--Blur when popup is opened-->
+     <!--Blur the background when Popup is opened-->
 
     <div v-if="showPopup" class="blur"></div>
   </div>
@@ -50,7 +50,8 @@
 </template>
 
 <script>
-export default {
+
+export default{
   data() {
     return {
       favoriteItems: [
@@ -66,20 +67,24 @@ export default {
       showPopup: false,
     };
   },
+
   computed: {
     showMoreButton() {
       return this.favoriteItems.length > this.visibleItems.length;
     },
   },
+
   mounted() {
     this.visibleItems = this.favoriteItems.slice(0, 2);
   },
+
   methods: {
     showAllItems() {
       this.visibleItems = this.favoriteItems;
       this.showPopup = true;
       this.visibleItems = this.favoriteItems.slice(0, 2);
     },
+
     closePopup(){
       this.visibleItems = this.favoriteItems.slice(0, 2);
       this.showPopup = false;
@@ -89,6 +94,8 @@ export default {
 </script>
 
 <style scoped>
+
+/*Favorites Box*/
 
 .favoritesContainer{
     background-color: rgb(162, 178, 159);
@@ -165,6 +172,8 @@ export default {
     transform: translate(-55%, -60%);
 }
 
+/*Favorites Popup, if there more than 2*/
+
 .popup {
     background: white;
     display: block;
@@ -211,7 +220,7 @@ export default {
     background-color: white;
 }
 
-
+/*Blur what's behind the popup when opened*/ 
 
 .blur {
     position: fixed;
@@ -222,6 +231,8 @@ export default {
     background: rgba(0, 0, 0, 0.7);
     z-index: 4;
 }
+
+/*Responsive*/
 
 @media screen and (max-width: 1200px) {
   .favoriteItems {
@@ -237,7 +248,6 @@ export default {
   }
 }
 
-/*Responsive*/
 
 @media screen and (max-width: 1000px) {
   .favoritesContainer {
@@ -260,7 +270,5 @@ export default {
       padding: 15px;
   }
 }
-
-
 
 </style>

@@ -1,4 +1,9 @@
+<!--Sign Up popup when the sign up button on Header is clicked-->
+
 <template>
+
+    <!--Sign Up Popup-->
+
     <div class="signUpWrapper">
       <div class="signUpPopup" id="showLogin">
         <div class="closeSignUp" @click="closeS">&times;</div>
@@ -23,11 +28,16 @@
           </div>
         </div>
       </div>
+
+      <!--Blur the background when Popup is opened-->
+
       <div v-if="showPopup" class="blur"></div>
     </div>
+
 </template>
   
 <script>
+
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
   import axios from 'axios';
   export default{
@@ -88,8 +98,9 @@
   };
 </script>
 
-
 <style scoped>
+
+/*Sing Up Popup*/
 
 .signUpWrapper{
     width: 99%;
@@ -185,7 +196,9 @@
     font-weight: 600;
 }
 
-.blur {
+/*Blur what's behind the popup when opened*/ 
+
+.blur{
     position: fixed;
     top: 0;
     left: 0;
@@ -195,11 +208,12 @@
     z-index: 4;
 }
 
+/*Responsive*/
 
 @media screen and (max-width: 800px){
+    .signUpWrapper{
+        width: 98%;
+    }
+}
 
-.signUpWrapper{
-  width: 98%;
-}
-}
 </style>

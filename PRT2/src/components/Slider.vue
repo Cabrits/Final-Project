@@ -1,5 +1,13 @@
+<!--Slider that contains NEWS about our products, for example discounts, bundles, etc-->
+
 <template> 
+
+    <!--Overall Slider-->
+
     <div class="slideNews">
+
+            <!--Images-->
+        
         <div class="sliderWrapper">
             <div class="slider">
                 <img id="slide1" src="images/news1.jpg">
@@ -7,6 +15,9 @@
                 <img id="slide3" src="images/news3.jpg">
                 <img id="slide4" src="images/news4.jpg">
             </div>
+
+            <!--"Buttons" to choose which image to see-->
+
             <div class="sliderNav">
                 <a href="#slide1"></a>
                 <a href="#slide2"></a>
@@ -15,21 +26,21 @@
             </div>
         </div>
     </div>
+
 </template>
 
 
 <script>
 
 export default{
-    name:'Slider',
-
-    
+    name:'Slider',    
 }
 
 </script>
 
-
 <style scoped>
+
+/*Images*/
 
 .slideNews{
     padding: 3rem;
@@ -63,6 +74,8 @@ export default{
     scroll-snap-align: start;
     object-fit: cover;
 }
+
+/*Slider "buttons"*/
 
 .sliderNav{
     display: flex;

@@ -1,9 +1,19 @@
+<!--Search bar located on the Header, that contains a autocomplete for the item search-->
+
 <template>
+
+    <!--Overall Search Bar-->
 
     <div class="searchBar" id="search">
         <form autocomplete="off" @submit.prevent="handleSearch">
+
+            <!--Search button and input-->
+
             <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
             <input ref="searchInput" type="text" placeholder="Search Product..." name="search" v-model="searchInput" @input="handleInput"/>
+
+            <!--Autocomplete with the item searched-->
+
             <div class="searchResultsWrapper">
                 <ul class="searchResults" v-if="showAutocomplete">
                     <li v-for="(result, index) in getLimitedResults" :key="result.item_name" >
@@ -20,6 +30,7 @@
                     </li>
                 </ul>
             </div>
+
         </form>
     </div>
 
@@ -112,10 +123,13 @@ export default{
 
 <style scoped>
 
+/*To remove the outline color when searching*/
 
 input:focus{
     outline: none;
 }   
+
+/*Search Bar*/
 
 .searchBar{
     position: relative;
@@ -211,6 +225,8 @@ input:focus{
     background-color: #f2f2f2;
     border-radius: 10px;
 }
+
+/*Autocomplete*/
 
 .searchResultsWrapper {
     position: absolute;

@@ -1,4 +1,9 @@
+<!--Page that shows information about a single product, without the description box, which is located on the ItemPage.vue-->
+
 <template>
+
+    <!--Overall Product-->
+
     <div class="productContainer">
         <div class="productImage">
             <img :src="book.image" alt="Book Cover">
@@ -11,9 +16,11 @@
             <button class="buyButton">Buy Now</button>
         </div>
     </div>
+
 </template>
 
 <script>
+
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 
@@ -33,10 +40,14 @@ export default {
         };
     }
 }
+
 </script>
 
 <style scoped>
-.productContainer {
+
+/*Overall css for the Single Product display*/
+
+.productContainer{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -44,12 +55,12 @@ export default {
     gap: 180px;
 }
 
-.productImage {
+.productImage{
     flex: 0 0 auto;
     max-width: 350px;
 }
 
-.productImage img {
+.productImage img{
     width: 100%;
     border-radius: 10px;
     box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.5);
@@ -59,32 +70,32 @@ export default {
     transition: transform 0.3s;
 }
 
-.productImage img:hover {
+.productImage img:hover{
     transform: scale(1.05);
 }
 
-.productDetails {
+.productDetails{
     flex: 1 1 auto;
     max-width: 500px;
     text-align: center;
     padding-top: 30px;
 }
 
-.bookTitle {
+.bookTitle{
     font-size: 40px;
     margin-bottom: 20px;
     text-transform: uppercase;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-.bookAuthor {
+.bookAuthor{
     font-size: 24px;
     color: #000000;
     margin-bottom: 30px;
     padding-top: 10px;
 }
 
-.bookDescription {
+.bookDescription{
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 40px;
@@ -92,14 +103,14 @@ export default {
     font-weight: 600;
 }
 
-.bookPrice {
+.bookPrice{
     font-size: 32px;
     font-weight: bold;
     padding-top: 40px;
     color: #000000;
 }
 
-.buyButton {
+.buyButton{
     position: relative;
     border: none;
     outline: none;
@@ -115,28 +126,28 @@ export default {
     margin-top: 40px;
 }
 
-.buyButton:hover {
+.buyButton:hover{
     background-color: rgb(185, 188, 159);
 }
 
 /*Responsive*/
 
-@media (max-width: 925px) {
-    .productContainer {
+@media (max-width: 925px){
+    .productContainer{
         flex-direction: column;
         align-items: center;
         gap: 40px;
     }
 
-    .productImage {
+    .productImage{
         max-width: 60%;
     }
 
-    .productDetails {
+    .productDetails{
         padding-top: 0;
     }
 
-    .bookTitle {
+    .bookTitle{
         font-size: 30px;
     }
 

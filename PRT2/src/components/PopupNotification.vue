@@ -1,4 +1,8 @@
+<!--Notification popup when the notification icon on Header is clicked-->
+
 <template>
+
+    <!--Notification Popup-->
 
     <div class="notificationStyle">
         <div class="px1750Size">
@@ -20,22 +24,29 @@
             <div class="arrow"></div>
             </div>
         </div>
+
+        <!--Blur the background when Popup is opened on mobile-->
+
         <div v-if="showPopup" class="blur"></div>
     </div>
 
-  </template>
+</template>
   
 <script>
+
 import { mapState } from 'vuex';
-export default {
+
+export default{
     name: 'PopupNotification',
+
     computed: {
     ...mapState(['favourites']),
     filteredFavourites() {
         console.log(this.favourites)
       return this.favourites.filter((favourite) => favourite.item_discount != null);
     },
-  },
+    },
+
     methods: {
       closeN() {
         this.$emit('closeN');
@@ -52,16 +63,7 @@ export default {
   
 <style scoped>
 
-.blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 4;
-    display: none;
-}
+/*Notification Popup*/
 
 .notificationStyle{
     position: absolute;
@@ -178,6 +180,8 @@ export default {
     right: 1rem;
 }
 
+/*Arrow poiting to the notification icon on header*/
+
 .arrow{
     z-index: 100;
     position: absolute;
@@ -188,21 +192,34 @@ export default {
     border-right: 10px solid transparent;
 }
 
+/*Blur what's behind the popup when opened*/ 
+
+.blur{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
+    display: none;
+}
+
 /*Responsive*/
 
-@media (max-width: 1800px) {
-    .px1750Size {
+@media (max-width: 1800px){
+    .px1750Size{
         max-width: 97%;
         padding-right: 100px;
     }
 }
 
 
-@media (max-width: 800px) {
+@media (max-width: 800px){
     .arrow{
         display: none;
     }
-    .notificationPopup {
+    .notificationPopup{
         width: 420px;
         float: none;
         margin-left: auto;

@@ -1,8 +1,15 @@
+<!--Page that contains a single item, where the description and overall information of the item is available-->
+
 <template>
+
     <Header/>
+
     <div class="productPage">
         <SingleProduct/>
     </div>
+
+    <!--Description box with details about the item-->
+
     <div class="moreInfoWrapper">
         <div class="moreInfo">
             <p>
@@ -18,7 +25,9 @@
             <span class="readMoreButton">Read More....</span>
         </div>
     </div>
+
     <Footer/>
+
 </template>
 
 <script>
@@ -27,7 +36,7 @@ import Header from '../components/Header.vue'
 import SingleProduct from '../components/SingleProduct.vue'
 import Footer from '../components/Footer.vue'
 
-export default {
+export default{
     name: 'ItemPage',
     components: { Header, Footer, SingleProduct },
 
@@ -61,7 +70,7 @@ export default {
 
 <style scoped>
 
-.productPage {
+.productPage{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,14 +79,14 @@ export default {
     padding-bottom: 100px;
 }
 
-.moreInfoWrapper {
+.moreInfoWrapper{
     text-align: center;
     width: 900px;
     margin: 0 auto;
     margin-bottom: -70px;
 }
 
-.moreInfo {
+.moreInfo{
     background-color: rgb(162, 178, 159);
     border: 2px solid white;
     padding: 30px;
@@ -90,13 +99,13 @@ export default {
     font-weight: 600;
 }
 
-.moreInfo h4 {
+.moreInfo h4{
     display: inline;
     margin-left: 30px;
     margin-right: 30px;
 }
 
-.moreInfo p {
+.moreInfo p{
     text-justify: inter-word;
 }
 
@@ -128,14 +137,14 @@ export default {
 
 /*Responsive*/
 
-@media (max-width: 925px) {
-    .productPage {
+@media (max-width: 925px){
+    .productPage{
         flex-direction: column;
     }
-    .moreInfoWrapper {
+    .moreInfoWrapper{
         width: 80%; 
     }
-    .moreInfo h4 {
+    .moreInfo h4{
         display: flex;
         justify-content: center;
     }

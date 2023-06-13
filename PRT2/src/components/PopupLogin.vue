@@ -1,4 +1,8 @@
+<!--Login popup when the login button on Header is clicked-->
+
 <template>
+
+    <!--Login Popup-->
 
     <div class="loginWrapper">
         <div class="loginPopup" id="showLogin">
@@ -18,6 +22,9 @@
                     <button @click="logIn()" id="loginBtn" style="font-family: Arial, Helvetica, sans-serif;" >Login</button>
                 </div>
                 <p v-if="errMsg">{{errMsg}}</p>
+
+                <!--Alternative methods to login with, such as Google and GitHub-->
+
                 <div class="orLogin">
                   <p>---  Or Login With  ---</p>
                 </div>
@@ -27,17 +34,21 @@
                 </div>
             </div>
         </div>
-        
     </div>
+
+    <!--Blur the background when Popup is opened-->
+
     <div v-if="showPopup" class="blur"></div>
+
 </template>
 
 <script>
+
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,GithubAuthProvider } from 'firebase/auth';
 import axios from 'axios';
 import { mapState } from 'vuex';
 
-export default {
+export default{
   name: 'PopupLogin',
     data() {
       return {
@@ -47,15 +58,17 @@ export default {
         showPopup: true
       };
     },
-    computed: {
-  ...mapState(['favourites', 'user'])
-},
+
+  computed: {
+  ...mapState(['favourites', 'user']) 
+  },
+
   methods: {
     closeL() {
       this.$emit('closeL');
     },
+
     logIn() {
-      
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
         .then((data) => {
           const userId = data.user.uid;
@@ -78,6 +91,7 @@ export default {
           }
         });
     },
+
     signInWithGitHub() {
       const provider = new GithubAuthProvider();
       const auth = getAuth();
@@ -118,6 +132,7 @@ export default {
           console.log(error.code);
         });
     },
+
     signInWithGoogle() {
       const provider = new GoogleAuthProvider();
       const auth = getAuth();
@@ -161,10 +176,9 @@ export default {
 };
 </script>
 
-
 <style scoped>
 
-
+/*Login Popup*/
 
 .loginWrapper{
     width: 99%;
@@ -265,6 +279,8 @@ export default {
   font-weight: bold;
 }
 
+/*Alternative Logins*/
+
 .orLogin{
     color: white;
     position: relative;
@@ -314,7 +330,9 @@ export default {
     font-size: 25px;
 }
 
-.blur {
+/*Blur what's behind the popup when opened*/ 
+
+.blur{
     position: fixed;
     top: 0;
     left: 0;
@@ -324,10 +342,11 @@ export default {
     z-index: 4;
 }
 
-@media screen and (max-width: 800px){
+/*Responsive*/
 
+@media screen and (max-width: 800px){
   .loginWrapper{
-    width: 98%;
+      width: 98%;
   }
 }
 

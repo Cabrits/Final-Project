@@ -1,20 +1,32 @@
+<!--Chat to talk with a bot-->
+
 <template>
-    <div class="chatBotWrapper">
-      <div class="chatBotIcon" @click="toggleChatBox">
-        <font-awesome-icon icon="fa-solid fa-comment" />
-      </div>
-      <div v-show="showChatBox" class="chatBox">
-        <div class="closeChat" @click="toggleChatBox">&times;</div>
+
+  <!--Chat Bot-->
+
+  <div class="chatBotWrapper">
+
+    <!--Clickable Icon-->
+
+    <div class="chatBotIcon" @click="toggleChatBox">
+      <font-awesome-icon icon="fa-solid fa-comment" />
+    </div>
+
+    <!--Chat Popup-->
+
+    <div v-show="showChatBox" class="chatBox">
+      <div class="closeChat" @click="toggleChatBox">&times;</div>
         <div class="inputContainer">
           <input type="text" v-model="inputText" @keyup.enter="sendMessage" placeholder="Ask Us Something..." />
         </div>
-        <div class="messagesContainer" ref="messagesContainer">
-          <div v-for="message in messages" :key="message.id" :class="['message', message.type]">
-            {{ message.content }}
-          </div>
+      <div class="messagesContainer" ref="messagesContainer">
+        <div v-for="message in messages" :key="message.id" :class="['message', message.type]">
+          {{ message.content }}
         </div>
       </div>
     </div>
+  </div>
+
 </template>
   
 <script>
@@ -68,12 +80,22 @@
   
 <style scoped>
 
+/*To remove the outline color when typing*/
+
+input:focus{
+    outline: none;
+} 
+
+/*Chat Bot*/
+
 .chatBotWrapper{
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 1000;
 }
+
+/*Icon*/
 
 .chatBotIcon{
     width: 70px;
@@ -98,6 +120,7 @@
     border: 2px solid white;
 }
 
+/*Chat Popup*/
 
 .chatBox{
     position: fixed;
@@ -162,10 +185,6 @@
     margin-bottom: 0;
 }
 
-input:focus{
-    outline: none;
-} 
-
 .inputContainer{
     padding: 10px;
     margin-left: auto;
@@ -187,7 +206,7 @@ input[placeholder]{
     color: rgb(0, 0, 0);
 }
 
-/* Responsive Styles */
+/*Responsive*/
 
 @media screen and (max-width: 800px){
     .chatBotWrapper{

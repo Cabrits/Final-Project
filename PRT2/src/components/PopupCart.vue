@@ -1,7 +1,13 @@
+<!--Shopping Cart popup when the cart icon on Header is clicked-->
+
 <template>
+
+    <!--Shopping Cart Popup-->
+
     <div class="cartStyle">
         <div class="px1750Size">
             <div class="cartWrapper">
+                <div class="arrow"></div>
                 <div class="cartPopup" id="showCart">
                     <div class="closeCart" @click="closeC">&times;</div>
                     <h2>Your Cart</h2>
@@ -17,53 +23,63 @@
                     </div>
                     <button class="checkoutButton" @click="checkout">Checkout</button>
                 </div>
-                <div class="arrow"></div>
             </div>
         </div>
+
+        <!--Blur the background when Popup is opened on mobile-->
+
         <div v-if="showPopup" class="blur"></div>
     </div>
 
 </template>
 
-
 <script>
-export default {
-  name: 'PopupCart',
-  computed: {
-    cartItems() {
-      return this.$store.state.cart;
-    },
-    cartTotal() {
-        return this.cartItems.reduce((total, item) => total + (item.item_price*(1-item.item_discount)).toFixed(2) * item.quantity, 0);
-    },
-  },
-  methods: {
-    closeC() {
-      this.$emit('closeC');
-    },
-    removeFromCart(item) {
-      this.$store.dispatch('removeFromCart', item);
-    },
-    checkout() {
-      this.$store.dispatch('createOrder',this.cartTotal);
-      this.clearcart
-    },
-    clearcart(){
-        this.$store.dispatch('clearCart');
-    }
-  },
 
-  data() {
+export default{
+  name: 'PopupCart',
+
+    data() {
       return {
         showPopup: true
       };
+    },
+
+    computed: {
+
+    cartItems() {
+      return this.$store.state.cart;
+    },
+
+    cartTotal() {
+        return this.cartItems.reduce((total, item) => total + (item.item_price*(1-item.item_discount)).toFixed(2) * item.quantity, 0);
+    },
+    },
+
+    methods: {
+        closeC() {
+            this.$emit('closeC');
+        },
+
+        removeFromCart(item) {
+            this.$store.dispatch('removeFromCart', item);
+        },
+
+        checkout() {
+            this.$store.dispatch('createOrder',this.cartTotal);
+            this.clearcart
+        },
+
+        clearcart(){
+            this.$store.dispatch('clearCart');
+        }
     },
 }
 
 </script>
 
-
 <style scoped>
+
+/*Shopping Cart Popup*/
 
 .cartStyle{
     position: absolute;
@@ -134,13 +150,6 @@ export default {
     height: 250px;
 }
 
-.cartItems li:first-child {
-    border-top: none;
-}
-
-.cartItems li:last-child {
-    border-bottom: 2px solid white;
-}
 
 .cartItems a{
     text-decoration: none;
@@ -170,8 +179,12 @@ export default {
     border-bottom: 1px solid white;
 }
 
-.cartItems li:first-child {
-    border-top: 2px solid white;;
+.cartItems li:first-child{
+    border-top: 2px solid white;
+}
+
+.cartItems li:last-child{
+    border-bottom: 2px solid white;
 }
 
 .cartItems span{
@@ -238,17 +251,21 @@ export default {
     background-color: rgb(248, 237, 227);
 }
 
+/*Arrow poiting to the cart icon on header*/
+
 .arrow{
     z-index: 100;
     position: absolute;
     top: -10px;
-    right: 171px;
+    right: 172px;
     border-bottom: 10px solid rgb(149, 161, 132);
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 }
 
-.blur {
+/*Blur what's behind the popup when opened*/ 
+
+.blur{
     position: fixed;
     top: 0;
     left: 0;
@@ -261,19 +278,19 @@ export default {
 
 /*Responsive*/
 
-@media (max-width: 1800px) {
-  .px1750Size {
-    max-width: 97%;
-    padding-right: 100px;
-}
+@media (max-width: 1800px){
+    .px1750Size{
+        max-width: 97%;
+        padding-right: 100px;
+    }
 }
 
 
-@media (max-width: 800px) {
+@media (max-width: 800px){
     .arrow{
         display: none;
     }
-    .cartPopup {
+    .cartPopup{
         width: 420px;
         float: none;
         margin-left: auto;

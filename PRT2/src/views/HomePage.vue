@@ -1,10 +1,14 @@
 <template>
 
+  <!--Loading screen, loads everytime we enter the website-->
+
   <div>
     <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
       <img src="/images/loading.gif" alt="Loading" />
     </div>
+
+    <!--Content afrer loading-->
 
     <div v-else>
       <div class="overall">
@@ -14,6 +18,8 @@
         <Footer />
       </div>
     </div>
+
+    <!--Part of the Loading screen-->
 
     <footer>
       <p :class="{ 'blink': isLoading && !loadingComplete }" v-if="isLoading">Loading...</p>
@@ -25,6 +31,7 @@
 </template>
 
 <script>
+
 import Header from '../components/Header.vue'
 import Content from '../components/Content.vue'
 import ChatBot from '../components/ChatBot.vue'
@@ -54,6 +61,7 @@ export default {
       }, 500);
     }, 1000); /*3000 base */
   },
+
   methods: {
 
     startButtonCooldown() {
@@ -62,28 +70,34 @@ export default {
         this.cooldown = false;
       }, 500);
     },
+
     handleCategorySelected(category) {
       this.selectedCategory = category;
     },
+
     fetchItems() {
       this.$store.dispatch('fetchItems');
     },
+
     fetchFavourites() {
     const userId = this.$store.getters.userId;
     this.$store.dispatch('fetchFavourites', userId);
     }
   },
+
   computed:{
   },items() {
     // Retrieve items from the store
     // Replace 'items' with the actual state property name
     return this.$store.state.items;
   },
+
   favourites() {
     // Retrieve favourites from the store
     // Replace 'favourites' with the actual state property name
     return this.$store.state.favourites;
   },
+
   created() {
   this.$store.watch(
     () => this.$store.getters.isAuthenticated,
@@ -98,6 +112,7 @@ export default {
   );
   }
 }
+
 </script>
 <!--
 
@@ -168,7 +183,7 @@ export default {
 
 <style scoped>
 
-.loadingScreen {
+.loadingScreen{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -179,30 +194,30 @@ export default {
     animation: fadeOut 4s forwards;
 }
 
-.loadingScreen img {
+.loadingScreen img{
     width: 30%;
 }
 
-.loadingScreen p {
+.loadingScreen p{
     top: 5px;
     font-weight: 600;
     font-size: 45px;
 }
 
-.fadeOut {
+.fadeOut{
     display: none;
 }
 
-.blink {
+.blink{
     animation: blink 1s linear infinite;
     font-size: 30px;
     text-align: center;
     margin-top: 150px;
 }
 
-/*Animation*/
+/*Animation for the Loading Screen*/
 
-@keyframes fadeOut {
+@keyframes fadeOut{
   0% {
     opacity: 1;
   }
@@ -214,7 +229,7 @@ export default {
   }
 }
 
-@keyframes blink {
+@keyframes blink{
   0% {
     opacity: 1;
   }
@@ -228,8 +243,8 @@ export default {
 
 /*Responsive*/
 
-@media screen and (max-width: 800px) {
-  .loadingScreen img {
+@media screen and (max-width: 800px){
+  .loadingScreen img{
       width: 50%;
   }
 }

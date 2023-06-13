@@ -1,4 +1,9 @@
+<!--To be continued...-->
+
 <template>
+
+  <!--Payment Box-->
+
   <div class="paymentContainer">
     <h3>Payment Methods</h3>
     <ul>
@@ -9,7 +14,8 @@
 
     <button @click="addPaymentMethod">Add Payment Method</button>
 
-    <!-- Popup -->
+    <!--Payment Popup-->
+
     <div v-if="showPopup" class="popupContainer">
       <div class="popup">
         <button @click="cancelAdd" class="closeButton">&times;</button>
@@ -26,13 +32,17 @@
       </div>
     </div>
 
+    <!--Blur the background when Popup is opened-->
+
     <div v-if="showPopup" class="blur"></div>
 
   </div>
+
 </template>
 
 <script>
-export default {
+
+export default{
   data() {
     return {
       paymentMethods: [
@@ -46,11 +56,13 @@ export default {
       showPopup: false,
     };
   },
+
   methods: {
     addPaymentMethod() {
       this.showPopup = true;
       this.newPaymentMethod = { name: '', cardNumber: '' };
     },
+
     savePaymentMethod() {
       const newMethod = {
         id: Date.now(),
@@ -60,14 +72,18 @@ export default {
       this.paymentMethods.push(newMethod);
       this.showPopup = false;
     },
+
     cancelAdd() {
       this.showPopup = false;
     },
   },
 };
+
 </script>
 
 <style scoped>
+
+/*Payment Box*/
 
 .paymentContainer{
     background-color: rgb(121, 135, 119);
@@ -88,6 +104,8 @@ export default {
     justify-content: center;
     z-index: 999;
 }
+
+/*Payment Popup*/
 
 .popup {
     background: white;
@@ -112,6 +130,8 @@ export default {
     font-size: 20px;
     cursor: pointer;
 }
+
+/*Blur what's behind the popup when opened*/ 
 
 .blur {
     position: fixed;

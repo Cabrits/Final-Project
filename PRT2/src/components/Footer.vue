@@ -1,16 +1,20 @@
+<!--Footer containing direct links with useful information-->
+
 <template>
 
-<footer>
-    <div class="footer leftRightAuto px1750Size">
-        <ul>
-            <li class="lili"><a href="#">Twitter</a></li>
-            <li class="lili"><a href="#">Contact Us</a></li>
-            <li class="lili"><a href="#">About Us</a></li>
-            <li class="lili"><a href="#">Github</a></li>
-            <li><p>👋</p></li>
-        </ul>
-    </div>
-</footer>
+    <!--Footer-->
+
+    <footer>
+        <div class="footer leftRightAuto px1750Size">
+            <ul>
+                <li class="lili"><a href="#">Twitter</a></li>
+                <li class="lili"><a href="#">Contact Us</a></li>
+                <li class="lili"><a href="#">About Us</a></li>
+                <li class="lili"><a href="#">Github</a></li>
+                <li><p>👋</p></li>
+            </ul>
+        </div>
+    </footer>
 
 </template>
 
@@ -26,6 +30,20 @@ export default{
 
 <style scoped>
 
+/*Responsive*/
+
+.px1750Size{
+    margin: auto;
+    width: 1780px;
+}
+
+.leftRightAuto{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Footer*/
+
 footer{
     font-family: Arial, Helvetica, sans-serif;
     padding-top: 130px;
@@ -39,16 +57,6 @@ footer{
     border-radius: 10px;
     padding: 10px;
     border: 2px solid white;
-}
-
-.px1750Size{
-    margin: auto;
-    width: 1780px;
-}
-
-.leftRightAuto{
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .footer ul{
@@ -102,7 +110,7 @@ footer{
 /*Responsive*/
 
 @media screen and (min-width: 500px){
-    .footer ul {
+    .footer ul{
         grid-auto-flow: column; 
     }
 }

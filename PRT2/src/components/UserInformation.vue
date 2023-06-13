@@ -1,6 +1,11 @@
 <template>
 
+  <!--Overall User Information-->
+
   <div>
+
+    <!--Container box with information-->
+
     <div class="infoContainer">
       <h3>Your Information</h3>
       <p><strong>Name:</strong> {{ user.name }}</p>
@@ -8,6 +13,8 @@
       <p><strong>Address:</strong> {{ user.address }}</p>
       <button @click="editUser">Edit</button>
     </div>
+
+    <!--Popup to change information if needed-->
 
     <div v-if="showPopup" class="userPopupContainer">
       <div class="popupUser">
@@ -27,7 +34,9 @@
       </div>
     </div>
 
-    <div v-if="showPopup" class="overlay"></div>
+    <!--Blur the background when Popup is opened-->
+
+    <div v-if="showPopup" class="blur"></div>
 
   </div>
 </template>
@@ -35,7 +44,7 @@
   
 <script>
 
-  export default {
+  export default{
     data() {
       return {
         user: {
@@ -43,21 +52,25 @@
           email: 'joemama@joemama.com',
           address: 'Joe Mama Town',
         },
+
         editedUser: {
           name: '',
           email: '',
           address: '',
         },
+
         password: '',
         showPopup: false,
       };
     },
+
     methods: {
       editUser() {
         this.showPopup = true;
         this.editedUser = { ...this.user };
         this.password = '';
       },
+
       saveUser() {
         // Check if the password is correct before updating the email
         if (this.password === 'password123') { // Replace 'password123' with the actual password check
@@ -67,6 +80,7 @@
           alert('Invalid password. Please enter the correct password.');
         }
       },
+
       cancelEdit() {
         this.showPopup = false;
       },
@@ -79,7 +93,9 @@
 
 <style scoped>
 
-.infoContainer {
+/*Info box*/
+
+.infoContainer{
     background-color: rgb(121, 135, 119);
     color: white;
     border-radius: 10px;
@@ -91,11 +107,11 @@
     align-items: center;
 }
 
-.infoContainer h3 {
+.infoContainer h3{
     text-align: center;
 }
 
-.infoContainer button {
+.infoContainer button{
     width: 70%;
     height: 40px;
     border: none;
@@ -109,7 +125,9 @@
     box-shadow: 7px 7px rgba(50, 50, 50, 0.2);
 }
 
-.userPopupContainer {
+/*Popup to change information*/
+
+.userPopupContainer{
     position: absolute;
     top: 0;
     left: 0;
@@ -121,7 +139,7 @@
     z-index: 5;
 }
 
-.popupUser {
+.popupUser{
     display: block;
     position: relative;
     background-color: rgb(185, 188, 159);
@@ -134,26 +152,26 @@
     border: 2px solid white;
 }
 
-.changeInfo {
+.changeInfo{
     display: flex;
     flex-direction: column;
     margin-top: -15px;
 }
 
-.changeInfo h3 {
+.changeInfo h3{
     text-align: center;
     padding-top: -5px;
     font-size: 25px;
 }
 
-.changeInfo label {
+.changeInfo label{
     font-weight: 550;
     margin-left: 17px;
     margin-bottom: 5px;
     margin-top: 5px;
 }
 
-.changeInfo input {
+.changeInfo input{
     display: block;
     font-size: 15px;
     margin-left: 17px;
@@ -166,7 +184,7 @@
     -o-box-shadow: 7px 5px rgba(50, 50, 50, 0.2);
 }
 
-.saveButton button {
+.saveButton button{
     width: 70%;
     height: 40px;
     border: none;
@@ -180,15 +198,15 @@
     box-shadow: 7px 5px rgba(50, 50, 50, 0.2);
 }
 
-.saveButton {
+.saveButton{
     font-weight: 700;
 }
 
-.saveButton button:hover {
+.saveButton button:hover{
     background-color: lightgray;
 }
 
-.closeButton {
+.closeButton{
     border: none;
     background: white;
     font-size: 20px;
@@ -200,7 +218,9 @@
     line-height: 1px;
 }
 
-.overlay {
+/*Blur what's behind the popup when opened*/
+
+.blur{
     position: fixed;
     top: 0;
     left: 0;
@@ -212,30 +232,30 @@
 
 /*Responsive*/
 
-@media (max-width: 800px) {
-  .infoContainer {
+@media (max-width: 800px){
+  .infoContainer{
       padding: 10px 20px;
   }
 
-  .infoContainer button {
+  .infoContainer button{
      width: 90%;
   }
 
-  .popupUser {
+  .popupUser{
       max-width: 320px;
   }
 }
 
-@media (max-width: 480px) {
-  .infoContainer {
+@media (max-width: 480px){
+  .infoContainer{
       padding: 10px;
   }
 
-  .infoContainer button {
+  .infoContainer button{
       width: 100%;
   }
 
-  .popupUser {
+  .popupUser{
       max-width: 280px;
   }
 }

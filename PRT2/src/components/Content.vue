@@ -1,8 +1,12 @@
+<!--Overall Content of the Home Page-->
+
 <template> 
+
     <div class="contentStyle px1750Size">
         <Slider/>
         <Product/>
     </div>
+
 </template>
 
 
@@ -21,7 +25,7 @@ export default{
 
 <style scoped>
 
-/*Overall style for the content in Home Page*/
+/*Responsive*/
 
 .contentStyle{
     width: 100%;
@@ -31,8 +35,6 @@ export default{
     margin: auto;
     width: 1780px;
 }
-
-/*Responsive*/
 
 @media screen and (max-width: 1800px){   
     .px1750Size{

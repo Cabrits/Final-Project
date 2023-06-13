@@ -1,4 +1,7 @@
+<!--Button to choose which product genre the user wants-->
+
 <template>
+
   <div class="categories leftRightAuto">
     <div class="subCat" @click="resetCategory()">  
         <span class="inner"></span>
@@ -9,11 +12,14 @@
         <i :class="category.icon" aria-hidden="true"></i>
     </div>
   </div>
+
 </template>
 
 <script>
-export default {
+
+export default{
   name: 'Categories',
+
   data() {
     return {
       categories: [
@@ -25,21 +31,31 @@ export default {
       selectedCategory: null,
     };
   },
+
   methods: {
     selectCategory(category) {
       console.log(category)
       this.selectedCategory = category;
       this.$emit('category-selected', category.name);
     },
+
     resetCategory() {
       this.selectedCategory = null;
       this.$emit('category-selected', null);
     },
   },
 };
+
 </script>
 
 <style scoped>
+
+/*Responsive*/
+
+.leftRightAuto{
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /*Categories Buttons*/
 
@@ -51,11 +67,6 @@ export default {
     display: flex;
     justify-content: space-between;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.leftRightAuto{
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .subCat{
@@ -115,8 +126,8 @@ export default {
 
 /*Responsive*/
 
-@media screen and (max-width: 800px) {
-  .categories {
+@media screen and (max-width: 800px){
+  .categories{
       width: 100%;
   }
 

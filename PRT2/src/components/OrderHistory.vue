@@ -1,4 +1,7 @@
+<!--To be continued...-->
+
 <template>
+
   <div class="orderHistoryContainer">
     <h2>Order History</h2>
     <ul>
@@ -7,10 +10,12 @@
       </li>
     </ul>
   </div>
+
 </template>
 
 <script>
-export default {
+
+export default{
   name: 'OrderHistory',
   computed: {
     orders() {
@@ -18,9 +23,12 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
+
+/*Order History Box*/
 .orderHistoryContainer{
     background-color: rgb(162, 178, 159);
     border-radius: 10px;

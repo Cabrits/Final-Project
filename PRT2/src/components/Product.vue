@@ -1,41 +1,60 @@
+<!--Product Cards displayed on the Home Page-->
+
 <template>
-    <div>
-        <Categories @category-selected="handleCategorySelected"/>
-      </div>
-    <div class="productsDisplay">
-      <div class="product" v-for="item in filteredItems" :key="item.id">
-        <router-link :to="'/item/' + item.item_id">
+
+  <!--Show particularly products when a certain category is selected-->
+
+  <div>
+    <Categories @category-selected="handleCategorySelected"/>
+  </div>
+
+  <!--Product Card-->
+
+  <div class="productsDisplay">
+    <div class="product" v-for="item in filteredItems" :key="item.id">
+      <router-link :to="'/item/' + item.item_id">
         <img :src="item.item_image">
-          <h2>{{ item.item_name }}</h2>
+        <h2>{{ item.item_name }}</h2>
         <div class="prodInfo">
           <span>{{ item.item_description }}</span>
         </div>
-        </router-link>
-        <div class="prodButtons">
-          <div class="prodPrice">{{ (item.item_price * (1-item.item_discount)).toFixed(2) }}€</div>
-          <button class="cart btn" @click="this.$store.dispatch('addToCart', item);"><i class="fa fa-shopping-cart"></i></button>
-          <button class="favourite btn" :disabled="cooldown" @click="toggleFavourite(item.item_id)">
-            <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
-          </button>
-        </div>
+      </router-link>
+      <div class="prodButtons">
+        <div class="prodPrice">{{ (item.item_price * (1-item.item_discount)).toFixed(2) }}€</div>
+        <button class="cart btn" @click="addToCart(item)"><i class="fa fa-shopping-cart"></i></button>
+        <button class="favourite btn" :disabled="cooldown" @click="toggleFavourite(item.item_id)">
+          <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
+        </button>
       </div>
     </div>
+
+    <!--Notifications when adding items to the cart or to the favorites-->
+
+    <div v-if="cartNotification" class="notification">Item added to cart</div>
+    <div v-if="favoriteNotification" class="notification">Item added to favorites</div>
+  </div>
+
 </template>
 
-
 <script>
+
 import axios from 'axios';
 import Categories from './Categories.vue'
 import { mapState, mapActions, mapGetters } from 'vuex';
-export default {
+
+export default{
   name: 'Product',
   components: {Categories},
+
   data() {
     return {
       cooldown: false,
-      selectedCategory:null,
+      selectedCategory: null,
+      cartNotification: false,
+      favoriteNotification: false
     };
   },
+
   computed: {
     ...mapState(['items', 'favourites']),
     filteredItems() {
@@ -46,56 +65,70 @@ export default {
       }
     },
   },
-    methods: {
-      ...mapActions(['fetchItems','fetchFavourites']),
-      startButtonCooldown() {
-        this.cooldown = true;
-        setTimeout(() => {
-          this.cooldown = false;
-        }, 500);
-      },
-      handleCategorySelected(category) {
-        this.selectedCategory = category;
-      },
-      isFavourite(itemId) {
-        const result = this.favourites.some((favourite) => favourite.item_id === itemId);
-        return result;
-      },
-      toggleFavourite(itemId) {
-        const userId = this.$store.getters.userId;
-        const isItemFavourite = this.isFavourite(itemId);
-        const apiUrl = isItemFavourite
-          ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
-          : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
-          console.log('teste')
-        axios({
-          method: isItemFavourite ? 'DELETE' : 'POST',
-          url: apiUrl,
-        })
-          .then((response) => {
-            // Handle success
-            console.log('test1')
-            this.startButtonCooldown();
-            console.log('teste2')
-            this.$store.dispatch('fetchFavourites', userId);
-          })
-          .catch((error) => {
-            // Handle error
-            console.error(error);
-          });
-      },
+
+  methods: {
+    ...mapActions(['fetchItems','fetchFavourites']),
+    startButtonCooldown() {
+      this.cooldown = true;
+      setTimeout(() => {
+        this.cooldown = false;
+      }, 500);
     },
-    created() {
-      this.fetchItems();
+
+    handleCategorySelected(category) {
+      this.selectedCategory = category;
+    },
+
+    isFavourite(itemId) {
+      const result = this.favourites.some((favourite) => favourite.item_id === itemId);
+      return result;
+    },
+
+    toggleFavourite(itemId) {
+      const userId = this.$store.getters.userId;
+      const isItemFavourite = this.isFavourite(itemId);
+      const apiUrl = isItemFavourite
+        ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
+        : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
+
+      axios({
+        method: isItemFavourite ? 'DELETE' : 'POST',
+        url: apiUrl,
+      })
+        .then((response) => {
+          // Handle success
+          this.startButtonCooldown();
+          this.$store.dispatch('fetchFavourites', userId);
+          this.favoriteNotification = true; 
+          setTimeout(() => {
+            this.favoriteNotification = false; 
+          }, 2000);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error(error);
+        });
+    },
+    
+    addToCart(item) {
+      this.$store.dispatch('addToCart', item);
+      this.cartNotification = true; 
+      setTimeout(() => {
+        this.cartNotification = false;
+      }, 2000);
+    },
   },
-  };
+
+  created() {
+    this.fetchItems();
+  },
+};
+
 </script>
 
 <style scoped>
 
-.red-heart::before{
-    color: rgb(255, 127, 127)!important;;
-}
+/*Product Card*/
 
 .productsDisplay{
     display: flex;
@@ -117,12 +150,12 @@ export default {
 
 /*Potencial Idea*/
 
-.product:nth-child(2n+1) {
+.product:nth-child(2n+1){
     transform: perspective(1200px) rotateY(5deg);
     box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
 }
 
-.product:nth-child(2n) {
+.product:nth-child(2n){
     transform: perspective(1200px) rotateY(-5deg);
     box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
 }
@@ -263,19 +296,41 @@ export default {
     color: rgb(78, 75, 75);
 }
 
+/*Color change on the heart when pressed*/
+
+.red-heart::before{
+    color: rgb(255, 127, 127)!important;;
+}
+
+/*Notification*/
+
+.notification{
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  transition:  0.5s;
+  z-index: 999;
+}
+
 /*Responsive*/
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px){
   .product{
       transform: none;
   }
 
-  .product:nth-child(2n+1) {
+  .product:nth-child(2n+1){
       transform: perspective(1200px) rotateY(0deg);
       box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
   }
 
-  .product:nth-child(2n) {
+  .product:nth-child(2n){
       transform: perspective(1200px) rotateY(0deg);
       box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
   }

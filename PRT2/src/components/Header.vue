@@ -1,18 +1,29 @@
+<!--Header containing useful actions such as, login, sign up, search bar, etc-->
+
 <template>
 
     <!--Header-->
 
     <header class="headerStyle px1750Size">
+
+        <!--Menu when it's responsive-->
+
         <div class="menuBars" :class="{ active: showMenu }" @click="toggleMenu">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
         </div>
+
+        <!--Our website Logo-->
+
         <div class="logo">
             <router-link :to="'/'">
                 <img src="../assets/logo3.png">
             </router-link>
         </div>
+
+        <!--The rest of the header, containing the Search Bar component-->
+
         <div class="menuWrapper">
             <div class="menu" :class="{ active: showMenu }">
                 <SearchBar/>
@@ -32,14 +43,17 @@
         </div>
     </header> 
 
-  <PopupNotification v-if="notification" @closeN="closeNotification"/>
-  <PopupCart v-if="cart" @closeC="closeCart"/>
-  <PopupLogin v-if="login" @closeL="closeLogin"/>
-  <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
+    <!--Popup components-->
+
+    <PopupNotification v-if="notification" @closeN="closeNotification"/>
+    <PopupCart v-if="cart" @closeC="closeCart"/>
+    <PopupLogin v-if="login" @closeL="closeLogin"/>
+    <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
 
 </template>
 
 <script>
+
 import PopupLogin from './PopupLogin.vue';
 import PopupSignUp from './PopupSignUp.vue';
 import PopupNotification from './PopupNotification.vue';
@@ -49,8 +63,9 @@ import { ref } from 'vue';
 import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
 import { mapState } from 'vuex';
 
-export default {
+export default{
   name: 'Header',
+
   components: {
     PopupLogin,
     PopupNotification,
@@ -125,15 +140,20 @@ export default {
     },
   },
 };
+
 </script>
 
 
 <style scoped>
 
+/*Responsive*/
+
 .px1750Size{
     margin: auto;
     width: 1780px;
 }
+
+/*To remove the outline color when searching or clicking the search button*/
 
 input:focus, textarea:focus, select:focus{
     outline: none;
@@ -152,7 +172,22 @@ input:focus, textarea:focus, select:focus{
     display: none;
 }
 
-/*Header Menu*/
+/*Logo*/
+
+.logo{
+    display: block;
+    position: relative;
+    width: 13%;
+    margin-left: 25px;
+    padding-top: 3px;
+}
+
+.logo img{
+    cursor: pointer;
+    width: 119px;
+}
+
+/*Menu*/
 
 .menuWrapper{
     margin-left: auto;
@@ -168,19 +203,6 @@ input:focus, textarea:focus, select:focus{
 
 .menu.active{
     display: flex;
-}
-
-.logo{
-    display: block;
-    position: relative;
-    width: 13%;
-    margin-left: 25px;
-    padding-top: 3px;
-}
-
-.logo img{
-    cursor: pointer;
-    width: 119px;
 }
 
 /*Right Side of the Menu*/
@@ -231,6 +253,7 @@ input:focus, textarea:focus, select:focus{
     border-radius: 10px;
 }
 
+/*Login and Sign Up buttons*/
 
 .btnGroup{
     position: block;
@@ -355,6 +378,8 @@ input:focus, textarea:focus, select:focus{
         max-width: 500px;
         margin-right: 500px;
     }
+
+    /*New menu when it's responsive*/
 
     .menu{
         z-index: 4;
