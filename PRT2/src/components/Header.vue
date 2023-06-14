@@ -28,8 +28,8 @@
             <div class="menu" :class="{ active: showMenu }">
                 <SearchBar/>
                 <div class="menuActions">
-                    <button class="actions" v-if="user" @click = "loadNotification(); closeCart();"><font-awesome-icon icon="fa-solid fa-bell"/></button>
-                    <button class="actions" v-if="user" @click = "loadCart(); closeNotification();" id="cart"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
+                    <button class="actions" v-if="user" :class="{ active: notification, hover: notificationHover }" @click="toggleNotification(), closeCart();"><font-awesome-icon icon="fa-solid fa-bell" /></button>
+                    <button class="actions" v-if="user" :class="{ active: cart, hover: cartHover }" @click="toggleCart(); closeNotification();"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
                     <router-link class="actions" :to="'/user'" v-if="user">
                         <button class="userB" ><i class="fa fa-user" aria-hidden="true"></i></button>
                     </router-link>
@@ -80,7 +80,8 @@ export default{
       cart: false,
       login: false,
       signup: false,
-      notification: false
+      notification: false,
+      notificationHover: false,
     };
   },
 
@@ -96,14 +97,8 @@ export default{
   },
 
   methods: {
-    loadNotification() {
-      this.notification = true;
-    },
     closeNotification() {
       this.notification = false;
-    },
-    loadCart() {
-      this.cart = true;
     },
     closeCart() {
       this.cart = false;
@@ -138,6 +133,16 @@ export default{
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },
+
+    toggleNotification() {
+        this.notification = !this.notification;
+        this.notificationHover = false; 
+    },
+
+    toggleCart(){
+        this.cart = !this.cart;
+        this.cartHover = false; 
+    }
   },
 };
 
@@ -145,6 +150,16 @@ export default{
 
 
 <style scoped>
+
+.actions:hover,
+.actions.active {
+  background-color: rgb(248, 237, 227);
+  border-radius: 10px;
+}
+
+.actions.hover:hover {
+  background-color: rgb(248, 237, 227);
+}
 
 /*Responsive*/
 

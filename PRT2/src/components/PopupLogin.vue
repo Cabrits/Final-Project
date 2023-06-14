@@ -10,11 +10,11 @@
             <div class="form">
                 <h2 id="popupTitle" style="color: white; font-family: Arial, Helvetica, sans-serif;">Login</h2>
                 <div class="formElement">
-                    <label for="email" style="color: white;"><h4>Email</h4></label>
+                    <label for="email" style="color: white;"><h3>Email</h3></label>
                     <input type="text" id="email" placeholder="Enter Email" v-model="email">
                 </div>
                 <div class="formElement">
-                    <label for="password" style="color: white;"><h4>Password</h4></label>
+                    <label for="password" style="color: white;"><h3>Password</h3></label>
                     <input type="password" id="password" placeholder="Enter Password" v-model="password" @keyup.enter="logIn">
                 </div>
                 <div id="pMsg" style="color: white;"></div>
@@ -191,7 +191,8 @@ export default{
     display: block;
     position: relative;
     width: 350px;
-    line-height: 20px;
+    line-height: 25px;
+    height: 430px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px 30px;
@@ -222,50 +223,64 @@ export default{
     text-align: center;
     margin: 10px 0px 20px;
     font-size: 25px;
+    user-select: none;
 }
 
-.form .formElement{
+.form h3{
+  user-select: none;
+}
+
+.formElement{
     margin: 13px 0px;
 }
 
-.form .formElement label{
+.formElement label{
     font-size: 14px;
     color: #222;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.form .formElement input[type="text"], 
-.form .formElement input[type="password"]{
+.formElement input[type="text"], 
+.formElement input[type="password"]{
     margin-top: 5px;
     display: block;
     width: 94%;
     padding: 10px;
     outline: none;
-    border: 1px solid #aaa;
     border-radius: 5px;
     color: rgb(78, 75, 75);
-    box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
-    -moz-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
-    -webkit-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
-    -o-box-shadow: 7px 5px  rgba(50, 50, 50, 0.2); 
+    box-shadow: 7px 7px  rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 7px 7px  rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 7px 7px  rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 7px 7px  rgba(50, 50, 50, 0.5); 
+    font-size: 15px;
+    border: none;
 }
 
-.form .formElement button{
+.formElement button{
     width: 70%;
     height: 40px;
     border: none;
     outline: none;
     font-size: 15px;
+    font-weight: 600;
     background-color: white;
     color: rgb(78, 75, 75);
     border-radius: 10px;
     cursor: pointer;
     margin-top: 25px;
     margin-left: 50px;
-    box-shadow: 7px 5px  rgba(50, 50, 50, 0.2);
+    box-shadow: 7px 7px  rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 7px 7px  rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 7px 7px  rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 7px 7px  rgba(50, 50, 50, 0.5); 
 }
 
-.form .formElement a{
+.formElement button:hover{
+  background-color: #b5b5b6;
+}
+
+.formElement a{
     display: block;
     text-align: right;
     font-size: 15px;
@@ -287,6 +302,7 @@ export default{
     text-align: center;
     top: 5px;
     font-weight: 600;
+    user-select: none;
 }
 
 .alternative{
@@ -306,16 +322,18 @@ export default{
     margin-left: auto;
     margin-right: auto;
     border: none;
-    box-shadow: 6px 4px  rgba(50, 50, 50, 0.2);
-    -moz-box-shadow: 6px 4px  rgba(50, 50, 50, 0.2);
-    -webkit-box-shadow: 6px 4px  rgba(50, 50, 50, 0.2);
-    -o-box-shadow: 6px 4px  rgba(50, 50, 50, 0.2); 
+    box-shadow: 6px 4px  rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 6px 4px  rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 6px 4px  rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 6px 4px  rgba(50, 50, 50, 0.5); 
     cursor: pointer;
 }
 
 .altButton:hover{
-    color: #d5caca;
+  background-color: #b5b5b6;
 }
+
+
 
 .alternative i{
     color: rgb(61, 60, 60);

@@ -96,7 +96,7 @@
     border-radius: 10px;
     border: 2px solid white;
     padding: 10px 50px;
-    box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
+    box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.6);
     display: flex;
     flex-direction: column;
     align-items: center;

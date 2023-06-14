@@ -1,13 +1,13 @@
 <!--Slider that contains NEWS about our products, for example discounts, bundles, etc-->
 
-<template> 
+<template>
 
     <!--Overall Slider-->
 
     <div class="slideNews">
 
-            <!--Images-->
-        
+        <!--Images-->
+
         <div class="sliderWrapper">
             <div class="slider">
                 <img id="slide1" src="images/news1.jpg">
@@ -16,68 +16,73 @@
                 <img id="slide4" src="images/news4.jpg">
             </div>
 
-            <!--"Buttons" to choose which image to see-->
-
+            <!--Navigation circles-->
+            
             <div class="sliderNav">
-                <a href="#slide1"></a>
-                <a href="#slide2"></a>
-                <a href="#slide3"></a>
-                <a href="#slide4"></a>
+                <a v-for="(slide, index) in slides" :key="index" :href="`#slide${index + 1}`" :class="{ active: currentIndex === index }" @click.prevent="changeSlide(index)"></a>
             </div>
         </div>
     </div>
-
 </template>
-
-
-<script>
-
-export default{
-    name:'Slider',    
-}
-
+  
+  <script>
+  export default {
+    name: 'Slider',
+    data() {
+      return {
+        slides: [1, 2, 3, 4],
+        currentIndex: 0,
+      };
+    },
+    methods: {
+      changeSlide(index) {
+        this.currentIndex = index;
+        const slider = document.querySelector('.slider');
+        slider.scrollTo({
+          left: slider.offsetWidth * index,
+          behavior: 'smooth',
+        });
+      },
+    },
+  };
 </script>
-
+  
 <style scoped>
 
-/*Images*/
+/* Images */
 
-.slideNews{
+.slideNews {
     padding: 3rem;
 }
 
-.sliderWrapper{
+.sliderWrapper {
     position: relative;
     max-width: 55rem;
     margin: 0 auto;
     border-radius: 10px;
     border: 2px solid white;
-    box-shadow: 15px 15px 18px rgba(50, 50, 50, 0.5);
-    -moz-box-shadow: 15px 15px 18px rgba(50, 50, 50, 0.5);
-    -webkit-box-shadow: 15px 15px 18px rgba(50, 50, 50, 0.5);
-    -o-box-shadow: 15px 15px 18px  rgba(50, 50, 50, 0.5);
 }
 
-.slider{
+.slider {
     display: flex;
     aspect-ratio: 16 / 6;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    border-radius: 0 1.5rem 3rem -075rem hsla(0, 0%, 0%, 0.25);
+    border-radius: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
     border-radius: 10px;
     overflow: hidden;
 }
 
-.slider img{
+.slider img {
     flex: 1 0 100%;
     scroll-snap-align: start;
     object-fit: cover;
 }
 
-/*Slider "buttons"*/
+/* Slider "buttons" */
 
-.sliderNav{
+.sliderNav {
     display: flex;
     column-gap: 1rem;
     position: absolute;
@@ -87,7 +92,7 @@ export default{
     z-index: 1;
 }
 
-.sliderNav a{
+.sliderNav a {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
@@ -96,11 +101,16 @@ export default{
     transition: opacity ease 250ms;
 }
 
-.sliderNav a:hover{
+.sliderNav a:hover {
     opacity: 1;
 }
 
-.sliderNav:focus{
+.sliderNav a.active {
+    opacity: 1;
+    background-color: #ffffff;
+}
+
+.sliderNav:focus {
     color: white;
 }
 

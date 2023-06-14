@@ -74,10 +74,6 @@ export default{
     line-height: 80px;
     position: relative;
     text-align: center;
-    box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
-    -moz-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
-    -webkit-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
-    -o-box-shadow: 9px 7px rgba(50, 50, 50, 0.5);
     border-radius: 50%;
     background-color: rgb(255, 255, 255);
     color: rgb(76, 75, 75);
@@ -87,6 +83,11 @@ export default{
     width: 80px;
     border-radius: 50%;
     transition: 0.1s;
+    box-shadow: 9px 5px rgba(50, 50, 50, 0.8);
+    -moz-box-shadow: 9px 5px rgba(50, 50, 50, 0.8);
+    -webkit-box-shadow: 9px 5px rgba(50, 50, 50, 0.8);
+    -o-box-shadow: 9px 5px rgba(50, 50, 50, 0.8);
+    
 }
 
 .subCat .inner{

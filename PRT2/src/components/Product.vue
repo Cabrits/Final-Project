@@ -146,13 +146,14 @@ export default{
     margin-top: 60px;
     padding: 0;
     transition: 2.5s;
+    box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.8);
 }
 
-/*Potencial Idea*/
+/*Potencial Idea
 
 .product:nth-child(2n+1){
     transform: perspective(1200px) rotateY(5deg);
-    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+    box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.8);
 }
 
 .product:nth-child(2n){
@@ -172,7 +173,7 @@ export default{
     transition: 1.5s;
     z-index: 100;
     box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
-}
+}*/
 
 .product a{
     text-decoration: none;

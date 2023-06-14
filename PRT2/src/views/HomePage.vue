@@ -2,10 +2,10 @@
 
   <!--Loading screen, loads everytime we enter the website-->
 
-  <div>
+  <div class="overall2">
     <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
-      <img src="/images/loading2.GIF" alt="Loading" />
+      <img src="/images/loading.gif" alt="Loading" />
     </div>
 
     <!--Content afrer loading-->
@@ -18,12 +18,6 @@
         <Footer />
       </div>
     </div>
-
-    <!--Part of the Loading screen-->
-
-    <footer class="loading">
-      <p :class="{ 'blink': isLoading && !loadingComplete }" v-if="isLoading">Loading...</p>
-    </footer>
   </div>
 
 </template>
@@ -186,12 +180,7 @@ export default {
 
 <style scoped>
 
-.loading p{
-   color: white;
-   text-shadow: 0 0 2px #000000, 0 0 2px #000000;
-   font-size: 30px;
-   margin-top: 180px;
-}
+/*Loading screen*/
 
 .loadingScreen{
     display: flex;
@@ -220,13 +209,6 @@ export default {
     display: none;
 }
 
-.blink{
-    animation: blink 1s linear infinite;
-    font-size: 30px;
-    text-align: center;
-    margin-top: 150px;
-}
-
 /*Animation for the Loading Screen*/
 
 @keyframes fadeOut{
@@ -238,18 +220,6 @@ export default {
   }
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes blink{
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 

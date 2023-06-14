@@ -102,7 +102,7 @@ export default{
     border-radius: 10px;
     border: 2px solid white;
     padding: 24px 20px;
-    box-shadow: 25px 25px 22px rgba(50, 50, 50, 0.5);
+    box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.6);
     height: 308px;
 }
 
@@ -136,7 +136,7 @@ export default{
 }
 
 .itemCard{
-    flex-basis: 300px;
+    flex-basis: 500px;
     padding: 10px;
     border-radius: 10px;
     background-color: rgb(248, 246, 244);
@@ -239,12 +239,10 @@ export default{
 
 @media screen and (max-width: 1200px) {
   .favoriteItems {
-      flex-direction: column;
+      margin-bottom: -30px;
   }
 
-  .itemCard {
-      flex-basis: 100px;
-  }
+
 
   .popupContainer{
       top: 60%;
@@ -254,12 +252,24 @@ export default{
 
 @media screen and (max-width: 1000px) {
   .favoritesContainer {
-      padding: 10px 30px;
+      padding: 10px 40px;
+      height: 440px;
+  }
+
+  .favoriteItems{
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: -10px;
+  }
+
+  .itemCard{
+    flex-basis: 100px;
   }
 
   .favoritesContainer button {
       width: 100%;
       margin-left: 0;
+      margin-top: 45px;
   }
 
   .popupContainer{

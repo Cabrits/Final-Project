@@ -16,10 +16,29 @@
 <style>
 
 body{
-    background-color: rgb(189, 210, 182);
+    scrollbar-width:thin;
     font-family: Arial, Helvetica, sans-serif;
     align-items: center;
+  --s: 60px; /* control the size */
+  --c1: rgb(248, 237, 227) ;
+  --c2: rgba(189, 210, 182);
+  
+  background:
+    radial-gradient(36% 72% at 25% -50%,var(--c2) 98%,#0000)
+     0 0/calc(2*var(--s)) var(--s),
+    radial-gradient(36% 72% at 75% 150%,var(--c2) 98%,#0000)
+     0 0/calc(2*var(--s)) var(--s),
+    radial-gradient(72% 36% at 150% 25%,var(--c2) 98%,#0000)
+     0 0/var(--s) calc(2*var(--s)),
+    radial-gradient(72% 36% at -50% 75%,var(--c2) 98%,#0000)
+     0 0/var(--s) calc(2*var(--s)),
+    repeating-conic-gradient(var(--c2) 0 45deg,var(--c1) 0 25%)
+     0 0/calc(2*var(--s)) calc(2*var(--s));
 }
+
+
+
+
 
 html{
     scrollbar-width: thin;
@@ -39,6 +58,9 @@ html{
 ::-webkit-scrollbar-thumb:hover{
     background-color: #555;
 }
+
+
+
 
 </style>
 
