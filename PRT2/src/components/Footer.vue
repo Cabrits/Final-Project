@@ -12,6 +12,9 @@
                 <li class="lili"><a href="#">About Us</a></li>
                 <li class="lili"><a href="#">Github</a></li>
                 <li><p>👋</p></li>
+                <div class="nightModeWrapper">
+                    <button class="nightMode" @click="toggleNightMode"><i :class="nightMode ? 'fa fa-sun' :'fa fa-moon'"></i> </button>     
+                </div>
             </ul>
         </div>
     </footer>
@@ -29,6 +32,16 @@ export default{
 
 
 <style scoped>
+
+.nightModeWrapper{
+  display: flex;
+}
+
+button{
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+}
 
 /*Responsive*/
 

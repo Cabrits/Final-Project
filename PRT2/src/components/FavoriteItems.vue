@@ -5,7 +5,7 @@
     <!--Box containing only 2 favorite items-->
 
     <div class="favoritesContainer">
-      <h3>Favorite Items</h3>
+      <h2>Favorite Items</h2>
       <div class="favoriteItems">
         <div class="itemCard" v-for="(item, index) in visibleItems" :key="item.id">
           <div class="itemRow">
@@ -106,9 +106,12 @@ export default{
     height: 308px;
 }
 
-.favoritesContainer h3{
+.favoritesContainer h2{
+    margin-top: 3px;
     text-align: center;
     color: white;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
+    padding-bottom: -10px;
 }
 
 .favoritesContainer button{
@@ -120,14 +123,13 @@ export default{
     background-color: white;
     border-radius: 10px;
     cursor: pointer;
-    margin-bottom: 10px;
-    margin-top: 20px;
+    margin-top: 35px;
     margin-left: 90px;
-    box-shadow: 7px 7px rgba(50, 50, 50, 0.2);
+    box-shadow: 7px 7px 3px rgba(83, 82, 82, 0.8);
 }
 
 .favoriteItems{
-    padding-top: 20px;
+    padding-top: 35px;
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -138,6 +140,7 @@ export default{
     padding: 10px;
     border-radius: 10px;
     background-color: rgb(248, 246, 244);
+    box-shadow: 10px 13px 3px rgba(83, 82, 82, 0.8);
 }
 
 .itemRow{

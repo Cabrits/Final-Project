@@ -63,7 +63,6 @@ export default{
     padding-top: 3rem;
     width: 80%;
     height: auto;
-    margin-left: 10%;
     display: flex;
     justify-content: space-between;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

@@ -251,7 +251,6 @@ input[placeholder]{
     }
 
     .chatBox{
-        bottom: 50px;
         right: 5px;
         width: 300px;
         height: 350px;

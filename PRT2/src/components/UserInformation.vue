@@ -7,7 +7,7 @@
     <!--Container box with information-->
 
     <div class="infoContainer">
-      <h3>Your Information</h3>
+      <h2>Your Information</h2>
       <p><strong>Name:</strong> {{ user.name }}</p>
       <p><strong>Email:</strong> <span class="email">{{ user.email }}</span></p>
       <p><strong>Address:</strong> {{ user.address }}</p>
@@ -72,13 +72,8 @@
       },
 
       saveUser() {
-        // Check if the password is correct before updating the email
-        if (this.password === 'password123') { // Replace 'password123' with the actual password check
           this.user = { ...this.editedUser };
           this.showPopup = false;
-        } else {
-          alert('Invalid password. Please enter the correct password.');
-        }
       },
 
       cancelEdit() {
@@ -105,9 +100,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
-.infoContainer h3{
+.infoContainer h2{
     text-align: center;
 }
 
@@ -122,7 +118,7 @@
     cursor: pointer;
     margin-bottom: 10px;
     margin-top: 20px;
-    box-shadow: 7px 7px rgba(50, 50, 50, 0.2);
+    box-shadow: 7px 7px 3px rgba(83, 82, 82, 0.8);
 }
 
 /*Popup to change information*/
@@ -146,7 +142,7 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 400px;
-    height: 520px;
+    height: 400px;
     width: 100%;
     border-radius: 10px;
     border: 2px solid white;

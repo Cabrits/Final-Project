@@ -6,5 +6,5 @@ console.log('Connected to PlanetScale!')
 const databaseMiddleware = (req, res, next) => {
     req.connection = connection
     next()
-  }
+}
 module.exports = connection;

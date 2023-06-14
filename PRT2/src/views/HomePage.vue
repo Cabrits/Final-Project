@@ -5,7 +5,7 @@
   <div>
     <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
-      <img src="/images/loading.gif" alt="Loading" />
+      <img src="/images/loading2.GIF" alt="Loading" />
     </div>
 
     <!--Content afrer loading-->
@@ -21,12 +21,10 @@
 
     <!--Part of the Loading screen-->
 
-    <footer>
+    <footer class="loading">
       <p :class="{ 'blink': isLoading && !loadingComplete }" v-if="isLoading">Loading...</p>
     </footer>
   </div>
-
-  
 
 </template>
 
@@ -49,6 +47,7 @@ export default {
       loadingComplete: false,
       items: [],
       favourites: [],
+      nightMode: false,
     };
   },
 
@@ -59,7 +58,7 @@ export default {
       setTimeout(() => {
         this.loadingComplete = true;
       }, 500);
-    }, 1000); /*3000 base */
+    }, 3000); /*3000 base */
   },
 
   methods: {
@@ -82,6 +81,10 @@ export default {
     fetchFavourites() {
     const userId = this.$store.getters.userId;
     this.$store.dispatch('fetchFavourites', userId);
+    },
+
+    toggleNightMode(){
+      this.nightMode = !this.nightMode;
     }
   },
 
@@ -99,17 +102,17 @@ export default {
   },
 
   created() {
-  this.$store.watch(
+    this.$store.watch(
     () => this.$store.getters.isAuthenticated,
-    (isAuthenticated) => {
+      (isAuthenticated) => {
       if (isAuthenticated) {
         const userId = this.$store.getters.userId;
         this.$store.dispatch('fetchFavourites', userId);
       } else {
         console.log('User not logged in');
       }
-    }
-  );
+     }
+    );
   }
 }
 
@@ -183,6 +186,13 @@ export default {
 
 <style scoped>
 
+.loading p{
+   color: white;
+   text-shadow: 0 0 2px #000000, 0 0 2px #000000;
+   font-size: 30px;
+   margin-top: 180px;
+}
+
 .loadingScreen{
     display: flex;
     flex-direction: column;
@@ -202,6 +212,8 @@ export default {
     top: 5px;
     font-weight: 600;
     font-size: 45px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
 .fadeOut{
