@@ -62,7 +62,7 @@ footer{
 
 .footer{
     display: flex;
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(58, 56, 53);
     line-height: 1.5;
     border-radius: 10px;
     padding: 10px;

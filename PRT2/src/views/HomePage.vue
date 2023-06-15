@@ -5,7 +5,7 @@
   <div class="overall2">
     <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
-      <img src="/images/loading.gif" alt="Loading" />
+      <img src="/images/loading2.GIF" alt="Loading" />
     </div>
 
     <!--Content afrer loading-->
@@ -52,7 +52,7 @@ export default {
       setTimeout(() => {
         this.loadingComplete = true;
       }, 500);
-    }, 3000); /*3000 base */
+    }, 2000); /*2000 base */
   },
 
   methods: {

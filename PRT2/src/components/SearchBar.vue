@@ -22,9 +22,6 @@
                         <span>{{ result.item_name }}</span>
                       </router-link>
                     </li>
-                    <li v-if="searchResults.length > maxResults">
-                        <button @click="showMoreResults">Show More</button>
-                    </li>
                     <li v-if="searchResults.length === 0" class="noResults">
                         Product not found
                     </li>
@@ -208,9 +205,9 @@ input:focus{
     top: 100%;
     left: 0;
     z-index: 100;
-    background-color: #fff;
+    background-color: rgb(204, 197, 185);
     width: 100%;
-    border: 1px solid #ccc;
+    border: 2px solid #ffffff;
     border-top: none;
     list-style-type: none;
     width: 97%;
@@ -222,7 +219,7 @@ input:focus{
 }
 
 .searchBar li:hover {
-    background-color: #f2f2f2;
+    background-color: rgb(255, 252, 242);
     border-radius: 10px;
 }
 
@@ -234,7 +231,7 @@ input:focus{
     left: 0;
     width: 100%;
     border-radius: 4px;
-    padding-top: 1px;
+    padding-top: 4px;
     margin-left: 5px;
     max-height: 300px; 
     flex-direction: column;

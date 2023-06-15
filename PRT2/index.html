@@ -19,22 +19,25 @@ body{
     scrollbar-width:thin;
     font-family: Arial, Helvetica, sans-serif;
     align-items: center;
-  --s: 60px; /* control the size */
-  --c1: rgb(248, 237, 227) ;
-  --c2: rgba(189, 210, 182);
+
+  --s: 80px; /* the size */
+  --c: rgb(204, 197, 185);
   
+  --_s: calc(3*var(--s)) calc(2*var(--s)) ;
+  --_g: 35.36% 35.36% at;
+  --_c: #0000 66%,rgb(255, 252, 242) 68% 70%,#0000 72%;
   background:
-    radial-gradient(36% 72% at 25% -50%,var(--c2) 98%,#0000)
-     0 0/calc(2*var(--s)) var(--s),
-    radial-gradient(36% 72% at 75% 150%,var(--c2) 98%,#0000)
-     0 0/calc(2*var(--s)) var(--s),
-    radial-gradient(72% 36% at 150% 25%,var(--c2) 98%,#0000)
-     0 0/var(--s) calc(2*var(--s)),
-    radial-gradient(72% 36% at -50% 75%,var(--c2) 98%,#0000)
-     0 0/var(--s) calc(2*var(--s)),
-    repeating-conic-gradient(var(--c2) 0 45deg,var(--c1) 0 25%)
-     0 0/calc(2*var(--s)) calc(2*var(--s));
+    radial-gradient(var(--_g) 100% 25%,var(--_c)) var(--s) var(--s)/var(--_s),
+    radial-gradient(var(--_g) 0    75%,var(--_c)) var(--s) var(--s)/var(--_s),
+    radial-gradient(var(--_g) 100% 25%,var(--_c)) 0 0/var(--_s),
+    radial-gradient(var(--_g) 0    75%,var(--_c)) 0 0/var(--_s),
+    repeating-conic-gradient(var(--c) 0 25%,#0000 0 50%) 0 0/var(--_s),
+    radial-gradient(var(--_c)) 0 calc(var(--s)/2)/var(--s) var(--s)
+    var(--c);
 }
+
+
+
 
 
 

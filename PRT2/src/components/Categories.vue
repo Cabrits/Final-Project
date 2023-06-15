@@ -87,11 +87,12 @@ export default{
     -moz-box-shadow: 9px 5px rgba(50, 50, 50, 0.8);
     -webkit-box-shadow: 9px 5px rgba(50, 50, 50, 0.8);
     -o-box-shadow: 9px 5px rgba(50, 50, 50, 0.8);
+    border: 1px solid rgb(104, 95, 76);
     
 }
 
 .subCat .inner{
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(64, 61, 57);
     display: block;
     height: 0;
     width: 0;

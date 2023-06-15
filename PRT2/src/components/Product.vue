@@ -139,7 +139,7 @@ export default{
     margin-bottom: -60px;
 }
 .product{
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(64, 61, 57);
     border-radius: 20px;
     border: 3px solid rgb(248, 246, 244);
     width: 350px;
@@ -149,31 +149,31 @@ export default{
     box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.8);
 }
 
-/*Potencial Idea
+/*Potencial Idea*/
 
 .product:nth-child(2n+1){
     transform: perspective(1200px) rotateY(5deg);
-    box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.8);
+    box-shadow: 17px 20px 8px rgba(50, 50, 50, 0.7);
 }
 
 .product:nth-child(2n){
     transform: perspective(1200px) rotateY(-5deg);
-    box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
+    box-shadow: -17px 20px 8px rgba(50, 50, 50, 0.7);
 }
 
 .product:hover:nth-child(2n){
     transform: none;
     transition: 1.5s;
     z-index: 100;
-    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+    box-shadow: 17px 20px 8px rgba(50, 50, 50, 0.7);
 }
 
 .product:hover:nth-child(2n+1){
     transform: none;
     transition: 1.5s;
     z-index: 100;
-    box-shadow: -25px 25px 15px rgba(50, 50, 50, 0.5);
-}*/
+    box-shadow: -17px 20px 8px rgba(50, 50, 50, 0.7);
+}
 
 .product a{
     text-decoration: none;
@@ -186,9 +186,8 @@ export default{
     margin-top: 40px;
     border: 1px solid rgba(83, 82, 82, 0.3);
     border-radius: 10px;
-    box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
-    -moz-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
-    -webkit-box-shadow: 10px 13px 8px rgba(83, 82, 82, 0.7);
+    box-shadow: 10px 10px 4px rgba(176, 168, 155, 0.7);
+
 }
 
 .product h2{

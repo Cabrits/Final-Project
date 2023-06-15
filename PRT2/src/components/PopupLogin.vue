@@ -196,7 +196,7 @@ export default{
     margin-left: auto;
     margin-right: auto;
     padding: 20px 30px;
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(204, 197, 185);
     border-radius: 10px;
     border: 2px solid rgb(255, 255, 255);
     transition: top 0ms ease-in-out 200ms, 
@@ -246,6 +246,7 @@ export default{
     display: block;
     width: 94%;
     padding: 10px;
+    background-color: rgb(255, 255, 255);
     outline: none;
     border-radius: 5px;
     color: rgb(78, 75, 75);

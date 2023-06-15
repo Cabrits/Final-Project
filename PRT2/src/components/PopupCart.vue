@@ -104,7 +104,7 @@ export default{
     height: 415px;
     width: 400px;
     padding-top: 50px;
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(64, 61, 57);
     transition: right .3s;
     border: 1px solid white;
     border-radius: 10px;
@@ -148,6 +148,7 @@ export default{
     overflow-y: auto;
     scrollbar-width: thin;
     height: 250px;
+    margin-bottom: 5px;
 }
 
 
@@ -180,11 +181,21 @@ export default{
 }
 
 .cartItems li:first-child{
-    border-top: 2px solid white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.cartItems li:nth-child(2n){
+    background-color: rgb(219, 216, 203);
+}
+
+.cartItems li:nth-child(2n+1){
+    background-color: rgb(204, 197, 185);
 }
 
 .cartItems li:last-child{
-    border-bottom: 2px solid white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .cartItems span{
@@ -213,6 +224,13 @@ export default{
     text-align: center;
     transition: all 400ms;
     margin-top: -43px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(133, 131, 131);
+}
+
+
+.cartRemove:hover{
+    background-color: rgb(204, 202, 202);
 }
 
 
@@ -220,6 +238,8 @@ export default{
     font-weight: 700;
     padding: 0.5rem;
     text-align: center;
+    color: white;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
 .cartTotal span{
@@ -258,7 +278,7 @@ export default{
     position: absolute;
     top: -10px;
     right: 172px;
-    border-bottom: 10px solid rgb(149, 161, 132);
+    border-bottom: 10px solid rgb(64, 61, 57);
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 }

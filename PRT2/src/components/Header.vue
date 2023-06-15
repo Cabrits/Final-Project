@@ -18,7 +18,7 @@
 
         <div class="logo">
             <router-link :to="'/'">
-                <img src="../assets/logo3.png">
+                <img src="../assets/logo4.png">
             </router-link>
         </div>
 
@@ -151,16 +151,6 @@ export default{
 
 <style scoped>
 
-.actions:hover,
-.actions.active {
-  background-color: rgb(248, 237, 227);
-  border-radius: 10px;
-}
-
-.actions.hover:hover {
-  background-color: rgb(248, 237, 227);
-}
-
 /*Responsive*/
 
 .px1750Size{
@@ -177,7 +167,7 @@ input:focus, textarea:focus, select:focus{
 /*Header*/
 
 .headerStyle{
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(58, 56, 53);
     border-radius: 10px;
     border: 2px solid rgb(224, 224, 224);
     display: flex;
@@ -230,25 +220,31 @@ input:focus, textarea:focus, select:focus{
 
 
 .actions{
-    color: rgb(78, 75, 75);
-    background-color: rgb(162, 178, 159);
+    color: rgb(255, 255, 255);
+    background-color: rgb(58, 56, 53);
     margin: auto;
     padding: 20px 20px;
     border: none;
     font-size: 21px;
+    cursor: pointer;
 }
 
 .userB{
-    color: rgb(78, 75, 75);
+    color: rgb(255, 255, 255);
     background-color: inherit;
     border: none;
     font-size: 21px;
+    cursor: pointer;
+}
+
+.userB:hover{
+    color: rgb(58, 56, 53);
 }
 
 
 .actions2{
-    color: rgb(78, 75, 75);
-    background-color: rgb(162, 178, 159);
+    color: rgb(255, 255, 255);
+    background-color: rgb(58, 56, 53);
     padding: 20px 20px;
     font-size: 1em;
     border: none;
@@ -257,16 +253,25 @@ input:focus, textarea:focus, select:focus{
     font-size: 21px;
 }
 
-.actions:hover{
-    background-color: rgb(248, 237, 227);    
-    border-radius: 10px;
-}
 
 .actions2:hover{
     background-color: rgb(248, 237, 227); 
     padding-left: 20px;   
     border-radius: 10px;
 }
+
+.actions:hover,
+.actions.active {
+  background-color: rgb(248, 237, 227);
+  border-radius: 10px;
+  color:rgb(58, 56, 53);
+}
+
+.actions.hover:hover {
+  background-color: rgb(248, 237, 227);
+  color: 58, 56, 53;
+}
+
 
 /*Login and Sign Up buttons*/
 
@@ -409,7 +414,7 @@ input:focus, textarea:focus, select:focus{
         transition: display 0.5s ease;
         opacity: 0;
         display: none;
-        background-color: rgb(162, 178, 159);
+        background-color: rgb(58, 56, 53);
     }
 
     .menu.active{
