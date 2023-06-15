@@ -9,11 +9,14 @@
       <div class="favoriteItems">
         <div class="itemCard" v-for="(item, index) in visibleItems" :key="item.id">
           <div class="itemRow">
-            <img :src="item.image" :alt="item.name" class="itemImage" />
-            <div class="itemInfo">
-              <h4>{{ item.name }}</h4>
-              <p>{{ item.description }}</p>
-            </div>
+            <img :src="item.item_image" :alt="item.item_name" class="itemImage" />
+              <div class="itemInfo">
+                <router-link :to="'/item/' + item.item_id">
+                  <h5>{{ item.item_name }}</h5>
+                </router-link>
+                <p>{{ item.item_description.slice(0,25) }}...</p>
+              </div>
+
           </div>
         </div>
       </div>
@@ -29,13 +32,17 @@
         <div class="closePopup" @click="closePopup()">&times;</div>
         <h3>All Favorite Items</h3>
         <div class="popupItems">
-          <div class="popupItemCard" v-for="(item, index) in favoriteItems" :key="item.id">
+          <div class="popupItemCard" v-for="(item, index) in favouriteItems" :key="item.id">
             <div class="itemRow">
-              <img :src="item.image" :alt="item.name" class="itemImage" />
-              <div class="itemInfo">
-                <h4>{{ item.name }}</h4>
-                <p>{{ item.description }}</p>
-              </div>
+              <img :src="item.item_image" :alt="item.item_name" class="itemImage" />
+              
+                <div class="itemInfo">
+                  <router-link :to="'/item/' + item.item_id">
+                  <h5>{{ item.item_name }}</h5>
+                  </router-link>
+                  <p>{{ item.item_description.slice(0,25) }}...</p>
+                </div>
+              
             </div>
           </div>
         </div>
@@ -54,39 +61,28 @@
 export default{
   data() {
     return {
-      favoriteItems: [
-        { id: 1, name: 'Adventure Note', description: 'df', image: '/images/adventurenote.png' },
-        { id: 2, name: 'Item 2', description: 'Description 2', image: '/images/product2.jpg' },
-        { id: 3, name: 'Item 1', description: 'Description 1', image: '/images/product3.jpg' },
-        { id: 4, name: 'Item 2', description: 'Description 2', image: '/images/product3.jpg' },
-        { id: 5, name: 'Item 1', description: 'Description 1', image: '/images/product2.jpg' },
-        { id: 6, name: 'Item 2', description: 'Description 2', image: '/images/product1.jpg' },
-        
-      ],
-      visibleItems: [],
       showPopup: false,
     };
   },
 
   computed: {
-    showMoreButton() {
-      return this.favoriteItems.length > this.visibleItems.length;
+    favouriteItems() {
+      return this.$store.state.favourites;
     },
-  },
-
-  mounted() {
-    this.visibleItems = this.favoriteItems.slice(0, 2);
+    visibleItems() {
+      return this.favouriteItems.slice(0, 2);
+    },
+    showMoreButton() {
+      return this.favouriteItems.length > this.visibleItems.length;
+    },
   },
 
   methods: {
     showAllItems() {
-      this.visibleItems = this.favoriteItems;
       this.showPopup = true;
-      this.visibleItems = this.favoriteItems.slice(0, 2);
     },
 
     closePopup(){
-      this.visibleItems = this.favoriteItems.slice(0, 2);
       this.showPopup = false;
     }
   },

@@ -152,7 +152,7 @@ export default{
               // User does not exist, create a new one
               const userData = {
                 user_id: userId,
-                user_name: data.user.displayName,
+                user_name: data.user.displayName || 'placeholderName, Please Change!',
                 user_email: data.user.email,
               };
 
