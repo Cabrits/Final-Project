@@ -6,7 +6,7 @@
     <h2>Order History</h2>
     <ul>
       <li v-for="order in orders" :key="order.order_id">
-        <strong>Order ID:</strong> {{ order.order_id }} | <strong>Date:</strong> {{ order.order_date }} | <strong>Total:</strong> ${{ order.order_total }}
+        <strong>Order ID:</strong> {{ order.order_id }} | <strong>Date:</strong> {{ order.order_date }} | <strong>Total:</strong> {{ order.order_total }}€
       </li>
     </ul>
   </div>
