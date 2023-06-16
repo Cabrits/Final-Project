@@ -73,7 +73,12 @@ export default{
         .then((data) => {
           const userId = data.user.uid;
           console.log(userId , data)
-          this.$store.dispatch('setUser', data.user);
+          const userData = {
+                user_id: userId,
+                user_name: data.user.displayName || 'placeholderName, Please Change!',
+                user_email: data.user.email,
+              };
+          this.$store.dispatch('setUser', userData);
           this.$store.dispatch('fetchFavourites', userId)
           this.$store.dispatch('fetchOrders')
           console.log('Successfully LoggedIn!');
@@ -100,7 +105,11 @@ export default{
         .then(async (data) => {
           const userId = data.user.uid;
           console.log(userId, data);
-
+          const userData = {
+                user_id: userId,
+                user_name: data.user.displayName || 'placeholderName, Please Change!',
+                user_email: data.user.email,
+              };
           try {
             // Check if the user exists in your database
             await axios.get(`http://localhost:7777/api/user/${userId}`);
@@ -109,11 +118,6 @@ export default{
           } catch (error) {
             if (error.response && error.response.status === 404) {
               // User does not exist, create a new one
-              const userData = {
-                user_id: userId,
-                user_name: "placholder! please change",
-                user_email: data.user.email,
-              };
 
               await axios.post('http://localhost:7777/api/user/create', userData);
               console.log('New user created!');
@@ -141,7 +145,11 @@ export default{
         .then(async (data) => {
           const userId = data.user.uid;
           console.log(userId, data);
-
+          const userData = {
+                user_id: userId,
+                user_name: data.user.displayName || 'placeholderName, Please Change!',
+                user_email: data.user.email,
+              };
           try {
             // Check if the user exists in your database
             await axios.get(`http://localhost:7777/api/user/${userId}`);
@@ -150,11 +158,7 @@ export default{
           } catch (error) {
             if (error.response && error.response.status === 404) {
               // User does not exist, create a new one
-              const userData = {
-                user_id: userId,
-                user_name: data.user.displayName || 'placeholderName, Please Change!',
-                user_email: data.user.email,
-              };
+              
 
               await axios.post('http://localhost:7777/api/user/create', userData);
               console.log('New user created!');
@@ -162,7 +166,7 @@ export default{
               console.error(error);
             }
           }
-          this.$store.dispatch('setUser', data.user);
+          this.$store.dispatch('setUser', userData);
           this.$store.dispatch('fetchFavourites', userId);
           this.$store.dispatch('fetchOrders')
           this.closeL()

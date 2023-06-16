@@ -19,7 +19,7 @@ exports.createUser = async (req, res) => {
   // Update user
 exports.updateUser = async (req, res) => {
     const userId = req.params.userId;
-    const { user_name, user_address } = req.body;
+    const { user_email, user_name, user_address } = req.body;
   
     try {
       // Check if the user exists
@@ -31,8 +31,8 @@ exports.updateUser = async (req, res) => {
       }
   
       // Update the user's name and/or address
-      const updateQuery = 'UPDATE users SET user_name = ?, user_address = ? WHERE user_id = ?';
-      await executeQuery(updateQuery, [user_name, user_address, userId]);
+      const updateQuery = 'UPDATE users SET user_email = ?, user_name = ?, user_address = ? WHERE user_id = ?';
+      await executeQuery(updateQuery, [user_email, user_name, user_address, userId]);
   
       // Send a success response indicating that the user was updated
       res.json({ message: 'User updated successfully' });

@@ -8,9 +8,9 @@
 
     <div class="infoContainer">
       <h2>Your Information</h2>
-      <p><strong>Name:</strong> {{ user.name }}</p>
-      <p><strong>Email:</strong> <span class="email">{{ user.email }}</span></p>
-      <p><strong>Address:</strong> {{ user.address }}</p>
+      <p><strong>Name:</strong> {{ user.user_name }}</p>
+      <p><strong>Email:</strong> <span class="email">{{ user.user_email }}</span></p>
+      <p><strong>Address:</strong> {{ user.user_address }}</p>
       <button @click="editUser">Edit</button>
     </div>
 
@@ -22,11 +22,11 @@
         <div class="changeInfo">
           <h3>Change Your Information</h3>
           <label for="name">Name</label>
-          <input id="name" v-model="editedUser.name" type="text" placeholder="Enter your name" />
+          <input id="name" v-model="editedUser.user_name" type="text" placeholder="Enter your name" />
           <label for="email">Email</label>
           <input id="email" v-model="editedUser.email" type="email" placeholder="Enter your email" />
           <label for="address">Address</label>
-          <input id="address" v-model="editedUser.address" type="text" placeholder="Enter your address" />
+          <input id="address" v-model="editedUser.user_address" type="text" placeholder="Enter your address" />
         </div>
         <div class="saveButton">
           <button @click="saveUser">Save</button>
@@ -47,12 +47,6 @@
   export default{
     data() {
       return {
-        user: {
-          name: 'Joe Mama',
-          email: 'joemama@joemama.com',
-          address: 'Joe Mama Town',
-        },
-
         editedUser: {
           name: '',
           email: '',
@@ -62,6 +56,12 @@
         password: '',
         showPopup: false,
       };
+    },
+    computed: {
+      user() {
+        console.log(this.$store.state.user)
+        return this.$store.state.user;
+      },
     },
 
     methods: {

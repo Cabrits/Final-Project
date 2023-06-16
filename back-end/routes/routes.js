@@ -12,8 +12,8 @@ router.put('/api/user/:userId/update', userController.updateUser);
 router.get('/api/user/:userId/favourites', userController.getUserFavourites);
 router.post('/api/user/:userId/addFavourite/:itemId',userController.addFavouriteItem);
 router.delete('/api/user/:userId/removeFavourite/:itemId',userController.removeFavouriteItem);
-router.get('/api/user/:userId', userController.getUser);
-router.delete('/api/user/:userId', userController.deleteUser);
+router.get('/api/user/get/:userId', userController.getUser);
+router.delete('/api/user/delete/:userId', userController.deleteUser);
 
 // Routes for items
 router.get('/api/items', itemController.getItems);

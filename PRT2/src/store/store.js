@@ -66,40 +66,40 @@ const store = createStore({
   actions: {
     fetchOrders({ state, commit }) {
       commit('setOrders', []);
-      const userId = state.user.uid;
+      const userId = state.user.user_id;
 
-  axios
-    .get(`http://localhost:7777/api/orders/${userId}`)
-    .then(async (response) => {
-      // Handle success
-      const orderIds = response.data; // Assuming the response contains an array of order IDs
-      const orders = await Promise.all(
-        orderIds.map(async (orderId) => {
-          
-            const orderResponse = await axios.get(`http://localhost:7777/api/order/items/${orderId.order_id}`);
-            const orderData = orderResponse.data;
-            const formattedItems = orderData.map((item) => ({
-              item_id: item.item_id,
-              quantity: item.item_amount,
-              item_price_at_time:item.item_price_at_time
-            }));
-            const order = {
-              order_id: orderData[0].order_id,
-              user_id: orderData[0].user_id,
-              order_total: orderData[0].order_total,
-              order_date: orderData[0].order_date,
-              order_user_name: orderData[0].order_user_name,
-              items: formattedItems
-            };
-            commit('addOrder', order);
-            try {
-          } catch (error) {
-            console.error(`Failed to fetch order with ID ${orderId.order_id}:`, error);
-            return null;
-          }
+      axios
+        .get(`http://localhost:7777/api/orders/${userId}`)
+        .then(async (response) => {
+          // Handle success
+          const orderIds = response.data; // Assuming the response contains an array of order IDs
+          const orders = await Promise.all(
+            orderIds.map(async (orderId) => {
+              
+                const orderResponse = await axios.get(`http://localhost:7777/api/order/items/${orderId.order_id}`);
+                const orderData = orderResponse.data;
+                const formattedItems = orderData.map((item) => ({
+                  item_id: item.item_id,
+                  quantity: item.item_amount,
+                  item_price_at_time:item.item_price_at_time
+                }));
+                const order = {
+                  order_id: orderData[0].order_id,
+                  user_id: orderData[0].user_id,
+                  order_total: orderData[0].order_total,
+                  order_date: orderData[0].order_date,
+                  order_user_name: orderData[0].order_user_name,
+                  items: formattedItems
+                };
+                commit('addOrder', order);
+                try {
+              } catch (error) {
+                console.error(`Failed to fetch order with ID ${orderId.order_id}:`, error);
+                return null;
+              }
+            })
+          );
         })
-      );
-    })
     },
     fetchItems({ commit }) {
         axios
@@ -137,7 +137,7 @@ const store = createStore({
       commit('clearCart');
     },
     createOrder({ dispatch, commit, state }) {
-      const userId = state.user.uid;
+      const userId = state.user.user_id;
       const orderTotal = state.cart.reduce((total, item) => total + (item.item_price * (1-item.item_discount)).toFixed(2) * item.quantity, 0);
       const orderUserName = "notimplemented";
       const items = state.cart.map((item) => ({
@@ -187,10 +187,10 @@ const store = createStore({
       return state.orders;
     },
     userId(state) {
-        return state.user.uid;
+        return state.user.user_id;
     },
     isAuthenticated(state) {
-        return !!state.userId;
+        return !!state.user;
     },
   },
 });
