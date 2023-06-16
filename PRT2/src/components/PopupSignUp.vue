@@ -38,7 +38,7 @@
   
 <script>
 
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+  import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
   import axios from 'axios';
   export default{
     name: 'PopupLogin',

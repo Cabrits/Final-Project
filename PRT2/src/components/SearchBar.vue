@@ -49,7 +49,7 @@ export default{
     },
 
     computed: {
-      ...mapState(['items']),
+      ...mapState('items', ['items']),
 
       getLimitedResults() {
         return this.searchResults.slice(0, this.maxResults);
@@ -58,14 +58,8 @@ export default{
 
     methods: {
       handleInput() {
-      console.log(this.$store.state.items)
       if (this.searchInput.length > 0) {
-        const products = [
-          { name: "Sony Camera", image: "/images/product1.jpg"},
-          { name: "Bose Headphones", image: "/images/product2.jpg"},
-          { name: "Video Kit", image: "/images/product3.jpg"},
-        ]; 
-        const matchingProducts = this.$store.state.items.filter((item) =>
+        const matchingProducts = this.items.filter((item) =>
           item.item_name.toLowerCase().includes(this.searchInput.toLowerCase())
         );
 

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-
+import { mapState, mapActions } from 'vuex';
 export default{
   name: 'PopupCart',
 
@@ -45,33 +45,35 @@ export default{
     },
 
     computed: {
-
-    cartItems() {
-      return this.$store.state.cart;
-    },
-
-    cartTotal() {
-        return this.cartItems.reduce((total, item) => total + (item.item_price*(1-item.item_discount)).toFixed(2) * item.quantity, 0);
-    },
+        ...mapState(['cart']),
+        cartItems(){
+            return this.cart.cartItems
+        },
+        cartTotal() {
+            return this.cart.cartItems.reduce(
+                (total, item) =>
+                total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity,
+                0
+            );
+        },
     },
 
     methods: {
+        ...mapActions('orders',['createOrder']),
+        ...mapActions('cart',['removeFromCart', 'clearCart']),
         closeC() {
             this.$emit('closeC');
         },
-
-        removeFromCart(item) {
-            this.$store.dispatch('removeFromCart', item);
-        },
-
         checkout() {
-            this.$store.dispatch('createOrder',this.cartTotal);
-            this.clearcart
+            if(this.cartTotal<=0){
+                alert("the cart is still empty")
+            }else{
+                this.createOrder();
+                this.clearCart()
+            }
+            
         },
 
-        clearcart(){
-            this.$store.dispatch('clearCart');
-        }
     },
 }
 

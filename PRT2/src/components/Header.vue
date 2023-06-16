@@ -28,12 +28,12 @@
             <div class="menu" :class="{ active: showMenu }">
                 <SearchBar/>
                 <div class="menuActions">
-                    <button class="actions" v-if="user" :class="{ active: notification, hover: notificationHover }" @click="toggleNotification(), closeCart();"><font-awesome-icon icon="fa-solid fa-bell" /></button>
-                    <button class="actions" v-if="user" :class="{ active: cart, hover: cartHover }" @click="toggleCart(); closeNotification();"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
-                    <router-link class="actions" :to="'/user'" v-if="user">
+                    <button class="actions" v-if="userAuth" :class="{ active: notification, hover: notificationHover }" @click="toggleNotification(), closeCart();"><font-awesome-icon icon="fa-solid fa-bell" /></button>
+                    <button class="actions" v-if="userAuth" :class="{ active: cart, hover: cartHover }" @click="toggleCart(); closeNotification();"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
+                    <router-link class="actions" :to="'/user'" v-if="userAuth">
                         <button class="userB" ><i class="fa fa-user" aria-hidden="true"></i></button>
                     </router-link>
-                    <button class="actions2" v-if="user" @click="logout()"><font-awesome-icon icon="fa-solid fa-right-from-bracket" /></button>
+                    <button class="actions2" v-if="userAuth" @click="logout()"><font-awesome-icon icon="fa-solid fa-right-from-bracket" /></button>
                     <div class="btnGroup" v-else>
                         <button class="buttonLS" @click = "loadLogin(); closeSignUp();">Login</button>
                         <button class="buttonLS2" @click = "loadSignUp(); closeLogin();">SignUp</button>
@@ -46,9 +46,9 @@
     <!--Popup components-->
 
     <PopupNotification v-if="notification" @closeN="closeNotification"/>
-    <PopupCart v-if="cart" @closeC="closeCart"/>
-    <PopupLogin v-if="login" @closeL="closeLogin"/>
-    <PopupSignUp v-if="signup" @closeS="closeSignUp"/>
+    <PopupCart v-if="showCart" @closeC="closeCart"/>
+    <PopupLogin v-if="showLogin" @closeL="closeLogin"/>
+    <PopupSignUp v-if="showSignup" @closeS="closeSignUp"/>
 
 </template>
 
@@ -59,9 +59,8 @@ import PopupSignUp from './PopupSignUp.vue';
 import PopupNotification from './PopupNotification.vue';
 import PopupCart from './PopupCart.vue';
 import SearchBar from './searchBar.vue';
-import { ref } from 'vue';
 import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default{
   name: 'Header',
@@ -77,43 +76,50 @@ export default{
   data() {
     return {
       showMenu: false,
-      cart: false,
-      login: false,
-      signup: false,
+      showCart: false,
+      showLogin: false,
+      showSignup: false,
       notification: false,
       notificationHover: false,
     };
   },
+    computed: {
+        ...mapState('user', ['userAuth']),
+    },
+    mounted() {
+        const auth = getAuth();
 
-  computed: {
-    ...mapState(['favourites', 'user']),
-  },
-
-  mounted() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      this.user = user;
-    });
-  },
+        onAuthStateChanged(auth, (user) => {
+        this.setUserAuth(user).then(() => {
+            console.log(this.userAuth);
+        });
+        });
+    },
 
   methods: {
+    ...mapActions('user', ['setUserAuth']),
+    ...mapActions('user', ['clearUser']),
+    ...mapActions('cart', ['clearCart']),
+    ...mapActions('favourites', ['clearFavourites']),
+    ...mapActions('orders', ['clearOrders']),
+
     closeNotification() {
       this.notification = false;
     },
     closeCart() {
-      this.cart = false;
+      this.showCart = false;
     },
     loadLogin() {
-      this.login = true;
+      this.showLogin = true;
     },
     closeLogin() {
-      this.login = false;
+      this.showLogin = false;
     },
     loadSignUp() {
-      this.signup = true;
+      this.showSignup = true;
     },
     closeSignUp() {
-      this.signup = false;
+      this.showSignup = false;
     },
 
     logout() {
@@ -121,7 +127,10 @@ export default{
       signOut(auth)
         .then(() => {
           console.log('Successfully logged out!');
-          this.$store.dispatch('clearUser');
+          this.clearUser(); // Dispatch the clearUser action
+          this.clearCart(); // Dispatch the clearCart action
+          this.clearFavourites(); // Dispatch the clearFavourites action
+          this.clearOrders(); // Dispatch the clearOrders action
           // Handle successful logout
         })
         .catch((error) => {
@@ -140,8 +149,8 @@ export default{
     },
 
     toggleCart(){
-        this.cart = !this.cart;
-        this.cartHover = false; 
+        this.showCart = !this.showCart;
+        this.showCartHover = false; 
     }
   },
 };

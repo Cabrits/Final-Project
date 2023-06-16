@@ -46,7 +46,7 @@
 
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,GithubAuthProvider } from 'firebase/auth';
 import axios from 'axios';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default{
   name: 'PopupLogin',
@@ -60,10 +60,13 @@ export default{
     },
 
   computed: {
-  ...mapState(['favourites', 'user']) 
+    ...mapState(['user']),
   },
 
   methods: {
+    ...mapActions('user',['setUser']),
+    ...mapActions('favourites',['fetchFavourites']),
+    ...mapActions('orders',['fetchOrders']),
     closeL() {
       this.$emit('closeL');
     },
@@ -72,15 +75,16 @@ export default{
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
         .then((data) => {
           const userId = data.user.uid;
-          console.log(userId , data)
+          console.log(data.user)
           const userData = {
                 user_id: userId,
                 user_name: data.user.displayName || 'placeholderName, Please Change!',
                 user_email: data.user.email,
               };
-          this.$store.dispatch('setUser', userData);
-          this.$store.dispatch('fetchFavourites', userId)
-          this.$store.dispatch('fetchOrders')
+              console.log(userData)
+          this.setUser(userData);
+          this.fetchFavourites(userId);
+          this.fetchOrders();
           console.log('Successfully LoggedIn!');
           this.closeL()
         })
@@ -126,9 +130,9 @@ export default{
             }
           }
           
-          this.$store.dispatch('setUser', data.user);
-          this.$store.dispatch('fetchFavourites', userId);
-          this.$store.dispatch('fetchOrders')
+          this.setUser(userData);
+          this.fetchFavourites(userId);
+          this.fetchOrders();
           this.closeL();
           console.log('Successfully Logged In!');
         })
@@ -166,9 +170,9 @@ export default{
               console.error(error);
             }
           }
-          this.$store.dispatch('setUser', userData);
-          this.$store.dispatch('fetchFavourites', userId);
-          this.$store.dispatch('fetchOrders')
+          this.setUser(userData);
+          this.fetchFavourites(userId);
+          this.fetchOrders();
           this.closeL()
           console.log('Successfully LoggedIn!');
         })

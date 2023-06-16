@@ -31,6 +31,8 @@ import Footer from '../components/Footer.vue'
 import { getAuth } from '@firebase/auth';
 import axios from 'axios';
 
+
+
 export default {
   name: 'HomePage',
   components: { Header, Footer, Content, ChatBot },
@@ -69,12 +71,13 @@ export default {
     },
 
     fetchItems() {
-      this.$store.dispatch('fetchItems');
+      console.log(this.$store)
+      this.$store.dispatch('items/fetchItems');
     },
 
     fetchFavourites() {
     const userId = this.$store.getters.userId;
-    this.$store.dispatch('fetchFavourites', userId);
+    this.$store.dispatch('favourites/fetchFavourites', userId);
     },
 
     toggleNightMode(){

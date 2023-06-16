@@ -55,14 +55,17 @@ exports.getOrderItems = async (req, res) => {
 // Create a new order
 exports.createOrder = async (req, res) => {
     const { user_id, order_total, order_user_name, items } = req.body;
+    console.log(req.body)
     try {
       // Generate a random order ID
+      console.log("saasg1")
         const orderId = Math.floor(Math.random() * 100000);
-
+        console.log("saasg2")
         // Insert the new order into the orders table
         const insertOrderQuery = 'INSERT INTO orders (user_id, order_id, order_total, order_date, order_user_name) VALUES (?, ?, ?, NOW(), ?)';
+        console.log("saasg3")
         await executeQuery(insertOrderQuery, [user_id, orderId, order_total, order_user_name]);
-
+        console.log("saasg4")
       // Insert the order items into the orderItems table
       const insertItemQuery = 'INSERT INTO orderItems (order_id, item_id, item_amount ,item_price_at_time) VALUES (?, ?, ?,?)';
       for (const item of items) {
@@ -75,6 +78,7 @@ exports.createOrder = async (req, res) => {
       
     
     } catch (err) {
+      console.log("wuh")
       res.status(500).json({ error: 'An error occurred' });
     }
   };

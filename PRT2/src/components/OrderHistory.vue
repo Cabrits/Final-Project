@@ -14,12 +14,14 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 export default{
   name: 'OrderHistory',
   computed: {
+    ...mapGetters('orders',['getOrders']),
     orders() {
-      return this.$store.getters.getOrders;
+      console.log(this.getOrders)
+      return this.getOrders;
     },
   },
 };

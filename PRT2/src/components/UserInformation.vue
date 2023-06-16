@@ -43,6 +43,8 @@
 
   
 <script>
+import { mapState } from 'vuex';
+
 
   export default{
     data() {
@@ -58,10 +60,9 @@
       };
     },
     computed: {
-      user() {
-        console.log(this.$store.state.user)
-        return this.$store.state.user;
-      },
+      ...mapState({
+        user: state => state.user.user,
+      }),
     },
 
     methods: {
@@ -72,7 +73,7 @@
       },
 
       saveUser() {
-          this.user = { ...this.editedUser };
+          this.user.user = { ...this.editedUser };
           this.showPopup = false;
       },
 

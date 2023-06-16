@@ -32,7 +32,7 @@
         <div class="closePopup" @click="closePopup()">&times;</div>
         <h3>All Favorite Items</h3>
         <div class="popupItems">
-          <div class="popupItemCard" v-for="(item, index) in favouriteItems" :key="item.id">
+          <div class="popupItemCard" v-for="(item, index) in favourites" :key="item.id">
             <div class="itemRow">
               <img :src="item.item_image" :alt="item.item_name" class="itemImage" />
               
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-
+import { mapState } from 'vuex';
 export default{
   data() {
     return {
@@ -66,14 +66,14 @@ export default{
   },
 
   computed: {
-    favouriteItems() {
-      return this.$store.state.favourites;
-    },
+    ...mapState({
+      favourites: state => state.favourites.favourites,
+    }),
     visibleItems() {
-      return this.favouriteItems.slice(0, 2);
+      return this.favourites.slice(0, 2);
     },
     showMoreButton() {
-      return this.favouriteItems.length > this.visibleItems.length;
+      return this.favourites.length > this.visibleItems.length;
     },
   },
 

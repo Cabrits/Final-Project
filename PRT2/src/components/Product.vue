@@ -56,18 +56,23 @@ export default{
   },
 
   computed: {
-    ...mapState(['items', 'favourites']),
+    ...mapState(['items']),
+    ...mapState(['favourites']),
+    ...mapGetters('user',['userId']),
     filteredItems() {
+      console.log("safag")
+      console.log(this.items.items)
       if (this.selectedCategory) {
-        return this.$store.state.items.filter((item) => item.item_category === this.selectedCategory);
+        return this.items.items.filter((item) => item.item_category === this.selectedCategory);
       } else {
-        return this.$store.state.items;
+        return this.items.items;
       }
     },
   },
 
   methods: {
-    ...mapActions(['fetchItems','fetchFavourites']),
+    ...mapActions('items',['fetchItems']),
+    ...mapActions('favourites',['fetchFavourites']),
     startButtonCooldown() {
       this.cooldown = true;
       setTimeout(() => {
@@ -80,12 +85,12 @@ export default{
     },
 
     isFavourite(itemId) {
-      const result = this.favourites.some((favourite) => favourite.item_id === itemId);
+      const result = this.favourites.favourites.some((favourite) => favourite.item_id === itemId);
       return result;
     },
 
     toggleFavourite(itemId) {
-      const userId = this.$store.getters.userId;
+      const userId = this.userId;
       const isItemFavourite = this.isFavourite(itemId);
       const apiUrl = isItemFavourite
         ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
@@ -98,7 +103,7 @@ export default{
         .then((response) => {
           // Handle success
           this.startButtonCooldown();
-          this.$store.dispatch('fetchFavourites', userId);
+          this.$store.dispatch('favourites/fetchFavourites', userId);
           this.favoriteNotification = true; 
           setTimeout(() => {
             this.favoriteNotification = false; 
@@ -111,7 +116,7 @@ export default{
     },
     
     addToCart(item) {
-      this.$store.dispatch('addToCart', item);
+      this.$store.dispatch('cart/addToCart', item);
       this.cartNotification = true; 
       setTimeout(() => {
         this.cartNotification = false;
