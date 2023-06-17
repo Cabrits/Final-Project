@@ -25,21 +25,24 @@
                 </div>
                 <div class="formGroup">
                     <label for="email">Address:</label>
-                    <input type="address" id="address" v-model="address" required>
+                    <input type="address" id="address" v-model="address" placeholder="Enter Address" required>
                 </div>
                 <div class="formGroup">
-                    <label for="card-number">Card Number:</label>
-                    <input type="text" id="card-number" v-model="cardNumber" required>
+                    <div class="inputContainer">
+                        <label for="card-number">Card Number:</label>
+                        <input type="text" id="cardNumber" v-mask="'#### #### #### ####'" maxlength="19" v-model="cardNumber" pattern="[0-9]*" inputmode="numeric" placeholder="xxxx xxxx xxxx xxxx" required>
+                        <div class="cardIcon" :class="cardIcon"></div>
+                    </div>
                 </div>
                 <div class="formGroup">
                     <div class="expiryCVV">
                         <div class="expiry">
                             <label for="expiryDate">Expiry Date:</label>
-                            <input type="text" id="expiryDate" v-model="formattedExpiryDate" required>
+                            <input type="text" id="expiryDate" v-model="expiryDate" maxlength="5" v-mask="'##/##'" placeholder="xx/xx" required>
                         </div>
                         <div class="cvv">
                             <label for="cvv">CVV:</label>
-                            <input type="text" id="cvv" v-model="cvv" required>
+                            <input type="text" id="cvv" v-model="cvv" maxlength="3" placeholder="xxx" required>
                         </div>
                     </div>
                 </div>
@@ -77,9 +80,9 @@
   
 <script>
 
-  export default{
+export default{
     data() {
-      return {
+        return {
         name: '',
         email: '',
         address: '',
@@ -97,27 +100,10 @@
             { id: 4, name: 'The One Fu', price: 15 },
             { id: 5, name: 'The One Fu', price: 15 },
         ],
-      };
+        };
     },
 
     computed: {
-        formattedExpiryDate: {
-            get() {
-            return this.expiryDate;
-            },
-            set(value) {
-            const formattedValue = value.replace(/\D/g, '');
-            let formatted = '';
-            for (let i = 0; i < formattedValue.length; i++) {
-                formatted += formattedValue[i];
-                if (i === 1) {
-                formatted += '/';
-                }
-            }
-            this.expiryDate = formatted;
-            }
-        },
-
         cartItemsGrouped() {
             const groupedItems = this.cartItems.reduce((acc, item) => {
             const existingItem = acc.find((i) => i.id === item.id);
@@ -134,13 +120,26 @@
         cartTotal() {
             return this.cartItems.reduce((total, item) => total + item.price, 0);
         },
+
+        cardIcon() {
+            const firstDigit = this.cardNumber.charAt(0);
+
+            if (firstDigit === '4') {
+                return 'fa fa-cc-visa'; 
+            } else if (firstDigit === '5' || firstDigit === '2') {
+                return 'fa fa-cc-mastercard'; 
+            } else if (firstDigit === '3') {
+                return 'fa fa-cc-amex'; 
+            } else {
+                return 'fa-solid fa-credit-card'; 
+            }
+        },
     },
 };
 
 </script>
   
 <style scoped>
-
 
 /*Overall*/
 
@@ -201,10 +200,9 @@
     margin-bottom: 2px;
 }
 
-.formGroup input[type="text"],
+input[type="text"],
 input[type="email"],
 input[type="address"],
-input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="address"]:focus {
     padding: 10px;
@@ -255,6 +253,25 @@ input[type="address"]:focus {
     margin-right: auto;
     margin-top: 10px;
 }
+
+.inputContainer{
+    margin-left: 5px;
+}
+
+.inputContainer label{
+    margin-left: 15px;
+}
+
+.inputContainer input{
+    width: 80%;
+    margin-left: 15px;
+}
+
+.cardIcon{
+    margin-left: 23px;
+    font-size: 30px;
+}
+
 
 .submitBtn:hover{
     background-color: rgb(204, 189, 171);
@@ -327,7 +344,7 @@ input[type="address"]:focus {
 }
 .goBackBtn{
     position: absolute;
-    top: 10px;
+    top: 20px;
     left: 20px;
 }
 

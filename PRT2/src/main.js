@@ -17,9 +17,16 @@ import { faMasksTheater } from '@fortawesome/free-solid-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'
 import { faMoon } from '@fortawesome/free-solid-svg-icons'
 import { faSun } from '@fortawesome/free-solid-svg-icons'
+import { faCreditCard } from '@fortawesome/free-solid-svg-icons'
+import { faCcVisa } from '@fortawesome/free-brands-svg-icons'
+import { faCcMastercard } from '@fortawesome/free-brands-svg-icons'
+import { faCcAmex } from '@fortawesome/free-brands-svg-icons'
 import store from './store/store';
+import VueTheMask from 'vue-the-mask';
 
-library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, faMasksTheater, faComment, faMoon, faSun);
+
+library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, faMasksTheater,
+   faComment, faMoon, faSun, faCreditCard, faCcVisa, faCcMastercard, faCcAmex);
 
 
 const firebaseConfig = {
@@ -34,12 +41,15 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const app = createApp(App)
-
+app.use(VueTheMask);
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
 app.use(store);
 app.mount('#app')
+
+
+
 
 
 
