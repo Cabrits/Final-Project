@@ -118,16 +118,17 @@ export default {
     color: #000000;
     height: 40px;
     border-radius: 50px;
-    font-size: 25px;
+    font-size: 22px;
     cursor: pointer;
     width: 300px;
     height: 50px;
-    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.5);
+    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
     margin-top: 40px;
 }
 
 .buyButton:hover{
-    background-color: rgb(185, 188, 159);
+    background-color: rgb(56, 49, 40);
+    color: white;
 }
 
 /*Responsive*/

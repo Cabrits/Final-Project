@@ -12,7 +12,7 @@
 
             <div class="member">
                 <div class="memberInfo">
-                    <img class="memberPicture" :src="member1.picture">
+                    <img class="memberPicture" src="@/assets/1.jpg">
                     <div class="memberDetails">
                         <h3>{{ member1.name }}</h3>
                         <p class="memberRole">{{ member1.role }}</p>
@@ -33,7 +33,7 @@
 
             <div class="member">
                 <div class="memberInfo">
-                    <img  class="memberPicture" :src="member2.picture">
+                    <img  class="memberPicture" src="@/assets/2.jpg">
                     <div class="memberDetails">
                         <h3>{{ member2.name }}</h3>
                         <p class="memberRole">{{ member2.role }}</p>
@@ -70,7 +70,6 @@ export default{
         member1: {
             name: "Duarte Cabrita",
             role: "Front End Developer",
-            picture: "./1.jpg",
             twitter: "",
             github: "https://github.com/Cabrits",
             info: "Universidade Autónoma de Lisboa student and Front End enthusiast with a good eye for design. Learning Vue JS and wanting to explore more frameworks to expand my knowledge on this field. Loves music while chilling outside, sports and casually watch some anime.",
@@ -78,7 +77,6 @@ export default{
         member2: {
             name: "Nuno Cartaxo",
             role: "Back End Developer",
-            picture: "./2.jpg",
             twitter: "",
             github: "https://github.com/NunoCartaxoUAL/",
             info: "asdadsadUniversidade Autónoma de Lisboa student and ",

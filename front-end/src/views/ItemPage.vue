@@ -16,7 +16,7 @@
                 In a world where samurai wield swords, Ayame stands out as a dango-wielding warrior. When an evil warlord threatens her village, Ayame embarks on a quest to defeat him using the magical dango skewer. 
                 With his loyal mechanised companion Delda by her side, Ayame must unlock
             <span class="readMoreText">
-                the skewer's hidden powers and confront her own demons.<br> Action, comedy, and supernatural elements collide in this tale of a unique samurai's journey to protect her home and loved ones.
+                the skewer's hidden powers and confront her own demons. Action, comedy, and supernatural elements collide in this tale of a unique samurai's journey to protect her home and loved ones.
                 <br>
                 <br>
                 <h4>Author:<span class="authorAndChapterText">{{author}}</span></h4><h4>Current Chapters Out:<span class="authorAndChapterText">{{chapters}}</span></h4>
@@ -84,17 +84,18 @@ export default{
     width: 900px;
     margin: 0 auto;
     margin-bottom: -70px;
+    color: white;
 }
 
 .moreInfo{
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(122, 111, 96);
     border: 2px solid white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.5);
-    -moz-box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.5);
-    -webkit-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.5);
-    -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.5);
+    box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -moz-box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -webkit-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
     margin-top: -70px;
     font-weight: 600;
 }
@@ -115,6 +116,7 @@ export default{
     cursor: pointer;
     font-weight: 600;
     font-size: 15px;
+    color: #222222;
 }
 
 .readMoreButton:hover{
@@ -130,9 +132,9 @@ export default{
 }
 
 .authorAndChapterText{
-    color: white;
+    color: rgb(243, 243, 243);
     margin-left: 10px;
-    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    text-shadow: 0 0 1px #000000, 0 0 3px #000000;
 }
 
 /*Responsive*/

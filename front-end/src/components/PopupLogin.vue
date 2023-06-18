@@ -201,7 +201,7 @@ export default{
     position: relative;
     width: 350px;
     line-height: 25px;
-    height: 430px;
+    height: 450px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px 30px;

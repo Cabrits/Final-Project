@@ -8,9 +8,8 @@
         <div class="footer leftRightAuto px1750Size">
             <ul>
                 <li class="lili"><a href="#">Twitter</a></li>
-                <li class="lili"><a href="#">Contact Us</a></li>
-                <li class="lili"><a href="#">About Us</a></li>
-                <li class="lili"><a href="#">Github</a></li>
+                <li class="lili"><router-link :to="'/aboutus'"> About Us</router-link></li>
+                <li class="lili"><a href="https://github.com/Cabrits/Final-Project">Github</a></li>
                 <li><p>👋</p></li>
             </ul>
         </div>

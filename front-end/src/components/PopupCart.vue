@@ -21,7 +21,7 @@
                     <div class="cartTotal">
                         <p>Total: <span>{{ cartTotal }}€</span></p>
                     </div>
-                    <button class="checkoutButton" @click="checkout">Checkout</button>
+                    <router-link class="lineRemove" :to="'/checkout'"> <button class="checkoutButton">Checkout</button></router-link>
                 </div>
             </div>
         </div>
@@ -271,6 +271,10 @@ export default{
 
 .checkoutButton:hover{
     background-color: rgb(248, 237, 227);
+}
+
+.lineRemove{
+    text-decoration: none;
 }
 
 /*Arrow poiting to the cart icon on header*/

@@ -69,10 +69,9 @@
         <!--Go Back Button-->
 
         <div class="goBackBtn">
-            <button class="backButton">
-                <span>&larr;</span>
-                <span class="goBackText">Go Back</span>
-            </button>
+            <router-link class="lineRemove" :to="'/'">
+                <button class="backButton"><span>&larr;</span><span class="goBackText">Go Back</span></button>
+            </router-link>
         </div>
     </div>
 
@@ -365,6 +364,10 @@ input[type="address"]:focus {
 
 .backButton:hover{
     color:white;
+}
+
+.lineRemove{
+    text-decoration: none;
 }
 
 /*Responsive*/
