@@ -3,19 +3,35 @@
 <template>
 
     <!--Overall Product-->
-
+    <div class="productPage">
     <div class="productContainer">
         <div class="productImage">
-            <img :src="book.image" alt="Book Cover">
+            <img :src="book.item_image" alt="Book Cover">
         </div>
         <div class="productDetails">
-            <h2 class="bookTitle">{{ book.title }}</h2>
-            <p class="bookAuthor">By {{ book.author }}</p>
-            <p class="bookDescription">{{ book.description }}</p>
-            <p class="bookPrice"> {{ book.price }} €</p>
-            <button class="buyButton">Buy Now</button>
+            <h2 class="bookTitle">{{ book.item_name }}</h2>
+            <p class="bookAuthor">By yatsume</p>
+            <p class="bookPrice"> {{ book.item_price }} €</p>
+            <button class="buyButton"  @click="addToCart(book)">Buy Now</button>
         </div>
     </div>
+</div>
+        <!--Description box with details about the item-->
+
+        <div class="moreInfoWrapper" v-if="book">
+            <div class="moreInfo">
+            <p>
+                <span v-if="isReadMoreShown || !book.item_description">{{ book.item_description }}</span>
+                <span v-else>{{ book.item_description.substring(0, 250) }}...</span>
+                <br><br>
+                <h4>Author:<span class="authorAndChapterText">{{ author }}</span></h4>
+                <h4>Current Chapters Out:<span class="authorAndChapterText">{{ chapters }}</span></h4>
+            </p>
+            <span class="readMoreButton" @click="toggleReadMore">
+                {{ isReadMoreShown ? 'Read Less...' : 'Read More...' }}
+            </span>
+            </div>
+        </div>
 
 </template>
 
@@ -23,22 +39,44 @@
 
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
+import axios from 'axios';
+import apiURL from '../config.js'
+
 
 export default {
-    name: 'PageNotFound',
+    name: 'SingleProduct',
     components: { Header, Footer },
-
     data() {
         return {
-            book: {
-                title: 'Adventure Note',
-                author: 'Yatsume San',
-                description: 'Ayame and his robot friend Delda',
-                price: 10,
-                image: '/images/dangozamurai.png'
-            }
-        };
-    }
+            isLoading: true,
+            book: {},
+            author: 'Yatsume San',
+            chapters: '3',
+            isReadMoreShown: false,
+        }
+    },
+    async created() {
+        try {
+            const response = await axios.get(`${apiURL}/item/${this.$route.params.id}`)
+            this.book = response.data
+        } catch (error) {
+            
+        }
+        this.isLoading = false
+    },
+    methods: {
+    toggleReadMore() {
+      this.isReadMoreShown = !this.isReadMoreShown
+    },
+    addToCart(item) {
+      this.$store.dispatch('cart/addToCart', item);
+      this.cartNotification = true; 
+      setTimeout(() => {
+        this.cartNotification = false;
+      }, 2000);
+    },
+  },
+    
 }
 
 </script>
@@ -131,6 +169,87 @@ export default {
     color: white;
 }
 
+.productPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    margin-top: 50px;
+    padding-bottom: 100px;
+}
+
+.moreInfoWrapper{
+    text-align: center;
+    width: 900px;
+    margin: 0 auto;
+    margin-bottom: -70px;
+    color: white;
+}
+
+.moreInfo{
+    background-color: rgb(122, 111, 96);
+    border: 2px solid white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -moz-box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -webkit-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    margin-top: -70px;
+    font-weight: 600;
+}
+
+.moreInfo h4{
+    display: inline;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.moreInfo p{
+    text-justify: inter-word;
+}
+
+
+.readMoreButton{
+    color: #000000;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: #222222;
+}
+
+.readMoreButton:hover{
+    color: rgb(255, 255, 255);
+}
+
+.readMoreText{
+    display: none;
+}
+
+.readMoreText--show{
+    display: inline;
+}
+
+.authorAndChapterText{
+    color: rgb(243, 243, 243);
+    margin-left: 10px;
+    text-shadow: 0 0 1px #000000, 0 0 3px #000000;
+}
+
+/*Responsive*/
+
+@media (max-width: 925px){
+    .productPage{
+        flex-direction: column;
+    }
+    .moreInfoWrapper{
+        width: 80%; 
+    }
+    .moreInfo h4{
+        display: flex;
+        justify-content: center;
+    }
+}
 /*Responsive*/
 
 @media (max-width: 925px){

@@ -26,7 +26,7 @@ exports.getItemsCategory = async (req, res) => {
 
 exports.getItem = async (req, res) => {
     // get 1 item with its ID
-    connection.query('SELECT item_id,item_name,item_price,item_discount,item_description FROM items WHERE item_id='+req.params.id, function (err, result, fields) {
+    connection.query('SELECT item_id,item_name,item_price,item_discount,item_description,item_image, item_stock FROM items WHERE item_id='+req.params.itemId, function (err, result, fields) {
         if (err) {
           console.error(err);
           return res.status(500).json({ error: 'An error occurred' });

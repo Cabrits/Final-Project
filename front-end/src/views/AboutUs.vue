@@ -67,20 +67,20 @@ export default{
 
     data() {
         return {
-        member1: {
-            name: "Duarte Cabrita",
-            role: "Front End Developer",
-            twitter: "",
-            github: "https://github.com/Cabrits",
-            info: "Universidade Autónoma de Lisboa student and Front End enthusiast with a good eye for design. Learning Vue JS and wanting to explore more frameworks to expand my knowledge on this field. Loves music while chilling outside, sports and casually watch some anime.",
-        },
-        member2: {
-            name: "Nuno Cartaxo",
-            role: "Back End Developer",
-            twitter: "",
-            github: "https://github.com/NunoCartaxoUAL/",
-            info: "asdadsadUniversidade Autónoma de Lisboa student and ",
-        },
+            member1: {
+                name: "Duarte Cabrita",
+                role: "Front End Developer",
+                twitter: "",
+                github: "https://github.com/Cabrits",
+                info: "Universidade Autónoma de Lisboa student and Front End enthusiast with a good eye for design. Learning Vue JS and wanting to explore more frameworks to expand my knowledge on this field. Loves music while chilling outside, sports and casually watch some anime.",
+            },
+            member2: {
+                name: "Nuno Cartaxo",
+                role: "Back End Developer",
+                twitter: "",
+                github: "https://github.com/NunoCartaxoUAL/",
+                info: "asdadsadUniversidade Autónoma de Lisboa student and ",
+            },
         };
     },
 };

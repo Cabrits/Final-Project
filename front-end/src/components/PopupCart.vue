@@ -52,7 +52,7 @@ export default{
         cartTotal() {
             return this.cart.cartItems.reduce(
                 (total, item) =>
-                total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity,
+                (total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity).toFixed(2) ,
                 0
             );
         },
