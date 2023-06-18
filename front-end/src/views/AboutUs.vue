@@ -73,7 +73,7 @@ export default{
             picture: "./1.jpg",
             twitter: "",
             github: "https://github.com/Cabrits",
-            info: "Universidade Autónoma de Lisboa student and Front End enthusiast with a good eye for design. Learning Vue.js and wanting to explore additional frameworks to expand my knowledge on this field. Loves music while chilling outside, sports and casually watch some anime.",
+            info: "Universidade Autónoma de Lisboa student and Front End enthusiast with a good eye for design. Learning Vue JS and wanting to explore more frameworks to expand my knowledge on this field. Loves music while chilling outside, sports and casually watch some anime.",
         },
         member2: {
             name: "Nuno Cartaxo",
@@ -105,9 +105,9 @@ export default{
 .teamMembers{
     display: flex;
     justify-content: center;
-    gap: 100px;
-    margin-top: 30px;
-    margin-bottom: -55px;
+    gap: 200px;
+    padding-top: 20px;
+    margin-bottom: -80px;
 }
 
 /*Each Member Card*/
@@ -124,7 +124,7 @@ export default{
     width: 300px;
     height: 540px; 
     border: 2px solid white;
-    box-shadow: 15px 15px 5px rgba(109, 106, 106, 0.8);
+    box-shadow: 20px 15px 5px rgba(109, 106, 106, 0.8);
 }
 
 .memberInfo {
@@ -175,11 +175,12 @@ export default{
     font-weight: bold;
     font-size: 15px!important;
     margin-top: 30px!important;
+    color: rgb(247, 218, 191)!important;
 }
 
 .memberInfoBox{
     margin-top: 30px!important;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .socialLinks{
@@ -201,7 +202,7 @@ export default{
 }
 
 .socialLinks a:hover{
-    background-color: #b3b3b3;
+    background-color: rgb(132, 115, 100);
 }
 
 .socialLinks .twitterLink{

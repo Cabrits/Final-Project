@@ -267,6 +267,7 @@ input:focus, textarea:focus, select:focus{
     background-color: rgb(248, 237, 227); 
     padding-left: 20px;   
     border-radius: 10px;
+    color: rgb(58, 56, 53);
 }
 
 .actions:hover,
