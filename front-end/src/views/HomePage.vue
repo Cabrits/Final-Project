@@ -5,7 +5,7 @@
   <div class="overall2">
     <div :class="{ 'loadingScreen': true, 'fadeOut': !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
-      <img src="/images/loading2.GIF" alt="Loading" />
+      <img src="@/assets/loading2.gif" alt="Loading" />
     </div>
 
     <!--Content afrer loading-->
@@ -114,71 +114,6 @@ export default {
 }
 
 </script>
-<!--
-
-
-
-export default {
-  name: 'Product',
-  components: {Categories},
-  data() {
-    return {
-      items: [],
-      selectedCategory: null,
-      cooldown: false,
-      favourites: [],
-    };
-  },
-  mounted() {
-    this.fetchFavourites();
-    this.fetchItems();
-  },
-  
-
-      
-    },
-    isFavourite(itemId) {
-      const result = this.favourites.some((favourite) => favourite.item_id === itemId)
-      console.log("tested:", itemId,result)
-      return result;
-    },
-    toggleFavourite(itemId) {
-      const userId = getAuth().currentUser.uid; // Replace with the actual user ID
-      const isItemFavourite = this.isFavourite(itemId);
-      const apiUrl = isItemFavourite
-        ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
-        : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
-
-      axios({
-        method: isItemFavourite ? 'DELETE' : 'POST',
-        url: apiUrl,
-      })
-        .then((response) => {
-          // Handle success
-          console.log('Favourite action performed successfully');
-          this.fetchFavourites();
-          this.startButtonCooldown();
-        })
-        .catch((error) => {
-          // Handle error
-          console.error(error);
-        });
-    },
-  },
-  computed: {
-    filteredItems() {
-      if (this.selectedCategory) {
-        return this.items.filter((item) => item.item_category === this.selectedCategory);
-      } else {
-        return this.items;
-      }
-    },
-  },
-};
-
-
-
--->
 
 
 <style scoped>

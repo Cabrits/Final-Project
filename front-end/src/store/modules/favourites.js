@@ -1,4 +1,5 @@
 import axios from 'axios';
+import apiURL from '../../config';
 
 const favouritesModule = {
   namespaced: true,
@@ -13,7 +14,7 @@ const favouritesModule = {
     actions: {
       fetchFavourites({ commit }, userId) {
         axios
-          .get(`http://localhost:7777/api/user/${userId}/favourites`)
+          .get(`${apiURL}/user/${userId}/favourites`)
           .then((response) => {
             commit('setFavourites', response.data);
           })

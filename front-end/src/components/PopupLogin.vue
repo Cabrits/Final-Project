@@ -47,6 +47,7 @@
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,GithubAuthProvider } from 'firebase/auth';
 import axios from 'axios';
 import { mapState, mapActions } from 'vuex';
+import apiURL from '../config.js'
 
 export default{
   name: 'PopupLogin',
@@ -116,14 +117,14 @@ export default{
               };
           try {
             // Check if the user exists in your database
-            await axios.get(`http://localhost:7777/api/user/${userId}`);
+            await axios.get(`${apiURL}/user/${userId}`);
 
             console.log('User already exists!');
           } catch (error) {
             if (error.response && error.response.status === 404) {
               // User does not exist, create a new one
 
-              await axios.post('http://localhost:7777/api/user/create', userData);
+              await axios.post(`${apiURL}/user/create`, userData);
               console.log('New user created!');
             } else {
               console.error(error);
@@ -156,7 +157,7 @@ export default{
               };
           try {
             // Check if the user exists in your database
-            await axios.get(`http://localhost:7777/api/user/${userId}`);
+            await axios.get(`${apiURL}/user/${userId}`);
 
             console.log('User already exists!');
           } catch (error) {
@@ -164,7 +165,7 @@ export default{
               // User does not exist, create a new one
               
 
-              await axios.post('http://localhost:7777/api/user/create', userData);
+              await axios.post(`${apiURL}/user/create`, userData);
               console.log('New user created!');
             } else {
               console.error(error);

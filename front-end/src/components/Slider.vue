@@ -10,10 +10,10 @@
 
         <div class="sliderWrapper">
             <div class="slider">
-                <img id="slide1" src="images/news1.jpg">
-                <img id="slide2" src="images/news2.jpg">
-                <img id="slide3" src="images/news3.jpg">
-                <img id="slide4" src="images/news4.jpg">
+                <img id="slide1" src="@/assets/news1.jpg">
+                <img id="slide2" src="@/assets/news2.jpg">
+                <img id="slide3" src="@/assets/news3.jpg">
+                <img id="slide4" src="@/assets/news4.jpg">
             </div>
 
             <!--Navigation circles-->

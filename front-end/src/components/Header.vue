@@ -18,7 +18,7 @@
 
         <div class="logo">
             <router-link :to="'/'">
-                <img src="../assets/logo4.png">
+                <img src="@/assets/logo4.png">
             </router-link>
         </div>
 

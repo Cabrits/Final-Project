@@ -1,4 +1,5 @@
 import axios from 'axios';
+import apiURL from '../../config';
 
 const itemsModule = {
   namespaced: true,
@@ -13,7 +14,7 @@ const itemsModule = {
   actions: {
     fetchItems({ commit }) {
       axios
-        .get('http://localhost:7777/api/items')
+        .get(`${apiURL}/items`)
         .then((response) => {
             console.log(response.data)
           commit('setItems', response.data);

@@ -37,7 +37,7 @@
 </template>
   
 <script>
-
+import apiURL from '../config';
   import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
   import axios from 'axios';
   export default{
@@ -67,7 +67,7 @@
                 user_address: '' // Add the user's address here
             };
 
-            axios.post('http://localhost:7777/api/user/create', user)
+            axios.post(`${apiURL}/user/create`, user)
             .then((response) => {
                 console.log('User created in the API:');
                 // Handle successful registration and user creation

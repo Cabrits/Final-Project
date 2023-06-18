@@ -6,7 +6,8 @@
     "dev": "vite --port 8080",
     "build": "vite build",
     "preview": "vite preview",
-    "host": "vite --host"
+    "host": "vite --host",
+    "start": "vite --host --port $PORT"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",

@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import apiURL from '../../config';
 const ordersModule = {
   namespaced: true,
   state: {
@@ -22,14 +22,14 @@ const ordersModule = {
       const userId = rootState.user.user.user_id;
       console.log(userId)
       axios
-        .get(`http://localhost:7777/api/orders/${userId}`)
+        .get(`${apiURL}/orders/${userId}`)
         .then(async (response) => {
           console.log(response.data)
           const orderIds = response.data;
           const orders = await Promise.all(
             orderIds.map(async (orderId) => {
               try {
-                const orderResponse = await axios.get(`http://localhost:7777/api/order/items/${orderId.order_id}`);
+                const orderResponse = await axios.get(`${apiURL}/order/items/${orderId.order_id}`);
                 const orderData = orderResponse.data;
                 const formattedItems = orderData.map((item) => ({
                   item_id: item.item_id,
@@ -84,7 +84,7 @@ const ordersModule = {
         console.log(orderData)
 
         axios
-          .post('http://localhost:7777/api/order/create', orderData)
+          .post(`${apiURL}/order/create`, orderData)
           .then((response) => {
             // Handle success
             console.log(response.data)

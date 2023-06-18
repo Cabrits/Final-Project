@@ -41,6 +41,7 @@
 import axios from 'axios';
 import Categories from './Categories.vue'
 import { mapState, mapActions, mapGetters } from 'vuex';
+import baseURL from '../config.js'
 
 export default{
   name: 'Product',
@@ -90,11 +91,12 @@ export default{
     },
 
     toggleFavourite(itemId) {
+      console.log(baseURL)
       const userId = this.userId;
       const isItemFavourite = this.isFavourite(itemId);
       const apiUrl = isItemFavourite
-        ? `http://localhost:7777/api/user/${userId}/removeFavourite/${itemId}`
-        : `http://localhost:7777/api/user/${userId}/addFavourite/${itemId}`;
+        ? `${baseURL}/user/${userId}/removeFavourite/${itemId}`
+        : `${baseURL}/user/${userId}/addFavourite/${itemId}`;
 
       axios({
         method: isItemFavourite ? 'DELETE' : 'POST',
