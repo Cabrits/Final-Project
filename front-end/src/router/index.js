@@ -7,6 +7,7 @@ const router = createRouter({
         { path: "/user", component: () => import("../views/UserPage.vue")},
         { path: "/item/:id", component: () => import("../views/ItemPage.vue")},
         { path: "/checkout", component: () => import("../views/Checkout.vue")},
+        { path: "/aboutus", component: () => import("../views/AboutUs.vue")},
         { path: "/:pathMatch(.*)*", component: () => import("../views/PageNotFound.vue") },
     ]
 })

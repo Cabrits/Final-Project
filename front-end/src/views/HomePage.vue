@@ -12,10 +12,10 @@
 
     <div v-else>
       <div class="overall">
-        <Header />
+        <Header/>
         <Content/>
         <ChatBot/>
-        <Footer />
+        <Footer/>
       </div>
     </div>
   </div>
