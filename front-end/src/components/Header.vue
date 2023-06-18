@@ -58,7 +58,7 @@ import PopupLogin from './PopupLogin.vue';
 import PopupSignUp from './PopupSignUp.vue';
 import PopupNotification from './PopupNotification.vue';
 import PopupCart from './PopupCart.vue';
-import SearchBar from './searchBar.vue';
+import SearchBar from './SearchBar.vue';
 import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
 import { mapState, mapActions } from 'vuex';
 

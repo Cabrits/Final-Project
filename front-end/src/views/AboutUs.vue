@@ -81,7 +81,7 @@ export default{
             picture: "./2.jpg",
             twitter: "",
             github: "https://github.com/NunoCartaxoUAL/",
-            info: "Universidade Autónoma de Lisboa student and ",
+            info: "asdadsadUniversidade Autónoma de Lisboa student and ",
         },
         };
     },

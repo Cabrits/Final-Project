@@ -68,7 +68,7 @@ export default{
 
         } else {
           this.searchResults = [
-            { name: "Product not found", image:"/images/Product Not Found.png"},
+            { name: "Product not found", image:"@/assets/Product Not Found.png"},
           ];
         }
 
