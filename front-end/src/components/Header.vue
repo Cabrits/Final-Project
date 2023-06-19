@@ -29,7 +29,7 @@
                 <SearchBar/>
                 <div class="menuActions">
                     <button class="actions" v-if="userAuth" :class="{ active: notification, hover: notificationHover }" @click="toggleNotification(), closeCart();"><font-awesome-icon icon="fa-solid fa-bell" /></button>
-                    <button class="actions" v-if="userAuth" :class="{ active: cart, hover: cartHover }" @click="toggleCart(); closeNotification();"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
+                    <button class="actions" v-if="userAuth" :class="{ active: showCart, hover: cartHover }" @click="toggleCart(); closeNotification();"><font-awesome-icon icon="fa-solid fa-cart-shopping"/></button>
                     <router-link class="actions" :to="'/user'" v-if="userAuth">
                         <button class="userB" ><i class="fa fa-user" aria-hidden="true"></i></button>
                     </router-link>

@@ -12,7 +12,7 @@
                 <h2>Notifications</h2>
                 <ul class="notificationItems">
                     <li v-for="favourite in filteredFavourites" :key="favourite.item_id">
-                        <router-link :to="'/item/' + favourite.item_id">
+                        <router-link class="router" :to="'/item/' + favourite.item_id">
                             {{ favourite.item_name }}
                         </router-link>
                         <span class="notificationQuantity"> is on discount!</span>
@@ -20,6 +20,7 @@
                         <div class="notificationPrice">{{ (favourite.item_price * (1-favourite.item_discount)).toFixed(2)}}€ {{ (favourite.item_discount*100).toFixed(2) }}% off</div> 
                     </li>
                 </ul>
+                <button class="clearButton">Clear</button>
             </div>
             <div class="arrow"></div>
             </div>
@@ -50,7 +51,7 @@ export default{
     methods: {
       closeN() {
         this.$emit('closeN');
-      }
+      },
     },
 
     data() {
@@ -89,13 +90,15 @@ export default{
     width: 400px;
     padding-top: 50px;
     overflow-y: auto;
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(64, 61, 57);
     transition: right .3s;
     border: 1px solid white;
     border-radius: 10px;
     color: black;
     box-shadow: 35px 45px 25px rgba(50, 50, 50, 0.5);
     float: right;
+    color: white;
+
 }
 
 .notificationPopup h2{
@@ -125,7 +128,14 @@ export default{
 }
 
 .notificationItems{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    height: 300px;
+    margin-bottom: 5px;
 }
 
 .notificationItems a{
@@ -142,12 +152,14 @@ export default{
     font-weight: 100;
 }
 
-
 .notificationItems li{
     position: relative;
     padding: 1rem;
-    border-top: solid;
     font-weight: 700;
+    background-color: rgb(248, 237, 227);
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: black;
 }
 
 .notificationItems span{
@@ -156,9 +168,16 @@ export default{
     margin-right: 10px;
 }
 
-.notificationItems li:last-child{
+.notificationItems li:nth-child(2n){
     border-bottom: 2px solid white;
     border-top: 2px solid white;
+    background-color: rgb(248, 234, 221);
+}
+
+.notificationItems li:nth-child(2n+1){
+    border-bottom: 2px solid white;
+    border-top: 2px solid white;
+    background-color: rgb(231, 214, 199);
 }
 
 .notificationItems .fa-heart:before{
@@ -180,6 +199,28 @@ export default{
     right: 1rem;
 }
 
+.router{
+    color: white;
+}
+
+.clearButton{
+    display: block;
+    width: 200px;
+    margin: auto;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    height: 40px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.clearButton:hover{
+    background-color: rgb(248, 237, 227);
+}
+
 /*Arrow poiting to the notification icon on header*/
 
 .arrow{
@@ -187,7 +228,7 @@ export default{
     position: absolute;
     top: -10px;
     right: 235px;
-    border-bottom: 10px solid rgb(149, 161, 132);
+    border-bottom: 10px solid rgb(64, 61, 57);
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 }

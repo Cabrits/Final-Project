@@ -19,9 +19,11 @@
                         </li>            
                     </ul>
                     <div class="cartTotal">
-                        <p>Total: <span>{{ cartTotal }}€</span></p>
+                        <p>Total: <span>{{ cartTotal.toFixed(2) }}€</span></p>
                     </div>
-                    <router-link class="lineRemove" :to="'/checkout'"> <button class="checkoutButton">Checkout</button></router-link>
+                    <router-link class="lineRemove" :to="'/checkout'">
+                        <button class="checkoutButton">Checkout</button>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -52,7 +54,7 @@ export default{
         cartTotal() {
             return this.cart.cartItems.reduce(
                 (total, item) =>
-                (total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity).toFixed(2) ,
+                (total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity),
                 0
             );
         },
@@ -188,11 +190,11 @@ export default{
 }
 
 .cartItems li:nth-child(2n){
-    background-color: rgb(219, 216, 203);
+    background-color: rgb(248, 234, 221);
 }
 
 .cartItems li:nth-child(2n+1){
-    background-color: rgb(204, 197, 185);
+    background-color: rgb(231, 214, 199);
 }
 
 .cartItems li:last-child{
@@ -264,7 +266,7 @@ export default{
     outline: none;
     border-radius: 50px;
     height: 40px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     background-color: white;
     cursor: pointer;
 }

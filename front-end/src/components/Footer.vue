@@ -9,7 +9,7 @@
             <ul>
                 <li class="lili"><a href="#">Twitter</a></li>
                 <li class="lili"><router-link :to="'/aboutus'"> About Us</router-link></li>
-                <li class="lili"><a href="https://github.com/Cabrits/Final-Project">Github</a></li>
+                <li class="lili"><a href="https://github.com/Cabrits/Final-Project" target="_blank">Github</a></li>
                 <li><p>👋</p></li>
             </ul>
         </div>
@@ -55,7 +55,7 @@ button{
 
 footer{
     font-family: Arial, Helvetica, sans-serif;
-    padding-top: 130px;
+    padding-top: 28px;
     
 }
 

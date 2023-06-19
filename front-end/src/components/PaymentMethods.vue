@@ -86,7 +86,7 @@ export default{
 /*Payment Box*/
 
 .paymentContainer{
-    background-color: rgb(121, 135, 119);
+    background-color: rgb(97, 82, 68);
     border-radius: 10px;
     border: 2px solid white;
     padding: 10px 70px;

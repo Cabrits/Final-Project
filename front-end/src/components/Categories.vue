@@ -10,6 +10,7 @@
     <div class="subCat" v-for="category in categories" :key="category.id" :class="{ active: category === selectedCategory }" @click="selectCategory(category)">  
         <span class="inner"></span>
         <i :class="category.icon" aria-hidden="true"></i>
+        <p class="categoryName">{{ category.name }}</p>
     </div>
   </div>
 
@@ -23,8 +24,8 @@ export default{
   data() {
     return {
       categories: [
-        { id: 1, name: 'Comedy', icon: 'fa fa-masks-theater' },
-        { id: 2, name: 'Romance', icon: 'fa fa-heart' },
+        { id: 1, name: 'Comedy', icon: 'fa fa-masks-theater'},
+        { id: 2, name: 'Romance', icon: 'fa fa-heart'},
         { id: 3, name: 'Horror', icon: 'fa fa-ghost' },
         { id: 4, name: 'Action', icon: 'fa fa-hand-fist' },
       ],
@@ -123,6 +124,13 @@ export default{
     margin-top: -38px;
     width: 76px;
     z-index: -1;
+}
+
+.categoryName{
+  font-size: 20px;
+  line-height: 5px;
+  font-weight: bold;
+  color: rgb(64, 61, 57);
 }
 
 /*Responsive*/

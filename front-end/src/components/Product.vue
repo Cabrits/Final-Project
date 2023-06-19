@@ -143,7 +143,6 @@ export default{
     flex-grow: row;
     justify-content: space-around;
     padding: 3rem;
-    margin-bottom: -60px;
 }
 .product{
     background-color: rgb(64, 61, 57);

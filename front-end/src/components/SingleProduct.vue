@@ -3,23 +3,25 @@
 <template>
 
     <!--Overall Product-->
+
     <div class="productPage">
-    <div class="productContainer">
-        <div class="productImage">
-            <img :src="book.item_image" alt="Book Cover">
-        </div>
-        <div class="productDetails">
-            <h2 class="bookTitle">{{ book.item_name }}</h2>
-            <p class="bookAuthor">By yatsume</p>
-            <p class="bookPrice"> {{ book.item_price }} €</p>
-            <button class="buyButton"  @click="addToCart(book)">Buy Now</button>
+        <div class="productContainer">
+            <div class="productImage">
+                <img :src="book.item_image" alt="Book Cover">
+            </div>
+            <div class="productDetails">
+                <h2 class="bookTitle">{{ book.item_name }}</h2>
+                <p class="bookAuthor">By Yatsume</p>
+                <p class="bookPrice"> {{ book.item_price }} €</p>
+                <button class="buyButton"  @click="addToCart(book)">Buy Now</button>
+            </div>
         </div>
     </div>
-</div>
-        <!--Description box with details about the item-->
 
-        <div class="moreInfoWrapper" v-if="book">
-            <div class="moreInfo">
+    <!--Description box with details about the item-->
+
+    <div class="moreInfoWrapper" v-if="book">
+        <div class="moreInfo">
             <p>
                 <span v-if="isReadMoreShown || !book.item_description">{{ book.item_description }}</span>
                 <span v-else>{{ book.item_description.substring(0, 250) }}...</span>
@@ -30,8 +32,8 @@
             <span class="readMoreButton" @click="toggleReadMore">
                 {{ isReadMoreShown ? 'Read Less...' : 'Read More...' }}
             </span>
-            </div>
         </div>
+    </div>
 
 </template>
 
@@ -45,6 +47,7 @@ import apiURL from '../config.js'
 
 export default {
     name: 'SingleProduct',
+
     components: { Header, Footer },
     data() {
         return {
@@ -55,6 +58,7 @@ export default {
             isReadMoreShown: false,
         }
     },
+
     async created() {
         try {
             const response = await axios.get(`${apiURL}/item/${this.$route.params.id}`)
@@ -64,10 +68,12 @@ export default {
         }
         this.isLoading = false
     },
+
     methods: {
     toggleReadMore() {
       this.isReadMoreShown = !this.isReadMoreShown
     },
+
     addToCart(item) {
       this.$store.dispatch('cart/addToCart', item);
       this.cartNotification = true; 
@@ -129,16 +135,9 @@ export default {
 .bookAuthor{
     font-size: 24px;
     color: #000000;
-    margin-bottom: 30px;
-    padding-top: 10px;
-}
-
-.bookDescription{
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 40px;
-    color: #000000;
+    padding-top: 50px;
     font-weight: 600;
+    text-shadow: 0 0 5px #ffffff, 0 0 2px #ffffff;
 }
 
 .bookPrice{
@@ -146,6 +145,7 @@ export default {
     font-weight: bold;
     padding-top: 40px;
     color: #000000;
+    text-shadow: 0 0 5px #ffffff, 0 0 2px #ffffff;
 }
 
 .buyButton{
@@ -180,9 +180,8 @@ export default {
 
 .moreInfoWrapper{
     text-align: center;
-    width: 900px;
+    width: 960px;
     margin: 0 auto;
-    margin-bottom: -70px;
     color: white;
 }
 
@@ -222,14 +221,6 @@ export default {
     color: rgb(255, 255, 255);
 }
 
-.readMoreText{
-    display: none;
-}
-
-.readMoreText--show{
-    display: inline;
-}
-
 .authorAndChapterText{
     color: rgb(243, 243, 243);
     margin-left: 10px;
@@ -239,29 +230,20 @@ export default {
 /*Responsive*/
 
 @media (max-width: 925px){
-    .productPage{
-        flex-direction: column;
-    }
-    .moreInfoWrapper{
-        width: 80%; 
-    }
-    .moreInfo h4{
-        display: flex;
-        justify-content: center;
-    }
-}
-/*Responsive*/
-
-@media (max-width: 925px){
     .productContainer{
         flex-direction: column;
         align-items: center;
         gap: 40px;
     }
 
-    .productImage{
-        max-width: 60%;
+    .productPage{
+        flex-direction: column;
     }
+
+    .productImage{
+        max-width: 40%;
+    }
+
 
     .productDetails{
         padding-top: 0;
@@ -273,6 +255,15 @@ export default {
 
     .buyButton{
         margin-top: 0;
+    }
+
+    .moreInfoWrapper{
+        width: 80%; 
+    }
+
+    .moreInfo h4{
+        display: flex;
+        justify-content: center;
     }
 }
 </style>

@@ -17,9 +17,8 @@ import Footer from '../components/Footer.vue'
 export default{
     name: 'ItemPage',
     components: { Header, Footer, SingleProduct },
-
-    
 }
 
 </script>
+
 

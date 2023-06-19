@@ -73,15 +73,15 @@ export default {
     max-width: 1300px;
     margin: 0 auto;
     font-family: Arial, sans-serif;
-    padding-top: 50px;
-    line-height: 33px;
+    padding-top: 30px;
+    line-height: 32px;
+    padding-bottom: 20px;
 }
 
 .main-content{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 60px;
-    margin-bottom: -28px;
 }
 
 /*Responsive*/
@@ -89,6 +89,10 @@ export default {
 @media screen and (max-width: 1500px){
   .main-content{
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+
+  .userAccount{
+    width: 95%;
   }
 }
 

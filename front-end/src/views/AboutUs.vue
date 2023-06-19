@@ -105,7 +105,7 @@ export default{
     justify-content: center;
     gap: 200px;
     padding-top: 20px;
-    margin-bottom: -80px;
+    margin-bottom: 20px;
 }
 
 /*Each Member Card*/

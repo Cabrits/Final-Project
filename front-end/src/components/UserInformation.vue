@@ -16,9 +16,9 @@
 
     <!--Popup to change information if needed-->
 
-    <div v-if="showPopup" class="userPopupContainer">
+    <div class="userPopupContainer" v-if="showPopup">
       <div class="popupUser">
-        <button @click="cancelEdit" class="closeButton">&times;</button>
+        <button @click="close()" class="closeButton">&times;</button>
         <div class="changeInfo">
           <h3>Change Your Information</h3>
           <label for="name">Name</label>
@@ -77,7 +77,7 @@ import { mapState } from 'vuex';
           this.showPopup = false;
       },
 
-      cancelEdit() {
+      close() {
         this.showPopup = false;
       },
     },
@@ -92,7 +92,7 @@ import { mapState } from 'vuex';
 /*Info box*/
 
 .infoContainer{
-    background-color: rgb(121, 135, 119);
+    background-color: rgb(97, 82, 68);
     color: white;
     border-radius: 10px;
     border: 2px solid white;
@@ -119,7 +119,12 @@ import { mapState } from 'vuex';
     cursor: pointer;
     margin-bottom: 10px;
     margin-top: 20px;
-    box-shadow: 7px 7px 3px rgba(83, 82, 82, 0.8);
+    box-shadow: 8px 6px 3px rgba(255, 255, 255, 0.5);
+}
+
+.infoContainer button:hover{
+    background-color: rgb(157, 137, 119);
+    color: white;
 }
 
 /*Popup to change information*/

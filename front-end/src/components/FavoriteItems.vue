@@ -11,7 +11,7 @@
           <div class="itemRow">
             <img :src="item.item_image" :alt="item.item_name" class="itemImage" />
               <div class="itemInfo">
-                <router-link :to="'/item/' + item.item_id">
+                <router-link class="removeLink" :to="'/item/' + item.item_id">
                   <h5>{{ item.item_name }}</h5>
                 </router-link>
                 <p>{{ item.item_description.slice(0,25) }}...</p>
@@ -37,8 +37,8 @@
               <img :src="item.item_image" :alt="item.item_name" class="itemImage" />
               
                 <div class="itemInfo">
-                  <router-link :to="'/item/' + item.item_id">
-                  <h5>{{ item.item_name }}</h5>
+                  <router-link class="removeLink" :to="'/item/' + item.item_id">
+                    <h5>{{ item.item_name }}</h5>
                   </router-link>
                   <p>{{ item.item_description.slice(0,25) }}...</p>
                 </div>
@@ -94,7 +94,7 @@ export default{
 /*Favorites Box*/
 
 .favoritesContainer{
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(157, 137, 119);
     border-radius: 10px;
     border: 2px solid white;
     padding: 24px 20px;
@@ -119,13 +119,19 @@ export default{
     background-color: white;
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 35px;
+    margin-top: 50px;
     margin-left: 90px;
-    box-shadow: 7px 7px 3px rgba(83, 82, 82, 0.8);
+    box-shadow: 8px 8px rgba(83, 82, 82, 0.7);
+
+}
+
+.favoritesContainer button:hover{
+    background-color: rgb(97, 82, 68);
+    color: white;
 }
 
 .favoriteItems{
-    padding-top: 35px;
+    padding-top: 15px;
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -157,13 +163,9 @@ export default{
 }
 
 .itemInfo p{
-    line-height: 10px;
+    line-height: 18px;
 }
 
-.showMoreButton{
-    margin-top: 25px;
-    cursor: pointer;
-}
 
 .popupContainer {
     position: absolute;
@@ -177,9 +179,10 @@ export default{
     background: white;
     display: block;
     position: relative;
-    width: 700px;
+    width: 720px;
+    height: 500px;
     border-radius: 10px;
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(157, 137, 119);
     border: 2px solid white;
     padding-bottom: 40px;
     margin: 0 auto;
@@ -188,6 +191,7 @@ export default{
 .popup h3{
     text-align: center;
     font-weight: 600;
+    color:white;
 }
 
 .closePopup{
@@ -208,6 +212,9 @@ export default{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    height: 450px;
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 .popupItemCard{
@@ -231,22 +238,26 @@ export default{
     z-index: 4;
 }
 
+.removeLink{
+    text-decoration: none;
+    color: inherit;
+}
+
+.removeLink h5{
+  line-height: 15px;
+}
+
 /*Responsive*/
 
 @media screen and (max-width: 1200px) {
-  .favoriteItems {
-      margin-bottom: -30px;
-  }
-
-
 
   .popupContainer{
-      top: 60%;
+      top: 40%;
   }
 }
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1150px) {
   .favoritesContainer {
       padding: 10px 40px;
       height: 440px;
@@ -269,7 +280,7 @@ export default{
   }
 
   .popupContainer{
-      top: 80%;
+      top: 70%;
       left: 55%;
       width: 80%;
   }
