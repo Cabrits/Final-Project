@@ -4,12 +4,39 @@
     <RouterView></RouterView>
 </template>
   
-<script setup>
+<script>
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
+import { mapActions, mapGetters } from 'vuex';
 
+export default {
+  // ...
+
+  computed: {
+    // ...
+    ...mapGetters('user', ['getUserAuth']),
+  },
+
+  watch: {
+    async getUserAuth(newValue) {
+      if (newValue) {
+        console.log("this changed ",newValue)
+        await this.fetchUser();
+        this.fetchOrders();
+        this.fetchFavourites();
+      }
+    },
+  },
+
+  methods: {
+    ...mapActions('user', ['fetchUser']),
+    ...mapActions('favourites',['fetchFavourites']),
+    ...mapActions('orders',['fetchOrders']),
+  },
+
+}
     
 </script>
 

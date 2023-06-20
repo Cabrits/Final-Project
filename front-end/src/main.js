@@ -41,11 +41,12 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const app = createApp(App)
+app.use(store);
 app.use(VueTheMask);
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
-app.use(store);
+
 app.mount('#app')
 
 

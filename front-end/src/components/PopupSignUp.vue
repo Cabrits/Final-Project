@@ -62,9 +62,8 @@ import apiURL from '../config';
             this.errMsg = 'Successfully registered!';
             const user = {
                 user_id: data.user.uid,
-                user_name: this.name, // Add the user's name here
+                user_name: this.name,
                 user_email: this.email,
-                user_address: '' // Add the user's address here
             };
 
             axios.post(`${apiURL}/user/create`, user)

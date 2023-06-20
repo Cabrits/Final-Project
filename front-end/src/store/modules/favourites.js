@@ -12,7 +12,9 @@ const favouritesModule = {
       },
     },
     actions: {
-      fetchFavourites({ commit }, userId) {
+      fetchFavourites({ commit,rootState }) {
+        console.log(rootState.user.user)
+        const userId = rootState.user.user.user_id;
         axios
           .get(`${apiURL}/user/${userId}/favourites`)
           .then((response) => {
@@ -21,6 +23,8 @@ const favouritesModule = {
           .catch((error) => {
             console.error(error);
           });
+          
+        
       },
       clearFavourites({ commit }) {
         commit('setFavourites', []);
