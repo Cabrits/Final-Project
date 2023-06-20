@@ -15,7 +15,7 @@ Vibe Vault is a manga dematerialized shop, designed as a final project for a uni
 - Node.js: A JavaScript runtime environment that allows you to run JavaScript code on the server-side.
 - Express: A fast and minimalist web application framework for Node.js, used to build the back-end API.
 - MySQL: A popular open-source relational database management system used to store and manage your app's data.
-- Sequelize: A promise-based Node.js ORM for relational databases, used to interact with the MySQL database.
+- PlanetScale: A database platform specifically designed for MySQL, providing scalability and management features.
 
 ## Features
 
