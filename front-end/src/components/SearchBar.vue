@@ -17,7 +17,7 @@
             <div class="searchResultsWrapper">
                 <ul class="searchResults" v-if="showAutocomplete">
                     <li v-for="(result, index) in getLimitedResults" :key="result.item_name" >
-                      <router-link  :to="'/item/' + result.item_id">
+                      <router-link  :to="'/item/' + result.item_id" @click="clearSearchBar">
                         <img :src="result.item_image" :alt="result.item_name" />
                         <span>{{ result.item_name }}</span>
                       </router-link>
@@ -80,8 +80,10 @@ export default{
       }
     },
     
-    showMoreResults() {
-
+    clearSearchBar() {
+      this.searchInput = '';
+      this.showAutocomplete = false;
+      this.searchResults = [];
     },
 
     handleSearch() {
