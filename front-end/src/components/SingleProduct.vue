@@ -11,8 +11,8 @@
             </div>
             <div class="productDetails">
                 <h2 class="bookTitle">{{ book.item_name }}</h2>
-                <p class="bookAuthor">By Yatsume</p>
-                <p class="bookPrice"> {{ book.item_price }} €</p>
+                <p class="bookAuthor">By 人の有る世/hitonoaruyo</p>
+                <p class="bookPrice"> {{ (book.item_price * (1-book.item_discount)).toFixed(2)}} €</p>
                 <button class="buyButton"  @click="addToCart(book)">Buy Now</button>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <span v-if="isReadMoreShown || !book.item_description">{{ book.item_description }}</span>
                 <span v-else>{{ book.item_description.substring(0, 250) }}...</span>
                 <br><br>
-                <h4>Author:<span class="authorAndChapterText">{{ author }}</span></h4>
+                <h4>Author:<span class="authorAndChapterText">By 人の有る世/hitonoaruyo</span></h4>
                 <h4>Current Chapters Out:<span class="authorAndChapterText">{{ chapters }}</span></h4>
             </p>
             <span class="readMoreButton" @click="toggleReadMore">

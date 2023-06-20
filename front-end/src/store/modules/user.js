@@ -9,12 +9,9 @@ const userModule = {
     mutations: {
       setUser(state, user) {
         state.user = user;
-        console.log(state.user)
       },
       setUserAuth(state, userAuth) {
-        console.log("before change: "+userAuth+" , "+state.userAuth)
         state.userAuth = userAuth;
-        console.log("after change: "+userAuth+" , "+state.userAuth)
       },
       clearUser(state) {
         state.user = null;
@@ -26,7 +23,6 @@ const userModule = {
     actions: {
       async fetchUser({ state, commit}) {
         const userId = state.userAuth.uid
-        console.log("uh")
   
         try {
           const response = await axios.get(`${apiURL}/user/get/${userId}`);
@@ -34,12 +30,24 @@ const userModule = {
             user_id: response.data.user_id,
             user_name: response.data.user_name,
             user_email: response.data.user_email,
+            user_address: response.data.user_address,
           };
-          console.log("uh" , response.data)
           commit('setUser', userData);
-          console.log(state.user)
         } catch (error) {
           console.error(error);
+        }
+      },
+      async updateUser({ commit }, updatedUserInfo) {
+        console.log(updatedUserInfo)
+        try {
+          console.log(updatedUserInfo)
+          await axios.put(`${apiURL}/user/${updatedUserInfo.user_id}/update`, updatedUserInfo);
+          console.log(updatedUserInfo)
+          commit('setUser', updatedUserInfo);
+          console.log(updatedUserInfo)
+        } catch (error) {
+          console.error(error);
+          throw error;
         }
       },
       setUserAuth({ commit }, userAuth) {

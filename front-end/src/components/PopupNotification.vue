@@ -52,6 +52,9 @@ export default{
       closeN() {
         this.$emit('closeN');
       },
+      clearFav() {
+        // make this clear the notification  without cleaning the favourites in the favourites store
+      },
     },
 
     data() {

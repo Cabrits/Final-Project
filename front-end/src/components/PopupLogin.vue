@@ -75,14 +75,13 @@ export default{
 
     logIn() {
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
-        .then((data) => {
+        .then(async (data) => {
           const userId = data.user.uid;
           console.log(data.user)
-          const userData = {
-                user_id: userId,
-                user_name: data.user.displayName || 'placeholderName, Please Change!',
-                user_email: data.user.email,
-              };
+          const userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
+          console.log(userData)
+
+          console.log('User already exists!');
           console.log(userData)
           this.setUser(userData);
           this.fetchFavourites(userId);
@@ -113,14 +112,15 @@ export default{
           console.log(auth)
           const userId = data.user.uid;
           console.log(userId, data);
-          const userData = {
+          var userData = {
                 user_id: userId,
                 user_name: data.user.displayName || 'placeholderName, Please Change!',
                 user_email: data.user.email,
               };
           try {
             // Check if the user exists in your database
-            await axios.get(`${apiURL}/user/get/${userId}`);
+            userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
+            console.log(userData)
 
             console.log('User already exists!');
           } catch (error) {
@@ -153,14 +153,15 @@ export default{
         .then(async (data) => {
           const userId = data.user.uid;
           console.log(userId, data);
-          const userData = {
+          var userData = {
                 user_id: userId,
                 user_name: data.user.displayName || 'placeholderName, Please Change!',
                 user_email: data.user.email,
               };
           try {
             // Check if the user exists in your database
-            await axios.get(`${apiURL}/user/get/${userId}`);
+            userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
+            console.log(userData)
 
             console.log('User already exists!');
           } catch (error) {
