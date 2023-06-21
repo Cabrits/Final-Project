@@ -33,7 +33,7 @@
 
             <div class="member">
                 <div class="memberInfo">
-                    <img  class="memberPicture" src="@/assets/2.jpg">
+                    <img  class="memberPicture" src="@/assets/nuno.png">
                     <div class="memberDetails">
                         <h3>{{ member2.name }}</h3>
                         <p class="memberRole">{{ member2.role }}</p>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="socialLinks">
                     <a class="twitterLink" :href="member2.twitter" target="_blank">
-                        <i class="fab fa-twitter"></i>
+                        <i class="fa fa-linkedin"></i>
                     </a>
                     <a class="githubLink" :href="member2.github" target="_blank">
                         <i class="fab fa-github"></i>
@@ -77,9 +77,9 @@ export default{
             member2: {
                 name: "Nuno Cartaxo",
                 role: "Back End Developer",
-                twitter: "",
+                twitter: "https://www.linkedin.com/in/nuno-cartaxo-it/",
                 github: "https://github.com/NunoCartaxoUAL/",
-                info: "asdadsadUniversidade Autónoma de Lisboa student and ",
+                info: "Computer Science student with network administration experience. I'm proficient in Java, Python, and JavaScript, and familiar with Kotlin, SQL, NoSQL (MongoDB), and cloud computing (AWS, GCP). I also received Cisco training and have knowledge of Vue.js and Express.",
             },
         };
     },
