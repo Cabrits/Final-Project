@@ -152,7 +152,7 @@ export default {
         }
         await this.createOrder(order).then(alert("the order has been made and store! , you can check it in the user page"));
         this.clearCart()
-        this.$router.push('/i')
+        this.$router.push('/')
 
       }
     },
