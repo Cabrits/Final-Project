@@ -150,7 +150,8 @@ export default {
             order_total : this.cartTotal,
             items: orderItems,
         }
-        await this.createOrder(order).then(this.clearCart());
+        await this.createOrder(order).then(alert("the order has been made and store! , you can check it in the user page"));
+        this.clearCart()
         
 
       }
