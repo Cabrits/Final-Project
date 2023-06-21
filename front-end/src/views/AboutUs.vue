@@ -33,7 +33,7 @@
 
             <div class="member">
                 <div class="memberInfo">
-                    <img  class="memberPicture" src="@/assets/nuno.png">
+                    <img  class="memberPicture" src="@/assets/image.png">
                     <div class="memberDetails">
                         <h3>{{ member2.name }}</h3>
                         <p class="memberRole">{{ member2.role }}</p>
