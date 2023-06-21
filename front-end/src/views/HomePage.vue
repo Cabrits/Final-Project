@@ -71,7 +71,6 @@ export default {
     },
 
     fetchItems() {
-      console.log(this.$store)
       this.$store.dispatch('items/fetchItems');
     },
 
@@ -106,7 +105,6 @@ export default {
         const userId = this.$store.getters.userId;
         this.$store.dispatch('fetchFavourites', userId);
       } else {
-        console.log('User not logged in');
       }
      }
     );

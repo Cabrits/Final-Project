@@ -88,7 +88,6 @@ export default{
 
     handleSearch() {
       const searchTerm = this.searchInput.trim();
-      console.log(this.getItems)
       if (searchTerm) {
         const matchingProducts = this.getItems.filter((item) =>
           item.name.toLowerCase().includes(searchTerm.toLowerCase())

@@ -43,7 +43,6 @@ export default{
     computed: {
         ...mapState('favourites', ['favourites']),
     filteredFavourites() {
-        console.log(this.favourites)
       return this.favourites.filter((favourite) => favourite.item_discount != null);
     },
     },

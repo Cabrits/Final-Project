@@ -61,19 +61,9 @@ export default{
     },
 
     methods: {
-        ...mapActions('orders',['createOrder']),
-        ...mapActions('cart',['removeFromCart', 'clearCart']),
+        ...mapActions('cart',['removeFromCart']),
         closeC() {
             this.$emit('closeC');
-        },
-        checkout() {
-            if(this.cartTotal<=0){
-                alert("the cart is still empty")
-            }else{
-                this.createOrder();
-                this.clearCart()
-            }
-            
         },
 
     },
