@@ -63,13 +63,10 @@ export default {
     ...mapActions('user', ['updateUser']),
     editUser() {
       this.showPopup = true;
-      console.log(this.user)
       this.editedUser = this.user ;
-      console.log(this.editedUser)
     },
     async saveUser() {
       try {
-        console.log("testesteete:",this.editedUser)
         await this.updateUser(this.editedUser);
         this.editUser();
         this.showPopup = false;

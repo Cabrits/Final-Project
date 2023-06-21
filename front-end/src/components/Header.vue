@@ -90,9 +90,7 @@ export default{
         const auth = getAuth();
 
         onAuthStateChanged(auth, (user) => {
-        this.setUserAuth(user).then(() => {
-            console.log(this.userAuth);
-        });
+        this.setUserAuth(user)
         });
     },
 

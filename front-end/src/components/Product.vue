@@ -61,8 +61,6 @@ export default{
     ...mapState(['favourites']),
     ...mapGetters('user',['userId']),
     filteredItems() {
-      console.log("safag")
-      console.log(this.items.items)
       if (this.selectedCategory) {
         return this.items.items.filter((item) => item.item_category === this.selectedCategory);
       } else {
@@ -91,7 +89,6 @@ export default{
     },
 
     toggleFavourite(itemId) {
-      console.log(baseURL)
       const userId = this.userId;
       const isItemFavourite = this.isFavourite(itemId);
       const apiUrl = isItemFavourite

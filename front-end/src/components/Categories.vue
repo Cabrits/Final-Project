@@ -35,7 +35,6 @@ export default{
 
   methods: {
     selectCategory(category) {
-      console.log(category)
       this.selectedCategory = category;
       this.$emit('category-selected', category.name);
     },

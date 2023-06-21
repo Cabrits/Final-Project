@@ -77,12 +77,11 @@ export default{
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
         .then(async (data) => {
           const userId = data.user.uid;
-          console.log(data.user)
+
           const userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
-          console.log(userData)
+
 
           console.log('User already exists!');
-          console.log(userData)
           this.setUser(userData);
           this.fetchFavourites(userId);
           this.fetchOrders();
@@ -109,9 +108,7 @@ export default{
 
       signInWithPopup(auth, provider)
         .then(async (data) => {
-          console.log(auth)
           const userId = data.user.uid;
-          console.log(userId, data);
           var userData = {
                 user_id: userId,
                 user_name: data.user.displayName || 'placeholderName, Please Change!',
@@ -120,7 +117,7 @@ export default{
           try {
             // Check if the user exists in your database
             userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
-            console.log(userData)
+
 
             console.log('User already exists!');
           } catch (error) {
@@ -152,7 +149,6 @@ export default{
       signInWithPopup(auth, provider)
         .then(async (data) => {
           const userId = data.user.uid;
-          console.log(userId, data);
           var userData = {
                 user_id: userId,
                 user_name: data.user.displayName || 'placeholderName, Please Change!',
@@ -161,7 +157,6 @@ export default{
           try {
             // Check if the user exists in your database
             userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
-            console.log(userData)
 
             console.log('User already exists!');
           } catch (error) {
