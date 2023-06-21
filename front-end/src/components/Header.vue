@@ -385,6 +385,11 @@ input:focus, textarea:focus, select:focus{
         display: block;
     }
 
+    .logo img{
+        padding-top: 5px;
+        width: 100px;
+    }
+
     .menuBars{
         display: block;
         cursor: pointer;

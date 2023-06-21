@@ -169,7 +169,7 @@ export default {
 
 @media screen and (max-width: 500px){
   .loadingScreen img{
-      width: 90%;
+      width: 80%;
   }
 }
 

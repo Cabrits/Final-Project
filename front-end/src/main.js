@@ -25,8 +25,8 @@ import store from './store/store';
 import VueTheMask from 'vue-the-mask';
 
 
-library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, faMasksTheater,
-   faComment, faMoon, faSun, faCreditCard, faCcVisa, faCcMastercard, faCcAmex);
+library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, 
+  faMasksTheater,faComment, faMoon, faSun, faCreditCard, faCcVisa, faCcMastercard, faCcAmex);
 
 
 const firebaseConfig = {

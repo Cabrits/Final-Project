@@ -57,10 +57,10 @@
 
 .sliderWrapper {
     position: relative;
-    max-width: 55rem;
+    max-width: 60rem;
     margin: 0 auto;
     border-radius: 10px;
-    border: 2px solid white;
+    border: 4px solid rgb(0, 0, 0);
 }
 
 .slider {
@@ -93,11 +93,10 @@
 }
 
 .sliderNav a {
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.6rem;
+    height: 0.6rem;
     border-radius: 50%;
-    background-color: #fff;
-    opacity: 0.75;
+    background-color: #000000;
     transition: opacity ease 250ms;
 }
 
@@ -107,7 +106,7 @@
 
 .sliderNav a.active {
     opacity: 1;
-    background-color: #ffffff;
+    background-color: #edd3ae;
 }
 
 .sliderNav:focus {
@@ -121,12 +120,10 @@
   }
 
   .sliderWrapper {
-    border: none;
-    border-radius: 0;
   }
 
   .slider {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 6;
   }
 }
 

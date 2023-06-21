@@ -332,7 +332,7 @@ export default{
 
 /*Responsive*/
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 600px){
   .product{
       transform: none;
   }
