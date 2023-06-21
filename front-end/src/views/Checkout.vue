@@ -130,9 +130,9 @@ export default {
       if (this.cartTotal <= 0) {
         alert("The cart is still empty");
       } else {
-        console.log(this.cartItems)
         const orderItems = this.cartItems.map((item) => ({
                 item_id: item.item_id,
+                item_name: item.item_name,
                 item_amount: item.quantity,
                 item_price_at_time: (item.item_price*(1-item.item_discount)).toFixed(2),
             }));
@@ -150,53 +150,15 @@ export default {
             order_total : this.cartTotal,
             items: orderItems,
         }
-        console.log(order);
-        await this.createOrder(order);
-        this.clearCart()
+        await this.createOrder(order).then(this.clearCart());
+        
 
-        //this.$router.push('/');
-        /*
-        this.clearCart()*/
       }
     },
   },
 };
 
-/*
 
-computed: {
-        ...mapState(['cart']),
-        cartItems(){
-            return this.cart.cartItems
-        },
-        cartTotal() {
-            return this.cart.cartItems.reduce(
-                (total, item) =>
-                (total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity),
-                0
-            );
-        },
-    },
-
-    methods: {
-        ...mapActions('orders',['createOrder']),
-        ...mapActions('cart',['removeFromCart', 'clearCart']),
-        closeC() {
-            this.$emit('closeC');
-        },
-        checkout() {
-            if(this.cartTotal<=0){
-                alert("the cart is still empty")
-            }else{
-                this.createOrder();
-                this.clearCart()
-            }
-            
-        },
-
-    },
-
-*/
 </script>
   
 <style scoped>

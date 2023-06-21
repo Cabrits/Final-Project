@@ -33,6 +33,7 @@ exports.getOrderItems = async (req, res) => {
         orders.order_card_ccv,
         orderItems.item_id,
         orderItems.item_amount,
+        orderItems.item_name,
         orderItems.item_price_at_time
       FROM
         orders
@@ -71,8 +72,7 @@ exports.createOrder = async (req, res) => {
   try {
     // Generate a random order ID
     const orderId = `${order_user_id}-${Math.floor(Math.random() * 100000)}`;
-    console.log(orderId)
-    console.log(Math.floor(Math.random() * 100000))
+
     // Insert the new order into the orders table
     const insertOrderQuery =
       'INSERT INTO orders (order_user_id, order_id, order_total, order_date, order_user_name, order_user_email, order_user_address, order_card_number, order_card_expiration, order_card_ccv) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)';
@@ -90,12 +90,12 @@ exports.createOrder = async (req, res) => {
 
     // Insert the order items into the orderItems table
     const insertItemQuery =
-      'INSERT INTO orderItems (order_id, item_id, item_amount, item_price_at_time) VALUES (?, ?, ?, ?)';
+      'INSERT INTO orderItems (order_id, item_id, item_name , item_amount, item_price_at_time) VALUES (?, ?, ?, ?,?)';
     for (const item of items) {
-      console.log(item)
       await executeQuery(insertItemQuery, [
         orderId,
         item.item_id,
+        item.item_name,
         item.item_amount,
         item.item_price_at_time,
       ]);

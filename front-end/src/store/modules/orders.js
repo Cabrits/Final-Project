@@ -35,6 +35,7 @@ const ordersModule = {
       
                   const formattedItems = orderData.map((item) => ({
                     item_id: item.item_id,
+                    item_name: item.item_name,
                     quantity: item.item_amount,
                     item_price_at_time: item.item_price_at_time,
                   }));
@@ -68,27 +69,7 @@ const ordersModule = {
           });
       },
     createOrder({ dispatch, commit, rootState },order) {
-      /*
-        const userId = rootState.user.user.user_id;
-        const orderTotal = rootState.cart.cartItems.reduce(
-          (total, item) =>
-            total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity,
-          0
-        );
-        const orderUserName = rootState.user.user.user_name;;
-        const items = rootState.cart.cartItems.map((item) => ({
-          item_id: item.item_id,
-          quantity: item.quantity,
-          item_price_at_time: (item.item_price * (1 - item.item_discount)).toFixed(2),
-        }));
-        const orderData = {
-          order_id: null,
-          order_date: null,
-          user_id: order.order_user_id,
-          order_total: order.order_total,
-          order_user_name: orderUserName,
-          items,
-        };*/
+
         console.log(order)
 
         axios

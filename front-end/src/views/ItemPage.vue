@@ -36,7 +36,6 @@ export default {
       try {
         const response = await axios.get(`${apiURL}/item/${this.$route.params.id}`)
         this.book = response.data
-        console.log(this.book)
       } catch (error) {
         console.error(error)
       }
