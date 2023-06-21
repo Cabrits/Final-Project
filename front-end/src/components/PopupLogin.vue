@@ -376,7 +376,11 @@ export default{
 
 @media screen and (max-width: 800px){
   .loginWrapper{
-      width: 98%;
+      width: 96%;
+  }
+
+  .loginPopup{
+      width: 270px;
   }
 }
 

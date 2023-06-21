@@ -114,4 +114,20 @@
     color: white;
 }
 
+
+@media screen and (max-width: 500px) {
+  .slideNews {
+    padding: 2rem;
+  }
+
+  .sliderWrapper {
+    border: none;
+    border-radius: 0;
+  }
+
+  .slider {
+    aspect-ratio: 16 / 9;
+  }
+}
+
 </style>

@@ -225,7 +225,12 @@ import apiURL from '../config';
 
 @media screen and (max-width: 800px){
     .signUpWrapper{
-        width: 98%;
+        width: 96%;
+    }
+
+    .signUpPopup{
+        width: 270px;
+        height: 400px;
     }
 }
 

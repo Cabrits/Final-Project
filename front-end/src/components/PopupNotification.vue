@@ -251,7 +251,7 @@ export default{
 
 /*Responsive*/
 
-@media (max-width: 1800px){
+@media screen and (max-width: 1800px){
     .px1750Size{
         max-width: 97%;
         padding-right: 100px;
@@ -259,7 +259,12 @@ export default{
 }
 
 
-@media (max-width: 800px){
+@media screen and (max-width: 800px){
+
+    .px1750Size{
+        padding: 0 1px;
+    }
+    
     .arrow{
         display: none;
     }
@@ -273,6 +278,13 @@ export default{
 
     .blur{
         display: block; 
+    }
+}
+
+@media screen and (max-width: 500px){
+    .notificationPopup{
+        width: 320px;
+        top: 90px;
     }
 }
 

@@ -315,6 +315,7 @@ export default{
 
 
 @media (max-width: 800px){
+    
     .arrow{
         display: none;
     }
@@ -328,6 +329,17 @@ export default{
 
     .blur{
         display: block;
+    }
+
+    .px1750Size{
+        padding: 0 1px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .cartPopup{
+        width: 320px;
+        top: 90px;
     }
 }
 

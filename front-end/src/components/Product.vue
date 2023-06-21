@@ -193,7 +193,6 @@ export default{
     border: 1px solid rgba(83, 82, 82, 0.3);
     border-radius: 10px;
     box-shadow: 10px 10px 4px rgba(176, 168, 155, 0.7);
-
 }
 
 .product h2{
@@ -252,6 +251,9 @@ export default{
     border-radius: 50px;
     font-size: 0.9rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cart{
@@ -262,6 +264,13 @@ export default{
     width: 40px;
     border-radius: 50%;
     margin-right: 20px;
+    align-items: center;
+    justify-content: center
+}
+
+.favourite i{
+  margin-left: 11px;
+  margin-top: 2px;
 }
 
 .btn::before{
@@ -271,7 +280,7 @@ export default{
     left: 49.9%;
     transform: translate(-50%,-50%);
     border: 1px solid rgb(185, 188, 159);
-    height: 45px;
+    height: 43px;
     transition: 0.3s;
     display: none;
 }
@@ -326,7 +335,7 @@ export default{
 
 /*Responsive*/
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 480px){
   .product{
       transform: none;
   }
@@ -343,6 +352,28 @@ export default{
 
   .product:hover:nth-child(2n+1){
       box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  }
+  
+  .product{
+      width: 300px;
+  }
+
+  .cart{
+    width: 140px;
+  } 
+  
+  .product img{
+      width: 200px;
+      height: 250px;
+  }
+
+  .btn::before{
+      height: 43px;
+  }
+
+  .cart::before{
+      width: 145px;
+      border-radius: 50px;
   }
 }
 

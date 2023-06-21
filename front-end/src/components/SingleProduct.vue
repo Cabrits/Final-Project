@@ -13,7 +13,7 @@
                 <h2 class="bookTitle">{{ book.item_name }}</h2>
                 <p class="bookAuthor">By 人の有る世/hitonoaruyo</p>
                 <p class="bookPrice"> {{ (book.item_price * (1-book.item_discount)).toFixed(2)}} €</p>
-                <button class="buyButton"  @click="addToCart(book)">Buy Now</button>
+                <button class="buyButton"  @click="addToCart(book)">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -130,8 +130,8 @@ export default {
     font-size: 32px;
     font-weight: bold;
     padding-top: 40px;
-    color: #000000;
-    text-shadow: 0 0 5px #ffffff, 0 0 2px #ffffff;
+    color: #ffffff;
+    text-shadow: 0 0 5px #000000, 0 0 2px #000000;
 }
 
 .buyButton{
@@ -252,4 +252,41 @@ export default {
         justify-content: center;
     }
 }
+
+@media (max-width: 500px){
+
+    .productImage{
+        max-width: 60%;
+    }
+
+    .bookAuthor{
+        font-size: 20px;
+        padding-top: 25px;
+    }
+
+    .bookPrice{
+        font-size: 28px;
+        padding-top: 10px;
+    }
+
+    .buyButton{
+        height: 45px;
+        border-radius: 50px;
+        font-size: 22px;
+        cursor: pointer;
+        width: 250px;
+        box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+        margin-top: 10px;
+    }
+
+    .moreInfoWrapper{
+        width: 80%; 
+    }
+
+    .moreInfo h4{
+        display: flex;
+        justify-content: center;
+    }
+}
+
 </style>
