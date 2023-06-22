@@ -43,8 +43,25 @@
           behavior: 'smooth',
         });
       },
+      startAutoRotation() {
+      this.autoRotationInterval = setInterval(() => {
+        console.log(this.currentIndex)
+        this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+        console.log(this.currentIndex)
+        this.changeSlide(this.currentIndex);
+      }, 7000); // Change slide every 5 seconds (adjust as needed)
     },
-  };
+    stopAutoRotation() {
+      clearInterval(this.autoRotationInterval);
+    },
+  },
+  mounted() {
+    this.startAutoRotation();
+  },
+  beforeDestroy() {
+    this.stopAutoRotation();
+  },
+ };
 </script>
   
 <style scoped>
