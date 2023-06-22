@@ -99,6 +99,7 @@ export default{
     border: 2px solid white;
     padding: 24px 20px;
     box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.6);
+    height: 308px;
 }
 
 .favoritesContainer h2{
@@ -119,8 +120,9 @@ export default{
     border-radius: 10px;
     cursor: pointer;
     margin-top: 50px;
-    margin-left: 70px;
+    margin-left: 90px;
     box-shadow: 8px 8px rgba(83, 82, 82, 0.7);
+
 }
 
 .favoritesContainer button:hover{
@@ -131,12 +133,12 @@ export default{
 .favoriteItems{
     padding-top: 15px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
 }
 
 .itemCard{
-    flex-basis: 100px;
+    flex-basis: 500px;
     padding: 10px;
     border-radius: 10px;
     background-color: rgb(248, 246, 244);
@@ -164,13 +166,14 @@ export default{
     line-height: 18px;
 }
 
-/*Favorites Popup, if there more than 2*/
 
 .popupContainer {
     position: absolute;
     z-index: 999;
-    transform: translate(-15%, -100%);
+    transform: translate(-55%, -60%);
 }
+
+/*Favorites Popup, if there more than 2*/
 
 .popup {
     background: white;
@@ -216,7 +219,6 @@ export default{
 
 .popupItemCard{
     flex-basis: 300px;
-    height: 110px;
     margin: 10px;
     padding: 10px;
     border: 1px solid #ddd;
@@ -255,8 +257,9 @@ export default{
 }
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1150px) {
   .favoritesContainer {
+      padding: 10px 40px;
       height: 440px;
   }
 
@@ -271,38 +274,20 @@ export default{
   }
 
   .favoritesContainer button {
-      width: 60%;
-      margin-top: 75px;
-      margin-left: 160px;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 45px;
   }
 
   .popupContainer{
-      top: 140%;
-      left: 20%;
-      width: 90%;
+      top: 70%;
+      left: 55%;
+      width: 80%;
   }
 
   .popup{
       max-width: 90%;
-  }
-  
-}
-
-@media screen and (max-width: 800px) {
-
-  .favoritesContainer button {
-      width: 60%;
-      margin-top: 75px;
-      margin-left: 120px;
-  }
-}
-
-@media screen and (max-width: 450px) {
-
-  .favoritesContainer button {
-      width: 60%;
-      margin-left: 70px;
-      margin-top: 65px;
+      padding: 15px;
   }
 }
 
