@@ -15,7 +15,7 @@ import Footer from '../components/Footer.vue'
 import axios from 'axios'
 import apiURL from '../config.js'
 
-export default {
+export default{
   name: 'ItemPage',
   components: { Header, Footer, SingleProduct },
   data() {

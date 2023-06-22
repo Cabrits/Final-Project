@@ -266,7 +266,7 @@ export default{
 }
 
 .favourite i{
-  margin-left: 11px;
+  margin-left: 12px;
   margin-top: 2px;
 }
 

@@ -5,7 +5,8 @@
 </template>
   
 <script>
-alert("This is a project for university , it is not a real website , no transactions can be don within it, any checkout made will simply be send to our personal database , please do not put any real information in this website")
+
+alert("This is a project for university , it is not a real website , no transactions can be done within it, any checkout made will simply be send to our personal database , please do not put any real information in this website")
 import { useRouter } from 'vue-router';
 const router = useRouter();
 

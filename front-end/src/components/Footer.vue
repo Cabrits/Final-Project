@@ -29,16 +29,6 @@ export default{
 
 <style scoped>
 
-.nightModeWrapper{
-  display: flex;
-}
-
-button{
-    width: 25px;
-    height: 25px;
-    border-radius: 10px;
-}
-
 /*Responsive*/
 
 .px1750Size{
@@ -56,7 +46,6 @@ button{
 footer{
     font-family: Arial, Helvetica, sans-serif;
     padding-top: 28px;
-    
 }
 
 .footer{

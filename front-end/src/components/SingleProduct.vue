@@ -111,6 +111,11 @@ export default {
     padding-top: 30px;
 }
 
+.productDetails a:visited{
+    text-decoration: none;
+    color: black;
+}
+
 .bookTitle{
     font-size: 40px;
     margin-bottom: 20px;
@@ -182,6 +187,11 @@ export default {
     -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
     margin-top: -70px;
     font-weight: 600;
+}
+
+.moreInfo a:visited{
+    text-decoration: none;
+    color: black;
 }
 
 .moreInfo h4{
