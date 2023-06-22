@@ -5,13 +5,15 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const itemController = require('../controllers/itemController');
 const orderController = require('../controllers/orderController');
+const chatController = require('../controllers/chatController');
+
 
 // Routes for users
 router.post('/api/user/create', userController.createUser);
 router.put('/api/user/:userId/update', userController.updateUser);
 router.get('/api/user/:userId/favourites', userController.getUserFavourites);
-router.post('/api/user/:userId/addFavourite/:itemId',userController.addFavouriteItem);
-router.delete('/api/user/:userId/removeFavourite/:itemId',userController.removeFavouriteItem);
+router.post('/api/user/:userId/addFavourite/:itemId', userController.addFavouriteItem);
+router.delete('/api/user/:userId/removeFavourite/:itemId', userController.removeFavouriteItem);
 router.get('/api/user/get/:userId', userController.getUser);
 router.delete('/api/user/delete/:userId', userController.deleteUser);
 
@@ -19,6 +21,11 @@ router.delete('/api/user/delete/:userId', userController.deleteUser);
 router.get('/api/items', itemController.getItems);
 router.get('/api/items/:category', itemController.getItemsCategory);
 router.get('/api/item/:itemId', itemController.getItem);
+
+
+//chatgpt
+router.post('/api/chat', chatController.postChat);
+
 
 /*
 router.post('/api/item/create', ItemController.createItem);

@@ -1,11 +1,10 @@
 <!--Product Cards displayed on the Home Page-->
 
 <template>
-
   <!--Show particularly products when a certain category is selected-->
 
   <div>
-    <Categories @category-selected="handleCategorySelected"/>
+    <Categories @category-selected="handleCategorySelected" />
   </div>
 
   <!--Product Card-->
@@ -13,17 +12,28 @@
   <div class="productsDisplay">
     <div class="product" v-for="item in filteredItems" :key="item.id">
       <router-link :to="'/item/' + item.item_id">
-        <img :src="item.item_image">
+        <img :src="item.item_image" />
         <h2>{{ item.item_name }}</h2>
         <div class="prodInfo">
           <span>{{ item.item_description }}</span>
         </div>
       </router-link>
       <div class="prodButtons">
-        <div class="prodPrice">{{ (item.item_price * (1-item.item_discount)).toFixed(2) }}€</div>
-        <button class="cart btn" @click="addToCart(item)"><i class="fa fa-shopping-cart"></i></button>
-        <button class="favourite btn" :disabled="cooldown" @click="toggleFavourite(item.item_id)">
-          <i class="fa fa-heart" :class="{'red-heart': isFavourite(item.item_id) }"></i>
+        <div class="prodPrice">
+          {{ (item.item_price * (1 - item.item_discount)).toFixed(2) }}€
+        </div>
+        <button class="cart btn" @click="addToCart(item)">
+          <i class="fa fa-shopping-cart"></i>
+        </button>
+        <button
+          class="favourite btn"
+          :disabled="cooldown"
+          @click="toggleFavourite(item.item_id)"
+        >
+          <i
+            class="fa fa-heart"
+            :class="{ 'red-heart': isFavourite(item.item_id) }"
+          ></i>
         </button>
       </div>
     </div>
@@ -31,38 +41,40 @@
     <!--Notifications when adding items to the cart or to the favorites-->
 
     <div v-if="cartNotification" class="notification">Item added to cart</div>
-    <div v-if="favoriteNotification" class="notification">Item added to favorites</div>
+    <div v-if="favoriteNotification" class="notification">
+      Item added to favorites
+    </div>
   </div>
-
 </template>
 
 <script>
+import axios from "axios";
+import Categories from "./Categories.vue";
+import { mapState, mapActions, mapGetters } from "vuex";
+import baseURL from "../config.js";
 
-import axios from 'axios';
-import Categories from './Categories.vue'
-import { mapState, mapActions, mapGetters } from 'vuex';
-import baseURL from '../config.js'
-
-export default{
-  name: 'Product',
-  components: {Categories},
+export default {
+  name: "Product",
+  components: { Categories },
 
   data() {
     return {
       cooldown: false,
       selectedCategory: null,
       cartNotification: false,
-      favoriteNotification: false
+      favoriteNotification: false,
     };
   },
 
   computed: {
-    ...mapState(['items']),
-    ...mapState(['favourites']),
-    ...mapGetters('user',['userId']),
+    ...mapState(["items"]),
+    ...mapState(["favourites"]),
+    ...mapGetters("user", ["userId"]),
     filteredItems() {
       if (this.selectedCategory) {
-        return this.items.items.filter((item) => item.item_category === this.selectedCategory);
+        return this.items.items.filter(
+          (item) => item.item_category === this.selectedCategory
+        );
       } else {
         return this.items.items;
       }
@@ -70,8 +82,8 @@ export default{
   },
 
   methods: {
-    ...mapActions('items',['fetchItems']),
-    ...mapActions('favourites',['fetchFavourites']),
+    ...mapActions("items", ["fetchItems"]),
+    ...mapActions("favourites", ["fetchFavourites"]),
     startButtonCooldown() {
       this.cooldown = true;
       setTimeout(() => {
@@ -84,7 +96,9 @@ export default{
     },
 
     isFavourite(itemId) {
-      const result = this.favourites.favourites.some((favourite) => favourite.item_id === itemId);
+      const result = this.favourites.favourites.some(
+        (favourite) => favourite.item_id === itemId
+      );
       return result;
     },
 
@@ -96,16 +110,16 @@ export default{
         : `${baseURL}/user/${userId}/addFavourite/${itemId}`;
 
       axios({
-        method: isItemFavourite ? 'DELETE' : 'POST',
+        method: isItemFavourite ? "DELETE" : "POST",
         url: apiUrl,
       })
         .then((response) => {
           // Handle success
           this.startButtonCooldown();
-          this.$store.dispatch('favourites/fetchFavourites', userId);
-          this.favoriteNotification = true; 
+          this.$store.dispatch("favourites/fetchFavourites", userId);
+          this.favoriteNotification = true;
           setTimeout(() => {
-            this.favoriteNotification = false; 
+            this.favoriteNotification = false;
           }, 2000);
         })
         .catch((error) => {
@@ -113,10 +127,10 @@ export default{
           console.error(error);
         });
     },
-    
+
     addToCart(item) {
-      this.$store.dispatch('cart/addToCart', item);
-      this.cartNotification = true; 
+      this.$store.dispatch("cart/addToCart", item);
+      this.cartNotification = true;
       setTimeout(() => {
         this.cartNotification = false;
       }, 2000);
@@ -127,59 +141,57 @@ export default{
     this.fetchItems();
   },
 };
-
 </script>
 
 <style scoped>
-
 /*Product Card*/
 
-.productsDisplay{
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: row;
-    justify-content: space-around;
-    padding: 3rem;
+.productsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: row;
+  justify-content: space-around;
+  padding: 3rem;
 }
-.product{
-    background-color: rgb(64, 61, 57);
-    border-radius: 20px;
-    border: 3px solid rgb(248, 246, 244);
-    width: 350px;
-    margin-top: 60px;
-    padding: 0;
-    transition: 2.5s;
-    box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.8);
+.product {
+  background-color: rgb(64, 61, 57);
+  border-radius: 20px;
+  border: 3px solid rgb(248, 246, 244);
+  width: 350px;
+  margin-top: 60px;
+  padding: 0;
+  transition: 2.5s;
+  box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.8);
 }
 
 /*Potencial Idea*/
 
-.product:nth-child(2n+1){
-    transform: perspective(1200px) rotateY(5deg);
-    box-shadow: 17px 20px 8px rgba(50, 50, 50, 0.7);
+.product:nth-child(2n + 1) {
+  transform: perspective(1200px) rotateY(5deg);
+  box-shadow: 17px 20px 8px rgba(50, 50, 50, 0.7);
 }
 
-.product:nth-child(2n){
-    transform: perspective(1200px) rotateY(-5deg);
-    box-shadow: -17px 20px 8px rgba(50, 50, 50, 0.7);
+.product:nth-child(2n) {
+  transform: perspective(1200px) rotateY(-5deg);
+  box-shadow: -17px 20px 8px rgba(50, 50, 50, 0.7);
 }
 
-.product:hover:nth-child(2n){
-    transform: none;
-    transition: 1.5s;
-    z-index: 100;
-    box-shadow: 17px 20px 8px rgba(50, 50, 50, 0.7);
+.product:hover:nth-child(2n) {
+  transform: none;
+  transition: 1.5s;
+  z-index: 100;
+  box-shadow: 17px 20px 8px rgba(50, 50, 50, 0.7);
 }
 
-.product:hover:nth-child(2n+1){
-    transform: none;
-    transition: 1.5s;
-    z-index: 100;
-    box-shadow: -17px 20px 8px rgba(50, 50, 50, 0.7);
+.product:hover:nth-child(2n + 1) {
+  transform: none;
+  transition: 1.5s;
+  z-index: 100;
+  box-shadow: -17px 20px 8px rgba(50, 50, 50, 0.7);
 }
 
-.product a{
-    text-decoration: none;
+.product a {
+  text-decoration: none;
 }
 
 .product img{
@@ -192,50 +204,50 @@ export default{
     box-shadow: 10px 10px 4px rgba(176, 168, 155, 0.7);
 }
 
-.product h2{
-    width: 100%;
-    text-align: center;
-    color:white;
+.product h2 {
+  width: 100%;
+  text-align: center;
+  color: white;
 }
 
-.prodInfo{
-    display: flex;
-    align-items: center;
-    padding: 20px;  
-    color: white;
-    font-weight: 500;
+.prodInfo {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  font-weight: 500;
 }
 
-.prodInfo span{              
-    display: inline-block;
-    width: 305px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-top: -10px;
-    line-height: 1.5rem;
-    text-align:center;
+.prodInfo span {
+  display: inline-block;
+  width: 305px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: -10px;
+  line-height: 1.5rem;
+  text-align: center;
 }
 
-.prodButtons{
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+.prodButtons {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-.prodButtons i{
-    color: black;
-    font-size: 20px;
-    text-align: center;
+.prodButtons i {
+  color: black;
+  font-size: 20px;
+  text-align: center;
 }
 
-.prodPrice{
-    font-weight: 700;
-    color: #fff;
-    margin-left: 35px;
+.prodPrice {
+  font-weight: 700;
+  color: #fff;
+  margin-left: 35px;
 }
 
 .btn{
@@ -253,8 +265,8 @@ export default{
     justify-content: center;
 }
 
-.cart{
-    width: 160px;
+.cart {
+  width: 160px;
 }
 
 .favourite{
@@ -282,41 +294,41 @@ export default{
     display: none;
 }
 
-.cart::before{
-    width: 165px;
-    border-radius: 50px;
+.cart::before {
+  width: 165px;
+  border-radius: 50px;
 }
 
-.favourite::before{
-    width: 45px;
-    border-radius: 50%;
+.favourite::before {
+  width: 45px;
+  border-radius: 50%;
 }
 
-.btn:hover::before{
-    border-color: white;
-    display: block;
+.btn:hover::before {
+  border-color: white;
+  display: block;
 }
 
-.prodButtons .fa-heart:before{
-    padding: 1.15rem;
-    font-size: 1.2rem;
-    color: rgb(78, 75, 75);
-    margin-left: -11.5px;
+.prodButtons .fa-heart:before {
+  padding: 1.15rem;
+  font-size: 1.2rem;
+  color: rgb(78, 75, 75);
+  margin-left: -11.5px;
 }
 
-.prodButtons .fa-shopping-cart:before{
-    color: rgb(78, 75, 75);
+.prodButtons .fa-shopping-cart:before {
+  color: rgb(78, 75, 75);
 }
 
 /*Color change on the heart when pressed*/
 
-.red-heart::before{
-    color: rgb(255, 127, 127)!important;;
+.red-heart::before {
+  color: rgb(255, 127, 127) !important;
 }
 
 /*Notification*/
 
-.notification{
+.notification {
   position: fixed;
   bottom: 20px;
   left: 50%;
@@ -326,7 +338,7 @@ export default{
   color: white;
   font-weight: bold;
   border-radius: 10px;
-  transition:  0.5s;
+  transition: 0.5s;
   z-index: 999;
 }
 
@@ -337,18 +349,18 @@ export default{
       transform: none;
   }
 
-  .product:nth-child(2n+1){
-      transform: perspective(1200px) rotateY(0deg);
-      box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  .product:nth-child(2n + 1) {
+    transform: perspective(1200px) rotateY(0deg);
+    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
   }
 
-  .product:nth-child(2n){
-      transform: perspective(1200px) rotateY(0deg);
-      box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  .product:nth-child(2n) {
+    transform: perspective(1200px) rotateY(0deg);
+    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
   }
 
-  .product:hover:nth-child(2n+1){
-      box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  .product:hover:nth-child(2n + 1) {
+    box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
   }
   
   .product{
@@ -373,6 +385,4 @@ export default{
       border-radius: 50px;
   }
 }
-
-
 </style>
