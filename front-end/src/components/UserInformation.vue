@@ -98,6 +98,7 @@ export default {
     flex-direction: column;
     align-items: center;
     text-shadow: 0 0 2px #000000, 0 0 2px #000000;
+    height: 480px;
 }
 
 .infoContainer h2{
@@ -114,8 +115,8 @@ export default {
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 10px;
-    margin-top: 20px;
-    box-shadow: 8px 6px 3px rgba(255, 255, 255, 0.5);
+    margin-top: 60px;
+    box-shadow: 8px 6px 3px rgba(242, 216, 175, 0.5);
 }
 
 .infoContainer button:hover{
@@ -140,7 +141,7 @@ export default {
 .popupUser{
     display: block;
     position: relative;
-    background-color: rgb(185, 188, 159);
+    background-color: rgb(97, 82, 68);
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 400px;
@@ -148,6 +149,7 @@ export default {
     width: 100%;
     border-radius: 10px;
     border: 2px solid white;
+    color: white;
 }
 
 .changeInfo{
@@ -207,13 +209,12 @@ export default {
 .closeButton{
     border: none;
     background: white;
-    font-size: 20px;
+    font-size: 15px;
     width: 23px;
     height: 23px;
     cursor: pointer;
     float: right;
     border-radius: 15px;
-    line-height: 1px;
 }
 
 /*Blur what's behind the popup when opened*/
@@ -230,13 +231,15 @@ export default {
 
 /*Responsive*/
 
-@media (max-width: 800px){
+@media (max-width: 1000px){
+
   .infoContainer{
-      padding: 10px 20px;
+      line-height: 65px;
   }
 
   .infoContainer button{
-     width: 90%;
+      width: 70%;
+      margin-top: 20px;
   }
 
   .popupUser{
@@ -247,10 +250,6 @@ export default {
 @media (max-width: 480px){
   .infoContainer{
       padding: 10px;
-  }
-
-  .infoContainer button{
-      width: 100%;
   }
 
   .popupUser{

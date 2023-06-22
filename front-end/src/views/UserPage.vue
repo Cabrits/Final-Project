@@ -9,7 +9,6 @@
       <UserInformation :user="user"/>
       <FavoriteItems :favorites="favorites"/>
       <OrderHistory :orders="orders" />
-      <PaymentMethods :paymentMethods="paymentMethods"/>
     </div>
   </div>
 
@@ -70,17 +69,17 @@ export default {
 
 <style scoped>
 .userAccount{
-    max-width: 1300px;
+    max-width: 1600px;
     margin: 0 auto;
     font-family: Arial, sans-serif;
-    padding-top: 30px;
-    line-height: 32px;
-    padding-bottom: 20px;
+    padding-top: 120px;
+    line-height: 55px;
+    padding-bottom: 125px;
 }
 
 .main-content{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 60px;
 }
 
@@ -105,6 +104,19 @@ export default {
   .userAccount{
       padding-top: 30px;
       line-height: 28px;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .main-content{
+      grid-template-columns: 1fr;
+      gap: 30px;
+  }
+  
+  .userAccount{
+      padding-top: 30px;
+      line-height: 28px;
+      padding-bottom: 40px;
   }
 }
 

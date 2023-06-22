@@ -223,5 +223,12 @@ export default{
     }
 }
 
+@media screen and (max-width: 500px) {
+    .member{
+        width: 280px;
+
+    }
+}
+
 </style>
   

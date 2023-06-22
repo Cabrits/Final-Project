@@ -104,6 +104,8 @@ export default{
     color: white;
     font-family: Arial, sans-serif;
     text-align: left;
+    justify-content: center;
+    line-height: 25px;
 }
 
 .orderHistoryContainer h2{
