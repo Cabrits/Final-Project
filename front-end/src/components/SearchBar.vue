@@ -64,11 +64,12 @@ export default{
         );
 
         if (matchingProducts.length > 0) {
+          console.log(matchingProducts)
           this.searchResults = matchingProducts;
 
         } else {
           this.searchResults = [
-            { name: "Product not found", image:"@/assets/ProductNotFound.jpg"},
+            { item_name: "Product not found", item_image:"src/assets/ProductNotFound.jpg"},
           ];
         }
 
@@ -93,11 +94,14 @@ export default{
           item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         if (matchingProducts.length > 0) {
+          
+          console.log("q")
+          console.log(matchingProducts)
           this.searchResults = matchingProducts;
 
         } else {
           this.searchResults = [
-            { item_name: "Product not found", item_image: "path/to/notfound.jpg" },
+            { item_name: "Product not found", item_image: "src/assets/ProductNotFound.jpg" },
           ];
         }
         this.showAutocomplete = true;
