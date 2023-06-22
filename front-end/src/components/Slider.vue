@@ -32,6 +32,7 @@
       return {
         slides: [1, 2, 3, 4],
         currentIndex: 0,
+        autoRotationInterval: null, // Store the interval reference
       };
     },
     methods: {
@@ -45,21 +46,28 @@
       },
       startAutoRotation() {
       this.autoRotationInterval = setInterval(() => {
-        console.log(this.currentIndex)
         this.currentIndex = (this.currentIndex + 1) % this.slides.length;
-        console.log(this.currentIndex)
         this.changeSlide(this.currentIndex);
-      }, 7000); // Change slide every 5 seconds (adjust as needed)
+      }, 20000); // Change slide every 20 seconds
     },
     stopAutoRotation() {
       clearInterval(this.autoRotationInterval);
+      this.autoRotationInterval = null; // Clear the interval reference
     },
   },
   mounted() {
     this.startAutoRotation();
   },
-  beforeDestroy() {
+
+  beforeUnmount() {
     this.stopAutoRotation();
+  },
+
+  created() {
+    this.$router.beforeEach((to, from, next) => {
+      this.stopAutoRotation();
+      next();
+    });
   },
  };
 </script>
