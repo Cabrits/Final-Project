@@ -71,7 +71,6 @@ export default {
     ...mapState(["favourites"]),
     ...mapGetters("user", ["userId"]),
     filteredItems() {
-      console.log(this.items.items);
       if (this.selectedCategory) {
         return this.items.items.filter(
           (item) => item.item_category === this.selectedCategory
@@ -104,7 +103,6 @@ export default {
     },
 
     toggleFavourite(itemId) {
-      console.log(baseURL);
       const userId = this.userId;
       const isItemFavourite = this.isFavourite(itemId);
       const apiUrl = isItemFavourite
@@ -196,14 +194,14 @@ export default {
   text-decoration: none;
 }
 
-.product img {
-  width: 250px;
-  height: 300px;
-  margin-left: 50px;
-  margin-top: 40px;
-  border: 1px solid rgba(83, 82, 82, 0.3);
-  border-radius: 10px;
-  box-shadow: 10px 10px 4px rgba(176, 168, 155, 0.7);
+.product img{
+    width: 250px;
+    height: 300px;
+    margin-left: 50px;
+    margin-top: 40px;
+    border: 1px solid rgba(83, 82, 82, 0.3);
+    border-radius: 10px;
+    box-shadow: 10px 10px 4px rgba(176, 168, 155, 0.7);
 }
 
 .product h2 {
@@ -252,38 +250,48 @@ export default {
   margin-left: 35px;
 }
 
-.btn {
-  position: relative;
-  border: none;
-  outline: none;
-  background-color: white;
-  color: #fff;
-  height: 40px;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  cursor: pointer;
+.btn{
+    position: relative;
+    border: none;
+    outline: none;
+    background-color: white;
+    color: #fff;
+    height: 40px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cart {
   width: 160px;
 }
 
-.favourite {
-  width: 40px;
-  border-radius: 50%;
-  margin-right: 20px;
+.favourite{
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center
 }
 
-.btn::before {
-  content: "";
-  position: absolute;
-  top: 49%;
-  left: 49.9%;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgb(185, 188, 159);
-  height: 45px;
-  transition: 0.3s;
-  display: none;
+.favourite i{
+  margin-left: 11px;
+  margin-top: 2px;
+}
+
+.btn::before{
+    content: "";
+    position: absolute;
+    top: 49%;
+    left: 49.9%;
+    transform: translate(-50%,-50%);
+    border: 1px solid rgb(185, 188, 159);
+    height: 43px;
+    transition: 0.3s;
+    display: none;
 }
 
 .cart::before {
@@ -336,9 +344,9 @@ export default {
 
 /*Responsive*/
 
-@media screen and (max-width: 800px) {
-  .product {
-    transform: none;
+@media screen and (max-width: 600px){
+  .product{
+      transform: none;
   }
 
   .product:nth-child(2n + 1) {
@@ -353,6 +361,28 @@ export default {
 
   .product:hover:nth-child(2n + 1) {
     box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
+  }
+  
+  .product{
+      width: 300px;
+  }
+
+  .cart{
+    width: 140px;
+  } 
+  
+  .product img{
+      width: 200px;
+      height: 250px;
+  }
+
+  .btn::before{
+      height: 43px;
+  }
+
+  .cart::before{
+      width: 145px;
+      border-radius: 50px;
   }
 }
 </style>

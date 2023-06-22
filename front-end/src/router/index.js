@@ -5,11 +5,11 @@ const router = createRouter({
     routes:[
         { path: "/", component: () => import("../views/HomePage.vue")},
         { path: "/user", component: () => import("../views/UserPage.vue")},
+        { path: "/item/undefined", component: () => import("../views/PageNotFound.vue")},
         { path: "/item/:id", component: () => import("../views/ItemPage.vue")},
         { path: "/checkout", component: () => import("../views/Checkout.vue")},
         { path: "/aboutus", component: () => import("../views/AboutUs.vue")},
         { path: "/:pathMatch(.*)*", component: () => import("../views/PageNotFound.vue") },
     ]
 })
-
 export default router;

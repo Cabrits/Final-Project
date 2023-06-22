@@ -71,7 +71,6 @@ export default {
     },
 
     fetchItems() {
-      console.log(this.$store)
       this.$store.dispatch('items/fetchItems');
     },
 
@@ -106,7 +105,6 @@ export default {
         const userId = this.$store.getters.userId;
         this.$store.dispatch('fetchFavourites', userId);
       } else {
-        console.log('User not logged in');
       }
      }
     );
@@ -165,7 +163,13 @@ export default {
 
 @media screen and (max-width: 800px){
   .loadingScreen img{
-      width: 50%;
+      width: 60%;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .loadingScreen img{
+      width: 80%;
   }
 }
 

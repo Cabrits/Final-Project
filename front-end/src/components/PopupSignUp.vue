@@ -39,6 +39,7 @@
 <script>
 import apiURL from '../config';
   import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { mapState, mapActions } from 'vuex';
   import axios from 'axios';
   export default{
     name: 'PopupLogin',
@@ -52,6 +53,7 @@ import apiURL from '../config';
       };
     },
     methods: {
+    ...mapActions('user',['fetchUser']),
       closeS() {
         this.$emit('closeS');
       },
@@ -62,14 +64,14 @@ import apiURL from '../config';
             this.errMsg = 'Successfully registered!';
             const user = {
                 user_id: data.user.uid,
-                user_name: this.name, // Add the user's name here
+                user_name: this.name,
                 user_email: this.email,
-                user_address: '' // Add the user's address here
             };
 
             axios.post(`${apiURL}/user/create`, user)
             .then((response) => {
-                console.log('User created in the API:');
+                console.log('User created in the API:'+response);
+                this.fetchUser(data.user.uid);
                 // Handle successful registration and user creation
             })
             .catch((error) => {
@@ -226,7 +228,12 @@ import apiURL from '../config';
 
 @media screen and (max-width: 800px){
     .signUpWrapper{
-        width: 98%;
+        width: 96%;
+    }
+
+    .signUpPopup{
+        width: 270px;
+        height: 400px;
     }
 }
 

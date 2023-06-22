@@ -4,16 +4,16 @@
 
     <!--Overall Product-->
 
-    <div class="productPage">
+    <div v-if="book" class="productPage">
         <div class="productContainer">
             <div class="productImage">
                 <img :src="book.item_image" alt="Book Cover">
             </div>
             <div class="productDetails">
                 <h2 class="bookTitle">{{ book.item_name }}</h2>
-                <p class="bookAuthor">By Yatsume</p>
-                <p class="bookPrice"> {{ book.item_price }} €</p>
-                <button class="buyButton"  @click="addToCart(book)">Buy Now</button>
+                <p class="bookAuthor"><a href="https://twitter.com/hitonoaruyo" target="_blank" >By 人の有る世/hitonoaruyo</a></p>
+                <p class="bookPrice"> {{ (book.item_price * (1-book.item_discount)).toFixed(2)}} €</p>
+                <button class="buyButton"  @click="addToCart(book)">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                 <span v-if="isReadMoreShown || !book.item_description">{{ book.item_description }}</span>
                 <span v-else>{{ book.item_description.substring(0, 250) }}...</span>
                 <br><br>
-                <h4>Author:<span class="authorAndChapterText">{{ author }}</span></h4>
+                <h4>Author:<a href="https://twitter.com/hitonoaruyo" target="_blank" ><span class="authorAndChapterText">By 人の有る世/hitonoaruyo</span></a></h4>
                 <h4>Current Chapters Out:<span class="authorAndChapterText">{{ chapters }}</span></h4>
             </p>
             <span class="readMoreButton" @click="toggleReadMore">
@@ -37,54 +37,40 @@
 
 </template>
 
-<script>
 
-import Header from '../components/Header.vue'
+<script>
 import Footer from '../components/Footer.vue'
-import axios from 'axios';
+import axios from 'axios'
 import apiURL from '../config.js'
 
-
 export default {
-    name: 'SingleProduct',
-
-    components: { Header, Footer },
-    data() {
-        return {
-            isLoading: true,
-            book: {},
-            author: 'Yatsume San',
-            chapters: '3',
-            isReadMoreShown: false,
-        }
+  name: 'SingleProduct',
+  components: { Footer },
+  props: {
+    book: {
+      type: Object,
+      required: true,
     },
-
-    async created() {
-        try {
-            const response = await axios.get(`${apiURL}/item/${this.$route.params.id}`)
-            this.book = response.data
-        } catch (error) {
-            
-        }
-        this.isLoading = false
-    },
-
-    methods: {
+  },
+  data() {
+    return {
+      chapters: '3',
+      isReadMoreShown: false,
+    }
+  },
+  methods: {
     toggleReadMore() {
       this.isReadMoreShown = !this.isReadMoreShown
     },
-
     addToCart(item) {
-      this.$store.dispatch('cart/addToCart', item);
-      this.cartNotification = true; 
+      this.$store.dispatch('cart/addToCart', item)
+      this.cartNotification = true
       setTimeout(() => {
-        this.cartNotification = false;
-      }, 2000);
+        this.cartNotification = false
+      }, 2000)
     },
   },
-    
 }
-
 </script>
 
 <style scoped>
@@ -144,8 +130,8 @@ export default {
     font-size: 32px;
     font-weight: bold;
     padding-top: 40px;
-    color: #000000;
-    text-shadow: 0 0 5px #ffffff, 0 0 2px #ffffff;
+    color: #ffffff;
+    text-shadow: 0 0 5px #000000, 0 0 2px #000000;
 }
 
 .buyButton{
@@ -266,4 +252,41 @@ export default {
         justify-content: center;
     }
 }
+
+@media (max-width: 500px){
+
+    .productImage{
+        max-width: 60%;
+    }
+
+    .bookAuthor{
+        font-size: 20px;
+        padding-top: 25px;
+    }
+
+    .bookPrice{
+        font-size: 28px;
+        padding-top: 10px;
+    }
+
+    .buyButton{
+        height: 45px;
+        border-radius: 50px;
+        font-size: 22px;
+        cursor: pointer;
+        width: 250px;
+        box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+        margin-top: 10px;
+    }
+
+    .moreInfoWrapper{
+        width: 80%; 
+    }
+
+    .moreInfo h4{
+        display: flex;
+        justify-content: center;
+    }
+}
+
 </style>

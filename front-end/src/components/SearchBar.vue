@@ -1,44 +1,36 @@
 <!--Search bar located on the Header, that contains a autocomplete for the item search-->
 
 <template>
-  <!--Overall Search Bar-->
 
-  <div class="searchBar" id="search">
-    <form autocomplete="off" @submit.prevent="handleSearch">
-      <!--Search button and input-->
+    <!--Overall Search Bar-->
 
-      <button type="submit">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
-      <input
-        ref="searchInput"
-        type="text"
-        placeholder="Search Product..."
-        name="search"
-        v-model="searchInput"
-        @input="handleInput"
-      />
+    <div class="searchBar" id="search">
+        <form autocomplete="off" @submit.prevent="handleSearch">
 
-      <!--Autocomplete with the item searched-->
+            <!--Search button and input-->
 
-      <div class="searchResultsWrapper">
-        <ul class="searchResults" v-if="showAutocomplete">
-          <li
-            v-for="(result, index) in getLimitedResults"
-            :key="result.item_name"
-          >
-            <router-link :to="'/item/' + result.item_id">
-              <img :src="result.item_image" :alt="result.item_name" />
-              <span>{{ result.item_name }}</span>
-            </router-link>
-          </li>
-          <li v-if="searchResults.length === 0" class="noResults">
-            Product not found
-          </li>
-        </ul>
-      </div>
-    </form>
-  </div>
+            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <input ref="searchInput" type="text" placeholder="Search Product..." name="search" v-model="searchInput" @input="handleInput"/>
+
+            <!--Autocomplete with the item searched-->
+
+            <div class="searchResultsWrapper">
+                <ul class="searchResults" v-if="showAutocomplete">
+                    <li v-for="(result, index) in getLimitedResults" :key="result.item_name" >
+                      <router-link  :to="'/item/' + result.item_id" @click="clearSearchBar">
+                        <img :src="result.item_image" :alt="result.item_name" />
+                        <span>{{ result.item_name }}</span>
+                      </router-link>
+                    </li>
+                    <li v-if="searchResults.length === 0" class="noResults">
+                        Product not found
+                    </li>
+                </ul>
+            </div>
+
+        </form>
+    </div>
+
 </template>
 
 
@@ -72,13 +64,11 @@ export default {
         );
 
         if (matchingProducts.length > 0) {
+          console.log(matchingProducts)
           this.searchResults = matchingProducts;
         } else {
           this.searchResults = [
-            {
-              name: "Product not found",
-              image: "@/assets/Product Not Found.png",
-            },
+            { item_name: "Product not found", item_image:"src/assets/ProductNotFound.jpg"},
           ];
         }
 
@@ -88,24 +78,27 @@ export default {
         this.searchResults = [];
       }
     },
-
-    showMoreResults() {},
+    
+    clearSearchBar() {
+      this.searchInput = '';
+      this.showAutocomplete = false;
+      this.searchResults = [];
+    },
 
     handleSearch() {
       const searchTerm = this.searchInput.trim();
-      console.log(this.getItems);
       if (searchTerm) {
         const matchingProducts = this.getItems.filter((item) =>
           item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         if (matchingProducts.length > 0) {
+          
+          console.log("q")
+          console.log(matchingProducts)
           this.searchResults = matchingProducts;
         } else {
           this.searchResults = [
-            {
-              item_name: "Product not found",
-              item_image: "path/to/notfound.jpg",
-            },
+            { item_name: "Product not found", item_image: "src/assets/ProductNotFound.jpg" },
           ];
         }
         this.showAutocomplete = true;

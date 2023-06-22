@@ -35,7 +35,6 @@ export default{
 
   methods: {
     selectCategory(category) {
-      console.log(category)
       this.selectedCategory = category;
       this.$emit('category-selected', category.name);
     },
@@ -138,6 +137,40 @@ export default{
 @media screen and (max-width: 800px){
   .categories{
       width: 100%;
+  }
+
+
+  .subCat.active{
+      z-index: 0;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .categories{
+      width: 100%;
+  }
+
+  .subCat{
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+    line-height: 65px;
+  }
+
+  .subCat:hover .inner,
+  .subCat.active .inner{
+      height: 56px;
+      margin-left: -28px;
+      margin-top: -28px;
+      width: 56px;
+      z-index: -1;
+  }
+
+  .categoryName{
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: rgb(64, 61, 57);
   }
 
   .subCat.active{

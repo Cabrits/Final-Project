@@ -68,21 +68,20 @@ export default{
     ...mapActions('user',['setUser']),
     ...mapActions('favourites',['fetchFavourites']),
     ...mapActions('orders',['fetchOrders']),
+    ...mapActions('user', ['fetchUser']),
     closeL() {
       this.$emit('closeL');
     },
 
     logIn() {
       signInWithEmailAndPassword(getAuth(), this.email, this.password)
-        .then((data) => {
+        .then(async (data) => {
           const userId = data.user.uid;
-          console.log(data.user)
-          const userData = {
-                user_id: userId,
-                user_name: data.user.displayName || 'placeholderName, Please Change!',
-                user_email: data.user.email,
-              };
-              console.log(userData)
+
+          const userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
+
+
+          console.log('User already exists!');
           this.setUser(userData);
           this.fetchFavourites(userId);
           this.fetchOrders();
@@ -105,19 +104,20 @@ export default{
     signInWithGitHub() {
       const provider = new GithubAuthProvider();
       const auth = getAuth();
+      
 
       signInWithPopup(auth, provider)
         .then(async (data) => {
           const userId = data.user.uid;
-          console.log(userId, data);
-          const userData = {
+          var userData = {
                 user_id: userId,
                 user_name: data.user.displayName || 'placeholderName, Please Change!',
                 user_email: data.user.email,
               };
           try {
             // Check if the user exists in your database
-            await axios.get(`${apiURL}/user/${userId}`);
+            userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
+
 
             console.log('User already exists!');
           } catch (error) {
@@ -149,22 +149,19 @@ export default{
       signInWithPopup(auth, provider)
         .then(async (data) => {
           const userId = data.user.uid;
-          console.log(userId, data);
-          const userData = {
+          var userData = {
                 user_id: userId,
                 user_name: data.user.displayName || 'placeholderName, Please Change!',
                 user_email: data.user.email,
               };
           try {
             // Check if the user exists in your database
-            await axios.get(`${apiURL}/user/${userId}`);
+            userData = (await axios.get(`${apiURL}/user/get/${userId}`)).data;
 
             console.log('User already exists!');
           } catch (error) {
             if (error.response && error.response.status === 404) {
               // User does not exist, create a new one
-              
-
               await axios.post(`${apiURL}/user/create`, userData);
               console.log('New user created!');
             } else {
@@ -374,7 +371,11 @@ export default{
 
 @media screen and (max-width: 800px){
   .loginWrapper{
-      width: 98%;
+      width: 96%;
+  }
+
+  .loginPopup{
+      width: 270px;
   }
 }
 

@@ -90,9 +90,7 @@ export default{
         const auth = getAuth();
 
         onAuthStateChanged(auth, (user) => {
-        this.setUserAuth(user).then(() => {
-            console.log(this.userAuth);
-        });
+        this.setUserAuth(user)
         });
     },
 
@@ -387,6 +385,11 @@ input:focus, textarea:focus, select:focus{
         display: block;
     }
 
+    .logo img{
+        padding-top: 5px;
+        width: 100px;
+    }
+
     .menuBars{
         display: block;
         cursor: pointer;
@@ -398,7 +401,7 @@ input:focus, textarea:focus, select:focus{
     .menuBars .line{
         width: 30px;
         height: 3px;
-        background: rgb(78, 75, 75);
+        background: rgb(255, 255, 255);
         margin: 7px 0;
         border-radius: 25px;
     }
@@ -437,8 +440,8 @@ input:focus, textarea:focus, select:focus{
         margin-bottom: 7px;
     }
 
-    .actions{
-        margin-right: 20px;
+    .actions2{
+        margin-left: -5px;
     }
 
     .btnGroup{
@@ -470,6 +473,13 @@ input:focus, textarea:focus, select:focus{
 
     .menuBars.active .line:nth-child(3) {
         transform: rotate(45deg) translate(-6px, -7px);
+    }
+}
+
+@media screen and (max-width: 500px){
+    
+    .menu{
+        width: 91%;
     }
 }
 

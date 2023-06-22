@@ -1,17 +1,17 @@
+import apiURL from '../../config.js'
+import axios from 'axios';
 const userModule = {
     namespaced: true,
     state: {
       user: null,
-      userAuth: "test",
+      userAuth: null,
     },
     mutations: {
       setUser(state, user) {
         state.user = user;
       },
       setUserAuth(state, userAuth) {
-        console.log("before change: "+userAuth+" , "+state.userAuth)
         state.userAuth = userAuth;
-        console.log("after change: "+userAuth+" , "+state.userAuth)
       },
       clearUser(state) {
         state.user = null;
@@ -21,6 +21,35 @@ const userModule = {
       },
     },
     actions: {
+      async fetchUser({ state, commit}) {
+        const userId = state.userAuth.uid
+  
+        try {
+          const response = await axios.get(`${apiURL}/user/get/${userId}`);
+          const userData = {
+            user_id: response.data.user_id,
+            user_name: response.data.user_name,
+            user_email: response.data.user_email,
+            user_address: response.data.user_address,
+          };
+          commit('setUser', userData);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      async updateUser({ commit }, updatedUserInfo) {
+        console.log(updatedUserInfo)
+        try {
+          console.log(updatedUserInfo)
+          await axios.put(`${apiURL}/user/${updatedUserInfo.user_id}/update`, updatedUserInfo);
+          console.log(updatedUserInfo)
+          commit('setUser', updatedUserInfo);
+          console.log(updatedUserInfo)
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
+      },
       setUserAuth({ commit }, userAuth) {
         commit('setUserAuth', userAuth);
       },
@@ -35,6 +64,9 @@ const userModule = {
       },
     },
     getters: {
+      getUserAuth(state){
+        return state.userAuth;
+      },
       getUser(state) {
         return state.user;
       },

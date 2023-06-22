@@ -22,8 +22,8 @@
           <div class="closePopup" @click="closeO()">&times;</div>
           <h3>Order Details</h3>
           <ul>
-            <li v-for="item in selectedOrder.items" :key="item.id">
-                {{ item.name }} - {{ item.price }}€
+            <li v-for="item in selectedOrder.items" :key="item.item_id">
+              {{ item.item_name }} - {{item.quantity}}x  - {{ item.item_price_at_time }}€
             </li>
           </ul>
         </div>

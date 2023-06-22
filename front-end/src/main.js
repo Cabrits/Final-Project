@@ -25,8 +25,8 @@ import store from './store/store';
 import VueTheMask from 'vue-the-mask';
 
 
-library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, faMasksTheater,
-   faComment, faMoon, faSun, faCreditCard, faCcVisa, faCcMastercard, faCcAmex);
+library.add(faUserSecret, faBell, faCartShopping, faRightFromBracket, faHeart, faGhost, faHandFist, 
+  faMasksTheater,faComment, faMoon, faSun, faCreditCard, faCcVisa, faCcMastercard, faCcAmex);
 
 
 const firebaseConfig = {
@@ -41,11 +41,12 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const app = createApp(App)
+app.use(store);
 app.use(VueTheMask);
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
-app.use(store);
+
 app.mount('#app')
 
 

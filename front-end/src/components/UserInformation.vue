@@ -8,8 +8,8 @@
 
     <div class="infoContainer">
       <h2>Your Information</h2>
-      <p><strong>Name:</strong> {{ user.user_name }}</p>
       <p><strong>Email:</strong> <span class="email">{{ user.user_email }}</span></p>
+      <p><strong>Name:</strong> {{ user.user_name }}</p>
       <p><strong>Address:</strong> {{ user.user_address }}</p>
       <button @click="editUser">Edit</button>
     </div>
@@ -21,10 +21,10 @@
         <button @click="close()" class="closeButton">&times;</button>
         <div class="changeInfo">
           <h3>Change Your Information</h3>
+          <label for="email">Email</label>
+          <label >{{ editedUser.user_email }}</label>
           <label for="name">Name</label>
           <input id="name" v-model="editedUser.user_name" type="text" placeholder="Enter your name" />
-          <label for="email">Email</label>
-          <input id="email" v-model="editedUser.email" type="email" placeholder="Enter your email" />
           <label for="address">Address</label>
           <input id="address" v-model="editedUser.user_address" type="text" placeholder="Enter your address" />
         </div>
@@ -43,46 +43,42 @@
 
   
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
-
-  export default{
-    data() {
-      return {
-        editedUser: {
-          name: '',
-          email: '',
-          address: '',
-        },
-
-        password: '',
-        showPopup: false,
-      };
-    },
-    computed: {
-      ...mapState({
-        user: state => state.user.user,
-      }),
-    },
-
-    methods: {
-      editUser() {
-        this.showPopup = true;
-        this.editedUser = { ...this.user };
-        this.password = '';
+export default {
+  data() {
+    return {
+      editedUser: {
+        user_name: '',
+        user_email: '',
+        user_address: '',
       },
-
-      saveUser() {
-          this.user.user = { ...this.editedUser };
-          this.showPopup = false;
-      },
-
-      close() {
+      showPopup: false,
+    };
+  },
+  computed: {
+    ...mapState('user', ['user']),
+  },
+  methods: {
+    ...mapActions('user', ['updateUser']),
+    editUser() {
+      this.showPopup = true;
+      this.editedUser = this.user ;
+    },
+    async saveUser() {
+      try {
+        await this.updateUser(this.editedUser);
+        this.editUser();
         this.showPopup = false;
-      },
+      } catch (error) {
+        console.error(error);
+      }
     },
-  };
-
+    close() {
+      this.showPopup = false;
+    },
+  },
+};
 </script>
   
 

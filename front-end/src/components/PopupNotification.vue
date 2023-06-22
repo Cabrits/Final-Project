@@ -43,7 +43,6 @@ export default{
     computed: {
         ...mapState('favourites', ['favourites']),
     filteredFavourites() {
-        console.log(this.favourites)
       return this.favourites.filter((favourite) => favourite.item_discount != null);
     },
     },
@@ -51,6 +50,9 @@ export default{
     methods: {
       closeN() {
         this.$emit('closeN');
+      },
+      clearFav() {
+        // make this clear the notification  without cleaning the favourites in the favourites store
       },
     },
 
@@ -248,7 +250,7 @@ export default{
 
 /*Responsive*/
 
-@media (max-width: 1800px){
+@media screen and (max-width: 1800px){
     .px1750Size{
         max-width: 97%;
         padding-right: 100px;
@@ -256,7 +258,12 @@ export default{
 }
 
 
-@media (max-width: 800px){
+@media screen and (max-width: 800px){
+
+    .px1750Size{
+        padding: 0 1px;
+    }
+    
     .arrow{
         display: none;
     }
@@ -270,6 +277,13 @@ export default{
 
     .blur{
         display: block; 
+    }
+}
+
+@media screen and (max-width: 500px){
+    .notificationPopup{
+        width: 320px;
+        top: 90px;
     }
 }
 

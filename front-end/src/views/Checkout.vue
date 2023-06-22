@@ -1,140 +1,164 @@
-<!--Checkout Page to complete order-->
-
 <template>
-
-    <div class="overall">
-
-        <!--Logo-->
-
-        <div class="logo">
-            <img src="../assets/logo3.png" alt="">
-        </div>
-
-        <!--Checkout Container-->
-
-        <div class="checkoutPage">
-            <h1>Checkout</h1>
-            <form>
-                <div class="formGroup">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" v-model="name" required>
-                </div>
-                <div class="formGroup">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" v-model="email" required>
-                </div>
-                <div class="formGroup">
-                    <label for="email">Address:</label>
-                    <input type="address" id="address" v-model="address" placeholder="Enter Address" required>
-                </div>
-                <div class="formGroup">
-                    <div class="inputContainer">
-                        <label for="card-number">Card Number:</label>
-                        <input type="text" id="cardNumber" v-mask="'#### #### #### ####'" maxlength="19" v-model="cardNumber" pattern="[0-9]*" inputmode="numeric" placeholder="xxxx xxxx xxxx xxxx" required>
-                        <div class="cardIcon" :class="cardIcon"></div>
-                    </div>
-                </div>
-                <div class="formGroup">
-                    <div class="expiryCVV">
-                        <div class="expiry">
-                            <label for="expiryDate">Expiry Date:</label>
-                            <input type="text" id="expiryDate" v-model="expiryDate" maxlength="5" v-mask="'##/##'" placeholder="xx/xx" required>
-                        </div>
-                        <div class="cvv">
-                            <label for="cvv">CVV:</label>
-                            <input type="text" id="cvv" v-model="cvv" maxlength="3" placeholder="xxx" required>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Cart Items-->
-
-                <div class="itemListContainer">
-                    <h2>Items:</h2>
-                    <div class="itemList">
-                        <ul>
-                            <li v-for="item in cartItemsGrouped" :key="item.id">
-                                <span v-if="item.quantity >= 1">{{ item.quantity }}x </span>{{ item.name }} - {{ item.price }}€
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="totalPrice">
-                        <p>Total: <span>{{ cartTotal }}€</span></p>
-                    </div>
-                </div>
-                <button class="submitBtn" type="submit">Submit</button>
-            </form>
-        </div>
-
-        <!--Go Back Button-->
-
-        <div class="goBackBtn">
-            <router-link class="lineRemove" :to="'/'">
-                <button class="backButton"><span>&larr;</span><span class="goBackText">Go Back</span></button>
-            </router-link>
-        </div>
+  <div class="overall">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="../assets/logo3.png" alt="">
     </div>
 
+    <!-- Checkout Container -->
+    <div class="checkoutPage">
+      <h1>Checkout</h1>
+      <form ref="checkoutForm" @submit.prevent="handleSubmit">
+        <div class="formGroup">
+          <label for="email">Email:</label>
+          <label type="email" id="email">{{user.user_email}}</label>
+        </div>
+        <div class="formGroup">
+          <label for="name">Name:</label>
+          <input type="text" id="name" v-model="name" required >
+        </div>
+        
+        <div class="formGroup">
+          <label for="email">Address:</label>
+          <input type="address" id="address" v-model="address" required>
+        </div>
+        <div class="formGroup">
+          <div class="inputContainer">
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="cardNumber" v-mask="'#### #### #### ####'" maxlength="19" v-model="cardNumber" pattern="[0-9\s]*" inputmode="numeric" placeholder="xxxx xxxx xxxx xxxx" required>
+            <div class="cardIcon" :class="cardIcon"></div>
+          </div>
+        </div>
+        <div class="formGroup">
+          <div class="expiryCVV">
+            <div class="expiry">
+              <label for="expiryDate">Expiry Date:</label>
+              <input type="text" id="expiryDate" v-model="expiryDate" maxlength="5" v-mask="'##/##'" placeholder="xx/xx" required>
+            </div>
+            <div class="cvv">
+              <label for="cvv">CVV:</label>
+              <input type="text" id="cvv" v-model="cvv" maxlength="3" placeholder="xxx" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="itemListContainer">
+          <h2>Items:</h2>
+          <div class="itemList">
+            <ul>
+              <li v-for="item in cartItems">
+                <span >{{ item.quantity }}x </span>{{ item.item_name }} - {{ ((item.item_price * (1-item.item_discount)).toFixed(2))*item.quantity }}€
+              </li>
+            </ul>
+          </div>
+          <div class="totalPrice">
+            <p>Total: <span>{{ cartTotal }}€</span></p>
+          </div>
+        </div>
+        <button class="submitBtn" type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Go Back Button -->
+    <div class="goBackBtn">
+      <router-link class="lineRemove" :to="'/'">
+        <button class="backButton"><span>&larr;</span><span class="goBackText">Go Back</span></button>
+      </router-link>
+    </div>
+  </div>
 </template>
-  
+
 <script>
+import { mapState, mapActions } from 'vuex';
 
-export default{
-    data() {
-        return {
-        name: '',
-        email: '',
-        address: '',
-        cardNumber: '',
-        expiryDate: '',
-        cvv: '',
-        cartItems: [
-            { id: 1, name: 'Adventure Note 1', price: 10 },
-            { id: 2, name: 'Dangozamurai Full Bundle', price: 10 },
-            { id: 3, name: 'The One Full', price: 15 },
-            { id: 3, name: 'The One Fu', price: 15 },
-            { id: 3, name: 'The One Fu', price: 15 },
-            { id: 3, name: 'The One Fu', price: 15 },
-            { id: 3, name: 'The One Fu', price: 15 },
-            { id: 4, name: 'The One Fu', price: 15 },
-            { id: 5, name: 'The One Fu', price: 15 },
-        ],
-        };
+export default {
+  data() {
+    return {
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+      name: '',
+      address:'',
+      email:'',
+    };
+  },
+  computed: {
+    ...mapState('user', ['user']),
+    ...mapState(['cart']),
+    cartItems(){
+        return this.cart.cartItems
     },
-
-    computed: {
-        cartItemsGrouped() {
-            const groupedItems = this.cartItems.reduce((acc, item) => {
-            const existingItem = acc.find((i) => i.id === item.id);
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                acc.push({ ...item, quantity: 1 });
-            }
-            return acc;
-        }, []);
-            return groupedItems;
-        },
-
-        cartTotal() {
-            return this.cartItems.reduce((total, item) => total + item.price, 0);
-        },
-
-        cardIcon() {
-            const firstDigit = this.cardNumber.charAt(0);
-
-            if (firstDigit === '4') {
-                return 'fa fa-cc-visa'; 
-            } else if (firstDigit === '5' || firstDigit === '2') {
-                return 'fa fa-cc-mastercard'; 
-            } else if (firstDigit === '3') {
-                return 'fa fa-cc-amex'; 
-            } else {
-                return 'fa-solid fa-credit-card'; 
-            }
-        },
+    cartTotal() {
+        return this.cart.cartItems.reduce(
+            (total, item) =>
+            (total + (item.item_price * (1 - item.item_discount)).toFixed(2) * item.quantity),
+            0
+        ).toFixed(2);
     },
+    cardIcon() {
+      const firstDigit = this.cardNumber.charAt(0);
+      if (firstDigit === '4') {
+        return 'fa fa-cc-visa';
+      } else if (firstDigit === '5' || firstDigit === '2') {
+        return 'fa fa-cc-mastercard';
+      } else if (firstDigit === '3') {
+        return 'fa fa-cc-amex';
+      } else {
+        return 'fa-solid fa-credit-card';
+      }
+    },
+  },
+  created() {
+    this.address = this.user.user_address;
+    this.name = this.user.user_name;
+  },
+  methods: {
+    ...mapActions('orders', ['createOrder']),
+    ...mapActions('cart', ['clearCart']),
+    checkout() {
+        const form = this.$refs.checkoutForm;
+        if (form.checkValidity()) {
+        // Form is valid, perform the checkout action
+        this.handleSubmit();
+        } else {
+        // Form is invalid, handle the error or display a validation message
+        console.log('Form is invalid');
+        }
+    },
+    async handleSubmit() {
+      if (this.cartTotal <= 0) {
+        alert("The cart is still empty");
+      } else {
+        const orderItems = this.cartItems.map((item) => ({
+                item_id: item.item_id,
+                item_name: item.item_name,
+                item_amount: item.quantity,
+                item_price_at_time: (item.item_price*(1-item.item_discount)).toFixed(2),
+            }));
+      
+        const order = {
+            order_id: null,
+            order_date: null,
+            order_user_id: this.user.user_id,
+            order_user_name: this.name,
+            order_user_email: this.user.user_email,
+            order_user_address: this.address,
+            order_cardNumber: this.cardNumber,
+            order_cardExpiration: this.expiryDate,
+            order_cardCcv: this.cvv,
+            order_total : this.cartTotal,
+            items: orderItems,
+        }
+        await this.createOrder(order).then(alert("the order has been made and store! , you can check it in the user page"));
+        this.clearCart()
+        this.$router.push('/')
+
+      }
+    },
+  },
 };
+
 
 </script>
   
