@@ -85,7 +85,7 @@ const userModule = {
     },
 
     // clearUserAuth action which uses clearUserAuth mutation to clear userAuth
-    clearUser({ commit }) {
+    clearUserAuth({ commit }) {
       commit("clearUserAuth");
     },
   },
