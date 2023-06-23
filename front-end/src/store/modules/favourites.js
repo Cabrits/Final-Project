@@ -28,7 +28,6 @@ const favouritesModule = {
   actions: {
     // Fetch all favourite items from the database
     fetchFavourites({ commit, rootState }) {
-      console.log(rootState.user.user);
       const userId = rootState.user.user.user_id;
       axios
         .get(`${apiURL}/user/${userId}/favourites`)

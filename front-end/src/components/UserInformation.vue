@@ -7,7 +7,7 @@
     <div class="infoContainer">
       <h2>Your Information</h2>
       <p>
-        <strong>Email:</strong> <span class="email">{{ user.user_email }}</span>
+        <strong>Email:</strong> <span class="email">{{ user.user_email}}</span>
       </p>
       <p><strong>Name:</strong> {{ user.user_name }}</p>
       <p><strong>Address:</strong> {{ user.user_address }}</p>

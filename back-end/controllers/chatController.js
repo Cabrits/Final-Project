@@ -4,6 +4,7 @@ const { MANGAS } = require("./all_mangas");
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+const connection = require("../config");
 
 const openai = new OpenAIApi(configuration);
 
@@ -11,10 +12,10 @@ async function runChatGpt(prompt) {
   let allMangas = ``;
   for (const manga of MANGAS) {
     const mangaDescription = `
-    This is the data for this manga with name :${manga.item_name}
-    with description: ${manga.item_description}
-    with price:${manga.item_price}
-    with amount:${manga.item_stock}
+    [This is the data for this manga with name :${manga.item_name}
+    ,with description: ${manga.item_description.slice(0, 100)}
+    ,with price:${manga.item_price}
+    ,with discount:${manga.item_discount}]
     `;
     allMangas += "\n" + mangaDescription;
   }

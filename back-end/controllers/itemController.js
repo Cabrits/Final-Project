@@ -2,7 +2,7 @@ const connection = require("../config");
 
 exports.getItems = async (req, res) => {
   connection.query(
-    "SELECT item_id, item_name, item_image, item_price,item_category, item_discount, item_description, item_stock FROM items",
+    "SELECT item_id, item_name, item_image, item_price,item_category, item_discount, item_description FROM items",
     function (err, result, fields) {
       if (err) {
         console.error(err);
@@ -17,7 +17,7 @@ exports.getItemsCategory = async (req, res) => {
   const category = req.params.category;
   console.log(category);
   connection.query(
-    'SELECT item_id, item_name, item_image, item_price,item_category, item_discount, item_description, item_stock FROM items WHERE item_category = "' +
+    'SELECT item_id, item_name, item_image, item_price,item_category, item_discount, item_description FROM items WHERE item_category = "' +
       category +
       '"',
     function (err, result, fields) {
@@ -33,7 +33,7 @@ exports.getItemsCategory = async (req, res) => {
 exports.getItem = async (req, res) => {
   // get 1 item with its ID
   connection.query(
-    "SELECT item_id,item_name,item_price,item_discount,item_description,item_image, item_stock FROM items WHERE item_id=" +
+    "SELECT item_id,item_name,item_price,item_discount,item_description,item_image FROM items WHERE item_id=" +
       req.params.itemId,
     function (err, result, fields) {
       if (err) {

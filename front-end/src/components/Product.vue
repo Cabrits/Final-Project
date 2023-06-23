@@ -115,6 +115,14 @@ export default {
 
     //  Toggle the favourite item
     toggleFavourite(itemId) {
+      //  check if user is logged in and if not , send an alert
+      if (!this.userId) {
+        alert("You need to be logged in to add items to your favourites!");
+        return;
+      }
+
+      //  Start the button cooldown
+      this.startButtonCooldown();
       //  Get the user id
       const userId = this.userId;
 
@@ -130,8 +138,8 @@ export default {
         url: apiUrl,
       })
         .then((response) => {
-          // Handle success by starting the button cooldown and fetching the favourites
-          this.startButtonCooldown();
+          // Handle success by fetching the favourites
+
           this.$store.dispatch("favourites/fetchFavourites");
           this.favoriteNotification = true;
           setTimeout(() => {
@@ -145,6 +153,12 @@ export default {
     },
     //  Add item to cart
     addToCart(item) {
+      //  check if user is logged in and if not , send an alert
+      if (!this.userId) {
+        alert("You need to be logged in to add items to your cart!");
+        return;
+      }
+
       this.$store.dispatch("cart/addToCart", item);
       //  Start the button cooldown and show the cart notification
       this.cartNotification = true;

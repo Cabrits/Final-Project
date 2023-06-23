@@ -106,6 +106,8 @@ export default {
               console.log("User created in the API:" + response);
               //  Fetch the user info from the API
               this.fetchUser(data.user.uid);
+              //  Close the popup
+              this.closeS();
             })
             .catch((error) => {
               console.error("Failed to create user in the API:");

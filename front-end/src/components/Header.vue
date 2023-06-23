@@ -168,6 +168,8 @@ export default {
           this.clearCart(); // Dispatch the clearCart action
           this.clearFavourites(); // Dispatch the clearFavourites action
           this.clearOrders(); // Dispatch the clearOrders action
+          // redirect to home page
+          this.$router.push("/");
         })
         .catch((error) => {
           console.error("Failed to logout:", error);
