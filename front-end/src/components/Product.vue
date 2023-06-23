@@ -48,6 +48,7 @@
 </template>
 
 <script>
+//  Import necessary modules and functions
 import axios from "axios";
 import Categories from "./Categories.vue";
 import { mapState, mapActions, mapGetters } from "vuex";
@@ -58,6 +59,7 @@ export default {
   components: { Categories },
 
   data() {
+    // Data for the component (cooldown, selected category, cart notification and favorite notification)
     return {
       cooldown: false,
       selectedCategory: null,
@@ -66,24 +68,31 @@ export default {
     };
   },
 
+  // computed properties for the component (items, favourites and user id)
   computed: {
     ...mapState(["items"]),
     ...mapState(["favourites"]),
     ...mapGetters("user", ["userId"]),
+    // Get the items that match the selected category
     filteredItems() {
+      //  If there is a selected category, filter the items by category
       if (this.selectedCategory) {
         return this.items.items.filter(
           (item) => item.item_category === this.selectedCategory
         );
       } else {
+        //  If there is no selected category, return all the items
         return this.items.items;
       }
     },
   },
 
+  //  Methods for the component (fetch items, fetch favourites, start button cooldown, handle category selected, is favourite, toggle favourite, add to cart)
   methods: {
     ...mapActions("items", ["fetchItems"]),
     ...mapActions("favourites", ["fetchFavourites"]),
+
+    // cooldown to prevent spamming the button
     startButtonCooldown() {
       this.cooldown = true;
       setTimeout(() => {
@@ -91,10 +100,12 @@ export default {
       }, 500);
     },
 
+    //  Handle the category selected by the user
     handleCategorySelected(category) {
       this.selectedCategory = category;
     },
 
+    //  Check if the item is favourite
     isFavourite(itemId) {
       const result = this.favourites.favourites.some(
         (favourite) => favourite.item_id === itemId
@@ -102,21 +113,26 @@ export default {
       return result;
     },
 
+    //  Toggle the favourite item
     toggleFavourite(itemId) {
+      //  Get the user id
       const userId = this.userId;
+
+      // check if the item is favourite
       const isItemFavourite = this.isFavourite(itemId);
+      // If the item is favourite,
       const apiUrl = isItemFavourite
         ? `${baseURL}/user/${userId}/removeFavourite/${itemId}`
         : `${baseURL}/user/${userId}/addFavourite/${itemId}`;
-
+      //  Send a request to the RESTapi to add or remove the item from the favourites
       axios({
         method: isItemFavourite ? "DELETE" : "POST",
         url: apiUrl,
       })
         .then((response) => {
-          // Handle success
+          // Handle success by starting the button cooldown and fetching the favourites
           this.startButtonCooldown();
-          this.$store.dispatch("favourites/fetchFavourites", userId);
+          this.$store.dispatch("favourites/fetchFavourites");
           this.favoriteNotification = true;
           setTimeout(() => {
             this.favoriteNotification = false;
@@ -127,16 +143,17 @@ export default {
           console.error(error);
         });
     },
-
+    //  Add item to cart
     addToCart(item) {
       this.$store.dispatch("cart/addToCart", item);
+      //  Start the button cooldown and show the cart notification
       this.cartNotification = true;
       setTimeout(() => {
         this.cartNotification = false;
       }, 2000);
     },
   },
-
+  // use created() to fetch the items and the favourites when the component is created
   created() {
     this.fetchItems();
   },
@@ -194,14 +211,14 @@ export default {
   text-decoration: none;
 }
 
-.product img{
-    width: 250px;
-    height: 300px;
-    margin-left: 50px;
-    margin-top: 40px;
-    border: 1px solid rgba(83, 82, 82, 0.3);
-    border-radius: 10px;
-    box-shadow: 10px 10px 4px rgba(176, 168, 155, 0.7);
+.product img {
+  width: 250px;
+  height: 300px;
+  margin-left: 50px;
+  margin-top: 40px;
+  border: 1px solid rgba(83, 82, 82, 0.3);
+  border-radius: 10px;
+  box-shadow: 10px 10px 4px rgba(176, 168, 155, 0.7);
 }
 
 .product h2 {
@@ -250,48 +267,48 @@ export default {
   margin-left: 35px;
 }
 
-.btn{
-    position: relative;
-    border: none;
-    outline: none;
-    background-color: white;
-    color: #fff;
-    height: 40px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn {
+  position: relative;
+  border: none;
+  outline: none;
+  background-color: white;
+  color: #fff;
+  height: 40px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cart {
   width: 160px;
 }
 
-.favourite{
-    width: 40px;
-    border-radius: 50%;
-    margin-right: 20px;
-    align-items: center;
-    justify-content: center
+.favourite {
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
-.favourite i{
+.favourite i {
   margin-left: 12px;
   margin-top: 2px;
 }
 
-.btn::before{
-    content: "";
-    position: absolute;
-    top: 49%;
-    left: 49.9%;
-    transform: translate(-50%,-50%);
-    border: 1px solid rgb(185, 188, 159);
-    height: 43px;
-    transition: 0.3s;
-    display: none;
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 49%;
+  left: 49.9%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(185, 188, 159);
+  height: 43px;
+  transition: 0.3s;
+  display: none;
 }
 
 .cart::before {
@@ -344,9 +361,9 @@ export default {
 
 /*Responsive*/
 
-@media screen and (max-width: 600px){
-  .product{
-      transform: none;
+@media screen and (max-width: 600px) {
+  .product {
+    transform: none;
   }
 
   .product:nth-child(2n + 1) {
@@ -362,27 +379,27 @@ export default {
   .product:hover:nth-child(2n + 1) {
     box-shadow: 25px 25px 15px rgba(50, 50, 50, 0.5);
   }
-  
-  .product{
-      width: 300px;
+
+  .product {
+    width: 300px;
   }
 
-  .cart{
+  .cart {
     width: 140px;
-  } 
-  
-  .product img{
-      width: 200px;
-      height: 250px;
   }
 
-  .btn::before{
-      height: 43px;
+  .product img {
+    width: 200px;
+    height: 250px;
   }
 
-  .cart::before{
-      width: 145px;
-      border-radius: 50px;
+  .btn::before {
+    height: 43px;
+  }
+
+  .cart::before {
+    width: 145px;
+    border-radius: 50px;
   }
 }
 </style>

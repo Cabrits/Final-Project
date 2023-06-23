@@ -1,44 +1,55 @@
 <!--Search bar located on the Header, that contains a autocomplete for the item search-->
 
 <template>
+  <!--Overall Search Bar-->
 
-    <!--Overall Search Bar-->
+  <div class="searchBar" id="search">
+    <form autocomplete="off" @submit.prevent="handleSearch">
+      <!--Search button and input-->
 
-    <div class="searchBar" id="search">
-        <form autocomplete="off" @submit.prevent="handleSearch">
+      <button type="submit">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+      <input
+        ref="searchInput"
+        type="text"
+        placeholder="Search Product..."
+        name="search"
+        v-model="searchInput"
+        @input="handleInput"
+      />
 
-            <!--Search button and input-->
+      <!--Autocomplete with the item searched-->
 
-            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-            <input ref="searchInput" type="text" placeholder="Search Product..." name="search" v-model="searchInput" @input="handleInput"/>
-
-            <!--Autocomplete with the item searched-->
-
-            <div class="searchResultsWrapper">
-                <ul class="searchResults" v-if="showAutocomplete">
-                    <li v-for="(result, index) in getLimitedResults" :key="result.item_name" >
-                      <router-link  :to="'/item/' + result.item_id" @click="clearSearchBar">
-                        <img :src="result.item_image" :alt="result.item_name" />
-                        <span>{{ result.item_name }}</span>
-                      </router-link>
-                    </li>
-                    <li v-if="searchResults.length === 0" class="noResults">
-                        Product not found
-                    </li>
-                </ul>
-            </div>
-
-        </form>
-    </div>
-
+      <div class="searchResultsWrapper">
+        <ul class="searchResults" v-if="showAutocomplete">
+          <li
+            v-for="(result, index) in getLimitedResults"
+            :key="result.item_name"
+          >
+            <router-link
+              :to="'/item/' + result.item_id"
+              @click="clearSearchBar"
+            >
+              <img :src="result.item_image" :alt="result.item_name" />
+              <span>{{ result.item_name }}</span>
+            </router-link>
+          </li>
+          <li v-if="searchResults.length === 0" class="noResults">
+            Product not found
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
 </template>
-
 
 <script>
 import { mapState } from "vuex";
 export default {
   name: "SearchBar",
 
+  //  Data for the component (show autocomplete, search results, max results and search input)
   data() {
     return {
       showAutocomplete: false,
@@ -48,61 +59,79 @@ export default {
     };
   },
 
+  //  Map items state (items)
   computed: {
     ...mapState("items", ["items"]),
 
+    // Get the items that match the search input with a limit of 4
     getLimitedResults() {
       return this.searchResults.slice(0, this.maxResults);
     },
   },
 
+  //  Methods for the component (handle input, clear search bar, handle search)
   methods: {
+    //  Function that handles the input of the user
     handleInput() {
+      //  If the input is not empty, search for the items that match the input
       if (this.searchInput.length > 0) {
+        //  Filter the items that match the input
         const matchingProducts = this.items.filter((item) =>
           item.item_name.toLowerCase().includes(this.searchInput.toLowerCase())
         );
-
+        //  If there are matching items, show them
         if (matchingProducts.length > 0) {
-          console.log(matchingProducts)
           this.searchResults = matchingProducts;
         } else {
+          //  If there are no matching items, show product not found item
           this.searchResults = [
-            { item_name: "Product not found", item_image:"src/assets/ProductNotFound.jpg"},
+            {
+              item_name: "Product not found",
+              item_image: "src/assets/ProductNotFound.jpg",
+            },
           ];
         }
-
+        //  Show the autocomplete
         this.showAutocomplete = true;
       } else {
+        //  If the input is empty, hide the autocomplete
         this.showAutocomplete = false;
         this.searchResults = [];
       }
     },
-    
+
+    //  Function that clears the search bar
     clearSearchBar() {
-      this.searchInput = '';
+      this.searchInput = "";
       this.showAutocomplete = false;
       this.searchResults = [];
     },
 
+    //  Function that handles the search
     handleSearch() {
+      //  If the input is not empty, search for the items that match the input
       const searchTerm = this.searchInput.trim();
+      //  Filter the items that match the input
       if (searchTerm) {
         const matchingProducts = this.getItems.filter((item) =>
           item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
+        //  If there are matching items, show them
         if (matchingProducts.length > 0) {
-          
-          console.log("q")
-          console.log(matchingProducts)
           this.searchResults = matchingProducts;
         } else {
+          //  If there are no matching items, show product not found item
           this.searchResults = [
-            { item_name: "Product not found", item_image: "src/assets/ProductNotFound.jpg" },
+            {
+              item_name: "Product not found",
+              item_image: "src/assets/ProductNotFound.jpg",
+            },
           ];
         }
+        //  Show the autocomplete
         this.showAutocomplete = true;
       } else {
+        //  If the input is empty, hide the autocomplete
         this.showAutocomplete = false;
         this.searchResults = [];
       }
@@ -110,7 +139,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 /*To remove the outline color when searching*/

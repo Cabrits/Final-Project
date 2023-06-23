@@ -68,26 +68,33 @@
 </template>
 
 <script>
+//  Import necessary modules and functions
 import { mapState } from "vuex";
+
 export default {
+  name: "FavoriteItems",
+  // data for the component (show popup)
   data() {
     return {
       showPopup: false,
     };
   },
-
+  // computed properties for the component (favourites, visible items and show more button)
   computed: {
+    // mapState to get the favourites from the store
     ...mapState({
       favourites: (state) => state.favourites.favourites,
     }),
+    // Show only 2 items
     visibleItems() {
       return this.favourites.slice(0, 2);
     },
+    // Show the button if there are more than 2 items
     showMoreButton() {
       return this.favourites.length > this.visibleItems.length;
     },
   },
-
+  // methods for the component (show all items and close popup)
   methods: {
     showAllItems() {
       this.showPopup = true;

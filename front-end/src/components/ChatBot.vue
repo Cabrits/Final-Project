@@ -34,14 +34,16 @@
     </div>
   </div>
 </template>
-  
+
 <script>
+//  Import necessary modules and functions
 import axios from "axios";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import apiURL from "../config";
+
 export default {
   name: "ChatBot",
-
+  //  Data for the component (show chat box, messages and input text)
   data() {
     return {
       showChatBox: false,
@@ -49,60 +51,68 @@ export default {
       inputText: "",
     };
   },
-
+  //  Computed properties for the component (items, favourites and user id)
   computed: {
     ...mapState(["items"]),
     ...mapState(["favourites"]),
     ...mapGetters("user", ["userId"]),
+    //  Get the items that match the selected category
     mangas() {
       console.log(this.items.items);
       return this.items.items;
     },
   },
-
+  //  Methods for the component (toggle chat box, ask chat gpt, send message and scroll to bottom)
   methods: {
+    //  Toggle chat box to show or hide it
     toggleChatBox() {
       this.showChatBox = !this.showChatBox;
     },
-
+    //  Ask the chat bot a question and get a response through the API
     async askChatGpt(message) {
       try {
+        //  Send the message to the API
         const response = await axios.post(`${apiURL}/chat`, {
           message,
         });
+        //  Return the response from the API
         return response.data.reply;
       } catch (error) {
         console.error(error);
       }
     },
-
+    //  Send a message to the chat bot and get a response
     async sendMessage() {
+      //  Check if the input is not empty
       if (this.inputText.trim() !== "") {
+        //  Add the message to the messages array
         const trimmedInput = this.inputText.trim();
         this.messages.push({
           id: this.messages.length + 1,
           content: trimmedInput,
           type: "user",
         });
-
+        //  Clear the input
         this.inputText = "";
+        //  Scroll to the bottom of the chat
         this.$nextTick(() => {
           this.scrollToBottom();
         });
-
+        //  Get a response from the chat bot
         const responseFromGpt = await this.askChatGpt(trimmedInput);
+        //  Add the response to the messages array
         this.messages.push({
           id: this.messages.length + 1,
           content: responseFromGpt,
           type: "bot",
         });
-
+        //  Scroll to the bottom of the chat
         this.$nextTick(() => {
           this.scrollToBottom();
         });
       }
     },
-
+    //  Scroll to the bottom of the chat
     scrollToBottom() {
       const messagesContainer = this.$refs.messagesContainer;
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -110,7 +120,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 /*To remove the outline color when typing*/
 
@@ -289,4 +299,3 @@ input[placeholder] {
   }
 }
 </style>
-  
