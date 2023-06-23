@@ -1,10 +1,14 @@
-import { createStore } from 'vuex';
+// Purpose: Vuex store for the application.
+import { createStore } from "vuex";
 
-import favouritesModule from './modules/favourites';
-import itemsModule from './modules/items';
-import cartModule from './modules/cart';
-import ordersModule from './modules/orders';
-import userModule from './modules/user';
+// Import modules for favourites, items, cart, orders and user
+import favouritesModule from "./modules/favourites";
+import itemsModule from "./modules/items";
+import cartModule from "./modules/cart";
+import ordersModule from "./modules/orders";
+import userModule from "./modules/user";
+
+// Create a new store instance. with modules for favourites, items, cart, orders and user
 
 const store = createStore({
   modules: {

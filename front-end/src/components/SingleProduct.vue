@@ -40,28 +40,33 @@
 
 <script>
 import Footer from '../components/Footer.vue'
-import axios from 'axios'
-import apiURL from '../config.js'
 
 export default {
   name: 'SingleProduct',
+  //  Map components and props
   components: { Footer },
   props: {
+    //  Book object that contains all the information about the book
     book: {
       type: Object,
       required: true,
     },
   },
+
   data() {
+    //  Data for the component (chapters and read more)
     return {
       chapters: '3',
       isReadMoreShown: false,
     }
   },
+  //  Watch for changes in the route and Fetch the data of the book
   methods: {
+    //  Toggle the read more button
     toggleReadMore() {
       this.isReadMoreShown = !this.isReadMoreShown
     },
+    //  Add the item to the cart and show a notification
     addToCart(item) {
       this.$store.dispatch('cart/addToCart', item)
       this.cartNotification = true
