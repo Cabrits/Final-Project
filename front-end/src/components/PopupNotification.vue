@@ -31,7 +31,6 @@
               </div>
             </li>
           </ul>
-          <button class="clearButton">Clear</button>
         </div>
         <div class="arrow"></div>
       </div>
@@ -214,24 +213,6 @@ export default {
 
 .router {
   color: white;
-}
-
-.clearButton {
-  display: block;
-  width: 200px;
-  margin: auto;
-  border: none;
-  outline: none;
-  border-radius: 50px;
-  height: 40px;
-  font-size: 1rem;
-  background-color: white;
-  cursor: pointer;
-  margin-top: 30px;
-}
-
-.clearButton:hover {
-  background-color: rgb(248, 237, 227);
 }
 
 /*Arrow poiting to the notification icon on header*/

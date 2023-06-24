@@ -160,7 +160,7 @@ export default {
 .popupUser {
   display: block;
   position: relative;
-  background-color: rgb(185, 188, 159);
+  background-color: rgb(157, 137, 119);
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   max-width: 400px;
@@ -168,6 +168,7 @@ export default {
   width: 100%;
   border-radius: 10px;
   border: 2px solid white;
+  color: white;
 }
 
 .changeInfo {
@@ -250,7 +251,7 @@ export default {
 
 /*Responsive*/
 
-@media (max-width: 800px) {
+@media screen and (max-width: 800px) {
   .infoContainer {
     padding: 10px 20px;
   }
@@ -264,17 +265,21 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .infoContainer {
     padding: 10px;
   }
 
   .infoContainer button {
-    width: 100%;
+    width: 70%;
   }
 
   .popupUser {
     max-width: 280px;
+  }
+
+  .saveButton button {
+    margin-left: 50px;
   }
 }
 </style>

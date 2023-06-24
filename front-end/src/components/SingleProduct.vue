@@ -1,7 +1,7 @@
 <!--Page that shows information about a single product, without the description box, which is located on the ItemPage.vue-->
 
 <template>
-
+    
     <!--Overall Product-->
 
     <div v-if="book" class="productPage">

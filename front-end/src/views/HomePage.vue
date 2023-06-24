@@ -1,11 +1,11 @@
+<!--Página principal do nosso website-->
+
 <template>
+
   <!--Loading screen, loads everytime we enter the website-->
 
   <div class="overall2">
-    <div
-      :class="{ loadingScreen: true, fadeOut: !isLoading || loadingComplete }"
-      v-if="isLoading && !loadingComplete"
-    >
+    <div :class="{ loadingScreen: true, fadeOut: !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
       <img src="@/assets/loading2.gif" alt="Loading" />
     </div>
@@ -21,9 +21,11 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+
 //  Import necessary modules and functions
 import Header from "../components/Header.vue";
 import Content from "../components/Content.vue";
@@ -32,7 +34,7 @@ import Footer from "../components/Footer.vue";
 import { getAuth } from "@firebase/auth";
 import axios from "axios";
 
-export default {
+export default{
   name: "HomePage",
   components: { Header, Footer, Content, ChatBot },
 
@@ -105,6 +107,7 @@ export default {
     );
   },
 };
+
 </script>
 
 <style scoped>

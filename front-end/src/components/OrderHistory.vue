@@ -5,7 +5,8 @@
 
   <div class="orderHistoryContainer">
     <h2>Order History</h2>
-    <ul>
+    <div class="listContainer">
+      <ul>
       <li v-for="(order, index) in visibleOrders" :key="order.order_id">
         <strong>Order ID:</strong> {{ order.order_id }} |
         <strong>Date:</strong> {{ formatDate(order.order_date) }} |
@@ -16,6 +17,7 @@
     <button class="showMoreLess" v-if="showButton" @click="toggleOrders">
       {{ showMore ? "Show Less" : "Show More" }}
     </button>
+    </div>
 
     <!--Popup-->
 
@@ -45,7 +47,7 @@ export default {
   // data for the component (show only 3 orders at a time)
   data() {
     return {
-      visibleOrderCount: 3,
+      visibleOrderCount: 2,
       showMore: false,
       selectedOrder: null,
     };
@@ -60,7 +62,7 @@ export default {
     },
     //  Show the button to show more orders if there are more than 3 orders
     showButton() {
-      return this.getOrders.length > 3;
+      return this.getOrders.length > 2;
     },
   },
 
@@ -73,7 +75,7 @@ export default {
       if (this.showMore) {
         this.visibleOrderCount = this.getOrders.length;
       } else {
-        this.visibleOrderCount = 3;
+        this.visibleOrderCount = 2;
       }
     },
     //  Show order details
@@ -109,12 +111,20 @@ export default {
   color: white;
   font-family: Arial, sans-serif;
   text-align: left;
+  height: 280px;
 }
 
 .orderHistoryContainer h2 {
   font-size: 24px;
   text-shadow: 0 0 2px #000000, 0 0 2px #000000;
   text-align: center;
+}
+
+.listContainer{
+  overflow-y: auto;
+  height: 210px;
+  scrollbar-width: thin;
+  margin-top: -10px;
 }
 
 .orderHistoryContainer ul {
@@ -166,7 +176,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   padding: 20px 30px;
-  background-color: rgb(204, 197, 185);
+  background-color: rgb(157, 137, 119);
   border-radius: 10px;
   border: 2px solid rgb(255, 255, 255);
   transition: top 0ms ease-in-out 200ms, opacity 100ms ease-in-out 200ms,

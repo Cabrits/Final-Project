@@ -1,18 +1,18 @@
 <!--User Page that containes 4 boxes with information about the user-->
 
 <template>
-  <Header />
+  <Header/>
 
   <div class="userAccount">
     <div class="main-content">
       <UserInformation :user="user" />
       <FavoriteItems :favorites="favorites" />
       <OrderHistory :orders="orders" />
-      <PaymentMethods :paymentMethods="paymentMethods" />
+      <DeleteAccount :deleteButton="deleteButton"/>
     </div>
   </div>
 
-  <Footer />
+  <Footer/>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ import Footer from "../components/Footer.vue";
 import UserInformation from "../components/UserInformation.vue";
 import OrderHistory from "../components/OrderHistory.vue";
 import FavoriteItems from "../components/FavoriteItems.vue";
-import PaymentMethods from "../components/PaymentMethods.vue";
+import DeleteAccount from "../components/DeleteAccount.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default {
@@ -32,7 +32,7 @@ export default {
     UserInformation,
     OrderHistory,
     FavoriteItems,
-    PaymentMethods,
+    DeleteAccount,
     Header,
     Footer,
   },
@@ -67,9 +67,9 @@ export default {
   max-width: 1300px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
-  padding-top: 30px;
+  padding-top: 15px;
   line-height: 32px;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
 
 .main-content {
@@ -83,6 +83,7 @@ export default {
 @media screen and (max-width: 1500px) {
   .main-content {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
   }
 
   .userAccount {
@@ -90,7 +91,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1100px) {
   .main-content {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -101,4 +102,19 @@ export default {
     line-height: 28px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .userAccount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-content{
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+}
+
 </style>
+

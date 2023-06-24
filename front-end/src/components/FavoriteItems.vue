@@ -154,7 +154,7 @@ export default {
 }
 
 .itemCard {
-  flex-basis: 500px;
+  flex-basis: 300px;
   padding: 10px;
   border-radius: 10px;
   background-color: rgb(248, 246, 244);
@@ -233,7 +233,7 @@ export default {
 }
 
 .popupItemCard {
-  flex-basis: 300px;
+  flex-basis: 400px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -270,7 +270,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1200px) {
   .favoritesContainer {
     padding: 10px 40px;
     height: 440px;
@@ -293,7 +293,7 @@ export default {
   }
 
   .popupContainer {
-    top: 70%;
+    top: 90%;
     left: 55%;
     width: 80%;
   }
@@ -303,4 +303,6 @@ export default {
     padding: 15px;
   }
 }
+
+
 </style>
