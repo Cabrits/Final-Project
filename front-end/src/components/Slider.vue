@@ -157,9 +157,6 @@ export default {
     padding: 2rem;
   }
 
-  .sliderWrapper {
-  }
-
   .slider {
     aspect-ratio: 16 / 6;
   }
