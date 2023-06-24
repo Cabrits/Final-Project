@@ -1,6 +1,7 @@
 <!--Slider that contains NEWS about our products, for example discounts, bundles, etc-->
 
 <template>
+
   <!--Overall Slider-->
 
   <div class="slideNews">
@@ -27,11 +28,13 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+
 //  Export the component
-export default {
+export default{
   name: "Slider",
   //  Data for the component (slides and current index)
   data() {
@@ -41,6 +44,7 @@ export default {
       autoRotationInterval: null, // Store the interval reference
     };
   },
+
   //  Methods for the component (change slide, start and stop auto rotation)
   methods: {
     //  Change the slide by clicking on the navigation circles
@@ -53,6 +57,7 @@ export default {
         behavior: "smooth",
       });
     },
+
     //  Start the auto rotation of the slides (every 20 seconds)
     startAutoRotation() {
       this.autoRotationInterval = setInterval(() => {
@@ -60,6 +65,7 @@ export default {
         this.changeSlide(this.currentIndex);
       }, 20000); // Change slide every 20 seconds
     },
+
     //  Stop the auto rotation of the slides
     stopAutoRotation() {
       clearInterval(this.autoRotationInterval);
@@ -85,80 +91,88 @@ export default {
     });
   },
 };
+
 </script>
 
 <style scoped>
 /* Images */
 
-.slideNews {
-  padding: 3rem;
+.slideNews{
+    padding: 3rem;
 }
 
-.sliderWrapper {
-  position: relative;
-  max-width: 60rem;
-  margin: 0 auto;
-  border-radius: 10px;
-  border: 4px solid rgb(0, 0, 0);
+.sliderWrapper{
+    position: relative;
+    max-width: 60rem;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 4px solid rgb(0, 0, 0);
 }
 
-.slider {
-  display: flex;
-  aspect-ratio: 16 / 6;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  border-radius: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
-  border-radius: 10px;
-  overflow: hidden;
+.slider{
+    display: flex;
+    aspect-ratio: 16 / 6;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    border-radius: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.slider img {
-  flex: 1 0 100%;
-  scroll-snap-align: start;
-  object-fit: cover;
+.slider img{
+    flex: 1 0 100%;
+    scroll-snap-align: start;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 /* Slider "buttons" */
 
-.sliderNav {
-  display: flex;
-  column-gap: 1rem;
-  position: absolute;
-  bottom: 1.25rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
+.sliderNav{
+    display: flex;
+    column-gap: 1rem;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
 }
 
-.sliderNav a {
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: 50%;
-  background-color: #000000;
-  transition: opacity ease 250ms;
+.sliderNav a{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background-color: #000000;
+    transition: opacity ease 250ms;
 }
 
-.sliderNav a:hover {
-  opacity: 1;
+.sliderNav a:hover{
+    opacity: 1;
 }
 
-.sliderNav a.active {
-  opacity: 1;
-  background-color: #edd3ae;
+.sliderNav a.active{
+    opacity: 1;
+    background-color: #edd3ae;
 }
 
-.sliderNav:focus {
-  color: white;
+.sliderNav:focus{
+    color: white;
 }
 
-@media screen and (max-width: 500px) {
-  .slideNews {
-    padding: 2rem;
+@media screen and (max-width: 500px){
+  .slideNews{
+      padding: 2rem;
   }
 
-  .slider {
-    aspect-ratio: 16 / 6;
+  .slider{
+     aspect-ratio: 16 / 6;
+  }
+
+  .sliderNav a{
+      width: 0.4rem;
+      height: 0.4rem;
   }
 }
 </style>
