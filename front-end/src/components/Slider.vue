@@ -166,9 +166,6 @@ export default{
       padding: 2rem;
   }
 
-  .slider{
-     aspect-ratio: 16 / 6;
-  }
 
   .sliderNav a{
       width: 0.4rem;
