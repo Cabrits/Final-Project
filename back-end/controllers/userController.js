@@ -47,6 +47,7 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+
 // Add favourite item to user
 exports.addFavouriteItem = async (req, res) => {
   const userId = req.params.userId;
@@ -170,11 +171,43 @@ exports.deleteUser = async (req, res) => {
     const deleteQuery = "DELETE FROM users WHERE user_id = ?";
     await executeQuery(deleteQuery, [userId]);
 
+
+    //TODO DELETE USER FROM FIREBASE HERE
+    // I DONT HAVE ACCESS TO THE FIREBASE OR YOUR KEYS
+    // IT CANT BE DONE FROM THE CLIENT SIDE BECAUSE ITS IMPOSSIBLE FROM THE CLIENT
+
+
     // Send a success response indicating that the user was deleted
     res.json({ message: "User deleted successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "An error occurred" });
+  }
+};
+
+// Update user
+exports.deleteUser = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const checkQuery = 'SELECT * FROM users WHERE user_id = ?';
+    const existingUser = await executeQuery(checkQuery, [userId]);
+
+    if (existingUser.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+
+    const deleteOrderItems = `DELETE FROM order_items WHERE order_id IN(SELECT order_id FROM orders WHERE order_user_id = ${userId}); `;
+    const deleteOrders = `DELETE FROM orders WHERE order_user_id = ${userId};`;
+    const favouriteItems = `DELETE FROM userFavouriteItems WHERE user_id = ${userId};`;
+
+    await executeQuery(`${deleteOrders}${deleteOrderItems}${favouriteItems}`);
+
+    res.json({ message: 'User deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred' });
   }
 };
 
@@ -190,3 +223,4 @@ function executeQuery(query, params) {
     });
   });
 }
+

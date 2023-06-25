@@ -7,11 +7,12 @@
     <div class="infoContainer">
       <h2>Your Information</h2>
       <p>
-        <strong>Email:</strong> <span class="email">{{ user.user_email}}</span>
+        <strong>Email:</strong> <span class="email">{{ user.user_email }}</span>
       </p>
       <p><strong>Name:</strong> {{ user.user_name }}</p>
       <p><strong>Address:</strong> {{ user.user_address }}</p>
       <button @click="editUser">Edit</button>
+      <button @click="deleteUser">Delete my account</button>
     </div>
 
     <!--Popup to change information if needed-->
@@ -51,8 +52,10 @@
 </template>
 
 <script>
-// Import necessary modules and functions
 import { mapState, mapActions } from "vuex";
+import baseURL from "../config.js";
+import axios from "axios";
+import { getAuth, signOut } from "firebase/auth";
 
 //  Export the component
 export default {
@@ -69,7 +72,11 @@ export default {
   },
   // computed properties for the component (user)
   computed: {
-    ...mapState("user", ["user"]),
+    ...mapState("user", ["user", "userId"]),
+    ...mapActions("user", ["clearUser"]),
+    ...mapActions("cart", ["clearCart"]),
+    ...mapActions("favourites", ["clearFavourites"]),
+    ...mapActions("orders", ["clearOrders"]),
   },
   //  Methods for the component (edit user, save user, close)
   methods: {
@@ -80,6 +87,40 @@ export default {
     editUser() {
       this.showPopup = true;
       this.editedUser = this.user;
+    },
+    async deleteUser() {
+      const answer = confirm("Are you sure you want to delete your account?");
+      if (answer) {
+        console.log("DELETE USER !!");
+        const apiUrl = `${baseURL}/user/delete/${this.user.user_id}`;
+
+        try {
+          const response = await axios.delete(apiUrl);
+          if (response.status) {
+            alert("Succesfully deleted user, you will be redirected");
+
+            const auth = getAuth();
+            signOut(auth)
+              .then(() => {
+                this.clearUser();
+                this.clearCart();
+                this.clearFavourites();
+                this.clearOrders();
+              })
+              .catch((error) => {
+                console.error("Failed to logout:", error);
+                // Handle error in logout
+              });
+
+            this.$router.push("/");
+          }
+        } catch (error) {
+          console.error(error);
+          alert(
+            "We're sorry, something went wrong. please contact us or try again later"
+          );
+        }
+      }
     },
 
     //  function that allows the user to save their information
@@ -228,7 +269,7 @@ export default {
 .closeButton {
   border: none;
   background: white;
-  font-size: 15px;
+  font-size: 20px;
   width: 23px;
   height: 23px;
   cursor: pointer;
@@ -283,3 +324,4 @@ export default {
   }
 }
 </style>
+
