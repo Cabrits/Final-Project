@@ -228,7 +228,7 @@ export default {
 .closeButton {
   border: none;
   background: white;
-  font-size: 20px;
+  font-size: 15px;
   width: 23px;
   height: 23px;
   cursor: pointer;

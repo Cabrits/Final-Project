@@ -3,11 +3,16 @@
 <template>
   <Header />
   <div class="ourTeam">
+    <h2>About Us</h2>
+    <div class="websiteInfo">
+      <p>VibeVault is your ultimate destination for manga sales. Discover a wide range of captivating titles across various genres, immerse yourself in thrilling adventures, and indulge in heartfelt stories. 
+        With a user-friendly website, convenient ordering options, and a vibrant community, VibeVault is where manga enthusiasts find their next unforgettable read. Start exploring the captivating world of manga today with VibeVault.</p>
+    </div>
     <h2>Our Team</h2>
     <div class="teamMembers">
       <div v-for="(member, index) in teamMembers" :key="index" class="member">
         <div class="memberInfo">
-          <img class="memberPicture" :src="member.image" :alt="member.name" />
+          <img class="memberPicture" :src="member.image" />
           <div class="memberDetails">
             <h3>{{ member.name }}</h3>
             <p class="memberRole">{{ member.role }}</p>
@@ -15,12 +20,7 @@
           </div>
         </div>
         <div class="socialLinks">
-          <a
-            v-if="member.socialNetworkLink"
-            :href="member.socialNetworkLink"
-            :class="member.socialNetworkClass"
-            target="_blank"
-          >
+          <a v-if="member.socialNetworkLink" :href="member.socialNetworkLink" :class="member.socialNetworkClass" target="_blank">
             <i :class="member.socialNetworkIcon"></i>
           </a>
           <a :href="member.githubLink" class="githubLink" target="_blank">
@@ -49,13 +49,13 @@ export default {
         {
           name: "Duarte Cabrita",
           role: "Front End Developer",
-          socialNetwork: "twitter",
-          socialNetworkLink: "https://twitter.com/",
+          socialNetwork: "linkedin",
+          socialNetworkLink: "https://www.linkedin.com/in/duarte-cabrita-b4836a256/",
           githubLink: "https://github.com/Cabrits",
           info: "Universidade Autónoma de Lisboa student and Front End enthusiast with a good eye for design. Learning Vue JS and wanting to explore more frameworks to expand my knowledge on this field. Loves music while chilling outside, sports and casually watch some anime.",
-          image: "src/assets/1.jpg",
-          socialNetworkIcon: "fab fa-twitter ",
-          socialNetworkClass: "twitterLink",
+          image: "src/assets/duarte.jpg",
+          socialNetworkIcon: "fab fa-linkedin ",
+          socialNetworkClass: "linkedinLink",
         },
         {
           name: "Nuno Cartaxo",
@@ -65,6 +65,28 @@ export default {
           githubLink: "https://github.com/NunoCartaxoUAL/",
           info: "Computer Science student with network administration experience. I'm proficient in Java, Python, and JavaScript, and familiar with Kotlin, SQL, NoSQL (MongoDB), and cloud computing (AWS, GCP). I also received Cisco training and have knowledge of Vue.js and Express.",
           image: "src/assets/nuno.jpg",
+          socialNetworkIcon: "fab fa-linkedin ",
+          socialNetworkClass: "linkedinLink",
+        },
+        {
+          name: "Rajiv Chaves",
+          role: "Front End Helper",
+          socialNetwork: "linkedin",
+          socialNetworkLink: "",
+          githubLink: "",
+          info: "",
+          image: "src/assets/template.png",
+          socialNetworkIcon: "fa fa-linkedin ",
+          socialNetworkClass: "linkedinLink",
+        },
+        {
+          name: "Kataryna Janeczko",
+          role: "Back End Helper",
+          socialNetwork: "linkedin",
+          socialNetworkLink: "",
+          githubLink: "",
+          info: "",
+          image: "src/assets/template.png",
           socialNetworkIcon: "fa fa-linkedin ",
           socialNetworkClass: "linkedinLink",
         },
@@ -87,10 +109,24 @@ export default {
   text-shadow: 0 0 3px #000000, 0 0 3px #000000;
 }
 
+.websiteInfo{
+  background-color: rgb(58, 56, 53);
+  opacity: 0.9;
+  width: 70%;
+  font-size: 20px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 20px 15px 5px rgba(109, 106, 106, 0.8);
+}
+
 .teamMembers {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 200px;
+  gap: 100px;
   padding-top: 20px;
   margin-bottom: 20px;
 }
@@ -106,8 +142,8 @@ export default {
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
-  width: 300px;
-  height: 540px;
+  width: 280px;
+  height: auto;
   border: 2px solid white;
   box-shadow: 20px 15px 5px rgba(109, 106, 106, 0.8);
 }
@@ -189,8 +225,8 @@ export default {
   background-color: rgb(132, 115, 100);
 }
 
-.socialLinks .twitterLink {
-  background-color: rgb(0, 172, 238);
+.socialLinks .linkedinLink {
+  background-color: rgb(0, 119, 181);
   border: 1px solid white;
 }
 
@@ -209,9 +245,24 @@ export default {
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 480px) {
+  .ourTeam h2 {
+    font-size: 24px;
+  }
+
+  .websiteInfo {
+    width: 90%;
+    font-size: 16px;
+  }
+
   .member {
-    width: 280px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .memberPicture {
+    width: 150px;
+    height: 150px;
   }
 }
 </style>
