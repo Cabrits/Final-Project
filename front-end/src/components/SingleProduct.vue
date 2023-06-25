@@ -9,12 +9,13 @@
             <div class="productImage">
                 <img :src="book.item_image" alt="Book Cover">
             </div>
-            <div class="shareButtons">
+            <div class="auxButtons">
+
                 <button class="favButton"
                 :disabled="cooldown"
-                @click="toggleFavourite(item.item_id)"
+                @click="toggleFavourite(book)"
                 >
-                    <i class="far fa-heart"></i>
+                    <i class="far fa-heart" :class="{ 'red-heart': isFavourite(book) }"></i>
                 </button>
                 <!--Share button-->
                 <div>
@@ -53,66 +54,118 @@
     </div>
 
     <!--Reviews box With the reviews of customers who bought the product -->
+    <section id="reviewsSection">
 
-    <div class="moreInfoWrapper">
-        <div class="moreInfo classifyBox">
-            <h2>REVIEWS FROM OUR CUSTOMERS</h2>
-            <div>
-                <h2><i class="fa fa-star"></i> 5 / 5</h2>
-                <h5 class="reviewsCounter"> 2 Reviews</h5>
+        <!--Reviews container-->
+        <div class="reviewContainer">
+            <!--Heading-->
+            <div class="reviewHeading">
+                <span>REVIEWS FROM OUR CUSTOMERS</span>
             </div>
-            <div class="classifyBlock">
-                <div class="classifyRow">
-                    <h4 class="classifyUserName classifyColum">@User1</h4>
-                    <div class="classifyStars classifyColum">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <span class="classifyContent classifyColum">
-                        Good quality!
+            
+            <!--Box container-->
 
-                        A good translation, good quality of the material and faithful to the work
-                        in the original language!
-                    </span>
-                </div>
-                <div class="classifyRow">
-                    <h4 class="classifyUserName">@User2</h4>
-                    <div class="classifyStars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+            <div class="boxContainer">
+
+                <!--Box 1-->
+
+                <div class="reviewBox">
+
+                <!--Top-->
+
+                <div class="boxTop">
+
+                    <!--profile-->
+
+                    <div class="profile">
+
+                        <!--User name-->
+                        <div class="userName">
+                            <strong>User1</strong>
+                        </div>
                     </div>
-                    <span class="classifyContent">
-                        I like it! Amazing story
-                    </span>
+                    <!--Reviews-->
+                    <div class="reviews">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
                 </div>
+                <!--Comments-->
+
+                    <div class="comments">
+                        <p>Good quality! A good translation, good quality of the material and faithful to the work
+                            in the original language!
+                        </p>
+                    </div>
+
+                </div>
+                <!--Box 2-->
+
+                <div class="reviewBox">
+
+                    <!--Top-->
+
+                    <div class="boxTop">
+
+                        <!--profile-->
+
+                        <div class="profile">
+
+                            <!--User name-->
+                            <div class="userName">
+                                <strong>User2</strong>
+                            </div>
+                        </div>
+                        <!--Reviews-->
+                        <div class="reviews">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <!--Comments-->
+
+                        <div class="comments">
+                            <p>Good quality! A good translation, good quality of the material and faithful to the work
+                                in the original language!
+                            </p>
+                        </div>
+
+                    </div>
+             
             </div>
+            <!--View more-->
             <span class="readMoreButton viewMore" @click="toggleReadMore('reviews')">
                 {{ isReadMoreShown.reviews ? 'View Less...' : 'View More...' }}
             </span>
-            <div>
+             <!--Review button-->
+             <div>
                 <button 
-                class="giveRatingButton" @click="openPopupReview">Give rating</button>
-                <PopupReview v-if="showPopupReview" @closeS="closePopupReview"></PopupReview>
-            </div>
-        </div>
-    </div>
+                    class="giveRatingButton" @click="openPopupReview">Give rating</button>
+                    <PopupReview v-if="showPopupReview" @closeS="closePopupReview"></PopupReview>
+                </div>
+            </div>       
+            
+    </section>
 
 </template>
 
 
 <script>
+import axios from "axios";
+import { mapState, mapActions, mapGetters } from "vuex";
 import Footer from '../components/Footer.vue'
 import PopupShare from '../components/PopupShare.vue'
 import PopupReview from '../components/PopupReview.vue'
 
 export default {
   name: 'SingleProduct',
+  
   //  Map components and props
   components: { Footer, PopupShare, PopupReview },
   props: {
@@ -129,6 +182,8 @@ export default {
       chapters: '3',
       showPopupShare: false,
       showPopupReview: false,
+      favoriteNotification: false,
+      cooldown: false,
 
       isReadMoreShown: {
         description: false,
@@ -136,8 +191,69 @@ export default {
       },
     }
   },
+
+  computed:{
+    ...mapState(["favourites"]),
+  },
   //  Watch for changes in the route and Fetch the data of the book
   methods: {
+    ...mapActions("favourites", ["fetchFavourites"]),
+
+     // cooldown to prevent spamming the button
+     startButtonCooldown() {
+      this.cooldown = true;
+      setTimeout(() => {
+        this.cooldown = false;
+      }, 500);
+    },
+
+     //  Check if the item is favourite
+     isFavourite(itemId) {
+      const result = this.favourites.favourites.some(
+        (favourite) => favourite.item_id === itemId
+      );
+      return result;
+    },
+
+    //  Toggle the favourite item
+    toggleFavourite(itemId) {
+      //  check if user is logged in and if not , send an alert
+      if (!this.userId) {
+        alert("You need to be logged in to add items to your favourites!");
+        return;
+      }
+
+      //  Start the button cooldown
+      this.startButtonCooldown();
+      //  Get the user id
+      const userId = this.userId;
+
+      // check if the item is favourite
+      const isItemFavourite = this.isFavourite(itemId);
+      // If the item is favourite,
+      const apiUrl = isItemFavourite
+        ? `${baseURL}/user/${userId}/removeFavourite/${itemId}`
+        : `${baseURL}/user/${userId}/addFavourite/${itemId}`;
+      //  Send a request to the RESTapi to add or remove the item from the favourites
+      axios({
+        method: isItemFavourite ? "DELETE" : "POST",
+        url: apiUrl,
+      })
+        .then((response) => {
+          // Handle success by fetching the favourites
+
+          this.$store.dispatch("favourites/fetchFavourites");
+          this.favoriteNotification = true;
+          setTimeout(() => {
+            this.favoriteNotification = false;
+          }, 2000);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error(error);
+        });
+    },
+
     //  Toggle the read more button
     toggleReadMore(sectionId) {
       this.isReadMoreShown[sectionId] = !this.isReadMoreShown[sectionId];
@@ -254,13 +370,54 @@ export default {
     color: white;
 }
 
-.shareButtons{
-    display: block;
-    margin-top: 15%;
-}
 .buyButton:hover{
     background-color: rgb(56, 49, 40);
     color: white;
+}
+
+.auxButtons{
+    display: block;
+    margin-top: 15%;
+}
+
+.favButton{
+    border: none;
+    outline: none;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    color: #000000;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+}
+
+.favButton:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
+}
+
+.favButton i{
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.favButton::before {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.favButton .fa-heart:before {
+  padding: 1.15rem;
+  font-size: 1.2rem;
+  color: rgb(78, 75, 75);
+  margin-left: -11.5px;
+}
+
+.red-heart::before {
+  color: rgb(255, 127, 127) !important;
 }
 
 .shareButton{
@@ -283,24 +440,6 @@ export default {
     color: white;
 }
 
-.favButton{
-    border: none;
-    outline: none;
-    display: block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: white;
-    color: #000000;
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
-}
-
-.favButton:hover{
-    background-color: rgb(56, 49, 40);
-    color: white;
-}
 
 .productPage{
     display: flex;
@@ -365,55 +504,88 @@ export default {
     text-shadow: 0 0 1px #000000, 0 0 3px #000000;
 }
 
-/* CSS for classify box*/
-.classifyBox{
+/* CSS for reviews section*/
+
+#reviewsSection{
     display: block;
-    margin-top: 30px;
-    margin-left: 50px;
-    margin-right:50px ;
-    padding: 0%
 }
 
-.classifyBlock{
+.reviewContainer{
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgba(50, 50, 50, 0.4);
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    width: 100%;
 }
 
-.classifyRow{
-    display: grid;
-    grid-template-columns: minmax(0, .5fr) auto minmax(0, 1fr);
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, .4);
-    padding-bottom: 10px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+.reviewHeading{
+    color: #ffffff;
+    font-size: 40px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    margin-top: 7%;
 }
 
-.classifyRow:last-child {
-  border-bottom: none;
-}
-
-.classifyUserName{
-    text-align: left;
-    color: #000000;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.classifyStars{
+.boxContainer{
     display: flex;
-    justify-content: left;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 5%;
 }
 
-.classifyContent{
-    margin: 1em;
+.reviewBox{
+    width: 500px;
+    background-color: rgb(122, 111, 96);
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -moz-box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -webkit-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    padding: 20px;
+    margin: 15px;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+}
+
+.userName{
+    display: flex;
+    flex-direction: column;
+}
+
+.userName strong{
+    color: black;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+}
+
+.reviews{
+    color: #ffffff;
+}
+
+.boxTop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+
+.reviewBox:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+.comments p{
+    font-size: 0.9rem;
+    color: white;
+
 }
 
 .giveRatingButton{
@@ -438,14 +610,10 @@ export default {
     color: white;
 }
 
-
-.reviewsCounter{
-    text-decoration: underline;
-}
-
 .viewMore{
     display: block;
      margin: 20px;
+     text-decoration: underline;
 }
 /*Responsive*/
 
@@ -477,6 +645,21 @@ export default {
         margin-top: 0;
     }
 
+    .auxButtons{
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: 5%;
+     }
+
+     .auxButtons .favButton {
+        margin-right: 45px; /* Espaço à direita do botão de favorito */
+}
+
+    .favButton{
+        margin-left: 0;
+    }
+
     .moreInfoWrapper{
         width: 80%; 
     }
@@ -485,6 +668,22 @@ export default {
         display: flex;
         justify-content: center;
     }
+    .reviewBox{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .reviewBox{
+        width: 70%;
+        padding: 10px;
+
+    }
+
+    .reviewHeading{
+        font-size: 26px;
+        margin-top: 18%;
+    }
+
 }
 
 @media (max-width: 500px){
@@ -521,6 +720,16 @@ export default {
         display: flex;
         justify-content: center;
     }
+
+    .reviewBox{
+        width:100%
+    }
+
+    .reviewHeading{
+        font-size: 23px;
+        margin-top: 15%;
+    }
 }
+
 
 </style>

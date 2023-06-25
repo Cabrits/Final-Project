@@ -2,60 +2,30 @@
     <div class="signUpWrapper">
         <div class="reviewPopup">
             <div class="closeSignUp" @click="closeS">&times;</div>
-            <div class="form">
-                <h2
-                    id="popupTitle"
-                    style="color: white; font-family: Arial, Helvetica, sans-serif"
-                >
-                GIVE YOUR REVIEW
-                </h2>
-        
-                <h3
-                    id="bookTitle"
-                    style="color: white; font-family: Arial, Helvetica, sans-serif"
-                >
-                Book Title
-                </h3>
-                <h3
-                    id="userName"
-                    style="color: black; font-family: Arial, Helvetica, sans-serif"
-                >
-                @User1
-                </h3>
-                <div class="formElement">
-                    <label for="generalEvaluation" style="color: white"><h3>General evaluation</h3></label>
-                    <div class="rating">
-                        <input type="radio" name="star" id="star1"><label for="star1"></label>
-                        <input type="radio" name="star" id="star2"><label for="star2"></label>
-                        <input type="radio" name="star" id="star3"><label for="star3"></label>
-                        <input type="radio" name="star" id="star4"><label for="star4"></label>
-                        <input type="radio" name="star" id="star5"><label for="star5"></label>
-                    </div>
+            <div class="container">
+                <div class="starWidget">
+                    <input type="radio" name="rate" id="rate5">
+                    <label for="rate5" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate4">
+                    <label for="rate4" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate3">
+                    <label for="rate3" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate2">
+                    <label for="rate2" class="fas fa-star"></label>
+                    <input type="radio" name="rate" id="rate1">
+                    <label for="rate1" class="fas fa-star"></label>
+                    <form action="#">
+                        <header></header>
+                        <div class="textArea">
+                            <textArea cols="30" placeholder="Describe your experience..."></textArea>
+                        </div>
+                        <div class="btnForm">
+                            <button type="submit">Post</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="formElement">
-                    <label for="review" style="color: white"><h3>Review</h3></label>
-                    <input
-                        type="text"
-                        id="review"
-                        placeholder="Enter your review"
-                        v-model="Text"
-                    />
-                </div>
-
-                <div class="formElement">
-                    <button
-                        id="sendFormBtn"
-                        style="font-family: Arial, Helvetica, sans-serif"
-                    >
-                        Send
-                    </button>
-                </div>
-
             </div>   
         </div>
-        <!--Blur the background when Popup is opened-->
-
-        <div v-if="showPopup" class="blur"></div>
     </div>
 </template>
 
@@ -79,22 +49,25 @@
 
 <style scoped>
     .signUpWrapper {
-        width: 99%;
+        position: fixed;
         padding-top: 35px;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 5;
     }
 
     .reviewPopup {
         display: block;
         position: relative;
-        width: 350px;
+        width: 450px;
         line-height: 20px;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 15%;
         padding: 20px 30px;
         background-color: rgb(204, 197, 185);
         border-radius: 10px;
@@ -119,131 +92,116 @@
         cursor: pointer;
     }
 
-    .form h2 {
-        text-align: center;
-        margin: 10px 0px 20px;
-        font-size: 25px;
-        user-select: none;
-    }
-
-    .form h3 {
-        user-select: none;
-    }
-
-    .rating{
-        display:flex;
-        flex-direction: row-reverse;
-        margin-bottom: 10%;
-    }
-
-    .rating input{
-        display: none;
-    }
-
-    .rating label{
-        cursor: pointer;
-        width: 50px;
-        display: block;
+    .container{
         position: relative;
+        padding: 20px 30px;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        flex-direction: row-reverse;
+        
     }
 
-    .rating label::before{
-        content: '\f005';
-        font-family: fontAwesome;
-        position: absolute;
-        display: block;
-        font-size: 20px;
-        color: #101010;
-    }
-    
-    .rating label::after{
-        content: '\f005';
-        font-family: fontAwesome;
-        position: absolute;
-        display: block;
-        font-size: 20px;
-        color: rgb(255, 255, 255);
-        top: 0%;
-        opacity: 0;
-        transition: .5s;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+
+    .container .starWidget input{
+        display: none;
+        flex-direction: row-reverse; 
     }
 
-    .rating label:hover:after, .rating input:hover ~ label::after, .rating input:checked ~ label::after{
-        opacity: 1;
-    }
-    
-    .formElement {
-        margin: 13px 0px;
-    }
-
-    .formElement label {
-        font-size: 14px;
-        color: #222;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .formElement input[type="text"]{
-        margin-top: 5px;
-        display: block;
-        width: 94%;
-        height: 100px;
+    .starWidget label{
+        font-size: 40px;
+        color: #444;
         padding: 10px;
-        outline: none;
-        border-radius: 5px;
-        color: rgb(78, 75, 75);
-        box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
-        -moz-box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
-        -webkit-box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
-        -o-box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
-        font-size: 15px;
-        border: none;
+        transition: all 0.2s ease;
     }
 
-    .formElement button {
-        width: 70%;
-        height: 40px;
-        border: none;
-        outline: none;
-        font-size: 15px;
-        font-weight: 600;
-        background-color: white;
-        color: rgb(78, 75, 75);
-        border-radius: 10px;
-        cursor: pointer;
-        margin-top: 25px;
-        box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
-        -moz-box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
-        -webkit-box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
-        -o-box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
+    input:not(:checked) ~ label:hover,
+    input:not(:checked) ~ label:hover ~ label{
+        color: whitesmoke;
+        
     }
 
-    .formElement button:hover {
-        background-color: #b5b5b6;
+    input:checked ~ label{
+        color: whitesmoke;
+        
     }
 
-    /*Blur what's behind the popup when opened*/
+    input#rate5:checked ~ label{
+        color: white;
+        text-shadow: 0 0 20px blanchedalmond;
+        
+    }
 
-    .blur {
-        position: fixed;
-        top: 0;
-        left: 0;
+    input#rate1:checked ~ form header:before{
+        content: "Very bad";
+    }
+
+    input#rate2:checked ~ form header:before{
+        content: "Bad";
+    }
+
+    input#rate3:checked ~ form header:before{
+        content: "Medium";
+    }
+
+    input#rate4:checked ~ form header:before{
+        content: "Good";
+    }
+    input#rate5:checked ~ form header:before{
+        content: "Fantastic";
+    }
+    form header{
         width: 100%;
+        font-size: 25px;
+        font-weight: 500;
+        margin: 5px 0 20px 0;
+        text-align: center;
+        transition: all 0.2s ease;
+    }
+
+    form textArea{
+        height: 100px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    form .textArea textArea{
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 4;
+        width: 100%;
+        outline: none;
+        padding: 10px;
+        font-size: 17px;
+        resize: none;
     }
 
-    /*Responsive*/
-
-    @media screen and (max-width: 800px) {
-    .signUpWrapper {
-        width: 96%;
+    form .btnForm{
+        height: 30px;
+        width: 100%;
+        margin: 15px 0;
     }
 
-    .reviewPopup {
-        width: 270px;
-        height: 400px;
+    form .btnForm button{
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+        border: none;
+        border-radius: 15px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    form .btnForm button:hover{
+        background-color: rgb(56, 49, 40);
+        color: white;
+    }
+
+    @media (max-width: 725px){
+        .reviewPopup{width: 300px;}
+
+        .starWidget label{
+        font-size: 23px;
+
     }
     }
 </style>
