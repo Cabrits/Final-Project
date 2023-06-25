@@ -10,11 +10,12 @@
                 <img :src="book.item_image" alt="Book Cover">
             </div>
             <div class="shareButtons">
-                <button class="favButton"
+
+                <button class="favourite favButton"
                 :disabled="cooldown"
                 @click="toggleFavourite(item.item_id)"
                 >
-                    <i class="far fa-heart"></i>
+                    <i class="far fa-heart" :class="{ 'red-heart': isFavourite(item.item_id) }"></i>
                 </button>
                 <!--Share button-->
                 <div>
@@ -55,39 +56,39 @@
     <!--Reviews box With the reviews of customers who bought the product -->
 
     <div class="moreInfoWrapper">
-        <div class="moreInfo classifyBox">
+        <div class="moreInfo reviewBox">
             <h2>REVIEWS FROM OUR CUSTOMERS</h2>
             <div>
                 <h2><i class="fa fa-star"></i> 5 / 5</h2>
                 <h5 class="reviewsCounter"> 2 Reviews</h5>
             </div>
-            <div class="classifyBlock">
-                <div class="classifyRow">
-                    <h4 class="classifyUserName classifyColum">@User1</h4>
-                    <div class="classifyStars classifyColum">
+            <div class="reviewBlock">
+                <div class="reviewRow">
+                    <h4 class="reviewUserName reviewColum">@User1</h4>
+                    <div class="reviewStars reviewColum">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <span class="classifyContent classifyColum">
+                    <span class="reviewContent reviewColum">
                         Good quality!
 
                         A good translation, good quality of the material and faithful to the work
                         in the original language!
                     </span>
                 </div>
-                <div class="classifyRow">
-                    <h4 class="classifyUserName">@User2</h4>
-                    <div class="classifyStars">
+                <div class="reviewRow">
+                    <h4 class="reviewUserName">@User2</h4>
+                    <div class="reviewStars">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <span class="classifyContent">
+                    <span class="reviewContent">
                         I like it! Amazing story
                     </span>
                 </div>
@@ -107,12 +108,15 @@
 
 
 <script>
+import axios from "axios";
+import { mapState, mapActions, mapGetters } from "vuex";
 import Footer from '../components/Footer.vue'
 import PopupShare from '../components/PopupShare.vue'
 import PopupReview from '../components/PopupReview.vue'
 
 export default {
   name: 'SingleProduct',
+  
   //  Map components and props
   components: { Footer, PopupShare, PopupReview },
   props: {
@@ -129,6 +133,8 @@ export default {
       chapters: '3',
       showPopupShare: false,
       showPopupReview: false,
+      favoriteNotification: false,
+      cooldown: false,
 
       isReadMoreShown: {
         description: false,
@@ -136,8 +142,69 @@ export default {
       },
     }
   },
+
+  computed:{
+    ...mapState(["favourites"]),
+  },
   //  Watch for changes in the route and Fetch the data of the book
   methods: {
+    ...mapActions("favourites", ["fetchFavourites"]),
+
+     // cooldown to prevent spamming the button
+     startButtonCooldown() {
+      this.cooldown = true;
+      setTimeout(() => {
+        this.cooldown = false;
+      }, 500);
+    },
+
+     //  Check if the item is favourite
+     isFavourite(itemId) {
+      const result = this.favourites.favourites.some(
+        (favourite) => favourite.item_id === itemId
+      );
+      return result;
+    },
+
+    //  Toggle the favourite item
+    toggleFavourite(itemId) {
+      //  check if user is logged in and if not , send an alert
+      if (!this.userId) {
+        alert("You need to be logged in to add items to your favourites!");
+        return;
+      }
+
+      //  Start the button cooldown
+      this.startButtonCooldown();
+      //  Get the user id
+      const userId = this.userId;
+
+      // check if the item is favourite
+      const isItemFavourite = this.isFavourite(itemId);
+      // If the item is favourite,
+      const apiUrl = isItemFavourite
+        ? `${baseURL}/user/${userId}/removeFavourite/${itemId}`
+        : `${baseURL}/user/${userId}/addFavourite/${itemId}`;
+      //  Send a request to the RESTapi to add or remove the item from the favourites
+      axios({
+        method: isItemFavourite ? "DELETE" : "POST",
+        url: apiUrl,
+      })
+        .then((response) => {
+          // Handle success by fetching the favourites
+
+          this.$store.dispatch("favourites/fetchFavourites");
+          this.favoriteNotification = true;
+          setTimeout(() => {
+            this.favoriteNotification = false;
+          }, 2000);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error(error);
+        });
+    },
+
     //  Toggle the read more button
     toggleReadMore(sectionId) {
       this.isReadMoreShown[sectionId] = !this.isReadMoreShown[sectionId];
@@ -254,6 +321,36 @@ export default {
     color: white;
 }
 
+
+
+.favourite {
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.favourite i {
+  margin-left: 12px;
+  margin-top: 2px;
+}
+
+.favourite::before {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.favButton .fa-heart:before {
+  padding: 1.15rem;
+  font-size: 1.2rem;
+  color: rgb(78, 75, 75);
+  margin-left: -11.5px;
+}
+
+.red-heart::before {
+  color: rgb(255, 127, 127) !important;
+}
 .shareButtons{
     display: block;
     margin-top: 15%;
@@ -366,7 +463,7 @@ export default {
 }
 
 /* CSS for classify box*/
-.classifyBox{
+.reviewBox{
     display: block;
     margin-top: 30px;
     margin-left: 50px;
@@ -374,7 +471,7 @@ export default {
     padding: 0%
 }
 
-.classifyBlock{
+.reviewBlock{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -384,7 +481,7 @@ export default {
     margin-right: 5%;
 }
 
-.classifyRow{
+.reviewRow{
     display: grid;
     grid-template-columns: minmax(0, .5fr) auto minmax(0, 1fr);
     align-items: center;
@@ -395,11 +492,11 @@ export default {
     margin-right: auto;
 }
 
-.classifyRow:last-child {
+.reviewRow:last-child {
   border-bottom: none;
 }
 
-.classifyUserName{
+.reviewUserName{
     text-align: left;
     color: #000000;
     overflow: hidden;
@@ -407,12 +504,12 @@ export default {
     white-space: nowrap;
 }
 
-.classifyStars{
+.reviewStars{
     display: flex;
     justify-content: left;
 }
 
-.classifyContent{
+.reviewContent{
     margin: 1em;
 }
 
@@ -485,6 +582,32 @@ export default {
         display: flex;
         justify-content: center;
     }
+    .reviewBox{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .shareButtons{
+       size: 20;
+    }
+
+    .reviewRow{
+        display: flex;
+        text-overflow: ellipsis;
+    }
+
+    .reviewStars{
+        font-size: 70%;
+    }
+
+    .reviewUserName{
+        font-size: 75%;
+    }
+
+    .reviewContent{
+        font-size: 75%;
+    }
+
 }
 
 @media (max-width: 500px){

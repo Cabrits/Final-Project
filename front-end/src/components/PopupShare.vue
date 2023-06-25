@@ -124,4 +124,11 @@ export default{
         line-height: 13px;
     }
 
+    @media (max-width: 500px){
+        .popupContent{width: 280px;}
+        .popupContent h3 {
+            margin-left: 80px
+    }
+}
+
 </style>
