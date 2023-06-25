@@ -9,13 +9,13 @@
             <div class="productImage">
                 <img :src="book.item_image" alt="Book Cover">
             </div>
-            <div class="shareButtons">
+            <div class="auxButtons">
 
-                <button class="favourite favButton"
+                <button class="favButton"
                 :disabled="cooldown"
-                @click="toggleFavourite(item.item_id)"
+                @click="toggleFavourite(book)"
                 >
-                    <i class="far fa-heart" :class="{ 'red-heart': isFavourite(item.item_id) }"></i>
+                    <i class="far fa-heart" :class="{ 'red-heart': isFavourite(book) }"></i>
                 </button>
                 <!--Share button-->
                 <div>
@@ -64,15 +64,15 @@
             </div>
             <div class="reviewBlock">
                 <div class="reviewRow">
-                    <h4 class="reviewUserName reviewColum">@User1</h4>
-                    <div class="reviewStars reviewColum">
+                    <h4 class="reviewUserName">@User1</h4>
+                    <div class="reviewStars">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <span class="reviewContent reviewColum">
+                    <span class="reviewContent">
                         Good quality!
 
                         A good translation, good quality of the material and faithful to the work
@@ -321,22 +321,41 @@ export default {
     color: white;
 }
 
-
-
-.favourite {
-  width: 40px;
-  border-radius: 50%;
-  margin-right: 20px;
-  align-items: center;
-  justify-content: center;
+.buyButton:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
 }
 
-.favourite i {
-  margin-left: 12px;
-  margin-top: 2px;
+.auxButtons{
+    display: block;
+    margin-top: 15%;
 }
 
-.favourite::before {
+.favButton{
+    border: none;
+    outline: none;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    color: #000000;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+}
+
+.favButton:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
+}
+
+.favButton i{
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.favButton::before {
   width: 45px;
   border-radius: 50%;
 }
@@ -350,14 +369,6 @@ export default {
 
 .red-heart::before {
   color: rgb(255, 127, 127) !important;
-}
-.shareButtons{
-    display: block;
-    margin-top: 15%;
-}
-.buyButton:hover{
-    background-color: rgb(56, 49, 40);
-    color: white;
 }
 
 .shareButton{
@@ -380,24 +391,6 @@ export default {
     color: white;
 }
 
-.favButton{
-    border: none;
-    outline: none;
-    display: block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: white;
-    color: #000000;
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
-}
-
-.favButton:hover{
-    background-color: rgb(56, 49, 40);
-    color: white;
-}
 
 .productPage{
     display: flex;
@@ -473,7 +466,6 @@ export default {
 
 .reviewBlock{
     display: flex;
-    align-items: center;
     flex-direction: column;
     background-color: rgba(50, 50, 50, 0.4);
     width: 90%;
@@ -574,6 +566,21 @@ export default {
         margin-top: 0;
     }
 
+    .auxButtons{
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: 5%;
+     }
+
+     .auxButtons .favButton {
+        margin-right: 45px; /* Espaço à direita do botão de favorito */
+}
+
+    .favButton{
+        margin-left: 0;
+    }
+
     .moreInfoWrapper{
         width: 80%; 
     }
@@ -587,10 +594,6 @@ export default {
         margin-left: 0%;
     }
 
-    .shareButtons{
-       size: 20;
-    }
-
     .reviewRow{
         display: flex;
         text-overflow: ellipsis;
@@ -602,10 +605,24 @@ export default {
 
     .reviewUserName{
         font-size: 75%;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .reviewContent{
         font-size: 75%;
+        display: block;
+        max-width: 65%;
+    }
+
+    .reviewRow{
+        display: grid;
+        width: 118%;
+        margin-left: auto;
+        margin-right: auto;
+        text-overflow: ellipsis;
+        white-space:break-spaces;
     }
 
 }
