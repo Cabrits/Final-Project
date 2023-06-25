@@ -679,6 +679,11 @@ export default {
 
     }
 
+    .reviewHeading{
+        font-size: 26px;
+        margin-top: 18%;
+    }
+
 }
 
 @media (max-width: 500px){
@@ -719,22 +724,12 @@ export default {
     .reviewBox{
         width:100%
     }
-}
-
-@media(max-width: 340px){
-    .boxTop{
-        flex-wrap: wrap;
-        margin-bottom: 10px;
-    }
-
-    .reviewBox{
-        margin-top:10px ;
-    }
 
     .reviewHeading{
-        font-size: 20px;
+        font-size: 23px;
+        margin-top: 15%;
     }
-
 }
+
 
 </style>
