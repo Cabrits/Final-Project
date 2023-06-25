@@ -54,55 +54,104 @@
     </div>
 
     <!--Reviews box With the reviews of customers who bought the product -->
+    <section id="reviewsSection">
 
-    <div class="moreInfoWrapper">
-        <div class="moreInfo reviewBox">
-            <h2>REVIEWS FROM OUR CUSTOMERS</h2>
-            <div>
-                <h2><i class="fa fa-star"></i> 5 / 5</h2>
-                <h5 class="reviewsCounter"> 2 Reviews</h5>
+        <!--Reviews container-->
+        <div class="reviewContainer">
+            <!--Heading-->
+            <div class="reviewHeading">
+                <span>REVIEWS FROM OUR CUSTOMERS</span>
             </div>
-            <div class="reviewBlock">
-                <div class="reviewRow">
-                    <h4 class="reviewUserName">@User1</h4>
-                    <div class="reviewStars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <span class="reviewContent">
-                        Good quality!
+            
+            <!--Box container-->
 
-                        A good translation, good quality of the material and faithful to the work
-                        in the original language!
-                    </span>
-                </div>
-                <div class="reviewRow">
-                    <h4 class="reviewUserName">@User2</h4>
-                    <div class="reviewStars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+            <div class="boxContainer">
+
+                <!--Box 1-->
+
+                <div class="reviewBox">
+
+                <!--Top-->
+
+                <div class="boxTop">
+
+                    <!--profile-->
+
+                    <div class="profile">
+
+                        <!--User name-->
+                        <div class="userName">
+                            <strong>User1</strong>
+                        </div>
                     </div>
-                    <span class="reviewContent">
-                        I like it! Amazing story
-                    </span>
+                    <!--Reviews-->
+                    <div class="reviews">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
                 </div>
+                <!--Comments-->
+
+                    <div class="comments">
+                        <p>Good quality! A good translation, good quality of the material and faithful to the work
+                            in the original language!
+                        </p>
+                    </div>
+
+                </div>
+                <!--Box 2-->
+
+                <div class="reviewBox">
+
+                    <!--Top-->
+
+                    <div class="boxTop">
+
+                        <!--profile-->
+
+                        <div class="profile">
+
+                            <!--User name-->
+                            <div class="userName">
+                                <strong>User2</strong>
+                            </div>
+                        </div>
+                        <!--Reviews-->
+                        <div class="reviews">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <!--Comments-->
+
+                        <div class="comments">
+                            <p>Good quality! A good translation, good quality of the material and faithful to the work
+                                in the original language!
+                            </p>
+                        </div>
+
+                    </div>
+             
             </div>
+            <!--View more-->
             <span class="readMoreButton viewMore" @click="toggleReadMore('reviews')">
                 {{ isReadMoreShown.reviews ? 'View Less...' : 'View More...' }}
             </span>
-            <div>
+             <!--Review button-->
+             <div>
                 <button 
-                class="giveRatingButton" @click="openPopupReview">Give rating</button>
-                <PopupReview v-if="showPopupReview" @closeS="closePopupReview"></PopupReview>
-            </div>
-        </div>
-    </div>
+                    class="giveRatingButton" @click="openPopupReview">Give rating</button>
+                    <PopupReview v-if="showPopupReview" @closeS="closePopupReview"></PopupReview>
+                </div>
+            </div>       
+            
+    </section>
 
 </template>
 
@@ -455,54 +504,88 @@ export default {
     text-shadow: 0 0 1px #000000, 0 0 3px #000000;
 }
 
-/* CSS for classify box*/
-.reviewBox{
+/* CSS for reviews section*/
+
+#reviewsSection{
     display: block;
-    margin-top: 30px;
-    margin-left: 50px;
-    margin-right:50px ;
-    padding: 0%
 }
 
-.reviewBlock{
+.reviewContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.reviewHeading{
+    color: #ffffff;
+    font-size: 40px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    margin-top: 7%;
+}
+
+.boxContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.reviewBox{
+    width: 500px;
+    background-color: rgb(122, 111, 96);
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -moz-box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -webkit-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    padding: 20px;
+    margin: 15px;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+}
+
+.userName{
     display: flex;
     flex-direction: column;
-    background-color: rgba(50, 50, 50, 0.4);
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
 }
 
-.reviewRow{
-    display: grid;
-    grid-template-columns: minmax(0, .5fr) auto minmax(0, 1fr);
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, .4);
-    padding-bottom: 10px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+.userName strong{
+    color: black;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
 }
 
-.reviewRow:last-child {
-  border-bottom: none;
+.reviews{
+    color: #ffffff;
 }
 
-.reviewUserName{
-    text-align: left;
-    color: #000000;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.reviewStars{
+.boxTop{
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
 }
 
-.reviewContent{
-    margin: 1em;
+.reviewBox:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+.comments p{
+    font-size: 0.9rem;
+    color: white;
+
 }
 
 .giveRatingButton{
@@ -527,14 +610,10 @@ export default {
     color: white;
 }
 
-
-.reviewsCounter{
-    text-decoration: underline;
-}
-
 .viewMore{
     display: block;
      margin: 20px;
+     text-decoration: underline;
 }
 /*Responsive*/
 
@@ -594,35 +673,10 @@ export default {
         margin-left: 0%;
     }
 
-    .reviewRow{
-        display: flex;
-        text-overflow: ellipsis;
-    }
+    .reviewBox{
+        width: 70%;
+        padding: 10px;
 
-    .reviewStars{
-        font-size: 70%;
-    }
-
-    .reviewUserName{
-        font-size: 75%;
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .reviewContent{
-        font-size: 75%;
-        display: block;
-        max-width: 65%;
-    }
-
-    .reviewRow{
-        display: grid;
-        width: 118%;
-        margin-left: auto;
-        margin-right: auto;
-        text-overflow: ellipsis;
-        white-space:break-spaces;
     }
 
 }
@@ -661,6 +715,26 @@ export default {
         display: flex;
         justify-content: center;
     }
+
+    .reviewBox{
+        width:100%
+    }
+}
+
+@media(max-width: 340px){
+    .boxTop{
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .reviewBox{
+        margin-top:10px ;
+    }
+
+    .reviewHeading{
+        font-size: 20px;
+    }
+
 }
 
 </style>
