@@ -4,9 +4,11 @@
   <Header />
   <div class="ourTeam">
     <h2>About Us</h2>
-    <div class="websiteInfo">
+    <div class="infoContainer">
+      <div class="websiteInfo">
       <p>VibeVault is your ultimate destination for manga sales. Discover a wide range of captivating titles across various genres, immerse yourself in thrilling adventures, and indulge in heartfelt stories. 
         With a user-friendly website, convenient ordering options, and a vibrant community, VibeVault is where manga enthusiasts find their next unforgettable read. Start exploring the captivating world of manga today with VibeVault.</p>
+    </div>
     </div>
     <h2>Our Team</h2>
     <div class="teamMembers">
@@ -41,6 +43,10 @@ import Footer from "../components/Footer.vue";
 export default {
   name: "AboutUs",
   components: { Header, Footer },
+
+  created(){
+    window.scrollTo(0, 0);
+  },
 
   // Team Members Data
   data() {
@@ -99,22 +105,18 @@ export default {
 <style scoped>
 /*Our Team*/
 
-.ourTeam {
-  text-align: center;
-  font-size: 30px;
-  color: white;
+.infoContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  margin-bottom: 30px;
 }
 
-.ourTeam h2 {
-  text-shadow: 0 0 3px #000000, 0 0 3px #000000;
-}
-
-.websiteInfo{
+.websiteInfo {
   background-color: rgb(58, 56, 53);
   opacity: 0.9;
-  width: 70%;
+  width: 98%;
   font-size: 20px;
-  margin: 0 auto;
   padding: 10px;
   border: 2px solid white;
   border-radius: 10px;
@@ -122,11 +124,22 @@ export default {
   box-shadow: 20px 15px 5px rgba(109, 106, 106, 0.8);
 }
 
+.ourTeam {
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  padding-bottom: 40px;
+}
+
+.ourTeam h2 {
+  text-shadow: 0 0 3px #000000, 0 0 3px #000000;
+}
+
 .teamMembers {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 100px;
+  gap: 40px;
   padding-top: 20px;
   margin-bottom: 20px;
 }
@@ -206,7 +219,7 @@ export default {
 .socialLinks {
   display: flex;
   margin-top: -20px;
-  gap: 40px;
+  gap: 20px;
 }
 
 .socialLinks a {
@@ -237,6 +250,14 @@ export default {
 
 /*Responsive*/
 
+@media screen and (max-width: 980px) {
+  .websiteInfo {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .teamMembers {
     flex-direction: column;
@@ -250,10 +271,6 @@ export default {
     font-size: 24px;
   }
 
-  .websiteInfo {
-    width: 90%;
-    font-size: 16px;
-  }
 
   .member {
     width: 100%;
@@ -265,4 +282,5 @@ export default {
     height: 150px;
   }
 }
+
 </style>

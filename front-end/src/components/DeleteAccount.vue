@@ -16,40 +16,6 @@
 <script>
 
 export default{
-  data() {
-    return {
-      paymentMethods: [
-        { id: 1, name: 'Card 1', cardNumber: '**** **** **** 1234' },
-        { id: 2, name: 'Card 2', cardNumber: '**** **** **** 5678' },
-      ],
-      newPaymentMethod: {
-        name: '',
-        cardNumber: '',
-      },
-      showPopup: false,
-    };
-  },
-
-  methods: {
-    addPaymentMethod() {
-      this.showPopup = true;
-      this.newPaymentMethod = { name: '', cardNumber: '' };
-    },
-
-    savePaymentMethod() {
-      const newMethod = {
-        id: Date.now(),
-        name: this.newPaymentMethod.name,
-        cardNumber: this.newPaymentMethod.cardNumber,
-      };
-      this.paymentMethods.push(newMethod);
-      this.showPopup = false;
-    },
-
-    cancelAdd() {
-      this.showPopup = false;
-    },
-  },
 };
 
 </script>

@@ -217,6 +217,7 @@ select:focus {
   border-radius: 10px;
   border: 2px solid rgb(224, 224, 224);
   display: flex;
+  overflow: hidden;
 }
 
 .menuBars {
@@ -226,7 +227,8 @@ select:focus {
 /*Logo*/
 
 .logo {
-  display: block;
+  display: flex;
+  align-items: center;
   position: relative;
   width: 13%;
   margin-left: 25px;
@@ -235,7 +237,8 @@ select:focus {
 
 .logo img {
   cursor: pointer;
-  width: 119px;
+  max-width: 119px;
+  width: 100%; 
 }
 
 /*Menu*/
@@ -423,6 +426,7 @@ select:focus {
 
   .logo img {
     padding-top: 5px;
+    max-width: none;
     width: 100px;
   }
 
