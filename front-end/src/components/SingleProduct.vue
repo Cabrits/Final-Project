@@ -1,13 +1,25 @@
 <!--Page that shows information about a single product, without the description box, which is located on the ItemPage.vue-->
 
 <template>
-
+    
     <!--Overall Product-->
 
     <div v-if="book" class="productPage">
         <div class="productContainer">
             <div class="productImage">
                 <img :src="book.item_image" alt="Book Cover">
+            </div>
+            <div class="auxButtons">
+                <button class="favButton" :disabled="cooldown" @click="toggleFavourite(book)">
+                    <i class="far fa-heart" :class="{ 'red-heart': isFavourite(book) }"></i>
+                </button>
+                <!--Share button-->
+                <div>
+                    <button class="shareButton" @click="openPopupShare">
+                    <i class="fas fa-share-alt"></i>
+                    </button>
+                    <PopupShare v-if="showPopupShare" @closeS="closePopupShare"></PopupShare>
+                </div>
             </div>
             <div class="productDetails">
                 <h2 class="bookTitle">{{ book.item_name }}</h2>
@@ -23,28 +35,71 @@
     <div class="moreInfoWrapper" v-if="book">
         <div class="moreInfo">
             <p>
-                <span v-if="isReadMoreShown || !book.item_description">{{ book.item_description }}</span>
+                <span v-if="isReadMoreShown.description || !book.item_description">{{ book.item_description }}</span>
                 <span v-else>{{ book.item_description.substring(0, 250) }}...</span>
                 <br><br>
                 <h4>Author:<a href="https://twitter.com/hitonoaruyo" target="_blank" ><span class="authorAndChapterText">By 人の有る世/hitonoaruyo</span></a></h4>
                 <h4>Current Chapters Out:<span class="authorAndChapterText">{{ chapters }}</span></h4>
             </p>
-            <span class="readMoreButton" @click="toggleReadMore">
-                {{ isReadMoreShown ? 'Read Less...' : 'Read More...' }}
+            <span class="readMoreButton" @click="toggleReadMore('description')">
+                {{ isReadMoreShown.description ? 'Read Less...' : 'Read More...' }}
             </span>
         </div>
+    </div>
+
+    <!--Reviews box With the reviews of customers who bought the product -->
+    <div id="reviewsSection">
+
+        <!--Reviews container-->
+        <div class="reviewContainer">
+            <div class="reviewHeading">
+                <span>REVIEWS FROM OUR CUSTOMERS</span>
+            </div>
+            <div class="boxContainer">
+                <div v-for="(review, index) in reviewsShowed" :key="index" class="reviewBox">
+                <div class="boxTop">
+                    <div class="profile">
+                        <div class="userName">
+                            <strong>user</strong>
+                        </div>
+                    </div>
+                    <div class="reviews">
+                        <i v-for="star in parseInt(review.stars)" :key="star" class="fas fa-star"></i>
+                        <i v-for="emptyStar in emptyStars(review.stars)" :key="emptyStar" class="far fa-star"></i>
+                    </div>
+                </div>
+                    <div class="comments">
+                        <p>{{ review.comment }}</p>
+                    </div>
+                </div>
+            </div>
+            <span class="readMoreButton viewMore" @click="showAllReviews = !showAllReviews">
+                {{ showAllReviews ? 'View Less...' : 'View More...' }}
+            </span>
+             <div>
+                <button class="addReviewButton" @click="openPopupReview">Give rating</button>
+                <PopupReview v-if="showPopupReview" @addReview="addReview" @closeS="closePopupReview"></PopupReview>
+            </div>
+        </div>       
+            
     </div>
 
 </template>
 
 
 <script>
-import Footer from '../components/Footer.vue'
 
-export default {
+import axios from "axios";
+import { mapState, mapActions, mapGetters } from "vuex";
+import Footer from '../components/Footer.vue'
+import PopupShare from '../components/PopupShare.vue'
+import PopupReview from '../components/PopupReview.vue'
+
+export default{
   name: 'SingleProduct',
+  
   //  Map components and props
-  components: { Footer },
+  components: { Footer, PopupShare, PopupReview },
   props: {
     //  Book object that contains all the information about the book
     book: {
@@ -56,15 +111,103 @@ export default {
   data() {
     //  Data for the component (chapters and read more)
     return {
-      chapters: '3',
-      isReadMoreShown: false,
+        chapters: '3',
+        showPopupShare: false,
+        showPopupReview: false,
+        favoriteNotification: false,
+        cooldown: false,
+        showNewReviewBox: false,
+        showAllReviews: false,
+
+        isReadMoreShown: {
+            description: false,
+            review: false,
+        },
+
+        reviews: [
+        // Array contendo os reviews
+        // ...
+        ],
+    
     }
+  },
+
+  computed:{
+    ...mapState(["favourites"]),
+    
+    // Compute the reviews to be shown based on the value of showAllReviews
+    reviewsShowed() {
+        if (this.showAllReviews) {
+        // If showAllReviews is true, return all reviews
+        return this.reviews;
+        } else {
+        // If showAllReviews is false, return only the first two reviews
+        return this.reviews.slice(0, 2);
+        }
+    },
   },
   //  Watch for changes in the route and Fetch the data of the book
   methods: {
+    ...mapActions("favourites", ["fetchFavourites"]),
+
+     // cooldown to prevent spamming the button
+     startButtonCooldown() {
+      this.cooldown = true;
+      setTimeout(() => {
+        this.cooldown = false;
+      }, 500);
+    },
+
+     //  Check if the item is favourite
+     isFavourite(itemId) {
+      const result = this.favourites.favourites.some(
+        (favourite) => favourite.item_id === itemId
+      );
+      return result;
+    },
+
+    //  Toggle the favourite item
+    toggleFavourite(itemId) {
+      //  check if user is logged in and if not , send an alert
+      if (!this.userId) {
+        alert("You need to be logged in to add items to your favourites!");
+        return;
+      }
+
+      //  Start the button cooldown
+      this.startButtonCooldown();
+      //  Get the user id
+      const userId = this.userId;
+
+      // check if the item is favourite
+      const isItemFavourite = this.isFavourite(itemId);
+      // If the item is favourite,
+      const apiUrl = isItemFavourite
+        ? `${baseURL}/user/${userId}/removeFavourite/${itemId}`
+        : `${baseURL}/user/${userId}/addFavourite/${itemId}`;
+      //  Send a request to the RESTapi to add or remove the item from the favourites
+      axios({
+        method: isItemFavourite ? "DELETE" : "POST",
+        url: apiUrl,
+      })
+        .then((response) => {
+          // Handle success by fetching the favourites
+
+          this.$store.dispatch("favourites/fetchFavourites");
+          this.favoriteNotification = true;
+          setTimeout(() => {
+            this.favoriteNotification = false;
+          }, 2000);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error(error);
+        });
+    },
+
     //  Toggle the read more button
-    toggleReadMore() {
-      this.isReadMoreShown = !this.isReadMoreShown
+    toggleReadMore(sectionId) {
+      this.isReadMoreShown[sectionId] = !this.isReadMoreShown[sectionId];
     },
     //  Add the item to the cart and show a notification
     addToCart(item) {
@@ -74,8 +217,46 @@ export default {
         this.cartNotification = false
       }, 2000)
     },
+
+    //Open the PopupShare 
+    openPopupShare() {
+      this.showPopupShare = true;
+    },
+
+    //Close the PopupShare
+    closePopupShare() {
+      this.showPopupShare = false;
+    },
+
+    //Open the PopupReview
+    openPopupReview() {
+      this.showPopupReview = true;
+    },
+
+    //Close the PopupReview
+    closePopupReview() {
+      this.showPopupReview = false;
+    },
+
+    // Method for adding a new review to the review list
+    addReview(review) {
+        const newReview = {
+            stars: review.stars,
+            comment: review.comment,
+        };
+        this.reviews.push(newReview);
+        this.showNewReviewBox = true;
+    },
+
+    emptyStars(stars) {
+      // Returns an array with the number of empty stars
+      const maxStars = 5;
+      const emptyStarCount = maxStars - stars;
+      return Array(emptyStarCount).fill(0);
+    },
   },
 }
+
 </script>
 
 <style scoped>
@@ -87,7 +268,7 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    gap: 180px;
+    gap: 120px;
 }
 
 .productImage{
@@ -165,6 +346,77 @@ export default {
     color: white;
 }
 
+.buyButton:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
+}
+
+.auxButtons{
+    display: block;
+    margin-top: 15%;
+}
+
+.favButton{
+    border: none;
+    outline: none;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    color: #000000;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+}
+
+.favButton:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
+}
+
+.favButton i{
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.favButton::before{
+    width: 45px;
+    border-radius: 50%;
+}
+
+.favButton .fa-heart:before{
+    padding: 1.15rem;
+    font-size: 1.2rem;
+    color: rgb(78, 75, 75);
+    margin-left: -11.5px;
+}
+
+.red-heart::before{
+    color: rgb(255, 127, 127) !important;
+}
+
+.shareButton{
+    border: none;
+    outline: none;
+    margin-left: 0%;
+    margin-top: 100%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    color: #000000;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+}
+
+.shareButton:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
+}
+
+
 .productPage{
     display: flex;
     justify-content: center;
@@ -228,6 +480,117 @@ export default {
     text-shadow: 0 0 1px #000000, 0 0 3px #000000;
 }
 
+/* Reviews section*/
+
+#reviewsSection{
+    display: block;
+}
+
+.reviewContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.reviewHeading{
+    color: #ffffff;
+    font-size: 40px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    margin-top: 70px;
+}
+
+.boxContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 35px;
+}
+
+.reviewBox{
+    width: 500px;
+    background-color: rgb(122, 111, 96);
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -moz-box-shadow: 20px 20px 10px rgba(50, 50, 50, 0.7);
+    -webkit-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    -o-box-shadow: 20px 20px 10px  rgba(50, 50, 50, 0.7);
+    padding: 20px;
+    margin: 15px;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+}
+
+.userName{
+    display: flex;
+    flex-direction: column;
+}
+
+.userName strong{
+    color: black;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+}
+
+.reviews{
+    color: #ffffff;
+}
+
+.boxTop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+
+.reviewBox:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+.comments p{
+    font-size: 0.9rem;
+    color: white;
+
+}
+
+.addReviewButton{
+    display: block;
+    margin: 15px auto 10px auto;
+    position: relative;
+    border: none;
+    outline: none;
+    background-color: white;
+    color: #000000;
+    border-radius: 50px;
+    font-size: 15px;
+    cursor: pointer;
+    width: 130px;
+    height: 25px;
+    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+}
+
+.addReviewButton:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
+}
+
+.viewMore{
+    display: block;
+     margin: 20px;
+     text-decoration: underline;
+}
+
 /*Responsive*/
 
 @media (max-width: 925px){
@@ -245,7 +608,6 @@ export default {
         max-width: 40%;
     }
 
-
     .productDetails{
         padding-top: 0;
     }
@@ -258,6 +620,21 @@ export default {
         margin-top: 0;
     }
 
+    .auxButtons{
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: 5%;
+     }
+
+    .auxButtons .favButton{
+        margin-right: 45px; 
+    }
+
+    .favButton{
+        margin-left: 0;
+    }
+
     .moreInfoWrapper{
         width: 80%; 
     }
@@ -266,6 +643,22 @@ export default {
         display: flex;
         justify-content: center;
     }
+    .reviewBox{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .reviewBox{
+        width: 70%;
+        padding: 10px;
+
+    }
+
+    .reviewHeading{
+        font-size: 26px;
+        margin-top: 18%;
+    }
+
 }
 
 @media (max-width: 500px){
@@ -274,9 +667,13 @@ export default {
         max-width: 60%;
     }
 
+    .bookTitle{
+        margin-top: -15px;
+    }
+
     .bookAuthor{
         font-size: 20px;
-        padding-top: 25px;
+        padding-top: 10px;
     }
 
     .bookPrice{
@@ -294,6 +691,10 @@ export default {
         margin-top: 10px;
     }
 
+    .auxButtons{
+        margin-top: -55px;
+    }
+
     .moreInfoWrapper{
         width: 80%; 
     }
@@ -301,6 +702,15 @@ export default {
     .moreInfo h4{
         display: flex;
         justify-content: center;
+    }
+
+    .reviewBox{
+        width:100%
+    }
+
+    .reviewHeading{
+        font-size: 23px;
+        margin-top: 15%;
     }
 }
 

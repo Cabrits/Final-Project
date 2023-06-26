@@ -5,26 +5,21 @@
   <!--Overall Slider-->
 
   <div class="slideNews">
+
     <!--Images-->
 
     <div class="sliderWrapper">
       <div class="slider">
         <img id="slide1" src="@/assets/news1.jpg" />
         <img id="slide2" src="@/assets/news2.jpg" />
-        <img id="slide3" src="@/assets/news3.jpg" />
-        <img id="slide4" src="@/assets/news4.jpg" />
+        <img id="slide3" src="@/assets/news4.jpg" />
+        <img id="slide4" src="@/assets/news3.jpg" />
       </div>
 
       <!--Navigation circles-->
 
       <div class="sliderNav">
-        <a
-          v-for="(slide, index) in slides"
-          :key="index"
-          :href="`#slide${index + 1}`"
-          :class="{ active: currentIndex === index }"
-          @click.prevent="changeSlide(index)"
-        ></a>
+        <a v-for="(slide, index) in slides" :key="index" :href="`#slide${index + 1}`" :class="{ active: currentIndex === index }" @click.prevent="changeSlide(index)"></a>
       </div>
     </div>
   </div>
@@ -58,12 +53,12 @@ export default{
       });
     },
 
-    //  Start the auto rotation of the slides (every 20 seconds)
+    //  Start the auto rotation of the slides (every 10 seconds)
     startAutoRotation() {
       this.autoRotationInterval = setInterval(() => {
         this.currentIndex = (this.currentIndex + 1) % this.slides.length;
         this.changeSlide(this.currentIndex);
-      }, 20000); // Change slide every 20 seconds
+      }, 10000); // Change slide every 10 seconds
     },
 
     //  Stop the auto rotation of the slides
@@ -95,6 +90,7 @@ export default{
 </script>
 
 <style scoped>
+
 /* Images */
 
 .slideNews{
@@ -166,13 +162,11 @@ export default{
       padding: 2rem;
   }
 
-  .slider{
-     aspect-ratio: 16 / 6;
-  }
 
   .sliderNav a{
       width: 0.4rem;
       height: 0.4rem;
   }
 }
+
 </style>

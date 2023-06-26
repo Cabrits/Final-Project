@@ -1,9 +1,11 @@
 <!--Footer containing direct links with useful information-->
 
 <template>
+
   <!--Footer-->
 
   <footer>
+
     <div class="footer leftRightAuto px1750Size">
       <ul>
         <li class="lili"><a href="#">Twitter</a></li>
@@ -11,87 +13,89 @@
           <router-link :to="'/aboutus'"> About Us</router-link>
         </li>
         <li class="lili">
-          <a href="https://github.com/Cabrits/Final-Project" target="_blank"
-            >Github</a
-          >
+          <a href="https://github.com/Cabrits/Final-Project" target="_blank">Github</a>
         </li>
         <li><p>👋</p></li>
       </ul>
     </div>
+
   </footer>
 </template>
 
 <script>
-export default {
+
+export default{
   name: "Footer",
 };
+
 </script>
 
 <style scoped>
+
 /*Responsive*/
 
-.px1750Size {
-  margin: auto;
-  width: 1780px;
+.px1750Size{
+    margin: auto;
+    width: 1780px;
 }
 
-.leftRightAuto {
-  margin-left: auto;
-  margin-right: auto;
+.leftRightAuto{
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*Footer*/
 
-footer {
-  font-family: Arial, Helvetica, sans-serif;
-  padding-top: 28px;
+footer{
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 28px;
 }
 
-.footer {
-  display: flex;
-  background-color: rgb(58, 56, 53);
-  line-height: 1.5;
-  border-radius: 10px;
-  padding: 10px;
-  border: 2px solid white;
+.footer{
+    display: flex;
+    background-color: rgb(58, 56, 53);
+    line-height: 1.5;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid white;
 }
 
-.footer ul {
-  display: inline-grid;
-  grid-auto-flow: row;
-  grid-gap: 30px;
-  margin: auto;
-  margin-left: 650px;
-  list-style-type: none;
+.footer ul{
+    display: inline-grid;
+    grid-auto-flow: row;
+    grid-gap: 30px;
+    margin: auto;
+    margin-left: 650px;
+    list-style-type: none;
 }
 
-.lili {
-  margin-top: 15px;
-  font-weight: 600;
+.lili{
+    margin-top: 15px;
+    font-weight: 600;
 }
 
-.footer a {
-  color: white;
-  text-decoration: none;
-  box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.4);
+.footer a{
+    color: white;
+    text-decoration: none;
+    box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.4);
 }
 
-.footer a:hover {
-  box-shadow: inset 0 -1.2em 0 hsla(0, 0%, 100%, 0.4);
+.footer a:hover{
+    box-shadow: inset 0 -1.2em 0 hsla(0, 0%, 100%, 0.4);
 }
 
-.footer li:last-child {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
+.footer li:last-child{
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
 }
 
-.footer li:hover ~ li p {
-  animation: wave 0.3s infinite;
+.footer li:hover ~ li p{
+    animation: wave 0.3s infinite;
 }
 
 /*Animation*/
 
-@keyframes wave {
+@keyframes wave{
   0%,
   100% {
     transform: rotate(0deg);
@@ -106,29 +110,30 @@ footer {
 
 /*Responsive*/
 
-@media screen and (min-width: 500px) {
-  .footer ul {
-    grid-auto-flow: column;
+@media screen and (min-width: 500px){
+  .footer ul{
+      grid-auto-flow: column;
   }
 }
 
-@media screen and (max-width: 500px) {
-  .footer {
-    height: 45vh;
-    border-radius: 10px;
+@media screen and (max-width: 500px){
+  .footer{
+      height: 45vh;
+      border-radius: 10px;
   }
 
-  .footer a {
-    margin-right: 30px;
+  .footer a{
+      margin-right: 30px;
   }
 }
 
-@media screen and (max-width: 1800px) {
-  .px1750Size {
-    width: 95%;
+@media screen and (max-width: 1800px){
+  .px1750Size{
+      width: 95%;
   }
-  .footer ul {
-    margin: auto;
+  .footer ul{
+      margin: auto;
   }
 }
+
 </style>

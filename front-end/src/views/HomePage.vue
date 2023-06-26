@@ -1,11 +1,11 @@
+<!--Página principal do nosso website-->
+
 <template>
+
   <!--Loading screen, loads everytime we enter the website-->
 
   <div class="overall2">
-    <div
-      :class="{ loadingScreen: true, fadeOut: !isLoading || loadingComplete }"
-      v-if="isLoading && !loadingComplete"
-    >
+    <div :class="{ loadingScreen: true, fadeOut: !isLoading || loadingComplete }" v-if="isLoading && !loadingComplete">
       <p>Welcome to</p>
       <img src="@/assets/loading2.gif" alt="Loading" />
     </div>
@@ -21,9 +21,11 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+
 //  Import necessary modules and functions
 import Header from "../components/Header.vue";
 import Content from "../components/Content.vue";
@@ -32,7 +34,7 @@ import Footer from "../components/Footer.vue";
 import { getAuth } from "@firebase/auth";
 import axios from "axios";
 
-export default {
+export default{
   name: "HomePage",
   components: { Header, Footer, Content, ChatBot },
 
@@ -105,41 +107,43 @@ export default {
     );
   },
 };
+
 </script>
 
 <style scoped>
+
 /*Loading screen*/
 
-.loadingScreen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 130px;
-  height: 70vh;
-  opacity: 1;
-  animation: fadeOut 4s forwards;
+.loadingScreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 130px;
+    height: 70vh;
+    opacity: 1;
+    animation: fadeOut 4s forwards;
 }
 
-.loadingScreen img {
-  width: 30%;
+.loadingScreen img{
+    width: 30%;
 }
 
-.loadingScreen p {
-  top: 5px;
-  font-weight: 600;
-  font-size: 45px;
-  color: rgb(255, 255, 255);
-  text-shadow: 0 0 2px #000000, 0 0 2px #000000;
+.loadingScreen p{
+    top: 5px;
+    font-weight: 600;
+    font-size: 45px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
-.fadeOut {
-  display: none;
+.fadeOut{
+    display: none;
 }
 
 /*Animation for the Loading Screen*/
 
-@keyframes fadeOut {
+@keyframes fadeOut{
   0% {
     opacity: 1;
   }
@@ -153,15 +157,16 @@ export default {
 
 /*Responsive*/
 
-@media screen and (max-width: 800px) {
-  .loadingScreen img {
-    width: 60%;
+@media screen and (max-width: 800px){
+  .loadingScreen img{
+      width: 60%;
   }
 }
 
-@media screen and (max-width: 500px) {
-  .loadingScreen img {
-    width: 80%;
+@media screen and (max-width: 500px){
+  .loadingScreen img{
+      width: 80%;
   }
 }
+
 </style>
