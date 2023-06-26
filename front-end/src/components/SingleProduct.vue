@@ -505,7 +505,7 @@ export default {
     text-shadow: 0 0 1px #000000, 0 0 3px #000000;
 }
 
-/* CSS for reviews section*/
+/* Reviews section*/
 
 #reviewsSection{
     display: block;
@@ -525,7 +525,7 @@ export default {
     margin-bottom: 20px;
     text-transform: uppercase;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-    margin-top: 7%;
+    margin-top: 70px;
 }
 
 .boxContainer{
@@ -534,7 +534,7 @@ export default {
     align-items: center;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 5%;
+    margin-top: 35px;
 }
 
 .reviewBox{
@@ -603,7 +603,6 @@ export default {
     width: 130px;
     height: 25px;
     box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
-    
 }
 
 .addReviewButton:hover{
@@ -616,6 +615,7 @@ export default {
      margin: 20px;
      text-decoration: underline;
 }
+
 /*Responsive*/
 
 @media (max-width: 925px){
@@ -632,7 +632,6 @@ export default {
     .productImage{
         max-width: 40%;
     }
-
 
     .productDetails{
         padding-top: 0;
@@ -654,7 +653,7 @@ export default {
      }
 
     .auxButtons .favButton {
-        margin-right: 45px; /* Espaço à direita do botão de favorito */
+        margin-right: 45px; 
     }
 
     .favButton{
@@ -731,6 +730,5 @@ export default {
         margin-top: 15%;
     }
 }
-
 
 </style>

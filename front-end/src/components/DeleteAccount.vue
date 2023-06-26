@@ -7,17 +7,63 @@
   <div class="deleteContainer">
     <h2>Delete Account</h2>
     <div class="deleteButton">
-      <button>Delete Account</button>
+      <button @click="deleteUser">Delete Account</button>
     </div>
   </div>
 
 </template>
 
 <script>
-
-export default{
+import { mapState, mapActions } from "vuex";
+import baseURL from "../config.js";
+import axios from "axios";
+import { getAuth, signOut } from "firebase/auth";
+//  Export the component
+export default {
+  // computed properties for the component (user)
+  computed: {
+    ...mapState("user", ["user", "userId"]),
+    ...mapActions("user", ["clearUser"]),
+    ...mapActions("cart", ["clearCart"]),
+    ...mapActions("favourites", ["clearFavourites"]),
+    ...mapActions("orders", ["clearOrders"]),
+  },
+  //  Methods for the component (edit user, save user, close)
+  methods: {
+    // 
+    async deleteUser() {
+      const answer = confirm("Are you sure you want to delete your account?");
+      if (answer) {
+        console.log("DELETE USER !!");
+        const apiUrl = `${baseURL}/user/delete/${this.user.user_id}`;
+        try {
+          const response = await axios.delete(apiUrl);
+          if (response.status) {
+            alert("Succesfully deleted user, you will be redirected");
+            const auth = getAuth();
+            signOut(auth)
+              .then(() => {
+                this.clearUser();
+                this.clearCart();
+                this.clearFavourites();
+                this.clearOrders();
+              })
+              .catch((error) => {
+                console.error("Failed to logout:", error);
+                // Handle error in logout
+              });
+            this.$router.push("/");
+          }
+        } catch (error) {
+          console.error(error);
+          alert(
+            "We're sorry, something went wrong. please contact us or try again later"
+          );
+        }
+      }
+    },
+  },
 };
-
 </script>
 
 <style scoped>

@@ -46,6 +46,7 @@
 <script>
 //  Import necessary modules and functions
 import { mapState, mapActions } from "vuex";
+
 export default {
   name: "PopupCart",
   // data for the component (show popup)

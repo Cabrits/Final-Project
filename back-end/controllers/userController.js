@@ -153,28 +153,33 @@ exports.getUser = async (req, res) => {
   }
 };
 
-// Delete user
+// Update user
 exports.deleteUser = async (req, res) => {
   const userId = req.params.userId;
 
   try {
-    // Check if the user exists
-    const checkQuery = "SELECT * FROM users WHERE user_id = ?";
+    const checkQuery = 'SELECT * FROM users WHERE user_id = ?';
     const existingUser = await executeQuery(checkQuery, [userId]);
 
     if (existingUser.length === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    // Delete the user from the table
-    const deleteQuery = "DELETE FROM users WHERE user_id = ?";
-    await executeQuery(deleteQuery, [userId]);
 
-    // Send a success response indicating that the user was deleted
-    res.json({ message: "User deleted successfully" });
+    const deleteOrderItems = `DELETE FROM orderItems WHERE order_id IN(SELECT order_id FROM orders WHERE order_user_id = "${userId}");`;
+    const deleteOrders = `DELETE FROM orders WHERE order_user_id = "${userId}";`;
+    const favouriteItems = `DELETE FROM userFavouriteItems WHERE user_id = "${userId}";`;
+    const deleteUser = `DELETE FROM users WHERE user_id = "${userId}";`;
+
+    await executeQuery(`${deleteOrderItems}`);
+    await executeQuery(`${deleteOrders}`);
+    await executeQuery(`${favouriteItems}`);
+    await executeQuery(`${deleteUser}`);
+
+    res.json({ message: 'User deleted successfully' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "An error occurred" });
+    res.status(500).json({ error: 'An error occurred' });
   }
 };
 
