@@ -26,23 +26,10 @@
       <div class="menu" :class="{ active: showMenu }">
         <SearchBar />
         <div class="menuActions">
-          <button
-            class="actions"
-            v-if="userAuth"
-            :class="{ active: notification, hover: notificationHover }"
-            @click="toggleNotification(), closeCart()"
-          >
+          <button class="actions" v-if="userAuth" :class="{ active: notification, hover: notificationHover }" @click="toggleNotification(), closeCart()">
             <font-awesome-icon icon="fa-solid fa-bell" />
           </button>
-          <button
-            class="actions"
-            v-if="userAuth"
-            :class="{ active: showCart, hover: cartHover }"
-            @click="
-              toggleCart();
-              closeNotification();
-            "
-          >
+          <button class="actions" v-if="userAuth" :class="{ active: showCart, hover: cartHover }" @click=" toggleCart(); closeNotification();">
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </button>
           <router-link class="actions" :to="'/user'" v-if="userAuth">
@@ -54,22 +41,10 @@
             <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
           </button>
           <div class="btnGroup" v-else>
-            <button
-              class="buttonLS"
-              @click="
-                loadLogin();
-                closeSignUp();
-              "
-            >
+            <button class="buttonLS" @click=" loadLogin(); closeSignUp(); " >
               Login
             </button>
-            <button
-              class="buttonLS2"
-              @click="
-                loadSignUp();
-                closeLogin();
-              "
-            >
+            <button class="buttonLS2" @click=" loadSignUp(); closeLogin();">
               SignUp
             </button>
           </div>
@@ -80,13 +55,15 @@
 
   <!--Popup components-->
 
-  <PopupNotification v-if="notification" @closeN="closeNotification" />
-  <PopupCart v-if="showCart" @closeC="closeCart" />
-  <PopupLogin v-if="showLogin" @closeL="closeLogin" />
-  <PopupSignUp v-if="showSignup" @closeS="closeSignUp" />
+  <PopupNotification v-if="notification" @closeN="closeNotification"/>
+  <PopupCart v-if="showCart" @closeC="closeCart"/>
+  <PopupLogin v-if="showLogin" @closeL="closeLogin"/>
+  <PopupSignUp v-if="showSignup" @closeS="closeSignUp"/>
+
 </template>
 
 <script>
+
 //  Import necessary modules and functions
 import PopupLogin from "./PopupLogin.vue";
 import PopupSignUp from "./PopupSignUp.vue";
@@ -96,7 +73,7 @@ import SearchBar from "./SearchBar.vue";
 import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
 import { mapState, mapActions } from "vuex";
 
-export default {
+export default{
   name: "Header",
 
   components: {
@@ -195,330 +172,327 @@ export default {
 </script>
 
 <style scoped>
+
 /*Responsive*/
 
-.px1750Size {
-  margin: auto;
-  width: 1780px;
+.px1750Size{
+    margin: auto;
+    width: 1780px;
 }
 
 /*To remove the outline color when searching or clicking the search button*/
 
 input:focus,
 textarea:focus,
-select:focus {
-  outline: none;
+select:focus{
+    outline: none;
 }
 
 /*Header*/
 
-.headerStyle {
-  background-color: rgb(58, 56, 53);
-  border-radius: 10px;
-  border: 2px solid rgb(224, 224, 224);
-  display: flex;
-  overflow: hidden;
+.headerStyle{
+    background-color: rgb(58, 56, 53);
+    border-radius: 10px;
+    border: 2px solid rgb(224, 224, 224);
+    display: flex;
 }
 
-.menuBars {
-  display: none;
+.menuBars{
+    display: none;
 }
 
 /*Logo*/
 
-.logo {
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 13%;
-  margin-left: 25px;
-  padding-top: 3px;
+.logo{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 13%;
+    margin-left: 25px;
+    padding-top: 3px;
 }
 
-.logo img {
-  cursor: pointer;
-  max-width: 119px;
-  width: 100%; 
+.logo img{
+    cursor: pointer;
+    max-width: 119px;
+    width: 100%; 
 }
 
 /*Menu*/
 
-.menuWrapper {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+.menuWrapper{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
-.menu {
-  display: flex;
-  height: 80px;
-  align-items: center;
+.menu{
+    display: flex;
+    height: 80px;
+    align-items: center;
 }
 
-.menu.active {
-  display: flex;
+.menu.active{
+    display: flex;
 }
 
 /*Right Side of the Menu*/
 
-.menuActions {
-  margin-left: auto;
-  justify-content: space-between;
-  font-size: 16px;
+.menuActions{
+    margin-left: auto;
+    justify-content: space-between;
+    font-size: 16px;
 }
 
-.actions {
-  color: rgb(255, 255, 255);
-  background-color: rgb(58, 56, 53);
-  margin: auto;
-  padding: 20px 20px;
-  border: none;
-  font-size: 21px;
-  cursor: pointer;
+.actions{
+    color: rgb(255, 255, 255);
+    background-color: rgb(58, 56, 53);
+    margin: auto;
+    padding: 20px 20px;
+    border: none;
+    font-size: 21px;
+    cursor: pointer;
 }
 
-.userB {
-  color: rgb(255, 255, 255);
-  background-color: inherit;
-  border: none;
-  font-size: 21px;
-  cursor: pointer;
+.userB{
+    color: rgb(255, 255, 255);
+    background-color: inherit;
+    border: none;
+    font-size: 21px;
+    cursor: pointer;
 }
 
-.userB:hover {
-  color: rgb(58, 56, 53);
+.userB:hover{
+    color: rgb(58, 56, 53);
 }
 
-.actions2 {
-  color: rgb(255, 255, 255);
-  background-color: rgb(58, 56, 53);
-  padding: 20px 20px;
-  font-size: 1em;
-  border: none;
-  margin-left: 25px;
-  margin-right: 15px;
-  font-size: 21px;
+.actions2{
+    color: rgb(255, 255, 255);
+    background-color: rgb(58, 56, 53);
+    padding: 20px 20px;
+    font-size: 1em;
+    border: none;
+    margin-left: 25px;
+    margin-right: 15px;
+    font-size: 21px;
 }
 
-.actions2:hover {
-  background-color: rgb(248, 237, 227);
-  padding-left: 20px;
-  border-radius: 10px;
-  color: rgb(58, 56, 53);
+.actions2:hover{
+    background-color: rgb(248, 237, 227);
+    padding-left: 20px;
+    border-radius: 10px;
+    color: rgb(58, 56, 53);
 }
 
 .actions:hover,
-.actions.active {
-  background-color: rgb(248, 237, 227);
-  border-radius: 10px;
-  color: rgb(58, 56, 53);
+.actions.active{
+    background-color: rgb(248, 237, 227);
+    border-radius: 10px;
+    color: rgb(58, 56, 53);
 }
 
-.actions.hover:hover {
-  background-color: rgb(248, 237, 227);
-  color: 58, 56, 53;
+.actions.hover:hover{
+    background-color: rgb(248, 237, 227);
+    color: 58, 56, 53;
 }
 
 /*Login and Sign Up buttons*/
 
-.btnGroup {
-  position: block;
-  display: flex;
-  width: 200px;
-  cursor: pointer;
-  padding-right: 20px;
-  gap: 30px;
+.btnGroup{
+    position: block;
+    display: flex;
+    width: 200px;
+    cursor: pointer;
+    padding-right: 20px;
+    gap: 30px;
 }
 
-.buttonLS {
-  position: absolute;
-  appearance: none;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: 6px;
-  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
-    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
-  box-sizing: border-box;
-  color: #24292e;
-  cursor: pointer;
-  display: inline-block;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 14px;
-  font-weight: 510;
-  line-height: 20px;
-  list-style: none;
-  padding: 6px 16px;
-  position: relative;
-  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  white-space: nowrap;
-  word-wrap: break-word;
-  right: 10px;
-  margin-left: auto;
-  box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
-  -moz-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
-  -webkit-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
-  -o-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+.buttonLS{
+    position: absolute;
+    appearance: none;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 510;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    right: 10px;
+    margin-left: auto;
+    box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
 }
 
-.buttonLS2 {
-  position: relative;
-  appearance: none;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: 6px;
-  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
-    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
-  box-sizing: border-box;
-  color: #24292e;
-  cursor: pointer;
-  display: inline-block;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 14px;
-  font-weight: 510;
-  line-height: 20px;
-  list-style: none;
-  padding: 6px 16px;
-  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  white-space: nowrap;
-  word-wrap: break-word;
-  right: 15px;
-  box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
-  -moz-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
-  -webkit-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
-  -o-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+.buttonLS2{
+    position: relative;
+    appearance: none;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 510;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    right: 15px;
+    box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
+    -o-box-shadow: 5px 5px rgba(50, 50, 50, 0.5);
 }
 
-.buttonLS:hover {
-  background-color: rgb(248, 237, 227);
-  text-decoration: none;
-  transition-duration: 0.1s;
+.buttonLS:hover{
+    background-color: rgb(248, 237, 227);
+    text-decoration: none;
+    transition-duration: 0.1s;
 }
 
-.buttonLS2:hover {
-  background-color: rgb(248, 237, 227);
-  text-decoration: none;
-  transition-duration: 0.1s;
+.buttonLS2:hover{
+    background-color: rgb(248, 237, 227);
+    text-decoration: none;
+    transition-duration: 0.1s;
 }
 
 /*Responsive*/
 
-@media screen and (max-width: 1800px) {
-  .px1750Size {
-    width: 95%;
+@media screen and (max-width: 1800px){
+  .px1750Size{
+      width: 95%;
   }
 }
 
-@media screen and (max-width: 800px) {
-  .headerStyle {
-    height: 80px;
-    display: block;
+@media screen and (max-width: 800px){
+  .headerStyle{
+      height: 80px;
+      display: block;
   }
 
-  .logo img {
-    padding-top: 5px;
-    max-width: none;
-    width: 100px;
+  .logo img{
+      padding-top: 5px;
+      max-width: none;
+      width: 100px;
   }
 
-  .menuBars {
-    display: block;
-    cursor: pointer;
-    float: right;
-    margin-top: 20px;
-    margin-right: 15px;
+  .menuBars{
+      display: block;
+      cursor: pointer;
+      float: right;
+      margin-top: 20px;
+      margin-right: 15px;
   }
 
-  .menuBars .line {
-    width: 30px;
-    height: 3px;
-    background: rgb(255, 255, 255);
-    margin: 7px 0;
-    border-radius: 25px;
+  .menuBars .line{
+      width: 30px;
+      height: 3px;
+      background: rgb(255, 255, 255);
+      margin: 7px 0;
+      border-radius: 25px;
   }
 
-  .menuWrapper {
-    margin: auto;
-    max-width: 500px;
-    margin-right: 500px;
+  .menuWrapper{
+      margin: auto;
+      max-width: 500px;
+      margin-right: 500px;
   }
 
   /*New menu when it's responsive*/
 
-  .menu {
-    z-index: 4;
-    position: absolute;
-    top: 95px;
-    flex-direction: column;
-    height: 150px;
-    width: 92%;
-    transition: 0.2s;
-    border-radius: 10px;
-    border: 1.5px solid white;
-    transition: display 0.5s ease;
-    opacity: 0;
-    display: none;
-    background-color: rgb(58, 56, 53);
+  .menu{
+      z-index: 4;
+      position: absolute;
+      top: 95px;
+      flex-direction: column;
+      height: 150px;
+      width: 92%;
+      transition: 0.2s;
+      border-radius: 10px;
+      border: 1.5px solid white;
+      transition: display 0.5s ease;
+      opacity: 0;
+      display: none;
+      background-color: rgb(58, 56, 53);
   }
 
-  .menu.active {
-    opacity: 1;
+  .menu.active{
+      opacity: 1;
   }
 
-  .menuActions {
-    display: flex;
-    width: 100%;
-    margin-bottom: 7px;
+  .menuActions{
+      display: flex;
+      width: 100%;
+      margin-bottom: 7px;
   }
 
-  .actions2 {
-    margin-left: -5px;
+  .actions2{
+      margin-left: -5px;
   }
 
-  .btnGroup {
-    margin-right: auto;
-    margin-left: auto;
-    gap: 40px;
-    padding-right: 0 !important;
+  .btnGroup{
+      margin-right: auto;
+      margin-left: auto;
+      gap: 40px;
+      padding-right: 0 !important;
   }
 
-  .buttonLS {
-    bottom: 10px;
+  .buttonLS{
+      bottom: 10px;
   }
 
-  .buttonLS2 {
-    bottom: 10px;
+  .buttonLS2{
+      bottom: 10px;
   }
 
   .menuBars .line {
-    transition: transform 0.3s ease;
+      transition: transform 0.3s ease;
   }
 
-  .menuBars.active .line:nth-child(1) {
-    transform: rotate(-45deg) translate(-6px, 7px);
+  .menuBars.active .line:nth-child(1){
+      transform: rotate(-45deg) translate(-6px, 7px);
   }
 
-  .menuBars.active .line:nth-child(2) {
-    opacity: 0;
+  .menuBars.active .line:nth-child(2){
+      opacity: 0;
   }
 
-  .menuBars.active .line:nth-child(3) {
-    transform: rotate(45deg) translate(-6px, -7px);
+  .menuBars.active .line:nth-child(3){
+      transform: rotate(45deg) translate(-6px, -7px);
   }
 }
 
-@media screen and (max-width: 500px) {
-  .menu {
-    width: 91%;
+@media screen and (max-width: 500px){
+  .menu{
+      width: 91%;
   }
 }
+
 </style>

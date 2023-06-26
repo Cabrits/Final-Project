@@ -3,10 +3,16 @@
 <template>
 
   <div class="categories leftRightAuto">
+
+    <!--All categories-->
+
     <div class="subCat" @click="resetCategory()">  
         <span class="inner"></span>
         <i>All</i>
     </div>
+
+    <!--Categories-->
+
     <div class="subCat" v-for="category in categories" :key="category.id" :class="{ active: category === selectedCategory }" @click="selectCategory(category)">  
         <span class="inner"></span>
         <i :class="category.icon" aria-hidden="true"></i>

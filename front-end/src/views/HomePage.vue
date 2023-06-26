@@ -111,38 +111,39 @@ export default{
 </script>
 
 <style scoped>
+
 /*Loading screen*/
 
-.loadingScreen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 130px;
-  height: 70vh;
-  opacity: 1;
-  animation: fadeOut 4s forwards;
+.loadingScreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 130px;
+    height: 70vh;
+    opacity: 1;
+    animation: fadeOut 4s forwards;
 }
 
-.loadingScreen img {
-  width: 30%;
+.loadingScreen img{
+    width: 30%;
 }
 
-.loadingScreen p {
-  top: 5px;
-  font-weight: 600;
-  font-size: 45px;
-  color: rgb(255, 255, 255);
-  text-shadow: 0 0 2px #000000, 0 0 2px #000000;
+.loadingScreen p{
+    top: 5px;
+    font-weight: 600;
+    font-size: 45px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
 }
 
-.fadeOut {
-  display: none;
+.fadeOut{
+    display: none;
 }
 
 /*Animation for the Loading Screen*/
 
-@keyframes fadeOut {
+@keyframes fadeOut{
   0% {
     opacity: 1;
   }
@@ -156,15 +157,16 @@ export default{
 
 /*Responsive*/
 
-@media screen and (max-width: 800px) {
-  .loadingScreen img {
-    width: 60%;
+@media screen and (max-width: 800px){
+  .loadingScreen img{
+      width: 60%;
   }
 }
 
-@media screen and (max-width: 500px) {
-  .loadingScreen img {
-    width: 80%;
+@media screen and (max-width: 500px){
+  .loadingScreen img{
+      width: 80%;
   }
 }
+
 </style>

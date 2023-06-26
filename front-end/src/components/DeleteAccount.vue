@@ -14,12 +14,13 @@
 </template>
 
 <script>
+
 import { mapState, mapActions } from "vuex";
 import baseURL from "../config.js";
 import axios from "axios";
 import { getAuth, signOut } from "firebase/auth";
 //  Export the component
-export default {
+export default{
   // computed properties for the component (user)
   computed: {
     ...mapState("user", ["user", "userId"]),
@@ -64,14 +65,14 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
 
-
-
 /*Payment Box*/
-.deleteContainer {
+
+.deleteContainer{
     background-color: rgb(97, 82, 68);
     border-radius: 10px;
     border: 2px solid white;
@@ -80,7 +81,7 @@ export default {
     color: white;
 }
 
-.deleteContainer h2 {
+.deleteContainer h2{
     text-align: center;
 }
 
@@ -90,7 +91,7 @@ export default {
     justify-content: center;
 }
 
-.deleteButton button {
+.deleteButton button{
     margin-top: 60px;
     margin-bottom: 60px;
     align-self: center;
@@ -107,14 +108,14 @@ export default {
     box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
 }
 
-.deleteButton button:hover {
+.deleteButton button:hover{
     background-color: rgb(163, 31, 31);
     color: white;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px){
   
-  .deleteButton button {
+  .deleteButton button{
       width: 200px;
   }
 

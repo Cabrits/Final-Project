@@ -1,4 +1,7 @@
+<!--Popup where it's possible to review the selected item-->
+
 <template>
+
     <div class="signUpWrapper">
         <div class="reviewPopup">
             <div class="closeSignUp" @click="closeS">&times;</div>
@@ -31,6 +34,7 @@
             </div>   
         </div>
     </div>
+
 </template>
 
 <script>
@@ -88,159 +92,158 @@
 
 <style scoped>
 
-     /* Styles for the main container */
-    .signUpWrapper {
-        position: fixed;
-        padding-top: 35px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        z-index: 5;
-    }
-
-    /* Styles for the review popup */
-    .reviewPopup {
-        display: block;
-        position: relative;
-        width: 450px;
-        line-height: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 15%;
-        padding: 20px 30px;
-        background-color: rgb(204, 197, 185);
-        border-radius: 10px;
-        border: 2px solid rgb(255, 255, 255);
-        transition: top 0ms ease-in-out 200ms, opacity 100ms ease-in-out 200ms,
-            transform 20ms ease-in-out 0ms;
-        transform: scale(1.05);
-        z-index: 5;
-    }
-
-    /* Styles for the close button */
-    .closeSignUp {
-        position: absolute;
-        top: 18px;
-        right: 18px;
-        width: 23px;
-        height: 23px;
-        background: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
-        text-align: center;
-        line-height: 23px;
-        border-radius: 15px;
-        cursor: pointer;
-    }
-
-    /* Styles for the inner container */
-    .container{
-        position: relative;
-        padding: 20px 30px;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-    }
+.signUpWrapper{
+    position: fixed;
+    padding-top: 35px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 5;
+}
 
 
-    .container .stars input{
-        display: none; 
-    }
+.reviewPopup{
+    display: block;
+    position: relative;
+    width: 450px;
+    line-height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    padding: 20px 30px;
+    background-color: rgb(204, 197, 185);
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    transition: top 0ms ease-in-out 200ms, opacity 100ms ease-in-out 200ms,
+        transform 20ms ease-in-out 0ms;
+    transform: scale(1.05);
+    z-index: 5;
+}
 
-    /* Styles for the stars */
-    .stars{
-        display: flex;
-        flex-direction: row-reverse;
+
+.closeSignUp{
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 23px;
+    height: 23px;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    line-height: 23px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+.container{
+    position: relative;
+    padding: 20px 30px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.container .stars input{
+    display: none; 
+}
+
+
+.stars{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.stars label{
+    font-size: 40px;
+    color: #444;
+    padding: 10px;
+    transition: all 0.2s ease;
+    margin-left: 3%;
+    
+}
+
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label{
+    color: whitesmoke;    
+}
+
+
+input:checked ~ label{
+    color: whitesmoke;        
+}
+
+
+input#rate5:checked ~ label{
+    color: white;
+    text-shadow: 0 0 20px blanchedalmond;
+    
+}
+
+
+form header{
+    width: 100%;
+    font-size: 25px;
+    font-weight: 400;
+    margin: 5px 0 20px 0;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+textarea{
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.textArea textarea{
+    height: 93px;
+    width: 92%;
+    outline: none;
+    padding: 15px;
+    font-size: 17px;
+    resize: none;
+}
+
+form .btnForm{
+    height: 30px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+form .btnForm button{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
+    border: none;
+    border-radius: 15px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form .btnForm button:hover{
+    background-color: rgb(56, 49, 40);
+    color: white;
+}
+
+/*Responsive*/
+
+@media (max-width: 725px){
+    .reviewPopup{
+        width: 300px;
     }
 
     .stars label{
-        font-size: 40px;
-        color: #444;
-        padding: 10px;
-        transition: all 0.2s ease;
-        margin-left: 3%;
-        
+        font-size: 23px;
     }
+}
 
-    /* Styles for star labels when hovered */
-    input:not(:checked) ~ label:hover,
-    input:not(:checked) ~ label:hover ~ label{
-        color: whitesmoke;    
-    }
-
-    /* Styles for selected star labels */
-    input:checked ~ label{
-        color: whitesmoke;        
-    }
-
-    /* Styles for the rating 5 star label when selected */
-    input#rate5:checked ~ label{
-        color: white;
-        text-shadow: 0 0 20px blanchedalmond;
-        
-    }
-
-    /* Styles for the header */
-    form header{
-        width: 100%;
-        font-size: 25px;
-        font-weight: 400;
-        margin: 5px 0 20px 0;
-        text-align: center;
-        transition: all 0.2s ease;
-    }
-
-    /* Styles for the textarea */
-    textarea{
-        height: 100px;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    /* Specific styles for the textarea */
-    .textArea textarea{
-        height: 93px;
-        width: 92%;
-        outline: none;
-        padding: 15px;
-        font-size: 17px;
-        resize: none;
-    }
-
-    /* Styles for the submit button container */
-    form .btnForm{
-        height: 30px;
-        width: 100%;
-        margin: 15px 0;
-    }
-
-    /* Styles for the submit button */
-    form .btnForm button{
-        height: 100%;
-        width: 100%;
-        background-color: white;
-        box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
-        border: none;
-        border-radius: 15px;
-        font-size: 15px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    /* Styles for the submit button when hovered */
-    form .btnForm button:hover{
-        background-color: rgb(56, 49, 40);
-        color: white;
-    }
-
-    /* Styles for devices with a maximum width of 725 pixels */
-    @media (max-width: 725px){
-        .reviewPopup{width: 300px;}
-
-        .stars label{
-            font-size: 23px;
-        }
-    }
 </style>
     

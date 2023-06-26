@@ -1,6 +1,7 @@
 <!--User Page that containes 4 boxes with information about the user-->
 
 <template>
+
   <Header/>
 
   <div class="userAccount">
@@ -13,9 +14,11 @@
   </div>
 
   <Footer/>
+
 </template>
 
 <script>
+
 // Import necessary modules and functions
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
@@ -25,7 +28,7 @@ import FavoriteItems from "../components/FavoriteItems.vue";
 import DeleteAccount from "../components/DeleteAccount.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-export default {
+export default{
   //  Map components
   name: "UserPage",
   components: {
@@ -60,60 +63,61 @@ export default {
     });
   },
 };
+
 </script>
 
 <style scoped>
-.userAccount {
-  max-width: 1300px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-  padding-top: 15px;
-  line-height: 32px;
-  padding-bottom: 15px;
+
+.userAccount{
+    max-width: 1300px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    padding-top: 15px;
+    line-height: 32px;
+    padding-bottom: 15px;
 }
 
-.main-content {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 60px;
+.main-content{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
 }
 
 /*Responsive*/
 
-@media screen and (max-width: 1500px) {
-  .main-content {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
+@media screen and (max-width: 1500px){
+  .main-content{
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
   }
 
-  .userAccount {
-    width: 95%;
-  }
-}
-
-@media screen and (max-width: 1100px) {
-  .main-content {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .userAccount {
-    padding-top: 30px;
-    line-height: 28px;
+  .userAccount{
+      width: 95%;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .userAccount {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@media screen and (max-width: 1100px){
+  .main-content{
+      grid-template-columns: 1fr;
+      gap: 30px;
+  }
+
+  .userAccount{
+      padding-top: 30px;
+      line-height: 28px;
+  }
+}
+
+@media screen and (max-width: 480px){
+  .userAccount{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
   }
 
   .main-content{
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
-
 }
 
 </style>

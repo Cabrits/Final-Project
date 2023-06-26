@@ -10,19 +10,16 @@
                 <img :src="book.item_image" alt="Book Cover">
             </div>
             <div class="auxButtons">
-
                 <button class="favButton" :disabled="cooldown" @click="toggleFavourite(book)">
                     <i class="far fa-heart" :class="{ 'red-heart': isFavourite(book) }"></i>
                 </button>
                 <!--Share button-->
                 <div>
-                    <button 
-                    class="shareButton" @click="openPopupShare">
+                    <button class="shareButton" @click="openPopupShare">
                     <i class="fas fa-share-alt"></i>
                     </button>
                     <PopupShare v-if="showPopupShare" @closeS="closePopupShare"></PopupShare>
                 </div>
-            
             </div>
             <div class="productDetails">
                 <h2 class="bookTitle">{{ book.item_name }}</h2>
@@ -91,13 +88,14 @@
 
 
 <script>
+
 import axios from "axios";
 import { mapState, mapActions, mapGetters } from "vuex";
 import Footer from '../components/Footer.vue'
 import PopupShare from '../components/PopupShare.vue'
 import PopupReview from '../components/PopupReview.vue'
 
-export default {
+export default{
   name: 'SingleProduct',
   
   //  Map components and props
@@ -258,6 +256,7 @@ export default {
     },
   },
 }
+
 </script>
 
 <style scoped>
@@ -381,20 +380,20 @@ export default {
     margin-top: 2px;
 }
 
-.favButton::before {
-  width: 45px;
-  border-radius: 50%;
+.favButton::before{
+    width: 45px;
+    border-radius: 50%;
 }
 
-.favButton .fa-heart:before {
-  padding: 1.15rem;
-  font-size: 1.2rem;
-  color: rgb(78, 75, 75);
-  margin-left: -11.5px;
+.favButton .fa-heart:before{
+    padding: 1.15rem;
+    font-size: 1.2rem;
+    color: rgb(78, 75, 75);
+    margin-left: -11.5px;
 }
 
-.red-heart::before {
-  color: rgb(255, 127, 127) !important;
+.red-heart::before{
+    color: rgb(255, 127, 127) !important;
 }
 
 .shareButton{
@@ -628,7 +627,7 @@ export default {
         margin-top: 5%;
      }
 
-    .auxButtons .favButton {
+    .auxButtons .favButton{
         margin-right: 45px; 
     }
 
@@ -668,9 +667,13 @@ export default {
         max-width: 60%;
     }
 
+    .bookTitle{
+        margin-top: -15px;
+    }
+
     .bookAuthor{
         font-size: 20px;
-        padding-top: 25px;
+        padding-top: 10px;
     }
 
     .bookPrice{
@@ -686,6 +689,10 @@ export default {
         width: 250px;
         box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
         margin-top: 10px;
+    }
+
+    .auxButtons{
+        margin-top: -55px;
     }
 
     .moreInfoWrapper{

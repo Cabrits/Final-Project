@@ -1,6 +1,7 @@
 <!--Box containing all order made by the user, where it's able to see all items bought in each order-->
 
 <template>
+
   <!--Container-->
 
   <div class="orderHistoryContainer">
@@ -36,13 +37,15 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+
 //  Import necessary modules and functions
 import { mapGetters } from "vuex";
 
-export default {
+export default{
   name: "OrderHistory",
   // data for the component (show only 3 orders at a time)
   data() {
@@ -97,152 +100,159 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
+
 /*Order History Box*/
 
-.orderHistoryContainer {
-  background-color: rgb(157, 137, 119);
-  border-radius: 10px;
-  border: 2px solid white;
-  padding: 10px 50px;
-  box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.6);
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: left;
-  height: 280px;
+.orderHistoryContainer{
+    background-color: rgb(157, 137, 119);
+    border-radius: 10px;
+    border: 2px solid white;
+    padding: 10px 50px;
+    box-shadow: 25px 25px 10px rgba(50, 50, 50, 0.6);
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    height: 280px;
 }
 
-.orderHistoryContainer h2 {
-  font-size: 24px;
-  text-shadow: 0 0 2px #000000, 0 0 2px #000000;
-  text-align: center;
+.orderHistoryContainer h2{
+    font-size: 24px;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000;
+    text-align: center;
 }
 
 .listContainer{
-  overflow-y: auto;
-  height: 210px;
-  scrollbar-width: thin;
-  margin-top: -10px;
+    overflow-y: auto;
+    height: 210px;
+    scrollbar-width: thin;
+    margin-top: -10px;
 }
 
-.orderHistoryContainer ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+.orderHistoryContainer ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-.orderHistoryContainer strong {
-  text-shadow: 0 0 1px #000000, 0 0 2px #000000;
+.orderHistoryContainer strong{
+    text-shadow: 0 0 1px #000000, 0 0 2px #000000;
 }
 
 .orderHistoryContainer li {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-.orderHistoryContainer li button {
-  background-color: #ffffff;
-  border: none;
-  color: rgb(0, 0, 0);
-  padding: 5px 10px;
-  font-size: 14px;
-  border-radius: 5px;
-  float: right;
-  cursor: pointer;
-  box-shadow: 5px 5px rgba(83, 82, 82, 0.8);
+.orderHistoryContainer li button{
+    background-color: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    float: right;
+    cursor: pointer;
+    box-shadow: 5px 5px rgba(83, 82, 82, 0.8);
 }
 
-.orderHistoryContainer li button:hover {
-  background-color: rgb(97, 82, 68);
-  color: white;
+.orderHistoryContainer li button:hover{
+    background-color: rgb(97, 82, 68);
+    color: white;
 }
 
 /*Popup*/
 
-.orderPopupWrapper {
-  width: 99%;
-  padding-top: 35px;
-  position: absolute;
+.orderPopupWrapper{
+    width: 99%;
+    padding-top: 35px;
+    position: absolute;
 }
 
-.orderPopup {
-  z-index: 5;
-  display: block;
-  position: relative;
-  width: 350px;
-  line-height: 25px;
-  height: 450px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px 30px;
-  background-color: rgb(157, 137, 119);
-  border-radius: 10px;
-  border: 2px solid rgb(255, 255, 255);
-  transition: top 0ms ease-in-out 200ms, opacity 100ms ease-in-out 200ms,
-    transform 20ms ease-in-out 0ms;
-  transform: scale(1.05);
+.orderPopup{
+    z-index: 5;
+    display: block;
+    position: relative;
+    width: 350px;
+    line-height: 25px;
+    height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 30px;
+    background-color: rgb(157, 137, 119);
+    border-radius: 10px;
+    border: 2px solid rgb(255, 255, 255);
+    transition: top 0ms ease-in-out 200ms, opacity 100ms ease-in-out 200ms,
+                transform 20ms ease-in-out 0ms;
+    transform: scale(1.05);
 }
 
-.closePopup {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 23px;
-  height: 23px;
-  background: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  text-align: center;
-  line-height: 23px;
-  border-radius: 15px;
-  cursor: pointer;
+.closePopup{
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 23px;
+    height: 23px;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    line-height: 23px;
+    border-radius: 15px;
+    cursor: pointer;
 }
 
-.showMoreLess {
-  position: relative;
-  width: 50%;
-  height: 40px;
-  border: none;
-  outline: none;
-  font-size: 17px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  background-color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-left: 50px;
-  box-shadow: 7px 7px rgba(83, 82, 82, 0.8);
+.showMoreLess{
+    position: relative;
+    width: 50%;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 50px;
+    box-shadow: 7px 7px rgba(83, 82, 82, 0.8);
 }
 
-.showMoreLess:hover {
-  background-color: rgb(97, 82, 68);
-  color: white;
+.showMoreLess:hover{
+    background-color: rgb(97, 82, 68);
+    color: white;
 }
 
-.blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 5;
+.blur{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
 }
 
 /*Responsive*/
 
-@media (max-width: 600px) {
-  .orderHistoryContainer {
-    padding: 10px;
+@media (max-width: 600px){
+  .orderHistoryContainer{
+      padding: 10px;
   }
 
-  .orderPopup {
-    width: 250px;
-    height: 350px;
-    padding: 15px;
+  .orderPopup{
+      width: 250px;
+      height: 350px;
+      padding: 15px;
   }
+
+  .orderPopupWrapper{
+    top: 20%;
 }
+}
+
 </style>

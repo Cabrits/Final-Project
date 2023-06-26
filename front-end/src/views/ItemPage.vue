@@ -1,12 +1,15 @@
 <!--Page that contains a single item, where the description and overall information of the item is available-->
 
 <template>
+
   <Header />
   <SingleProduct :book="book" />
   <Footer />
+
 </template>
 
 <script>
+
 // Import necessary modules and functions
 import Header from "../components/Header.vue";
 import SingleProduct from "../components/SingleProduct.vue";
@@ -14,7 +17,7 @@ import Footer from "../components/Footer.vue";
 import axios from "axios";
 import apiURL from "../config.js";
 
-export default {
+export default{
   //  Map components
   name: "ItemPage",
   components: { Header, Footer, SingleProduct },
@@ -50,4 +53,5 @@ export default {
     },
   },
 };
+
 </script>
