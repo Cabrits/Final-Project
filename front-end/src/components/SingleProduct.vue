@@ -13,9 +13,9 @@
 
                 <button class="favButton"
                 :disabled="cooldown"
-                @click="toggleFavourite(book)"
+                @click="toggleFavourite(book.item_id)"
                 >
-                    <i class="far fa-heart" :class="{ 'red-heart': isFavourite(book) }"></i>
+                    <i class="fa fa-heart" :class="{ 'red-heart': isFavourite(book.item_id) }"></i>
                 </button>
                 <!--Share button-->
                 <div>
@@ -34,6 +34,11 @@
                 <button class="buyButton"  @click="addToCart(book)">Add to Cart</button>
             </div>
         </div>
+    </div>
+
+    <!--Notifications when adding items to the favorites-->
+    <div v-if="favoriteNotification" class="notification">
+      Item added to favorites
     </div>
 
     <!--Description box with details about the item-->
@@ -79,7 +84,7 @@
 
                         <!--User name-->
                         <div class="userName">
-                            <strong>user</strong>
+                            <strong>{{user.user_name}}</strong>
                         </div>
                     </div>
                     <!--Reviews-->
@@ -120,6 +125,7 @@ import { mapState, mapActions, mapGetters } from "vuex";
 import Footer from '../components/Footer.vue'
 import PopupShare from '../components/PopupShare.vue'
 import PopupReview from '../components/PopupReview.vue'
+import baseURL from "../config.js";
 
 export default {
   name: 'SingleProduct',
@@ -151,7 +157,7 @@ export default {
         },
 
         reviews: [
-        // Array contendo os reviews
+        // Array containing the reviews
         // ...
         ],
     
@@ -159,7 +165,10 @@ export default {
   },
 
   computed:{
+    ...mapState(["items"]),
     ...mapState(["favourites"]),
+    ...mapState("user", ["user"]),
+    ...mapGetters("user", ["userId"]),
     
     // Compute the reviews to be shown based on the value of showAllReviews
     reviewsShowed() {
@@ -401,7 +410,7 @@ export default {
 }
 
 .favButton i{
-    margin-left: 5px;
+    margin-left: 3px;
     margin-top: 2px;
 }
 
@@ -616,6 +625,21 @@ export default {
      margin: 20px;
      text-decoration: underline;
 }
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: 0.5s;
+  z-index: 999;
+}
+
 /*Responsive*/
 
 @media (max-width: 925px){
