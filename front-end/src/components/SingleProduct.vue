@@ -72,7 +72,7 @@
 
             <div class="boxContainer">
 
-                 <!-- Exibir revisões existentes -->
+                 <!-- View existing reviews -->
                 <div v-for="(review, index) in reviewsShowed" :key="index" class="reviewBox">
                 <!--Top-->
 
@@ -100,11 +100,21 @@
                     </div>
 
                 </div>
+                <!-- Add a label if no reviews exist -->
+                <div v-if="reviews.length === 0" class="noReviewsLabel">
+                    No reviews available
+                </div>
         
             </div>
-            <!--View more-->
-            <span class="readMoreButton viewMore" @click="showAllReviews = !showAllReviews">
-                {{ showAllReviews ? 'View Less...' : 'View More...' }}
+
+            <!--View more, show only if there are more reviews to show-->
+            <span v-if="!showAllReviews && reviews.length > reviewsShowed.length" class="readMoreButton viewMore" @click="showAllReviews = true">
+                View More...
+            </span>
+
+            <!--View less, show only if all reviews are shown-->
+            <span v-if="showAllReviews" class="readMoreButton viewMore" @click="showAllReviews = false">
+                View Less...
             </span>
             
              <!--Review button-->
@@ -276,8 +286,8 @@ export default {
     // Method for adding a new review to the review list
     addReview(review) {
         const newReview = {
-            stars: review.stars,
-            comment: review.comment,
+        stars: review.stars,
+        comment: review.comment,
         };
         this.reviews.push(newReview);
         this.showNewReviewBox = true;
@@ -286,7 +296,7 @@ export default {
     emptyStars(stars) {
       // Returns an array with the number of empty stars
       const maxStars = 5;
-      const emptyStarCount = maxStars - stars;
+      const emptyStarCount = Math.max(maxStars - stars, 0);
       return Array(emptyStarCount).fill(0);
     },
   },
@@ -439,7 +449,7 @@ export default {
     width: 50px;
     height: 50px;
     background-color: white;
-    color: #000000;
+    color: rgb(78, 75, 75);
     font-size: 22px;
     cursor: pointer;
     box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
@@ -535,6 +545,14 @@ export default {
     text-transform: uppercase;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     margin-top: 7%;
+}
+
+.noReviewsLabel{
+    color: black;
+    font-size: 23px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6);
+    margin-bottom: 15px;
 }
 
 .boxContainer{

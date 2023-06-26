@@ -25,7 +25,7 @@
                     </div>
                      <!-- Form submit button -->
                     <div class="btnForm">
-                        <button type="submit" @click="addReview">Submit Review</button>
+                        <button type="submit">Submit Review</button>
                     </div>
                 </form>
             </div>   
@@ -46,10 +46,17 @@
         },
         methods: {
             addReview() {
-                 // Emit an 'addReview' event and pass the newReview object as the payload
-                this.$emit('addReview', this.newReview);
-                // Call the 'closeS' method to close the popup
-                this.closeS();
+                if (this.newReview.stars >= 1) {
+                    if (!this.isAlertShown) { // Checks if the alert has already been displayed
+                    // Emit an 'addReview' event and pass the newReview object as the payload
+                    this.$emit('addReview', this.newReview);
+                    // Call the 'closeS' method to close the popup
+                    this.closeS();
+                    }
+                } else {
+                    // Display an error message or perform appropriate action
+                    alert("Please select at least 1 star.");
+                }
             },
             closeS() {
                 // Emit a 'closeS' event to notify the parent component to close the popup
