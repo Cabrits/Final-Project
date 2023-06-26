@@ -68,7 +68,7 @@
             <div class="boxContainer">
 
                  <!-- Exibir revisões existentes -->
-                <div v-for="(review, index) in reviews" :key="index" class="reviewBox">
+                <div v-for="(review, index) in reviewsShowed" :key="index" class="reviewBox">
                 <!--Top-->
 
                 <div class="boxTop">
@@ -98,8 +98,8 @@
         
             </div>
             <!--View more-->
-            <span class="readMoreButton viewMore" @click="toggleReadMore('review')">
-                {{ isReadMoreShown.review ? 'View Less...' : 'View More...' }}
+            <span class="readMoreButton viewMore" @click="showAllReviews = !showAllReviews">
+                {{ showAllReviews ? 'View Less...' : 'View More...' }}
             </span>
             
              <!--Review button-->
@@ -143,6 +143,7 @@ export default {
         favoriteNotification: false,
         cooldown: false,
         showNewReviewBox: false,
+        showAllReviews: false,
 
         isReadMoreShown: {
             description: false,
@@ -159,6 +160,17 @@ export default {
 
   computed:{
     ...mapState(["favourites"]),
+    
+    // Compute the reviews to be shown based on the value of showAllReviews
+    reviewsShowed() {
+        if (this.showAllReviews) {
+        // If showAllReviews is true, return all reviews
+        return this.reviews;
+        } else {
+        // If showAllReviews is false, return only the first two reviews
+        return this.reviews.slice(0, 2);
+        }
+    },
   },
   //  Watch for changes in the route and Fetch the data of the book
   methods: {
