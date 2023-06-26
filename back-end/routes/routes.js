@@ -25,12 +25,6 @@ router.get("/api/item/:itemId", itemController.getItem);
 //chatgpt
 router.post("/api/chat", chatController.postChat);
 
-/*
-router.post('/api/item/create', ItemController.createItem);
-router.put('/api/item/:itemId/update', ItemController.updateItem);
-router.delete('/api/item/:itemId/delete', ItemController.deleteItem);
-*/
-
 // Routes for orders
 
 router.get("/api/orders/:userId", orderController.getOrders);
@@ -39,3 +33,4 @@ router.get("/api/order/items/:orderId", orderController.getOrderItems);
 router.post("/api/order/create", orderController.createOrder);
 
 module.exports = router;
+

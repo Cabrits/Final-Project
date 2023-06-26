@@ -15,7 +15,7 @@ exports.getOrders = async (req, res) => {
   }
 };
 
-// Get a specific order by order ID
+// Get a items from specific order by order ID
 exports.getOrderItems = async (req, res) => {
   const { orderId } = req.params;
   try {
