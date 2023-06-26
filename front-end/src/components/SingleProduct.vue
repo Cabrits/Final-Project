@@ -231,21 +231,28 @@ export default {
         this.cartNotification = false
       }, 2000)
     },
+
+    //Open the PopupShare 
     openPopupShare() {
       this.showPopupShare = true;
     },
+
+    //Close the PopupShare
     closePopupShare() {
       this.showPopupShare = false;
     },
 
+    //Open the PopupReview
     openPopupReview() {
       this.showPopupReview = true;
     },
+
+    //Close the PopupReview
     closePopupReview() {
       this.showPopupReview = false;
     },
 
-    // Método para adicionar uma nova revisão à lista de revisões
+    // Method for adding a new review to the review list
     addReview(review) {
         const newReview = {
             stars: review.stars,
@@ -256,8 +263,8 @@ export default {
     },
 
     emptyStars(stars) {
-      // Retorna um array com o número de estrelas vazias
-      const maxStars = 5; // Defina o número máximo de estrelas desejado
+      // Returns an array with the number of empty stars
+      const maxStars = 5;
       const emptyStarCount = maxStars - stars;
       return Array(emptyStarCount).fill(0);
     },

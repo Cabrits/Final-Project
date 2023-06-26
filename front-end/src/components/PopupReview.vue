@@ -16,7 +16,7 @@
                     <label for="rate1" class="fas fa-star"></label>
                 </div>
                 <form @submit.prevent="addReview">
-                    <header></header>
+                    <header>{{ getRatingText }}</header>
                     <div class="textArea">
                         <textarea v-model="newReview.comment" cols="30" placeholder="Comment..."></textarea>
                     </div>
@@ -49,7 +49,34 @@
                 this.$emit('closeS');
             },
         },
-    };
+
+        computed: {
+            getRatingText() {
+            const rating = parseInt(this.newReview.stars);
+            switch (rating) {
+                case 1:
+                return 'Very bad';
+                case 2:
+                return 'Bad';
+                case 3:
+                return 'Medium';
+                case 4:
+                return 'Good';
+                case 5:
+                return 'Fantastic';
+                default:
+                return '';
+            }
+        },
+    },
+
+    watch: {
+        'newReview.stars': function(newRating) {
+            // Atualizar o conteúdo do <header> quando a seleção do rating mudar
+            this.$forceUpdate();
+        },
+    },
+};
 </script>
 
 <style scoped>
@@ -110,12 +137,18 @@
         display: none; 
     }
 
+    .stars{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
     .stars label{
         font-size: 40px;
         color: #444;
         padding: 10px;
         transition: all 0.2s ease;
         margin-left: 3%;
+        
     }
 
     input:not(:checked) ~ label:hover,
@@ -135,24 +168,6 @@
         
     }
 
-    input#rate1:checked ~ form header:before{
-        content: "Very bad";
-    }
-
-    input#rate2:checked ~ form header:before{
-        content: "Bad";
-    }
-
-    input#rate3:checked ~ form header:before{
-        content: "Medium";
-    }
-
-    input#rate4:checked ~ form header:before{
-        content: "Good";
-    }
-    input#rate5:checked ~ form header:before{
-        content: "Fantastic";
-    }
     form header{
         width: 100%;
         font-size: 25px;
@@ -162,20 +177,19 @@
         transition: all 0.2s ease;
     }
 
-    form textArea{
+    textarea{
         height: 100px;
         width: 100%;
         overflow: hidden;
     }
 
-    form .textArea textArea{
-        height: 100%;
-        width: 100%;
+    .textArea textarea{
+        height: 93px;
+        width: 92%;
         outline: none;
         padding: 15px;
         font-size: 17px;
         resize: none;
-        box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
     }
 
     form .btnForm{
@@ -204,9 +218,8 @@
         .reviewPopup{width: 300px;}
 
         .stars label{
-        font-size: 23px;
-
-    }
+            font-size: 23px;
+        }
     }
 </style>
     
