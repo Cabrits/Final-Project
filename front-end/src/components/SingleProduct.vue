@@ -11,10 +11,7 @@
             </div>
             <div class="auxButtons">
 
-                <button class="favButton"
-                :disabled="cooldown"
-                @click="toggleFavourite(book)"
-                >
+                <button class="favButton" :disabled="cooldown" @click="toggleFavourite(book)">
                     <i class="far fa-heart" :class="{ 'red-heart': isFavourite(book) }"></i>
                 </button>
                 <!--Share button-->
@@ -54,62 +51,41 @@
     </div>
 
     <!--Reviews box With the reviews of customers who bought the product -->
-    <section id="reviewsSection">
+    <div id="reviewsSection">
 
         <!--Reviews container-->
         <div class="reviewContainer">
-            <!--Heading-->
             <div class="reviewHeading">
                 <span>REVIEWS FROM OUR CUSTOMERS</span>
             </div>
-            
-            <!--Box container-->
-
             <div class="boxContainer">
-
-                 <!-- Exibir revisões existentes -->
                 <div v-for="(review, index) in reviewsShowed" :key="index" class="reviewBox">
-                <!--Top-->
-
                 <div class="boxTop">
-
-                    <!--profile-->
-
                     <div class="profile">
-
-                        <!--User name-->
                         <div class="userName">
                             <strong>user</strong>
                         </div>
                     </div>
-                    <!--Reviews-->
                     <div class="reviews">
                         <i v-for="star in parseInt(review.stars)" :key="star" class="fas fa-star"></i>
                         <i v-for="emptyStar in emptyStars(review.stars)" :key="emptyStar" class="far fa-star"></i>
                     </div>
                 </div>
-                <!--Comments-->
-
                     <div class="comments">
                         <p>{{ review.comment }}</p>
                     </div>
-
                 </div>
-        
             </div>
-            <!--View more-->
             <span class="readMoreButton viewMore" @click="showAllReviews = !showAllReviews">
                 {{ showAllReviews ? 'View Less...' : 'View More...' }}
             </span>
-            
-             <!--Review button-->
              <div>
                 <button class="addReviewButton" @click="openPopupReview">Give rating</button>
                 <PopupReview v-if="showPopupReview" @addReview="addReview" @closeS="closePopupReview"></PopupReview>
             </div>
-            </div>       
+        </div>       
             
-    </section>
+    </div>
 
 </template>
 
