@@ -3,27 +3,27 @@
         <div class="reviewPopup">
             <div class="closeSignUp" @click="closeS">&times;</div>
             <div class="container">
-                <div class="starWidget">
-                    <input type="radio" name="rate" id="rate5">
+                <div class="stars">
+                    <input type="radio"  id="rate5" v-model="newReview.stars" value="5">
                     <label for="rate5" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate4">
+                    <input type="radio"  id="rate4" v-model="newReview.stars" value="4">
                     <label for="rate4" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate3">
+                    <input type="radio"  id="rate3" v-model="newReview.stars" value="3">
                     <label for="rate3" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate2">
+                    <input type="radio"  id="rate2" v-model="newReview.stars" value="2">
                     <label for="rate2" class="fas fa-star"></label>
-                    <input type="radio" name="rate" id="rate1">
+                    <input type="radio"  id="rate1" v-model="newReview.stars" value="1">
                     <label for="rate1" class="fas fa-star"></label>
-                    <form action="#">
-                        <header></header>
-                        <div class="textArea">
-                            <textArea cols="30" placeholder="Describe your experience..."></textArea>
-                        </div>
-                        <div class="btnForm">
-                            <button type="submit">Post</button>
-                        </div>
-                    </form>
                 </div>
+                <form @submit.prevent="addReview">
+                    <header></header>
+                    <div class="textArea">
+                        <textarea v-model="newReview.comment" cols="30" placeholder="Comment..."></textarea>
+                    </div>
+                    <div class="btnForm">
+                        <button type="submit" @click="addReview">Submit Review</button>
+                    </div>
+                </form>
             </div>   
         </div>
     </div>
@@ -32,19 +32,24 @@
 <script>
     export default{
         name: 'PopupReview',
-        data(){
-            return{
-                showPopup: true,
-            }
+        data() {
+            return {
+                newReview: {
+                    stars: 0,
+                    comment: '',
+                },
+            };
         },
-        methods:{
-            closeS(){
+        methods: {
+            addReview() {
+                this.$emit('addReview', this.newReview);
+                this.closeS();
+            },
+            closeS() {
                 this.$emit('closeS');
             },
-        }
+        },
     };
-
-
 </script>
 
 <style scoped>
@@ -98,32 +103,30 @@
         align-items: center;
         flex-direction: column;
         justify-content: center;
-        flex-direction: row-reverse;
-        
     }
 
 
-    .container .starWidget input{
-        display: none;
-        flex-direction: row-reverse; 
+    .container .stars input{
+        display: none; 
     }
 
-    .starWidget label{
+    .stars label{
         font-size: 40px;
         color: #444;
         padding: 10px;
         transition: all 0.2s ease;
+        margin-left: 3%;
     }
 
     input:not(:checked) ~ label:hover,
     input:not(:checked) ~ label:hover ~ label{
         color: whitesmoke;
         
+        
     }
 
     input:checked ~ label{
-        color: whitesmoke;
-        
+        color: whitesmoke;        
     }
 
     input#rate5:checked ~ label{
@@ -153,7 +156,7 @@
     form header{
         width: 100%;
         font-size: 25px;
-        font-weight: 500;
+        font-weight: 400;
         margin: 5px 0 20px 0;
         text-align: center;
         transition: all 0.2s ease;
@@ -169,9 +172,10 @@
         height: 100%;
         width: 100%;
         outline: none;
-        padding: 10px;
+        padding: 15px;
         font-size: 17px;
         resize: none;
+        box-shadow: 10px 8px 1px rgba(50, 50, 50, 0.7);
     }
 
     form .btnForm{
@@ -199,7 +203,7 @@
     @media (max-width: 725px){
         .reviewPopup{width: 300px;}
 
-        .starWidget label{
+        .stars label{
         font-size: 23px;
 
     }

@@ -67,10 +67,8 @@
 
             <div class="boxContainer">
 
-                <!--Box 1-->
-
-                <div class="reviewBox">
-
+                 <!-- Exibir revisões existentes -->
+                <div v-for="(review, index) in reviews" :key="index" class="reviewBox">
                 <!--Top-->
 
                 <div class="boxTop">
@@ -81,74 +79,34 @@
 
                         <!--User name-->
                         <div class="userName">
-                            <strong>User1</strong>
+                            <strong>user</strong>
                         </div>
                     </div>
                     <!--Reviews-->
                     <div class="reviews">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
+                        <i v-for="star in parseInt(review.stars)" :key="star" class="fas fa-star"></i>
+                        <i v-for="emptyStar in emptyStars(review.stars)" :key="emptyStar" class="far fa-star"></i>
                     </div>
                 </div>
                 <!--Comments-->
 
                     <div class="comments">
-                        <p>Good quality! A good translation, good quality of the material and faithful to the work
-                            in the original language!
-                        </p>
+                        <p>{{ review.comment }}</p>
                     </div>
 
                 </div>
-                <!--Box 2-->
-
-                <div class="reviewBox">
-
-                    <!--Top-->
-
-                    <div class="boxTop">
-
-                        <!--profile-->
-
-                        <div class="profile">
-
-                            <!--User name-->
-                            <div class="userName">
-                                <strong>User2</strong>
-                            </div>
-                        </div>
-                        <!--Reviews-->
-                        <div class="reviews">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <!--Comments-->
-
-                        <div class="comments">
-                            <p>Good quality! A good translation, good quality of the material and faithful to the work
-                                in the original language!
-                            </p>
-                        </div>
-
-                    </div>
-             
+        
             </div>
             <!--View more-->
-            <span class="readMoreButton viewMore" @click="toggleReadMore('reviews')">
-                {{ isReadMoreShown.reviews ? 'View Less...' : 'View More...' }}
+            <span class="readMoreButton viewMore" @click="toggleReadMore('review')">
+                {{ isReadMoreShown.review ? 'View Less...' : 'View More...' }}
             </span>
+            
              <!--Review button-->
              <div>
-                <button 
-                    class="giveRatingButton" @click="openPopupReview">Give rating</button>
-                    <PopupReview v-if="showPopupReview" @closeS="closePopupReview"></PopupReview>
-                </div>
+                <button class="addReviewButton" @click="openPopupReview">Give rating</button>
+                <PopupReview v-if="showPopupReview" @addReview="addReview" @closeS="closePopupReview"></PopupReview>
+            </div>
             </div>       
             
     </section>
@@ -179,16 +137,23 @@ export default {
   data() {
     //  Data for the component (chapters and read more)
     return {
-      chapters: '3',
-      showPopupShare: false,
-      showPopupReview: false,
-      favoriteNotification: false,
-      cooldown: false,
+        chapters: '3',
+        showPopupShare: false,
+        showPopupReview: false,
+        favoriteNotification: false,
+        cooldown: false,
+        showNewReviewBox: false,
 
-      isReadMoreShown: {
-        description: false,
-        reviews: false,
-      },
+        isReadMoreShown: {
+            description: false,
+            review: false,
+        },
+
+        reviews: [
+        // Array contendo os reviews
+        // ...
+        ],
+    
     }
   },
 
@@ -278,6 +243,23 @@ export default {
     },
     closePopupReview() {
       this.showPopupReview = false;
+    },
+
+    // Método para adicionar uma nova revisão à lista de revisões
+    addReview(review) {
+        const newReview = {
+            stars: review.stars,
+            comment: review.comment,
+        };
+        this.reviews.push(newReview);
+        this.showNewReviewBox = true;
+    },
+
+    emptyStars(stars) {
+      // Retorna um array com o número de estrelas vazias
+      const maxStars = 5; // Defina o número máximo de estrelas desejado
+      const emptyStarCount = maxStars - stars;
+      return Array(emptyStarCount).fill(0);
     },
   },
 }
@@ -588,7 +570,7 @@ export default {
 
 }
 
-.giveRatingButton{
+.addReviewButton{
     display: block;
     margin: 15px auto 10px auto;
     position: relative;
@@ -605,7 +587,7 @@ export default {
     
 }
 
-.giveRatingButton:hover{
+.addReviewButton:hover{
     background-color: rgb(56, 49, 40);
     color: white;
 }
@@ -652,9 +634,9 @@ export default {
         margin-top: 5%;
      }
 
-     .auxButtons .favButton {
+    .auxButtons .favButton {
         margin-right: 45px; /* Espaço à direita do botão de favorito */
-}
+    }
 
     .favButton{
         margin-left: 0;
