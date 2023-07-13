@@ -15,11 +15,16 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@jambonn/vue-concise-carousel": "^2.1.29",
     "axios": "^1.4.0",
     "firebase": "^9.22.1",
+    "hooper": "^0.3.4",
+    "swiper": "^10.0.4",
     "vue": "^3.3.2",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^4.2.1",
     "vue-the-mask": "^0.11.1",
+    "vue-touch": "^2.0.0-beta.4",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
