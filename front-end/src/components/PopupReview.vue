@@ -6,25 +6,25 @@
         <div class="reviewPopup">
             <div class="closeSignUp" @click="closeS">&times;</div>
             <div class="container">
-                <!-- Stars and labels -->
-                <div class="stars">
-                    <input type="radio"  id="rate5" v-model="newReview.stars" value="5">
+                <!-- rating and labels -->
+                <div class="rating">
+                    <input type="radio"  id="rate5" v-model="newReview.rating" value="5">
                     <label for="rate5" class="fas fa-star"></label>
-                    <input type="radio"  id="rate4" v-model="newReview.stars" value="4">
+                    <input type="radio"  id="rate4" v-model="newReview.rating" value="4">
                     <label for="rate4" class="fas fa-star"></label>
-                    <input type="radio"  id="rate3" v-model="newReview.stars" value="3">
+                    <input type="radio"  id="rate3" v-model="newReview.rating" value="3">
                     <label for="rate3" class="fas fa-star"></label>
-                    <input type="radio"  id="rate2" v-model="newReview.stars" value="2">
+                    <input type="radio"  id="rate2" v-model="newReview.rating" value="2">
                     <label for="rate2" class="fas fa-star"></label>
-                    <input type="radio"  id="rate1" v-model="newReview.stars" value="1">
+                    <input type="radio"  id="rate1" v-model="newReview.rating" value="1">
                     <label for="rate1" class="fas fa-star"></label>
                 </div>
                 <form @submit.prevent="addReview">
                     <!-- Header displaying the rating text -->
                     <header>{{ getRatingText }}</header>
-                     <!-- Text area for the comment -->
+                     <!-- Text area for the review -->
                     <div class="textArea">
-                        <textarea v-model="newReview.comment" cols="30" placeholder="Comment..."></textarea>
+                        <textarea v-model="newReview.review" cols="30" placeholder="review..."></textarea>
                     </div>
                      <!-- Form submit button -->
                     <div class="btnForm">
@@ -43,17 +43,18 @@
         data() {
             return {
                 newReview: {
-                    stars: 0,
-                    comment: '',
+                    rating: 0,
                 },
             };
         },
         methods: {
             addReview() {
-                 // Emit an 'addReview' event and pass the newReview object as the payload
+                //emit addreview event and close popup
+
                 this.$emit('addReview', this.newReview);
-                // Call the 'closeS' method to close the popup
+                console.log(this.newReview);
                 this.closeS();
+
             },
             closeS() {
                 // Emit a 'closeS' event to notify the parent component to close the popup
@@ -63,7 +64,7 @@
         // Computed method to get the rating text corresponding to the selected star value
         computed: {
             getRatingText() {
-            const rating = parseInt(this.newReview.stars);
+            const rating = parseInt(this.newReview.rating);
             switch (rating) {
                 case 1:
                 return 'Very bad';
@@ -82,7 +83,7 @@
     },
 
     watch: {
-        'newReview.stars': function(newRating) {
+        'newReview.rating': function(newRating) {
             // Update <header> content when rating selection changes
             this.$forceUpdate();
         },
@@ -148,17 +149,17 @@
 }
 
 
-.container .stars input{
+.container .rating input{
     display: none; 
 }
 
 
-.stars{
+.rating{
     display: flex;
     flex-direction: row-reverse;
 }
 
-.stars label{
+.rating label{
     font-size: 40px;
     color: #444;
     padding: 10px;
@@ -240,7 +241,7 @@ form .btnForm button:hover{
         width: 300px;
     }
 
-    .stars label{
+    .rating label{
         font-size: 23px;
     }
 }

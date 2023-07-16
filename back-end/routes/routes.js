@@ -21,12 +21,12 @@ router.delete("/api/user/delete/:userId", userController.deleteUser);
 router.get("/api/items", itemController.getItems);
 router.get("/api/items/:category", itemController.getItemsCategory);
 router.get("/api/item/:itemId", itemController.getItem);
+router.post("/api/item/:itemId/addReview", itemController.addReview);
 
 //chatgpt
 router.post("/api/chat", chatController.postChat);
 
 // Routes for orders
-
 router.get("/api/orders/:userId", orderController.getOrders);
 router.get("/api/orders/:orderid", orderController.getOrder);
 router.get("/api/order/items/:orderId", orderController.getOrderItems);

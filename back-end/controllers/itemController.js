@@ -46,7 +46,51 @@ exports.getItem = async (req, res) => {
       }
 
       const item = result[0]; // Get the first item from the result set
-      res.json(item);
+
+      // Get the reviews for this item , join it with user to show only review , user_name item_id and rating. and add them to the item object and return it
+      connection.query(
+        "SELECT reviews.review, reviews.rating, users.user_name, reviews.item_id FROM reviews INNER JOIN users ON reviews.user_id = users.user_id WHERE reviews.item_id=" +
+          req.params.itemId,
+        function (err, result, fields) {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "An error occurred" });
+          }
+          item.reviews = result;
+          console.log(item);
+          res.json(item);
+        }
+      );
+    }
+  );
+};
+
+
+exports.addReview = async (req, res) => {
+
+  // add a review to an item
+  const itemId = req.params.itemId;
+  const userId = req.body.user_id;
+  const rating = req.body.rating;
+  const review = req.body.review;
+
+  // Add the review
+  connection.query(
+    "INSERT INTO reviews (item_id, user_id, rating, review) VALUES (" +
+      itemId +
+      ", '" +
+      userId +
+      "', " +
+      rating +
+      ", '" +
+      review +
+      "')",
+    function (err, result, fields) {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "An error occurred" });
+      }
+      res.json({ message: "Review added successfully" });
     }
   );
 };

@@ -57,19 +57,19 @@
             </div>
             <div class="boxContainer">
                 <div v-for="(review, index) in reviewsShowed" :key="index" class="reviewBox">
-                <div class="boxTop">
-                    <div class="profile">
-                        <div class="userName">
-                            <strong>user</strong>
+                    <div class="boxTop">
+                        <div class="profile">
+                            <div class="userName">
+                                <strong>{{ review.user_name }}</strong>
+                            </div>
+                        </div>
+                        <div class="reviews">
+                            <i v-for="star in parseInt(review.rating)" :key="review" class="fas fa-star"></i>
+                            <i v-for="emptyStar in emptyStars(review.rating)" :key="emptyReview" class="far fa-star"></i>
                         </div>
                     </div>
-                    <div class="reviews">
-                        <i v-for="star in parseInt(review.stars)" :key="star" class="fas fa-star"></i>
-                        <i v-for="emptyStar in emptyStars(review.stars)" :key="emptyStar" class="far fa-star"></i>
-                    </div>
-                </div>
                     <div class="comments">
-                        <p>{{ review.comment }}</p>
+                        <p>{{ review.review }}</p>
                     </div>
                 </div>
             </div>
@@ -94,6 +94,7 @@ import { mapState, mapActions, mapGetters } from "vuex";
 import Footer from '../components/Footer.vue'
 import PopupShare from '../components/PopupShare.vue'
 import PopupReview from '../components/PopupReview.vue'
+import baseURL from "../config.js";
 
 export default{
   name: 'SingleProduct',
@@ -103,6 +104,11 @@ export default{
   props: {
     //  Book object that contains all the information about the book
     book: {
+      type: Object,
+      required: true,
+    },
+    //  Reviews object that contains all the information about the review
+    reviews: {
       type: Object,
       required: true,
     },
@@ -123,26 +129,25 @@ export default{
             description: false,
             review: false,
         },
-
-        reviews: [
-        // Array contendo os reviews
-        // ...
-        ],
     
     }
   },
 
   computed:{
+    
+    //  Get the user id from the store
+    ...mapGetters("user", ["userId"]),
     ...mapState(["favourites"]),
     
     // Compute the reviews to be shown based on the value of showAllReviews
     reviewsShowed() {
+        console.log(this.reviews);
         if (this.showAllReviews) {
         // If showAllReviews is true, return all reviews
         return this.reviews;
         } else {
         // If showAllReviews is false, return only the first two reviews
-        return this.reviews.slice(0, 2);
+        return this.reviews;
         }
     },
   },
@@ -150,16 +155,16 @@ export default{
   methods: {
     ...mapActions("favourites", ["fetchFavourites"]),
 
-     // cooldown to prevent spamming the button
-     startButtonCooldown() {
+    // cooldown to prevent spamming the button
+    startButtonCooldown() {
       this.cooldown = true;
       setTimeout(() => {
         this.cooldown = false;
       }, 500);
     },
 
-     //  Check if the item is favourite
-     isFavourite(itemId) {
+    //  Check if the item is favourite
+    isFavourite(itemId) {
       const result = this.favourites.favourites.some(
         (favourite) => favourite.item_id === itemId
       );
@@ -176,15 +181,18 @@ export default{
 
       //  Start the button cooldown
       this.startButtonCooldown();
+
       //  Get the user id
       const userId = this.userId;
 
       // check if the item is favourite
       const isItemFavourite = this.isFavourite(itemId);
+
       // If the item is favourite,
       const apiUrl = isItemFavourite
         ? `${baseURL}/user/${userId}/removeFavourite/${itemId}`
         : `${baseURL}/user/${userId}/addFavourite/${itemId}`;
+
       //  Send a request to the RESTapi to add or remove the item from the favourites
       axios({
         method: isItemFavourite ? "DELETE" : "POST",
@@ -240,19 +248,38 @@ export default{
 
     // Method for adding a new review to the review list
     addReview(review) {
+        console.log("sadsad");
+        console.log(review);
+        // print the id of the user
+
+
+    
         const newReview = {
-            stars: review.stars,
-            comment: review.comment,
+            // add user_id and item_id to the review
+            user_id: this.userId,
+            item_id: this.book.item_id,
+            rating: review.rating,
+            review: review.review,
         };
-        this.reviews.push(newReview);
+        console.log(newReview);
+        // Add the new review to the database and if successful, add it to the reviews list
+        axios
+        .post(`${baseURL}/item/${this.book.item_id}/addReview`, newReview)
+        .then((response) => {
+            this.reviews.push(newReview);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+        
         this.showNewReviewBox = true;
     },
 
-    emptyStars(stars) {
+    emptyStars(rating) {
       // Returns an array with the number of empty stars
-      const maxStars = 5;
-      const emptyStarCount = maxStars - stars;
-      return Array(emptyStarCount).fill(0);
+      const maxrating = 5;
+      const emptyratingCount = maxrating - rating;
+      return Array(emptyratingCount).fill(0);
     },
   },
 }

@@ -3,7 +3,7 @@
 <template>
 
   <Header />
-  <SingleProduct :book="book" />
+  <SingleProduct :book="book" :reviews="reviews" />
   <Footer />
 
 </template>
@@ -25,6 +25,7 @@ export default{
   data() {
     return {
       book: null,
+      review: null,
     };
   },
 
@@ -47,6 +48,8 @@ export default{
           `${apiURL}/item/${this.$route.params.id}`
         );
         this.book = response.data;
+        this.reviews = response.data.reviews;
+        
       } catch (error) {
         console.error(error);
       }
