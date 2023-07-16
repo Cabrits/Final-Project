@@ -39,7 +39,6 @@ import { Autoplay, Pagination } from 'swiper/modules';
 //  Export the component
 export default{
   name: "Slider",
-  //  Data for the component (slides and current index)
 
   components: {
     Swiper,

@@ -10,27 +10,14 @@
       <button type="submit">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
-      <input
-        ref="searchInput"
-        type="text"
-        placeholder="Search Product..."
-        name="search"
-        v-model="searchInput"
-        @input="handleInput"
-      />
+      <input ref="searchInput" type="text" placeholder="Search Product..." name="search" v-model="searchInput" @input="handleInput"/>
 
       <!--Autocomplete with the item searched-->
 
       <div class="searchResultsWrapper">
         <ul class="searchResults" v-if="showAutocomplete">
-          <li
-            v-for="(result, index) in getLimitedResults"
-            :key="result.item_name"
-          >
-            <router-link
-              :to="'/item/' + result.item_id"
-              @click="clearSearchBar"
-            >
+          <li v-for="(result, index) in getLimitedResults" :key="result.item_name">
+            <router-link :to="'/item/' + result.item_id" @click="clearSearchBar">
               <img :src="result.item_image" :alt="result.item_name" />
               <span>{{ result.item_name }}</span>
             </router-link>
@@ -263,13 +250,14 @@ input:focus{
     border-radius: 10px;
 }
 
+
 .searchResults li{
     display: flex;
     align-items: center;
     margin-bottom: 10px;
   }
 
-.searchResults li a{
+.searchResults a{
     text-decoration: none;
     color: inherit;
 }

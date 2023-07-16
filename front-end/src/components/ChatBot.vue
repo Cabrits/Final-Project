@@ -151,7 +151,7 @@ input:focus{
 }
 
 .chatBotIcon:hover{
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(58, 56, 53);
     color: #ffffff;
     width: 68px;
     height: 68px;
@@ -168,7 +168,7 @@ input:focus{
     right: 20px;
     width: 350px;
     height: 410px;
-    background-color: rgb(162, 178, 159);
+    background-color: rgb(58, 56, 53);
     border-radius: 10px;
     border: 2px solid white;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
