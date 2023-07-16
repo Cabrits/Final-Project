@@ -5,33 +5,40 @@
   <!--Sign Up Popup-->
 
   <div class="signUpWrapper">
-    <div class="signUpPopup" id="showLogin">
-      <div class="closeSignUp" @click="closeS">&times;</div>
-      <div class="form">
-        <h2 id="popupTitle" style="color: white; font-family: Arial, Helvetica, sans-serif">
-          Sign Up
-        </h2>
-        <div class="formElement">
-          <label for="email" style="color: white"><h3>Email</h3></label>
-          <input type="text" id="email" placeholder="Enter Email" v-model="email"/>
-        </div>
-        <div class="formElement">
-          <label for="name" style="color: white"><h3>Name</h3></label>
-          <input type="text" id="name" placeholder="Enter Name" v-model="name"/>
-        </div>
-        <div class="formElement">
-          <label for="password" style="color: white"><h3>Password</h3></label>
-          <input type="password" id="password" placeholder="Enter Password" v-model="password" @keyup.enter="signUp"/>
-        </div>
-        <div id="pMsg" style="color: white"></div>
-        <p v-if="errMsg">{{ errMsg }}</p>
-        <div class="formElement">
-          <button @click="signUp()" id="signUpBtn" style="font-family: Arial, Helvetica, sans-serif">
-            Sign Up
-          </button>
+  <div class="signUpPopup" id="showLogin">
+    <div class="closeSignUp" @click="closeS">&times;</div>
+    <div class="form">
+      <h2 id="popupTitle" style="color: white; font-family: Arial, Helvetica, sans-serif">
+        Sign Up
+      </h2>
+      <div class="formElement">
+        <label for="email" style="color: white"><h3>Email</h3></label>
+        <input type="text" id="email" placeholder="Enter Email" v-model="email"/>
+      </div>
+      <div class="formElement">
+        <label for="name" style="color: white"><h3>Name</h3></label>
+        <input type="text" id="name" placeholder="Enter Name" v-model="name"/>
+      </div>
+      <div class="formElement">
+        <label for="password" style="color: white"><h3>Password</h3></label>
+        <input type="text" v-if="showPassword" id="password" placeholder="Enter Password" v-model="password" @keyup.enter="signUp"/>
+        <input type="password" v-else id="password" placeholder="Enter Password" v-model="password" @keyup.enter="signUp"/>
+        <div class="showPassword">
+          <input type="checkbox" id="showPassword" v-model="showPassword"/>
+          <label for="showPassword">Show Password</label>
         </div>
       </div>
+      <div id="pMsg" style="color: white"></div>
+      <p v-if="errMsg">{{ errMsg }}</p>
+      <div class="formElement">
+        <button @click="signUp()" id="signUpBtn" style="font-family: Arial, Helvetica, sans-serif">
+          Sign Up
+        </button>
+      </div>
     </div>
+  </div>
+
+
 
     <!--Blur the background when Popup is opened-->
 
@@ -58,6 +65,7 @@ export default{
       password: "",
       errMsg: "",
       showPopup: true,
+      showPassword: false,
     };
   },
   //  Methods for the component (close popup and sign up)
@@ -232,6 +240,10 @@ export default{
     color: #1a79ca;
     text-decoration: none;
     font-weight: 600;
+}
+
+.showPassword{
+  margin-top: 10px;
 }
 
 /*Blur what's behind the popup when opened*/

@@ -5,7 +5,7 @@
   <Header />
 
   <div class="pageNotFound">
-    <h1>404 page not found!</h1>
+    <h1>Page Not Found!</h1>
   </div>
 
   <Footer />

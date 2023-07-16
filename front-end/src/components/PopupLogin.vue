@@ -19,13 +19,17 @@
           <label for="password" style="color: white"><h3>Password</h3></label>
           <input type="password" id="password" placeholder="Enter Password" v-model="password" @keyup.enter="logIn"/>
         </div>
+        <div class="showPassword">
+          <input type="checkbox" id="showPassword" v-model="showPassword"/>
+          <label for="showPassword">Show Password</label>
+        </div>
         <div id="pMsg" style="color: white"></div>
+        <p v-if="errMsg">{{ errMsg }}</p>
         <div class="formElement">
           <button @click="logIn()" id="loginBtn" style="font-family: Arial, Helvetica, sans-serif">
             Login
           </button>
         </div>
-        <p v-if="errMsg">{{ errMsg }}</p>
 
         <!--Alternative methods to login with, such as Google and GitHub-->
 
@@ -68,6 +72,7 @@ export default{
       password: "",
       errMsg: "",
       showPopup: true,
+      showPassword: false,
     };
   },
   // computed properties for the component (user)
@@ -228,7 +233,7 @@ export default{
     position: relative;
     width: 350px;
     line-height: 25px;
-    height: 450px;
+    height: 480px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px 30px;
@@ -304,7 +309,7 @@ export default{
     color: rgb(78, 75, 75);
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 25px;
+    margin-top: 5px;
     margin-left: 50px;
     box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
     -moz-box-shadow: 7px 7px rgba(50, 50, 50, 0.5);
